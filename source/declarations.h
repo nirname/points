@@ -7,19 +7,23 @@ namespace lib {
 	template <typename Type> class List;
 }
 
-namespace sgl {
+namespace graphics {
 	void square();
 	void draw_at(int, int, void(*)());
 }
 
-namespace gml {
-	class Position;
-	class Object;
-	class Placement;
+namespace logic {
 	class Game;
+}
+
+namespace engine {
+
+	class Point;
+	class Size;
 	class Field;
-	class Area;
-	class Shape;
+	class Screen;
+	class View;
+
 }
 
 #endif

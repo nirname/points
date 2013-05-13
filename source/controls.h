@@ -15,7 +15,7 @@
 
 //#endif
 
-namespace ctr {
+namespace controls {
 
 	void keyboard(unsigned char key, int x, int y)
 	{

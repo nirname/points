@@ -9,7 +9,7 @@
 #include "params.h"
 #include "graphics.h"
 #include "game.h"
+#include "engine.h"
 #include "picture.h"
 
 #endif
-

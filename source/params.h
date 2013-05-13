@@ -1,7 +1,7 @@
 #ifndef PARAMS_H
 #define PARAMS_H 1
 
-namespace prm
+namespace params
 {
 	int window_width = 0, window_height = 0;
 	const char * mode_string;
