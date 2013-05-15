@@ -1,26 +1,31 @@
-#include <cstdlib>
-#include <iostream>
-#include <stdio.h>
-#include <math.h>
-
-#if defined(_WIN32) && defined(__GNUC__)
-	#include <gl/freeglut.h>
-#elif defined(__linux__) && defined(__GNUC__)
-	#include <GL/freeglut.h>
-#endif
+#include "global.h"
 
 float offset_x = 0, offset_y = 0;
 float scale = 1;
-float f_length = 10.0, f_width = 10.0;
 
-#include "global.h"
+engine::Screen screen(10.0, 10.0);
+engine::Game game(logic::SOKOBAN);
 
-//logic::Game current_game;
+/*std::unordered_map<std::string, engine::Point> points;
+std::unordered_map<int, int> data;
+std::set<int> line;*/
+
+std::unordered_map<int, std::unordered_map<int, engine::Cell> > cells;
+
+//std::vector<int> kont;
 
 int main(int argc, char * argv[])
 {
+	//points["Player1"] = engine::Point(0, 2);
+	//points["Player2"] = engine::Point(3, 1);
 	//engine::Screen screen(10, 10);
 
+	//data[0] = 0;
+	//data[9] = 0;
+
+	//line.insert(0);
+
+	//kont;
 	// uploading params from file
 	params::upload_params();
 
@@ -37,7 +42,7 @@ int main(int argc, char * argv[])
 		glutGameModeString(params::mode_string);
 		glutEnterGameMode();
 	} else {
-		glutCreateWindow("Square");
+		glutCreateWindow("Point Games");
 		if(params::full_screen) {
 			glutFullScreen();
 		}
@@ -65,15 +70,15 @@ int main(int argc, char * argv[])
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0.0, f_width, 0.0, f_length, -1.0, 1.0);
+	glOrtho(0.0, screen.width, 0.0, screen.width, -1.0, 1.0);
 	//glOrtho(0.0, screen.size.width, 0.0, screen.size.height, -1.0, 1.0);
 
 	// drawing
-	glutDisplayFunc(picture::display);
-	glutReshapeFunc(picture::reshape);
+	glutDisplayFunc(image::display);
+	glutReshapeFunc(image::reshape);
 
-	glutIdleFunc(picture::idle);
-	glutTimerFunc(50, picture::redisplay, 0);
+	glutIdleFunc(image::idle);
+	glutTimerFunc(50, image::redisplay, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);

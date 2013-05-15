@@ -33,7 +33,7 @@ namespace graphics {
 			red(0), green(0), blue(0)
 		{}
 
-		void set() {
+		void use() {
 			glColor3ub(red, green, blue);
 		}
 	};
@@ -49,8 +49,8 @@ namespace graphics {
 	}
 
 	void circle(float radius = FIGURE_SIZE / 2) {
-		glBegin(GL_POLYGON); // GL_LINE_LOOP
-		for (int i=0; i < 360; i++)
+		glBegin(GL_POLYGON);
+		for (int i = 0; i < 360; i++)
 		{
 			float deg_in_rad = i * DEG2RAD;
 			glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
@@ -58,40 +58,63 @@ namespace graphics {
 		glEnd();
 	}
 
+	void ngon(int angles = 5, int step_over = 1) {
+		float radius = FIGURE_SIZE / 2;
+		int step = (360 / angles) * step_over;
+		//float offset = 0;
+		int loop_length = angles;
+		int loops_count = 1;
+		if((angles % step_over) == 0)
+		{
+			loop_length = angles / step_over;
+			loops_count = step_over;
+		}
+
+		glLineWidth(2);
+		for(int j = 0; j < loops_count; j++) {
+			//glBegin(GL_LINE_LOOP);
+			glBegin(GL_POLYGON);
+			for(int i = 0; i <= loop_length; i++) {
+				float deg_in_rad = (j * (360 / angles) + i * step) * DEG2RAD;
+				glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
+			}
+			glEnd();
+		}
+	}
+
+	void david() {
+		ngon(6, 2);
+	}
+
 	// Any shape
-	class Shape
+	struct Shape
 	{
-		protected:
-			graphics::Color * color;
-		public:
-			virtual void display() = 0;
+		virtual void display() = 0;
 	};
 
-	class Square : public Shape
+	struct Square : public Shape
 	{
-		public:
-			Square(graphics::Color * _color = NULL) {
-				color = _color;
-			}
-			void display()
-			{
-				if(color != NULL) color->set();
-				graphics::square();
-			}
+		void display()
+		{
+			//if(color != NULL) color->set();
+			graphics::square();
+		}
 	};
 
-	class Circle : Shape
+	struct Circle : Shape
 	{
-		public:
-			Circle(graphics::Color * _color = NULL) {
-				color = _color;
-			}
-			void display()
-			{
-				if(color != NULL) color->set();
-				circle(FIGURE_SIZE / 2);
-			}
+		void display()
+		{
+			//if(color != NULL) color->set();
+			circle(FIGURE_SIZE / 2);
+		}
 	};
+
+	class Star : Shape
+	{};
+
+	class David : Shape
+	{};
 
 	void draw_at(int x, int y, void(*display)())
 	{
@@ -100,6 +123,12 @@ namespace graphics {
 		display();
 		glPopMatrix();
 	}
+
+	enum ANIMATION {
+		FADE,
+		SCALE,
+		SLIDE
+	};
 
 }
 

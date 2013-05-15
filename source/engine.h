@@ -4,70 +4,105 @@
 // engine
 namespace engine {
 
-	class Point
+	struct Point
 	{
 		int row;
 		int column;
-		public:
-			Point(int _row = 0, int _column = 0):
-				row(_row), column(_column)
-			{}
+		Point(int _row = 0, int _column = 0):
+			row(_row), column(_column)
+		{}
 	};
+
+	struct Cell
+	{
+		graphics::Color * color;
+		graphics::Shape * shape;
+		//Cell(graphics::Color _color, graphics::Shape * shape)
+	};
+
+	//class Figure {};
 
 	struct Size
 	{
 		positive width;
 		positive height;
-		public:
-			Size(positive _width = 1, positive _height = 1):
-				width(_width), height(_height)
-			{}
+		Size(positive _width = 1, positive _height = 1):
+			width(_width), height(_height)
+		{}
 	};
 
-	class Field
+	struct Field
 	{
 		Size size;
-		public:
-			Field(positive _width = 1, positive _height = 1)
-			{
-				size = Size(_width, _height);
-			}
-			void display()
-			{
-				glLineWidth(3);
-				/*glBegin(GL_LINES);
-				glVertex2f(1, 1);
-				glVertex2f(1, 5);
-				glEnd();*/
-				glBegin(GL_LINES);
-				for(positive i = 0; i <= size.width; i++) {
-					glVertex2f(i, 0);
-					glVertex2f(i, size.height);
-				}
-				for(positive i = 0; i <= size.height; i++) {
-					glVertex2f(0, i);
-					glVertex2f(size.width, i);
-				}
-				glEnd();
-			}
+		Field(positive _width = 1, positive _height = 1)
+		{
+			size = Size(_width, _height);
+		}
 	};
 
+	// Contains width and height expressed by count of horizontal and vertical squares
 	struct Screen {
-		Size size;
-		public:
-			Screen(positive _width = 1, positive _height = 1)
-			{
-				size = Size(_width, _height);
-			}
+		float width, height, margin;
+		Screen(float _width = 10.0, float _height = 10.0, float _margin = 0.0):
+			width(_width), height(_height), margin(_margin)
+		{}
 	};
 
-	class View
+	// Displays part of specified field
+	// at specified position at screen
+	struct View
 	{
-		Size size;
 		Field * field;
-		Screen * screen;
-		Point offset;
+		Size size; // view size; by default it is the same as field size is
+		Point offset; // field offset
+		//Screen * screen;
+		Point position; // position at screen
+
+		View(Field * _field)
+		{
+			field = _field;
+			size = _field->size;
+			offset = Point(0, 0);
+		}
+
+		void display()
+		{
+			// drawing grid
+			glLineWidth(2);
+			glBegin(GL_LINES);
+			for(positive i = 0; i <= size.width; i++) {
+				glVertex2f(i, 0);
+				glVertex2f(i, size.height);
+			}
+			for(positive i = 0; i <= size.height; i++) {
+				glVertex2f(0, i);
+				glVertex2f(size.width, i);
+			}
+			glEnd();
+			// drawing points
+		}
 	};
+
+	// Describes current game
+	struct Game {
+
+		logic::GAME_KIND game_kind;
+		//engine::Screen screen;
+		lib::List<engine::Field> fields;
+		lib::List<engine::View> areas;
+
+		std::unordered_map<std::string, graphics::Color * > colors;
+		std::unordered_map<std::string, graphics::Shape * > shapes;
+
+		Game(logic::GAME_KIND _game_kind):
+			game_kind(_game_kind)
+		{}
+	};
+
+	/*struct Object
+	{
+		lib::List<Point> points;
+	}*/
 
 	// Placement of any object
 	/*class Placement

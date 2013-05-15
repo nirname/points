@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H 1
+#ifndef LOGIC_H
+#define LOGIC_H 1
 
 // game logic
 namespace logic {
@@ -30,14 +30,6 @@ namespace logic {
 		ATOMIX,
 		BACKGAMMON, // нарды
 		CHECKERS // шашки
-	};
-
-	// Describes current game
-	class Game {
-		GAME_KIND game_kind;
-		//engine::Screen screen;
-		lib::List<engine::Field> fields;
-		lib::List<engine::View> areas;
 	};
 
 	/*enum BLOCK_TYPE
