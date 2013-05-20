@@ -9,7 +9,6 @@ namespace image {
 
 	void manySquares(int r, int c)
 	{
-		//glPushMatrix();
 		for(int y = 0; y < r; y++)
 		{
 			glPushMatrix();
@@ -32,11 +31,11 @@ namespace image {
 
 		glPushMatrix();
 		glColor3ub(WHITE);
-		
+
 		for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
 			view->second->display();
 		}
-		
+
 		//glScalef(1, 1, 0);
 		//glTranslatef(1, 1, 0);
 		//glScalef(scale, scale, 0);
@@ -122,8 +121,8 @@ namespace image {
 
 	void redisplay(int timer)
 	{
-		glutPostRedisplay();
-		glutTimerFunc(10, redisplay, 0);
+		//glutPostRedisplay();
+		//glutTimerFunc(10, redisplay, 0);
 	}
 
 	void reshape(int width, int length)

@@ -9,14 +9,34 @@ int main(int argc, char * argv[])
 	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
 	game.views[std::string("View")]->size = engine::Size(22, 22);
 	game.views[std::string("View")]->offset = engine::Point(-1, -1);
-	
-	game.shapes[std::string("Square")] = new graphics::Square();
+
 	game.colors[std::string("Violet")] = new graphics::Color(VIOLET);
-	
-	game.objects[std::string("Sokoban")] = new engine::Object(
+	game.colors[std::string("Green")] = new graphics::Color(GREEN);
+	game.shapes[std::string("Square")] = new graphics::Square();
+
+	game.objects[std::string("Box")] = new engine::Object(
 		game.shapes[std::string("Square")],
 		game.colors[std::string("Green")]
 	);
+	game.objects[std::string("Sokoban")] = new engine::Object(
+		game.shapes[std::string("Square")],
+		game.colors[std::string("Violet")]
+	);
+
+	game.points[ engine::Placement(game.objects[std::string("Box")], game.fields[std::string("Field")]) ] = new engine::Point(1, 0);
+	game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(0, 0);
+
+	/*for(engine::PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
+		std::cout << *(i->first.object) << " at " << *(i->first.field) << " : ";
+		if(i->second != NULL) {
+			std::cout << *(i->second) << std::endl;
+		} else {
+			std::cout << "no position" << std::endl;
+		}
+	}
+	std::cout << std::ends;*/
+
+	//std::count << (&(game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ]) == NULL);
 
 	params::upload_params();
 

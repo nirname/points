@@ -27,12 +27,13 @@ namespace engine {
 	struct Placement;
 
 	typedef std::string KeyType;
+	//typedef const char * KeyType;
 	typedef std::map< KeyType, engine::Field * >   FieldMap;
 	typedef std::map< KeyType, engine::View * >    ViewMap;
 	typedef std::map< KeyType, engine::Object * >  ObjectMap;
 	typedef std::map< KeyType, graphics::Color * > ColorMap;
 	typedef std::map< KeyType, graphics::Shape * > ShapeMap;
-	typedef std::map< Placement, Point > PointMap;
+	typedef std::map< Placement, Point * > PointMap;
 
 }
 
