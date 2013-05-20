@@ -325,6 +325,7 @@ namespace engine {
 
 	void View::display()
 	{
+		// refactor it
 		Bound view_bound(
 			Point(0, 0),
 			Point(size.width, size.height)
@@ -340,69 +341,46 @@ namespace engine {
 		);
 		Bound real_bound(display_bound);
 		real_bound += offset;
-		/*Point v1(0, 0);
-		Point v2(size.width, size.height);
-
-		Point f1 = Point(0, 0) - offset;
-		Point f2 = Point(field->size.width, field->size.height) - offset;
-
-		Point bound1 = max(v1, f1);
-		Point bound2 = min(v2, f2);*/
+		real_bound.final -= Point(1, 1);
 
 		glPushMatrix();
-		glTranslatef(position.column, position.row, 0);
+
 		// { drawing croped grid
+		glTranslatef(position.column, position.row, 0);
 		glLineWidth(2);
 		glBegin(GL_LINES);
-		/*if(bound1.row < bound2.row) {
-			for(int x = bound1.column; x <= bound2.column; x++) {
-				glVertex2f(x, bound1.row);
-				glVertex2f(x, bound2.row);
+			if(display_bound.initial.row < display_bound.final.row) {
+				for(int x = display_bound.initial.column; x <= display_bound.final.column; x++) {
+					glVertex2f(x, display_bound.initial.row);
+					glVertex2f(x, display_bound.final.row);
+				}
 			}
-		}
-		if(bound1.column < bound2.column) {
-			for(int y = bound1.row; y <= bound2.row; y++) {
-				glVertex2f(bound1.column, y);
-				glVertex2f(bound2.column, y);
+			if(display_bound.initial.column < display_bound.final.column) {
+				for(int y = display_bound.initial.row; y <= display_bound.final.row; y++) {
+					glVertex2f(display_bound.initial.column, y);
+					glVertex2f(display_bound.final.column, y);
+				}
 			}
-		}*/
-		if(display_bound.initial.row < display_bound.final.row) {
-			for(int x = display_bound.initial.column; x <= display_bound.final.column; x++) {
-				glVertex2f(x, display_bound.initial.row);
-				glVertex2f(x, display_bound.final.row);
-			}
-		}
-		if(display_bound.initial.column < display_bound.final.column) {
-			for(int y = display_bound.initial.row; y <= display_bound.final.row; y++) {
-				glVertex2f(display_bound.initial.column, y);
-				glVertex2f(display_bound.final.column, y);
-			}
-		}
 		glEnd();
 		// drawing croped grid }
 
 		// { drawing border
 		glLineWidth(5);
 		glColor3ub(VIOLET);
-
 		glBegin(GL_LINE_LOOP);
-		glVertex2f(0         , 0          );
-		glVertex2f(size.width, 0          );
-		glVertex2f(size.width, size.height);
-		glVertex2f(0         , size.height);
+			glVertex2f(0         , 0          );
+			glVertex2f(size.width, 0          );
+			glVertex2f(size.width, size.height);
+			glVertex2f(0         , size.height);
 		glEnd();
-
 		// drawing border }
 
 		// { drawing points
-
 		/*std::cout << "----------" << std::endl;
 		std::cout << "Position: " << position << std::endl;
 		std::cout << "Offset: " << offset << std::endl;
 		std::cout << "Real bound: " << real_bound << std::endl;
 		std::cout << "Display bound: " << display_bound << std::endl;*/
-		// drawing points }
-
 		for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
 			if(i->second != NULL) {
 				if( real_bound.contains(*(i->second)) ) {
@@ -411,8 +389,9 @@ namespace engine {
 				}
 			}
 		}
+		// drawing points }
 
-		glPopMatrix(); // move at initial position
+		glPopMatrix();
 
 	}
 

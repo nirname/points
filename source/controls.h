@@ -20,12 +20,26 @@ namespace controls {
 	void keyboard(unsigned char key, int x, int y)
 	{
 		//std::cout << key << std::endl;
+		engine::Point position;
+		engine::Point offset;
 		switch(key)
 		{
-			case ESCAPE_KEY:
-				exit(EXIT_SUCCESS);
-				break;
-			case 'w':
+			case ESCAPE_KEY: exit(EXIT_SUCCESS); break;
+			case '8': position = engine::Point( 0,  1); break;
+			case '5': position = engine::Point( 0, -1); break;
+			case '4': position = engine::Point(-1,  0); break;
+			case '6': position = engine::Point( 1,  0); break;
+			case 'w': offset   = engine::Point( 0,  1); break;
+			case 's': offset   = engine::Point( 0, -1); break;
+			case 'a': offset   = engine::Point(-1,  0); break;
+			case 'd': offset   = engine::Point( 1,  0); break;
+		}
+		game.views[std::string("View")]->position += position;
+		game.views[std::string("View")]->offset += offset;
+		glutPostRedisplay();
+
+			/*case 'w':
+				offset = Point();
 				game.views[std::string("View")]->offset.row += 1;
 				glutPostRedisplay();
 				break;
@@ -60,7 +74,7 @@ namespace controls {
 			default:
 				std::cout << key << std::endl;
 				break;
-		}
+		}*/
 	}
 
 	/* Callbacks for special keys, such as:
@@ -71,27 +85,22 @@ namespace controls {
 	GLUT_KEY_INSERT - Insert key */
 	void special(int key, int x, int y)
 	{
-		switch(key)
-		{
-			case GLUT_KEY_UP:
-				game.views[std::string("View")]->position += engine::Point(0, 1);
-				glutPostRedisplay();
-				break;
-			case GLUT_KEY_DOWN:
-				game.views[std::string("View")]->position -= engine::Point(0, 1);
-				glutPostRedisplay();
-				break;
-			case GLUT_KEY_LEFT:
-				game.views[std::string("View")]->position -= engine::Point(1, 0);
-				glutPostRedisplay();
-				break;
-			case GLUT_KEY_RIGHT:
-				game.views[std::string("View")]->position += engine::Point(1, 0);
-				glutPostRedisplay();
-				break;
-			default:
-				std::cout << key << std::endl;
-				break;
+		engine::Field * field = game.fields[std::string("Field")];
+		engine::Object * sokoban = game.objects[std::string("Sokoban")];
+		engine::Point step;
+		if(sokoban != NULL) {
+			switch(key)
+			{
+				case GLUT_KEY_UP:    step = engine::Point( 0,  1); break;
+				case GLUT_KEY_DOWN:  step = engine::Point( 0, -1); break;
+				case GLUT_KEY_LEFT:  step = engine::Point(-1,  0); break;
+				case GLUT_KEY_RIGHT: step = engine::Point( 1,  0); break;
+				default:
+					std::cout << key << std::endl;
+					break;
+			}
+			*(game.points[engine::Placement(sokoban, field)]) += step;
+			glutPostRedisplay();
 		}
 	}
 
