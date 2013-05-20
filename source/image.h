@@ -25,33 +25,18 @@ namespace image {
 		}
 	}
 
-	void draw_at(int row, int column, void(*display)())
-	{
-		glPushMatrix();
-		glTranslatef(column, row, 0);
-		display();
-		glPopMatrix();
-	}
-
-	/*void qq(int x, int y)
-	{
-		glPushMatrix();
-		glTranslatef(1*x, 1*y, 0);
-		glBegin(GL_POLYGON);
-		glVertex2f(0.05f, 0.05f);
-		glVertex2f(0.05f, 0.95f);
-		glVertex2f(0.95f, 0.95f);
-		glVertex2f(0.95f, 0.05f);
-		glEnd();
-		glPopMatrix();
-	}*/
-
 	void display()
 	{
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glPushMatrix();
+		glColor3ub(WHITE);
+		
+		for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
+			view->second->display();
+		}
+		
 		//glScalef(1, 1, 0);
 		//glTranslatef(1, 1, 0);
 		//glScalef(scale, scale, 0);
@@ -74,12 +59,10 @@ namespace image {
 		//glColor3ub(VIOLET);
 		//engine::Square s(new graphics::Color(VIOLET));
 		//s.display();
-
-		glColor3ub(WHITE);
-		engine::Field field(10, 10);
-		//field.display();
-		engine::View view(&field);
-		view.display();
+		//engine::Field field(6, 6);
+		//engine::View view(&field, engine::Point(0, 0), engine::Point(-2, 3));
+		//view.size = engine::Size(5, 5);
+		//view.display();
 
 		//graphics::Circle c;
 
@@ -91,14 +74,14 @@ namespace image {
 			glPopMatrix();
 		}*/
 
-		/*for(auto i = kont.begin(); i != kont.end(); ++i) {
+		/*for(QIterator i = info.begin(); i != info.end(); ++i) {
 			glPushMatrix();
-			glTranslatef(0, i, 0);
+			glTranslatef(i->second, i->first, 0);
 			graphics::square();
 			glPopMatrix();
 		}*/
 
-		glColor3ub(GREEN);
+		//glColor3ub(GREEN);
 		/*for(auto i = line.begin(); i != line.end(); ++i) {
 			glPushMatrix();
 			glTranslatef(0 + 0.5, *i + 0.5, 0);
@@ -106,7 +89,7 @@ namespace image {
 			glPopMatrix();
 		}*/
 
-		glPushMatrix();
+		/*glPushMatrix();
 		glTranslatef(0 + 0.5, 0 + 0.5, 0);
 		graphics::ngon(5, 1);
 		glPopMatrix();
@@ -131,7 +114,7 @@ namespace image {
 		graphics::ngon(5, 2);
 		glPopMatrix();
 
-		glPopMatrix();
+		glPopMatrix();*/
 
 		glFlush();
 		glutSwapBuffers();

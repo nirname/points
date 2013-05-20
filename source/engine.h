@@ -8,35 +8,178 @@ namespace engine {
 	{
 		int row;
 		int column;
-		Point(int _row = 0, int _column = 0):
-			row(_row), column(_column)
+		
+		Point(const Point & x):
+			column(x.column), row(x.row)
+		{}
+		
+		Point(int _column = 0, int _row = 0):
+			column(_column), row(_row)
+		{}
+		
+		Point & operator +=(Point x) {
+			row    += x.row;
+			column += x.column;
+			return * this;
+		}
+		
+		Point & operator -=(Point x) {
+			row    -= x.row;
+			column -= x.column;
+			return * this;
+		}
+	};
+	
+	Point operator + (Point a, Point b)
+	{
+		Point result(a);
+		return result += b;
+	}
+	
+	Point operator - (Point a, Point b)
+	{
+		Point result(a);
+		return result -= b;
+	}
+	
+	Point min(Point a, Point b)
+	{
+		return Point(
+			std::min(a.column, b.column),
+			std::min(a.row, b.row)
+		);
+	}
+	
+	Point max(Point a, Point b)
+	{
+		return Point(
+			std::max(a.column, b.column),
+			std::max(a.row, b.row)
+		);
+	}
+	
+	struct Size
+	{
+		int width;
+		int height;
+		Size(int _width = 1, int _height = 1):
+			width(_width), height(_height)
+		{}
+	};
+	
+	struct Bound {
+		Point initial, final;
+		Bound(Point _initial, Point _final):
+			initial(_initial), final(_final)
+		{ /* do not normilize here*/ }
+		Bound(const Bound & _bound):
+			initial(_bound.initial), final(_bound.final)
+		{}
+		
+		bool contains(Point x) {
+			return false;
+		}
+		Bound & operator +=(Point x) {
+			initial += x;
+			final   += x;
+			return * this;
+		}
+		Bound & operator -=(Point x) {
+			initial -= x;
+			final   -= x;
+			return * this;
+		}
+	};
+	/*Bound operator + (Bound _bound, Point _point)
+	{
+		Bound result = _bound;
+		return result += _point;
+	}*/
+	/*Bound operator - (Bound _bound, Point _point)
+		/*Bound result = _bound;
+		return result -= _point;
+	}*/
+
+	/*struct Cell
+	{
+		graphics::Color * color;
+		//graphics::Shape * shape;
+		//Cell(graphics::Color _color, graphics::Shape * shape)
+	};*/
+
+	// Link between object and field
+	struct Placement
+	{
+		Object * object;
+		Field * field;
+		Placement(Object * _object, Field * _field):
+			object(_object), field(_field)
 		{}
 	};
 
-	struct Cell
+	struct Object
 	{
-		graphics::Color * color;
 		graphics::Shape * shape;
-		//Cell(graphics::Color _color, graphics::Shape * shape)
+		graphics::Color * color;
+
+		Object(graphics::Shape * _shape, graphics::Color * _color):
+			shape(_shape), color(_color)
+		{}
+
+		void move(Field *, Point _step);
+		//void rotate(Field * _field) {}
+		//void symmetric(Field * _field) {}
+		//transformation();
+		
+		/*struct Descendant
+		{
+			Point offset;
+			Object * object;
+			~Descendant() {
+				delete object;
+			}
+		};*/
+		//std::list<Descendant> descendants;
+		//std::list<Points> descendants;
+		void display()
+		{
+			
+		}
 	};
 
 	//class Figure {};
 
-	struct Size
+	// make this types splitted by dimensions
+	enum CLOSURE_TYPE
 	{
-		positive width;
-		positive height;
-		Size(positive _width = 1, positive _height = 1):
-			width(_width), height(_height)
-		{}
+		NO_CLOSURE,
+		VERTICAL_CLOSURE,
+		HORIZONTAL_CLOSURE,
+		FULL_CLOSURE
+	};
+
+	// make this types splitted by dimensions
+	enum INFINITY_TYPE
+	{
+		FINITE,
+		VERTICAL_INFINITY,
+		HORIZONTAL_INFINITY,
+		FULL_INFINITY
 	};
 
 	struct Field
 	{
 		Size size;
-		Field(positive _width = 1, positive _height = 1)
+		CLOSURE_TYPE closure;
+		Field(int _width = 1, int _height = 1)
 		{
 			size = Size(_width, _height);
+		}
+		INFINITY_TYPE infinity_type() {
+			return INFINITY_TYPE(
+				(size.height == 0 ? VERTICAL_INFINITY : FINITE) |
+				(size.width == 0 ? HORIZONTAL_INFINITY : FINITE)
+			);
 		}
 	};
 
@@ -58,28 +201,88 @@ namespace engine {
 		//Screen * screen;
 		Point position; // position at screen
 
-		View(Field * _field)
+		View(Field * _field, Point _position = Point(0, 0), Point _offset = Point(0, 0))
 		{
 			field = _field;
 			size = _field->size;
-			offset = Point(0, 0);
+			position = _position;
+			offset = _offset;
 		}
 
 		void display()
 		{
-			// drawing grid
+			Bound view_bound(
+				Point(0, 0),
+				Point(size.width, size.height)
+			);
+			Bound field_bound(
+				Point(0, 0),
+				Point(field->size.width, field->size.height)
+			);
+			field_bound -= offset;
+			Bound real_bound(
+				max(view_bound.initial, field_bound.initial),
+				min(view_bound.final, field_bound.final)
+			);
+			
+			/*Point v1(0, 0);
+			Point v2(size.width, size.height);
+			
+			Point f1 = Point(0, 0) - offset;
+			Point f2 = Point(field->size.width, field->size.height) - offset;
+			
+			Point bound1 = max(v1, f1);
+			Point bound2 = min(v2, f2);*/
+			
+			glPushMatrix();
+			glTranslatef(position.column, position.row, 0);
+			// { drawing croped grid
 			glLineWidth(2);
 			glBegin(GL_LINES);
-			for(positive i = 0; i <= size.width; i++) {
-				glVertex2f(i, 0);
-				glVertex2f(i, size.height);
+			/*if(bound1.row < bound2.row) {
+				for(int x = bound1.column; x <= bound2.column; x++) {
+					glVertex2f(x, bound1.row);
+					glVertex2f(x, bound2.row);
+				}
 			}
-			for(positive i = 0; i <= size.height; i++) {
-				glVertex2f(0, i);
-				glVertex2f(size.width, i);
+			if(bound1.column < bound2.column) {
+				for(int y = bound1.row; y <= bound2.row; y++) {
+					glVertex2f(bound1.column, y);
+					glVertex2f(bound2.column, y);
+				}
+			}*/
+			if(real_bound.initial.row < real_bound.final.row) {
+				for(int x = real_bound.initial.column; x <= real_bound.final.column; x++) {
+					glVertex2f(x, real_bound.initial.row);
+					glVertex2f(x, real_bound.final.row);
+				}
+			}
+			if(real_bound.initial.column < real_bound.final.column) {
+				for(int y = real_bound.initial.row; y <= real_bound.final.row; y++) {
+					glVertex2f(real_bound.initial.column, y);
+					glVertex2f(real_bound.final.column, y);
+				}
 			}
 			glEnd();
+			// drawing croped grid }
+
+			// { drawing border
+			glLineWidth(5);
+			glColor3ub(VIOLET);
+
+			glBegin(GL_LINE_LOOP);
+			glVertex2f(0         , 0          );
+			glVertex2f(size.width, 0          );
+			glVertex2f(size.width, size.height);
+			glVertex2f(0         , size.height);
+			glEnd();
+
+			glPopMatrix(); // move at initial position
+			
+			// drawing border }
+
 			// drawing points
+			//for(int i)
 		}
 	};
 
@@ -88,98 +291,45 @@ namespace engine {
 
 		logic::GAME_KIND game_kind;
 		//engine::Screen screen;
-		lib::List<engine::Field> fields;
-		lib::List<engine::View> areas;
 
-		std::unordered_map<std::string, graphics::Color * > colors;
-		std::unordered_map<std::string, graphics::Shape * > shapes;
-
+		FieldMap  fields;
+		ViewMap   views;
+		ColorMap  colors;
+		ShapeMap  shapes;
+		ObjectMap objects;
+		
+		PointMap points;
+		
 		Game(logic::GAME_KIND _game_kind):
 			game_kind(_game_kind)
 		{}
+
+		~Game(){
+			for(FieldMap::iterator i = fields.begin(); i != fields.end(); ++i) {
+				delete i->second;
+			}
+			for(ViewMap::iterator i = views.begin(); i != views.end(); ++i) {
+				delete i->second;
+			}
+			for(ColorMap::iterator i = colors.begin(); i != colors.end(); ++i) {
+				delete i->second;
+			}
+			for(ShapeMap::iterator i = shapes.begin(); i != shapes.end(); ++i) {
+				delete i->second;
+			}
+			for(ObjectMap::iterator i = objects.begin(); i != objects.end(); ++i) {
+				delete i->second;
+			}
+			//destroy all fields; views; colors; shapes;
+		}
+
 	};
 
-	/*struct Object
-	{
-		lib::List<Point> points;
-	}*/
+	void Object::move(Field * _field, Point _step) {
+		//game.points[Placement(this, _field)];
+		//_game->points[Placement(this, _field)];
+	}
 
-	// Placement of any object
-	/*class Placement
-	{
-		// area or field should be there?
-		//Position position;
-		//Object * object;
-	};
-
-	// Two dimensional position
-	class Position
-	{
-		private:
-			int row; // number of row
-			int column; // number of column
-		public:
-			Position(int _row = 0, int _column = 0):
-				row(_row), column(_column)
-			{}
-	};
-/*
-	enum SPACE_TYPE
-	{
-		NO_CLOSURE         = 00,
-		VERTICAL_CLOSURE   = 01,
-		HORIZONTAL_CLOSURE = 02,
-		FULL_CLOSURE       = 03,
-		INFINITE_FIELD     = 04
-	};
-
-	class Field
-	{
-		private:
-			int width;
-			int height;
-		public:
-			Field(int _width, int _height):
-				width(_width), height(_height)
-			{};
-	};
-
-	class Area
-	{
-		private:
-			SPACE_TYPE space_type;
-			Position   origin;
-			int width;
-			int height;
-		public:
-			Area(int _width, int _height, Position _origin, SPACE_TYPE _space_type = NO_CLOSURE):
-			width(_width), height(_height), origin(_origin), space_type(_space_type)
-			{}
-			void display()
-			{
-				for(int y = 0; y < height; y++)
-				{
-					for(int x = 0; x < width; x++)
-					{
-						graphics::draw_at(x, y, graphics::square);
-					}
-				}
-			};
-	};
-
-	// Combination of shapes
-	class Figure : Object
-	{
-		private:
-			lib::List<Shape> shapes;
-		public:
-			void add(Shape * shape)
-			{
-				//squares
-			};
-	};
-
-*/
 } // engine
 
 #endif

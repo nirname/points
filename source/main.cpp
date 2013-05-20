@@ -1,32 +1,23 @@
 #include "global.h"
 
-float offset_x = 0, offset_y = 0;
-float scale = 1;
-
-engine::Screen screen(10.0, 10.0);
+engine::Screen screen(22.0, 22.0);
 engine::Game game(logic::SOKOBAN);
-
-/*std::unordered_map<std::string, engine::Point> points;
-std::unordered_map<int, int> data;
-std::set<int> line;*/
-
-std::unordered_map<int, std::unordered_map<int, engine::Cell> > cells;
-
-//std::vector<int> kont;
 
 int main(int argc, char * argv[])
 {
-	//points["Player1"] = engine::Point(0, 2);
-	//points["Player2"] = engine::Point(3, 1);
-	//engine::Screen screen(10, 10);
+	game.fields[std::string("Field")] = new engine::Field(20, 20);
+	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
+	game.views[std::string("View")]->size = engine::Size(22, 22);
+	game.views[std::string("View")]->offset = engine::Point(-1, -1);
+	
+	game.shapes[std::string("Square")] = new graphics::Square();
+	game.colors[std::string("Violet")] = new graphics::Color(VIOLET);
+	
+	game.objects[std::string("Sokoban")] = new engine::Object(
+		game.shapes[std::string("Square")],
+		game.colors[std::string("Green")]
+	);
 
-	//data[0] = 0;
-	//data[9] = 0;
-
-	//line.insert(0);
-
-	//kont;
-	// uploading params from file
 	params::upload_params();
 
 	// initialize glut

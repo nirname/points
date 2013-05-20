@@ -26,26 +26,36 @@ namespace controls {
 				exit(EXIT_SUCCESS);
 				break;
 			case 'w':
-				offset_y--;
+				game.views[std::string("View")]->offset.row += 1;
 				glutPostRedisplay();
 				break;
 			case 's':
-				offset_y++;
+				game.views[std::string("View")]->offset.row -= 1;
 				glutPostRedisplay();
 				break;
 			case 'a':
-				offset_x--;
+				game.views[std::string("View")]->offset.column -= 1;
 				glutPostRedisplay();
 				break;
 			case 'd':
-				offset_x++;
+				game.views[std::string("View")]->offset.column += 1;
 				glutPostRedisplay();
 				break;
-			case 'q':
-				scale +=0.1;
+			case '8':
+				game.views[std::string("View")]->position.row += 1;
+				glutPostRedisplay();
 				break;
-			case 'e':
-				if(scale > 0.1) scale -=0.1;
+			case '5':
+				game.views[std::string("View")]->position.row -= 1;
+				glutPostRedisplay();
+				break;
+			case '4':
+				game.views[std::string("View")]->position.column -= 1;
+				glutPostRedisplay();
+				break;
+			case '6':
+				game.views[std::string("View")]->position.column += 1;
+				glutPostRedisplay();
 				break;
 			default:
 				std::cout << key << std::endl;
@@ -64,19 +74,19 @@ namespace controls {
 		switch(key)
 		{
 			case GLUT_KEY_UP:
-				offset_y--;
+				game.views[std::string("View")]->position += engine::Point(0, 1);
 				glutPostRedisplay();
 				break;
 			case GLUT_KEY_DOWN:
-				offset_y++;
+				game.views[std::string("View")]->position -= engine::Point(0, 1);
 				glutPostRedisplay();
 				break;
 			case GLUT_KEY_LEFT:
-				offset_x--;
+				game.views[std::string("View")]->position -= engine::Point(1, 0);
 				glutPostRedisplay();
 				break;
 			case GLUT_KEY_RIGHT:
-				offset_x++;
+				game.views[std::string("View")]->position += engine::Point(1, 0);
 				glutPostRedisplay();
 				break;
 			default:

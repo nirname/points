@@ -3,47 +3,47 @@
 
 // containers
 namespace lib {
-	
+
 	template <typename Type> class List
 	{
 		private:
-		
+
 			struct Element;
-			
+
 			typedef Element * ElementPointer;
 			typedef Type *    TypePointer;
-			
+
 			struct Element
 			{
 				ElementPointer prev, next;
 				TypePointer    object;
-				
+
 				Element(TypePointer _object): next(NULL), prev(NULL), object(_object) {};
 			};
-			
+
 			ElementPointer head, tail;
-			
+
 		public:
-			
+
 			List(): head(NULL), tail(NULL) {}
 			~List()
 			{
 				clear();
 			}
-			
+
 			void clear()
 			{
 				while(!is_empty())
 				{
 					extract_from_head();
-				}	
+				}
 			}
-			
+
 			bool is_empty()
 			{
 				return head == NULL;
 			}
-			
+
 			TypePointer first()
 			{
 				if(is_empty()) {
@@ -53,7 +53,7 @@ namespace lib {
 					return head->object;
 				}
 			};
-			
+
 			TypePointer last()
 			{
 				if(is_empty()) {
@@ -63,7 +63,7 @@ namespace lib {
 					return tail->object;
 				}
 			};
-			
+
 			void push_in_head(TypePointer _object)
 			{
 				ElementPointer new_element = new Element(_object);
@@ -81,7 +81,7 @@ namespace lib {
 					head = new_element;
 				}
 			}
-			
+
 			void push_in_tail(TypePointer _object)
 			{
 				ElementPointer new_element = new Element(_object);
@@ -99,7 +99,7 @@ namespace lib {
 					tail = new_element;
 				}
 			}
-			
+
 			TypePointer extract_from_head()
 			{
 				ElementPointer current_element = head;
@@ -124,7 +124,7 @@ namespace lib {
 					return NULL;
 				}
 			}
-			
+
 			TypePointer extract_from_tail()
 			{
 				ElementPointer current_element = tail;
@@ -149,7 +149,7 @@ namespace lib {
 					return NULL;
 				}
 			}
-			
+
 			void each(void (*action)(TypePointer))
 			{
 				ElementPointer current_element = head;
@@ -159,9 +159,9 @@ namespace lib {
 					current_element = current_element->next;
 				}
 			}
-			
+
 	}; /* List */
-	
+
 }
 
 #endif

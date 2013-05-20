@@ -3,37 +3,40 @@
 
 typedef unsigned int positive;
 
-extern float offset_x, offset_y;
-extern float scale;
-
 namespace lib {
 	template <typename Type> class List;
 }
 
 namespace graphics {
 	void square();
-	void draw_at(int, int, void(*)());
+	struct Color;
+	struct Shape;
 }
 
 namespace logic {}
 
 namespace engine {
+
+	struct Object;
 	struct Game;
 	struct Point;
 	struct Size;
 	struct Field;
 	struct Screen;
 	struct View;
+	struct Placement;
+
+	typedef std::string KeyType;
+	typedef std::map< KeyType, engine::Field * >   FieldMap;
+	typedef std::map< KeyType, engine::View * >    ViewMap;
+	typedef std::map< KeyType, engine::Object * >  ObjectMap;
+	typedef std::map< KeyType, graphics::Color * > ColorMap;
+	typedef std::map< KeyType, graphics::Shape * > ShapeMap;
+	typedef std::map< Placement, Point > PointMap;
+
 }
 
 extern engine::Screen screen;
 extern engine::Game game;
-
-/*extern std::unordered_map<std::string, engine::Point> points;
-
-extern std::unordered_map<int, int> data;
-extern std::set<int> line;
-
-extern std::vector<int> kont;*/
 
 #endif

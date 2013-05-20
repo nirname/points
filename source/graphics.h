@@ -89,6 +89,7 @@ namespace graphics {
 	// Any shape
 	struct Shape
 	{
+		// add size (radius, or something like that)
 		virtual void display() = 0;
 	};
 
@@ -109,6 +110,8 @@ namespace graphics {
 			circle(FIGURE_SIZE / 2);
 		}
 	};
+
+	struct NGon : Shape {};
 
 	class Star : Shape
 	{};
