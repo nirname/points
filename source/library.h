@@ -4,7 +4,24 @@
 // containers
 namespace lib {
 
-	template <typename Type> class List
+/*template <typename T> std::string to_string (T value) {
+	std::stringstream stream;
+	stream << value;
+	return stream.str();
+}*/
+
+template <typename T> std::string to_string (T value) {
+	std::stringstream stream;
+	stream << value;
+	return stream.str();
+}
+/*std::string to_string (int value) {
+	std::stringstream stream;
+	stream << value;
+	return stream.str();
+}*/
+
+	/*template <typename Type> class List
 	{
 		private:
 

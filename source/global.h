@@ -6,11 +6,10 @@
 #include <cstdlib>
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 #include <stdio.h>
 #include <math.h>
 
-
-#include <iostream>
 //#include <unordered_map>
 #include <string>
 #include <functional>
@@ -29,6 +28,7 @@
 
 #include "declarations.h"
 
+#include "library.h"
 #include "graphics.h"
 #include "logic.h"
 #include "engine.h"

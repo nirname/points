@@ -4,7 +4,7 @@
 CPP = g++
 CC  = gcc
 COMPILER = $(CPP)
-OPTIONS = -std=gnu++11
+OPTIONS = #-std=gnu++11
 
 LIBS = -lglut
 
