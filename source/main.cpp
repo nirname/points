@@ -1,11 +1,14 @@
 #include "global.h"
 
-engine::Screen screen(22.0, 22.0);
+engine::Screen screen(22.0, 22.0); // move screen to game?
 engine::Game game(logic::SOKOBAN);
 
 int main(int argc, char * argv[])
 {
-	game.fields[std::string("Field")] = new engine::Field(20, 20);
+	// move this logic to Level class
+	game.add_field("Field", 20, 20);
+	//game.add_view("View", "Field");
+	//game.fields[std::string("Field")] = new engine::Field(20, 20);
 	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
 	game.views[std::string("View")]->size = engine::Size(22, 22);
 	game.views[std::string("View")]->offset = engine::Point(-1, -1);

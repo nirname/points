@@ -10,8 +10,6 @@ namespace params
 	bool full_screen = false;
 	unsigned int display_mode = 0;
 
-	//gml::Game current_game;
-
 	enum WINDOW_SIZE {TINY, SMALL, MIDDLE, LARGE};
 	WINDOW_SIZE window_size = SMALL;
 

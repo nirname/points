@@ -143,6 +143,7 @@ namespace engine {
 			--count;
 		}
 
+		void place(Field *, Point _position);
 		void move(Field *, Point _step);
 		//void rotate(Field * _field) {}
 		//void symmetric(Field * _field) {}
@@ -190,6 +191,13 @@ namespace engine {
 	}
 
 	//class Figure {};
+
+	struct Level {
+		std::string name;
+		bool load() {
+			return false;
+		}
+	};
 
 	// make this types splitted by dimensions
 	enum CLOSURE_TYPE
@@ -252,6 +260,8 @@ namespace engine {
 		Field * field;
 		Size size; // view size; by default it is the same as field size is
 		Point offset; // field offset
+		Point direction; // offset direction
+		// (!) use ORIGIN and CENTER
 		//Screen * screen;
 		Point position; // position at screen
 
@@ -305,6 +315,47 @@ namespace engine {
 				delete i->second;
 			}
 		}
+
+		FieldPointer add_field(const char * _name, int _width = 1, int _height = 1) {
+			std::string field_name(_name);
+			FieldPointer field;
+			if(fields[field_name] != NULL) {
+				field = fields[field_name];
+				std::cout << "Field \"" << _name << "\" already exists" << std::endl;
+			} else {
+				field = new engine::Field(_width, _height);
+				fields[field_name] = field;
+			}
+			return field;
+		}
+
+		// add
+		// get
+		// erase
+
+		// use templates here
+		FieldPointer field(const char * _name) {
+			return fields[std::string(_name)];
+		}
+
+		ViewPointer view(const char * _name) { return NULL; }
+		ObjectPointer object(const char * _name) { return NULL; }
+		PointPointer point(Placement _placement) { return NULL; }
+		graphics::ColorPointer color(const char * _name) { return NULL; }
+		graphics::ShapePointer shape(const char * _name) { return NULL; }
+
+		ViewPointer add_view(std::string _name) { return NULL; }
+		ObjectPointer add_object(std::string _name) { return NULL; }
+		PointPointer add_point(Placement _placement) { return NULL; }
+		graphics::ColorPointer add_color(std::string _name) { return NULL; }
+		graphics::ShapePointer add_shape(std::string _name) { return NULL; }
+
+		void erase_field(std::string _name) { }
+		void erase_view(std::string _name) { }
+		void erase_object(std::string _name) { }
+		void erase_point(Placement _placement) { }
+		void erase_color(std::string _name) { }
+		void erase_shape(std::string _name) { }
 
 	};
 
@@ -381,14 +432,17 @@ namespace engine {
 		std::cout << "Offset: " << offset << std::endl;
 		std::cout << "Real bound: " << real_bound << std::endl;
 		std::cout << "Display bound: " << display_bound << std::endl;*/
-		for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
-			if(i->second != NULL) {
-				if( real_bound.contains(*(i->second)) ) {
-					//std::cout << *(i->second) << std::endl;
-					i->first.object->display(*(i->second) - offset);
+		glPushMatrix();
+			glTranslatef(-offset.column, -offset.row, 0);
+			for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
+				if(i->second != NULL) {
+					if( real_bound.contains(*(i->second)) ) {
+						//std::cout << *(i->second) << std::endl;
+						i->first.object->display(*(i->second));
+					}
 				}
 			}
-		}
+		glPopMatrix();
 		// drawing points }
 
 		glPopMatrix();
