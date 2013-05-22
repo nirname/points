@@ -99,7 +99,8 @@ namespace controls {
 					std::cout << key << std::endl;
 					break;
 			}
-			*(game.points[engine::Placement(sokoban, field)]) += step;
+			sokoban->move(field, step);
+			//*(game.points[engine::Placement(sokoban, field)]) += step;
 			glutPostRedisplay();
 		}
 	}
