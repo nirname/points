@@ -30,7 +30,7 @@ namespace engine {
 		}
 
 		Point & operator *= (const Point & x) {
-			row *= x.row;
+			row    *= x.row;
 			column *= x.column;
 			return * this;
 		}
@@ -310,6 +310,9 @@ namespace engine {
 		}
 
 		void display();
+		void draw_grid(const Bound &);
+		void draw_border();
+		void draw_objects(const Bound &);
 	};
 
 	// Describes current game
@@ -415,15 +418,8 @@ namespace engine {
 	void Object::move(Field * _field, Point _step) {
 		Placement placement(this, _field);
 		Point * position = game.points[placement];
-		if(position != NULL) {
-			if(
-				Bound(
-					Point(0, 0),
-					Point(_field->size.width, _field->size.height) - Point(1, 1)
-				).contains(*position + _step)
-			) {
-				*(position) += _step;
-			}
+		if(position != NULL && _field->bound().contains(*position + _step)) {
+			*(position) += _step;
 		}
 	}
 
@@ -444,8 +440,16 @@ namespace engine {
 
 		glPushMatrix();
 
-		// { drawing croped grid
+		// positioning
 		glTranslatef(position.column, position.row, 0);
+
+		draw_grid(display_bound);
+		draw_border();
+		draw_objects(real_bound);
+		glPopMatrix();
+	}
+
+	void View::draw_grid(const Bound & display_bound) {
 		glLineWidth(2);
 		glBegin(GL_LINES);
 			if(display_bound.initial.row < display_bound.final.row) {
@@ -461,8 +465,9 @@ namespace engine {
 				}
 			}
 		glEnd();
-		// drawing croped grid }
+	}
 
+	void View::draw_border() {
 		// { drawing border
 		glLineWidth(5);
 		glColor3ub(VIOLET);
@@ -473,31 +478,36 @@ namespace engine {
 			glVertex2f(0         , size.height);
 		glEnd();/**/
 		// drawing border }
-
-		// { drawing points
-		/*std::cout << "----------" << std::endl;
-		std::cout << "Position: " << position << std::endl;
-		std::cout << "Shift: " << shift << std::endl;
-		std::cout << "Real bound: " << real_bound << std::endl;
-		std::cout << "Display bound: " << display_bound << std::endl;*/
-		glPushMatrix();
-			glTranslatef(shift.column, shift.row, 0);
-			for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
-				if(i->second != NULL) {
-					if( real_bound.contains(*(i->second)) ) {
-						//std::cout << *(i->second) << std::endl;
-						i->first.object->display(*(i->second));
-					}
-				}
-			}
-		glPopMatrix();
-		// drawing points }
-
-		glPopMatrix();
-
 	}
 
+	void View::draw_objects(const Bound & real_bound) {
+		// { drawing points
+		/*std::cout << "View" << std::endl;
+		std::cout << "----------" << std::endl;
+		std::cout << "Position: "      << position << std::endl;
+		std::cout << "Shift: "         << shift << std::endl;
+		std::cout << "Real bound: "    << real_bound << std::endl;
+		std::cout << "Display bound: " << display_bound << std::endl;
+		/**/
+		//std::cout << "Objects" << std::endl;
+		//std::cout << "----------" << std::endl;
+		//std::cout << shift << std::endl;
+		glPushMatrix();
+		Point shift = offset * direction;
+		glTranslatef(shift.column, shift.row, 0);
+		for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
+			if(i->second != NULL) {
+				if(real_bound.contains(*(i->second))) {
+					//std::cout << *(i->second) << std::endl;
+					i->first.object->display(*(i->second));
+				}
+			}
+		}
+		glPopMatrix();
+		//std::cout << std::endl;
+		// drawing points }
 
+	}
 
 } // engine
 

@@ -97,8 +97,7 @@ namespace graphics {
 	{
 		void display()
 		{
-			//if(color != NULL) color->set();
-			graphics::square();
+			square();
 		}
 	};
 
@@ -106,7 +105,6 @@ namespace graphics {
 	{
 		void display()
 		{
-			//if(color != NULL) color->set();
 			circle(FIGURE_SIZE / 2);
 		}
 	};
@@ -118,14 +116,6 @@ namespace graphics {
 
 	class David : Shape
 	{};
-
-	void draw_at(int x, int y, void(*display)())
-	{
-		glPushMatrix();
-		glTranslatef(x, y, 0);
-		display();
-		glPopMatrix();
-	}
 
 	enum ANIMATION {
 		FADE,

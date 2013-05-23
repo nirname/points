@@ -7,23 +7,6 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	void manySquares(int r, int c)
-	{
-		for(int y = 0; y < r; y++)
-		{
-			glPushMatrix();
-			glTranslatef(0, y, 0);
-			for(int x = 0; x < c; x++)
-			{
-				glPushMatrix();
-				glTranslatef(x, 0, 0);
-				graphics::square();
-				glPopMatrix();
-			}
-			glPopMatrix();
-		}
-	}
-
 	void display()
 	{
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -44,8 +27,8 @@ namespace image {
 
 	void redisplay(int timer)
 	{
-		//glutPostRedisplay();
-		//glutTimerFunc(10, redisplay, 0);
+		glutPostRedisplay();
+		glutTimerFunc(10, redisplay, 0);
 	}
 
 	void reshape(int width, int length)

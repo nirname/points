@@ -6,28 +6,35 @@ engine::Game game(logic::SOKOBAN);
 int main(int argc, char * argv[])
 {
 	// move this logic to Level class
-	game.add_field("Field", 20, 20);
+	game.add_field("Field", 10, 10);
 	//game.add_view("View", "Field");
 	//game.fields[std::string("Field")] = new engine::Field(20, 20);
 	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
-	game.views[std::string("View")]->size = engine::Size(22, 22);
+	game.views[std::string("View")]->size = engine::Size(12, 12);
 	game.views[std::string("View")]->offset = engine::Point(-1, -1);
+	game.views[std::string("View")]->position = engine::Point(3, 3);
 
 	game.colors[std::string("Violet")] = new graphics::Color(VIOLET);
+	game.colors[std::string("Blue")] = new graphics::Color(BLUE);
 	game.colors[std::string("Green")] = new graphics::Color(GREEN);
 	game.shapes[std::string("Square")] = new graphics::Square();
 
-	game.objects[std::string("Box")] = new engine::Object(
+	game.objects[std::string("Box1")] = new engine::Object(
 		game.shapes[std::string("Square")],
 		game.colors[std::string("Green")]
+	);
+	game.objects[std::string("Box2")] = new engine::Object(
+		game.shapes[std::string("Square")],
+		game.colors[std::string("Blue")]
 	);
 	game.objects[std::string("Sokoban")] = new engine::Object(
 		game.shapes[std::string("Square")],
 		game.colors[std::string("Violet")]
 	);
 
-	game.points[ engine::Placement(game.objects[std::string("Box")], game.fields[std::string("Field")]) ] = new engine::Point(1, 0);
-	game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(0, 0);
+	game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(3, 3);
+	game.points[ engine::Placement(game.objects[std::string("Box2")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
+	game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
 
 	/*for(engine::PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
 		std::cout << *(i->first.object) << " at " << *(i->first.field) << " : ";
