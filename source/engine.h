@@ -1,142 +1,10 @@
 #ifndef ENGINE_H
 #define ENGINE_H 1
 
+#include "engine/primitives.h"
+
 // engine
 namespace engine {
-
-	struct Point
-	{
-		int row;
-		int column;
-
-		Point(const Point & x):
-			column(x.column), row(x.row)
-		{}
-
-		Point(int _column = 0, int _row = 0):
-			column(_column), row(_row)
-		{}
-
-		Point & operator += (const Point & x) {
-			row    += x.row;
-			column += x.column;
-			return * this;
-		}
-
-		Point & operator -= (const Point & x) {
-			row    -= x.row;
-			column -= x.column;
-			return * this;
-		}
-
-		Point & operator *= (const Point & x) {
-			row    *= x.row;
-			column *= x.column;
-			return * this;
-		}
-
-		bool operator < (const Point & x) const {
-			return column < x.column && row < x.row;
-		}
-
-		bool operator <= (const Point & x) const {
-			return column <= x.column && row <= x.row;
-		}
-
-	};
-
-	std::ostream & operator << (std::ostream & _ostream, const Point & _point) {
-		_ostream << "Point(" << _point.column << ", " << _point.row << ")";
-	}
-
-	Point operator + (const Point & a, const Point & b)
-	{
-		Point result(a);
-		return result += b;
-	}
-
-	Point operator - (const Point & a, const Point & b)
-	{
-		Point result(a);
-		return result -= b;
-	}
-
-	Point operator * (const Point & a, const Point & b)
-	{
-		Point result(a);
-		return result *= b;
-	}
-
-	Point min(Point a, Point b)
-	{
-		return Point(
-			std::min(a.column, b.column),
-			std::min(a.row, b.row)
-		);
-	}
-
-	Point max(Point a, Point b)
-	{
-		return Point(
-			std::max(a.column, b.column),
-			std::max(a.row, b.row)
-		);
-	}
-
-	struct Size
-	{
-		int width;
-		int height;
-		Size(int _width = 1, int _height = 1):
-			width(_width), height(_height)
-		{}
-	};
-
-	struct Bound {
-		Point initial, final;
-
-		Bound(const Point & _final):
-			final(_final)
-		{}
-
-		Bound(Point _initial, Point _final):
-			initial(_initial), final(_final)
-		{ /* do not normilize here*/ }
-
-		Bound(const Bound & _bound):
-			initial(_bound.initial), final(_bound.final)
-		{}
-
-		bool contains(Point x) const {
-			return initial <= x && x <= final;
-		}
-
-		Bound & operator += (const Point & x) {
-			initial += x;
-			final   += x;
-			return * this;
-		}
-		Bound & operator -= (const Point & x) {
-			initial -= x;
-			final   -= x;
-			return * this;
-		}
-	};
-
-	std::ostream & operator << (std::ostream & _ostream, const Bound & _bound) {
-		_ostream << "Bound(" << _bound.initial << ", " << _bound.final << ")";
-		return _ostream;
-	}
-
-	Bound operator + (const Bound & _bound, const Point & _point)
-	{
-		Bound result(_bound);
-		return result += _point;
-	}
-	/*Bound operator - (Bound _bound, Point _point)
-		/*Bound result = _bound;
-		return result -= _point;
-	}*/
 
 	/*struct Cell
 	{
@@ -178,11 +46,11 @@ namespace engine {
 		};*/
 		//std::list<Descendant> descendants;
 		//std::list<Points> descendants;
-		void display(Point _position = Point()) {
+		void display(const Point & _position = Point()) {
 			glPushMatrix();
 			glTranslatef(_position.column, _position.row, 0);
-			color->use();
-			shape->display();
+			if(color != NULL) color->use();
+			if(shape != NULL) shape->display();
 			glPopMatrix();
 		}
 	};
@@ -210,6 +78,14 @@ namespace engine {
 	}
 
 	//class Figure {};
+
+	// Contains width and height expressed by count of horizontal and vertical squares
+	struct Screen {
+		float width, height, margin;
+		Screen(float _width = 10.0, float _height = 10.0, float _margin = 0.0):
+			width(_width), height(_height), margin(_margin)
+		{}
+	};
 
 	struct Level {
 		std::string name;
@@ -257,9 +133,6 @@ namespace engine {
 			);
 		}
 		Bound bound() {
-			//bool with_borders = false
-			//Point shift(1, 1);
-			//if(with_borders) shift = Point(0, 0);
 			return Bound(Point(size.width, size.height) - Point(1, 1)); //shift
 		}
 	};
@@ -269,14 +142,6 @@ namespace engine {
 		_ostream << "Field(" << _field.number << ")";
 		return _ostream;
 	}
-
-	// Contains width and height expressed by count of horizontal and vertical squares
-	struct Screen {
-		float width, height, margin;
-		Screen(float _width = 10.0, float _height = 10.0, float _margin = 0.0):
-			width(_width), height(_height), margin(_margin)
-		{}
-	};
 
 	const Point FORWARD_DIRECTION(1, 1);
 	const Point BACKWARD_DIRECTION(-1, -1);
@@ -355,7 +220,7 @@ namespace engine {
 			}
 		}
 
-		FieldPointer add_field(const char * _name, int _width = 1, int _height = 1) {
+		/*FieldPointer add_field(const char * _name, int _width = 1, int _height = 1) {
 			std::string field_name(_name);
 			FieldPointer field;
 			if(fields[field_name] != NULL) {
@@ -366,43 +231,7 @@ namespace engine {
 				fields[field_name] = field;
 			}
 			return field;
-		}
-
-		// add
-		// get
-		// erase
-
-		// use templates here
-		/*FieldPointer field(const char * _name) {
-			return fields[std::string(_name)];
 		}*/
-
-		/*ViewPointer view(const char * _name) { return NULL; }
-		ObjectPointer object(const char * _name) { return NULL; }
-		PointPointer point(const char * _object_name, const char * _field_name) {
-			std::string object_name(_object_name), field_name(_field_name);
-			if(fields[field_name])
-			//Placement placement()
-			//points[placement] ==
-			return NULL;
-		}*/
-
-
-		/*graphics::ColorPointer color(const char * _name) { return NULL; }
-		graphics::ShapePointer shape(const char * _name) { return NULL; }
-
-		ViewPointer add_view(std::string _name) { return NULL; }
-		ObjectPointer add_object(std::string _name) { return NULL; }
-		PointPointer add_point(Placement _placement) { return NULL; }
-		graphics::ColorPointer add_color(std::string _name) { return NULL; }
-		graphics::ShapePointer add_shape(std::string _name) { return NULL; }
-
-		void erase_field(std::string _name) { }
-		void erase_view(std::string _name) { }
-		void erase_object(std::string _name) { }
-		void erase_point(Placement _placement) { }
-		void erase_color(std::string _name) { }
-		void erase_shape(std::string _name) { }*/
 
 	};
 
@@ -438,14 +267,15 @@ namespace engine {
 		display_bound.final += Point(1, 1);
 		real_bound -= shift;
 
-		glPushMatrix();
-
 		// positioning
-		glTranslatef(position.column, position.row, 0);
-
-		draw_grid(display_bound);
-		draw_border();
-		draw_objects(real_bound);
+		glPushMatrix();
+			glTranslatef(position.column, position.row, 0);
+			draw_grid(display_bound);
+			draw_border();
+			glPushMatrix();
+				glTranslatef(shift.column, shift.row, 0);
+				draw_objects(real_bound);
+			glPopMatrix();
 		glPopMatrix();
 	}
 
@@ -470,13 +300,15 @@ namespace engine {
 	void View::draw_border() {
 		// { drawing border
 		glLineWidth(5);
-		glColor3ub(VIOLET);
+		//glPushAttrib(GL_CURRENT_BIT);
+		//glColor3ub(VIOLET);
 		glBegin(GL_LINE_LOOP);
 			glVertex2f(0         , 0          );
 			glVertex2f(size.width, 0          );
 			glVertex2f(size.width, size.height);
 			glVertex2f(0         , size.height);
 		glEnd();/**/
+		//glPopAttrib(CL_CURRENT_BIT);
 		// drawing border }
 	}
 
@@ -492,21 +324,18 @@ namespace engine {
 		//std::cout << "Objects" << std::endl;
 		//std::cout << "----------" << std::endl;
 		//std::cout << shift << std::endl;
-		glPushMatrix();
-		Point shift = offset * direction;
-		glTranslatef(shift.column, shift.row, 0);
 		for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
-			if(i->second != NULL) {
-				if(real_bound.contains(*(i->second))) {
+			glPushMatrix();
+				if(i->second != NULL && real_bound.contains(*(i->second))) {
 					//std::cout << *(i->second) << std::endl;
 					i->first.object->display(*(i->second));
+					glTranslatef(i->second->column, i->second->row, 0);
+					//graphics::square();
 				}
-			}
+			glPopMatrix();
 		}
-		glPopMatrix();
 		//std::cout << std::endl;
 		// drawing points }
-
 	}
 
 } // engine

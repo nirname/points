@@ -1,9 +1,9 @@
 [Project]
 FileName=square.dev
 Name=square
-UnitCount=11
+UnitCount=12
 Type=1
-Ver=1
+Ver=2
 ObjFiles=
 Includes=
 Libs=
@@ -20,14 +20,16 @@ ObjectOutput=
 OverrideOutput=0
 OverrideOutputName=square.exe
 HostApplication=
-Folders=
+Folders=engine
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=0000000000000000000000
+CompilerSettings=0000000000000000000000000
+LogOutput=
+LogOutputEnabled=0
 
 [Unit1]
 FileName=main.cpp
@@ -47,7 +49,7 @@ Build=1
 LanguageID=1033
 CharsetID=1252
 CompanyName=
-FileVersion=
+FileVersion=0.1.1.1
 FileDescription=Developed using the Dev-C++ IDE
 InternalName=
 LegalCopyright=
@@ -56,6 +58,7 @@ OriginalFilename=
 ProductName=
 ProductVersion=
 AutoIncBuildNr=0
+SyncProduct=0
 
 [Unit2]
 FileName=library.h
@@ -130,7 +133,7 @@ BuildCmd=
 [Unit9]
 FileName=logic.h
 CompileCpp=1
-Folder=square
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -140,7 +143,7 @@ BuildCmd=
 [Unit10]
 FileName=image.h
 CompileCpp=1
-Folder=square
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -150,7 +153,17 @@ BuildCmd=
 [Unit11]
 FileName=engine.h
 CompileCpp=1
-Folder=square
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit12]
+FileName=engine\primitives.h
+CompileCpp=1
+Folder=engine
 Compile=1
 Link=1
 Priority=1000

@@ -12,16 +12,37 @@ namespace image {
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glPushMatrix();
 		glColor3ub(WHITE);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, 0);
+			glVertex2f(screen.width, 0);
+			glVertex2f(screen.width, screen.height);
+			glVertex2f(0, screen.height);
+		glEnd();
+
+		//glLoadIdentity();
+
+		glPushMatrix();
+		glColor3ub(BLACK);
 
 		for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
 			view->second->display();
 		}
 
+			/*glPushMatrix();
+				glTranslatef(1, 1, 0);
+				glColor3ub(WHITE);
+				graphics::square();
+				glPushMatrix();
+					glTranslatef(1, 1, 0);
+					glColor3ub(RED);
+					graphics::square();
+				glPopMatrix();
+			glPopMatrix();*/
+
 		glPopMatrix();
 
-		glFlush();
+		//glFlush();
 		glutSwapBuffers();
 	}
 

@@ -6,25 +6,29 @@ engine::Game game(logic::SOKOBAN);
 int main(int argc, char * argv[])
 {
 	// move this logic to Level class
-	game.add_field("Field", 10, 10);
+	//game.add_field("Field", 10, 10);
 	//game.add_view("View", "Field");
-	//game.fields[std::string("Field")] = new engine::Field(20, 20);
+	game.fields[std::string("Field")] = new engine::Field(10, 10);
 	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
 	game.views[std::string("View")]->size = engine::Size(12, 12);
 	game.views[std::string("View")]->offset = engine::Point(-1, -1);
 	game.views[std::string("View")]->position = engine::Point(3, 3);
 
+	//const char * shape_names [2] = ["a", "b"];
+
 	game.colors[std::string("Violet")] = new graphics::Color(VIOLET);
 	game.colors[std::string("Blue")] = new graphics::Color(BLUE);
 	game.colors[std::string("Green")] = new graphics::Color(GREEN);
 	game.shapes[std::string("Square")] = new graphics::Square();
+	game.shapes[std::string("Circle")] = new graphics::Circle();
+	game.shapes[std::string("David")] = new graphics::David();
 
 	game.objects[std::string("Box1")] = new engine::Object(
-		game.shapes[std::string("Square")],
+		game.shapes[std::string("David")],
 		game.colors[std::string("Green")]
 	);
 	game.objects[std::string("Box2")] = new engine::Object(
-		game.shapes[std::string("Square")],
+		game.shapes[std::string("Circle")],
 		game.colors[std::string("Blue")]
 	);
 	game.objects[std::string("Sokoban")] = new engine::Object(
@@ -72,12 +76,12 @@ int main(int argc, char * argv[])
 	// creating game
 	// testing inside display function
 
-	glEnable(GL_LINE_SMOOTH);
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_POINT_SMOOTH);
-	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_LINE_SMOOTH);
+	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	//glEnable(GL_POINT_SMOOTH);
+	//glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//glShadeModel(GL_SMOOTH);    // Разрешить плавное сглаживание
 	//glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   // Черный фон
@@ -87,7 +91,7 @@ int main(int argc, char * argv[])
 	//glEnable(GL_LINE_SMOOTH);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClearColor(BLACK, 0.0);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

@@ -37,7 +37,7 @@ namespace controls {
 		game.views[std::string("View")]->position += position;
 		game.views[std::string("View")]->offset += offset;
 		glutPostRedisplay();
-
+    std::cout << key << std::endl;
 			/*case 'w':
 				offset = Point();
 				game.views[std::string("View")]->offset.row += 1;
@@ -95,14 +95,16 @@ namespace controls {
 				case GLUT_KEY_DOWN:  step = engine::Point( 0, -1); break;
 				case GLUT_KEY_LEFT:  step = engine::Point(-1,  0); break;
 				case GLUT_KEY_RIGHT: step = engine::Point( 1,  0); break;
-				default:
-					std::cout << key << std::endl;
-					break;
+				//default:
+					//std::cout << key << std::endl;
+					//break;
 			}
 			sokoban->move(field, step);
+
 			//*(game.points[engine::Placement(sokoban, field)]) += step;
 			glutPostRedisplay();
 		}
+		std::cout << key << std::endl;
 	}
 
 	void mouse(int button, int state, int width, int height)
