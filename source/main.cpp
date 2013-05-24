@@ -22,15 +22,12 @@ int main(int argc, char * argv[])
 	game.shapes[std::string("Square")] = new graphics::Square();
 	game.shapes[std::string("Circle")] = new graphics::Circle();
 	game.shapes[std::string("David")] = new graphics::David();
+	game.shapes[std::string("EmptySquare")] = new graphics::EmptySquare();
 
-	game.objects[std::string("Box1")] = new engine::Object(
-		game.shapes[std::string("David")],
-		game.colors[std::string("Green")]
-	);
-	game.objects[std::string("Box2")] = new engine::Object(
-		game.shapes[std::string("Circle")],
-		game.colors[std::string("Blue")]
-	);
+	game.objects[std::string("Box1")] = new engine::Object();
+	game.objects[std::string("Box2")] = new engine::Object(game.shapes[std::string("EmptySquare")]);
+	game.objects[std::string("Box1")]->type = std::string("Box");
+	game.objects[std::string("Box2")]->type = std::string("Box");
 	game.objects[std::string("Sokoban")] = new engine::Object(
 		game.shapes[std::string("Square")],
 		game.colors[std::string("Violet")]

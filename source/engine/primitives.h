@@ -2,7 +2,7 @@
 #define ENGINE_PRIMITIVES 1
 
 namespace engine {
-	
+
 	struct Point {
 		int row;
 		int column;
@@ -108,28 +108,42 @@ namespace engine {
 			final   += x;
 			return * this;
 		}
+
 		Bound & operator -= (const Point & x) {
 			initial -= x;
 			final   -= x;
 			return * this;
 		}
+
+		// intersection
+		Bound & operator &= (const Bound & x) {
+			initial = max(initial, x.initial);
+			final   = min(final,   x.final);
+			return * this;
+		}
+
 	};
+
+	Bound operator + (const Bound & _bound, const Point & _point) {
+		Bound result(_bound);
+		return result += _point;
+	}
+
+	Bound operator - (const Bound & _bound, const Point & _point) {
+		Bound result(_bound);
+		return result -= _point;
+	}
+
+	Bound operator & (const Bound & _a, const Bound & _b) {
+		Bound result(_a);
+		return result &= _b;
+	}
 
 	std::ostream & operator << (std::ostream & _ostream, const Bound & _bound) {
 		_ostream << "Bound(" << _bound.initial << ", " << _bound.final << ")";
 		return _ostream;
 	}
 
-	Bound operator + (const Bound & _bound, const Point & _point) {
-		Bound result(_bound);
-		return result += _point;
-	}
-	/*Bound operator - (Bound _bound, Point _point)
-		/*Bound result = _bound;
-		return result -= _point;
-	}*/
-	
 }
 
 #endif
-

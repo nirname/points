@@ -1,6 +1,7 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H 1
 
+#define EMPTY_SIZE 0.6f
 #define FIGURE_SIZE 0.6f
 const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2;
 //const float FIGURE_BORDER = FIGURE_SIZE + FIGURE_OFFSET;
@@ -69,14 +70,6 @@ namespace graphics {
 	}
 
 	void circle() {
-		/*float radius = FIGURE_SIZE / 2
-		glBegin(GL_POLYGON);
-		for (int i = 0; i < 360; i++)
-		{
-			float deg_in_rad = i * DEG2RAD;
-			glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
-		}
-		glEnd();*/
 		ngon(360);
 	}
 
@@ -102,17 +95,28 @@ namespace graphics {
 	};
 
 	// Any shape
-	struct Shape
-	{
+	struct Shape {
 		// add size (radius, or something like that)
 		virtual void display() = 0;
 	};
 
-	struct Square : public Shape
-	{
-		void display()
-		{
+	struct Square : public Shape {
+		void display() {
 			square();
+		}
+	};
+
+	struct EmptySquare : public Shape {
+		void display() {
+			square();
+			glPushMatrix();
+			glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+			glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+			glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(WHITE);
+			square();
+			glPopAttrib();
+			glPopMatrix();
 		}
 	};
 

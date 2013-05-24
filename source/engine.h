@@ -16,17 +16,18 @@ namespace engine {
 	struct Object
 	{
 		static int count;
+
 		int number;
+		std::string type;
 		graphics::Shape * shape;
 		graphics::Color * color;
 
-		Object(graphics::Shape * _shape, graphics::Color * _color):
-			shape(_shape), color(_color)
-		{
+		Object(graphics::Shape * _shape = NULL, graphics::Color * _color = NULL) : shape(_shape), color(_color) {
 			number = count++;
 		}
 
 		~Object() {
+			//!!! remove its points
 			//--count;
 		}
 
@@ -44,13 +45,19 @@ namespace engine {
 				delete object;
 			}
 		};*/
-		//std::list<Descendant> descendants;
-		//std::list<Points> descendants;
+
+		//std::list<Object> descendants;
+		//std::list<Points> mask;
+
 		void display(const Point & _position = Point()) {
 			glPushMatrix();
 			glTranslatef(_position.column, _position.row, 0);
+			glPushAttrib(GL_CURRENT_BIT);
 			if(color != NULL) color->use();
-			if(shape != NULL) shape->display();
+			if(shape != NULL) {
+				shape->display();
+			} else graphics::square();
+			glPopAttrib();
 			glPopMatrix();
 		}
 	};
@@ -76,8 +83,6 @@ namespace engine {
 	bool operator < (Placement a, Placement b) {
 		return a.hash() < b.hash();
 	}
-
-	//class Figure {};
 
 	// Contains width and height expressed by count of horizontal and vertical squares
 	struct Screen {
@@ -146,6 +151,11 @@ namespace engine {
 	const Point FORWARD_DIRECTION(1, 1);
 	const Point BACKWARD_DIRECTION(-1, -1);
 
+	enum POSITION_TYPE {
+		ORIGIN,
+		CENTER
+	};
+
 	// Displays part of specified field
 	// at specified position at screen
 	struct View
@@ -158,20 +168,26 @@ namespace engine {
 		//Screen * screen;
 		Point position; // position at screen
 
-		View(Field * _field, Point _position = Point(0, 0), Point _offset = Point(0, 0))
+		View(Field * _field)
 		{
 			field = _field;
 			size = _field->size;
-			position = _position;
-			offset = _offset;
 			direction = BACKWARD_DIRECTION;
 		}
 
+		/*Point set_position(POSITION_TYPE x) {
+			return position;
+		}
+
+		Point set_offset(POSITION_TYPE x) {
+		}*/
+
 		Bound bound() {
-			//bool with_borders = false
-			//Point shift(1, 1);
-			//if(with_borders) shift = Point(0, 0);
-			return Bound(Point(size.width, size.height) - Point(1, 1)); //shift
+			return Bound(Point(size.width, size.height) - Point(1, 1));
+		}
+
+		Bound border() {
+			return Bound(Point(size.width, size.height));
 		}
 
 		void display();
@@ -258,14 +274,10 @@ namespace engine {
 
 		Bound view_bound = this->bound();
 		Bound field_bound = field->bound() + shift;
-		Bound display_bound(
-			max(view_bound.initial, field_bound.initial),
-			min(view_bound.final, field_bound.final)
-		);
-		Bound real_bound(display_bound);
-
+		Bound display_bound = view_bound & field_bound;
+		Bound real_bound = display_bound - shift;
+		//real_bound -= shift;
 		display_bound.final += Point(1, 1);
-		real_bound -= shift;
 
 		// positioning
 		glPushMatrix();
