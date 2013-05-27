@@ -13,6 +13,7 @@ namespace controls {
 	{
 		engine::Point position;
 		engine::Point offset;
+		graphics::ANIMATION_TYPE animation_type = graphics::NONE;
 		switch(key)
 		{
 			case ESCAPE_KEY: exit(EXIT_SUCCESS); break;
@@ -24,11 +25,14 @@ namespace controls {
 			case 's': offset   = engine::Point( 0, -1); break;
 			case 'a': offset   = engine::Point(-1,  0); break;
 			case 'd': offset   = engine::Point( 1,  0); break;
+			case 'x': animation_type = graphics::FADE; break;
+			default: std::cout << "free: ";
 		}
 		game.views[std::string("View")]->position += position;
 		game.views[std::string("View")]->offset += offset;
+		//game.objects[std::string("Sokoban")];
 		std::cout << key << std::endl;
-		glutPostRedisplay();
+		//glutPostRedisplay();
 	}
 
 	/* Callbacks for special keys, such as:
@@ -42,22 +46,15 @@ namespace controls {
 		engine::Field * field = game.fields[std::string("Field")];
 		engine::Object * sokoban = game.objects[std::string("Sokoban")];
 		engine::Point step;
-		if(sokoban != NULL) {
-			switch(key)
-			{
-				case GLUT_KEY_UP:    step = engine::Point( 0,  1); break;
-				case GLUT_KEY_DOWN:  step = engine::Point( 0, -1); break;
-				case GLUT_KEY_LEFT:  step = engine::Point(-1,  0); break;
-				case GLUT_KEY_RIGHT: step = engine::Point( 1,  0); break;
-				//default:
-					//std::cout << key << std::endl;
-					//break;
-			}
-			sokoban->move(field, step);
-
-			//*(game.points[engine::Placement(sokoban, field)]) += step;
-			glutPostRedisplay();
+		switch(key)
+		{
+			case GLUT_KEY_UP:    step = engine::Point( 0,  1); break;
+			case GLUT_KEY_DOWN:  step = engine::Point( 0, -1); break;
+			case GLUT_KEY_LEFT:  step = engine::Point(-1,  0); break;
+			case GLUT_KEY_RIGHT: step = engine::Point( 1,  0); break;
 		}
+		sokoban->move(field, step);
+		//glutPostRedisplay();
 		std::cout << key << std::endl;
 	}
 

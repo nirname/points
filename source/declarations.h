@@ -3,6 +3,8 @@
 
 typedef unsigned int positive;
 
+float scale = 1.0;
+
 namespace lib {
 	//template <typename Type> class List;
 }
@@ -14,7 +16,6 @@ namespace graphics {
 
 	typedef Color * ColorPointer;
 	typedef Shape * ShapePointer;
-
 }
 
 namespace engine {

@@ -20,8 +20,10 @@
 
 #if defined(_WIN32) && defined(__GNUC__)
 	#include <gl/freeglut.h>
+	//#include <gl/glu.h>
 #elif defined(__linux__) && defined(__GNUC__)
 	#include <GL/freeglut.h>
+	//#include <GL/glu.h>
 #endif
 
 // own libraries

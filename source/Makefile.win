@@ -1,4 +1,4 @@
-# Project: square
+# Project: points
 # Makefile created by Dev-C++ 5.4.1
 
 CPP      = g++.exe
@@ -6,10 +6,10 @@ CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = main.o
 LINKOBJ  = main.o
-LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -lopengl32 -lfreeglut  
+LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -mwindows -lopengl32 -lfreeglut 
 INCS     = -I"C:/Program Files/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW32/include"
-BIN      = square.exe
+BIN      = points.exe
 CXXFLAGS = $(CXXINCS) 
 CFLAGS   = $(INCS) 
 RM       = rm -f

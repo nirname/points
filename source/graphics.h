@@ -19,63 +19,10 @@ const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2;
 
 const float DEG2RAD = 3.14159 / 180;
 
+#include "graphics/drawing.h"
+
 // square graphic library
 namespace graphics {
-
-	void square()
-	{
-		glPushMatrix();
-		glTranslatef(FIGURE_OFFSET, FIGURE_OFFSET, 0);
-		glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
-		glBegin(GL_POLYGON);
-		/*glVertex2f(FIGURE_OFFSET, FIGURE_OFFSET);
-		glVertex2f(FIGURE_OFFSET, FIGURE_BORDER);
-		glVertex2f(FIGURE_BORDER, FIGURE_BORDER);
-		glVertex2f(FIGURE_BORDER, FIGURE_OFFSET);
-		*/
-		glVertex2f(0, 0);
-		glVertex2f(1, 0);
-		glVertex2f(1, 1);
-		glVertex2f(0, 1);
-		glEnd();
-		glPopMatrix();
-	}
-
-	void ngon(int angles = 5, int step_over = 1) {
-		//float radius = FIGURE_SIZE / 2;
-		const float radius = 0.5;
-		int step = (360 / angles) * step_over;
-		int loop_length = angles;
-		int loops_count = 1;
-		if((angles % step_over) == 0)
-		{
-			loop_length = angles / step_over;
-			loops_count = step_over;
-		}
-
-		glPushMatrix();
-		glTranslatef(0.5, 0.5, 0);
-		glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
-		//glLineWidth(2);
-		for(int j = 0; j < loops_count; j++) {
-			//glBegin(GL_LINE_LOOP);
-			glBegin(GL_POLYGON);
-			for(int i = 0; i <= loop_length; i++) {
-				float deg_in_rad = (j * (360 / angles) + i * step) * DEG2RAD;
-				glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
-			}
-			glEnd();
-		}
-		glPopMatrix();
-	}
-
-	void circle() {
-		ngon(360);
-	}
-
-	void david() {
-		ngon(6, 2);
-	}
 
 	struct Color
 	{
@@ -126,6 +73,20 @@ namespace graphics {
 		}
 	};
 
+	struct Ring : Shape {
+		void display() {
+			circle();
+			glPushMatrix();
+			glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+			glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+			glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(WHITE);
+			circle();
+			glPopAttrib();
+			glPopMatrix();
+		}
+	};
+
 	struct NGon : Shape {
 		int angles, step_over;
 		NGon(int _angles = 6, int _step_over = 1) {
@@ -145,7 +106,8 @@ namespace graphics {
 		}
 	};
 
-	enum ANIMATION {
+	enum ANIMATION_TYPE {
+		NONE,
 		FADE,
 		SCALE,
 		SLIDE

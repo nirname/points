@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H 1
 
-#include "engine/primitives.h"
+#include "engine/base.h"
 
 // engine
 namespace engine {
@@ -22,7 +22,16 @@ namespace engine {
 		graphics::Shape * shape;
 		graphics::Color * color;
 
-		Object(graphics::Shape * _shape = NULL, graphics::Color * _color = NULL) : shape(_shape), color(_color) {
+		/*Object(const Object & _object) {
+			type = _object.type;
+			shape = _object.shape;
+			color = _object.color;
+			number = count++;
+		}*/
+
+		Object(graphics::Shape * _shape = NULL, graphics::Color * _color = NULL) :
+			shape(_shape), color(_color)
+		{
 			number = count++;
 		}
 
@@ -31,7 +40,7 @@ namespace engine {
 			//--count;
 		}
 
-		void place(Field *, Point _position);
+		//void place(Field *, Point _position);
 		void move(Field *, Point _step);
 		//void rotate(Field * _field) {}
 		//void symmetric(Field * _field) {}
@@ -49,14 +58,18 @@ namespace engine {
 		//std::list<Object> descendants;
 		//std::list<Points> mask;
 
+		void draw_shape() {
+			if(shape != NULL) {
+				shape->display();
+			} else graphics::square();
+		}
+
 		void display(const Point & _position = Point()) {
 			glPushMatrix();
 			glTranslatef(_position.column, _position.row, 0);
 			glPushAttrib(GL_CURRENT_BIT);
 			if(color != NULL) color->use();
-			if(shape != NULL) {
-				shape->display();
-			} else graphics::square();
+			draw_shape();
 			glPopAttrib();
 			glPopMatrix();
 		}
@@ -276,7 +289,6 @@ namespace engine {
 		Bound field_bound = field->bound() + shift;
 		Bound display_bound = view_bound & field_bound;
 		Bound real_bound = display_bound - shift;
-		//real_bound -= shift;
 		display_bound.final += Point(1, 1);
 
 		// positioning
@@ -292,7 +304,7 @@ namespace engine {
 	}
 
 	void View::draw_grid(const Bound & display_bound) {
-		glLineWidth(2);
+		//glLineWidth(2);
 		glBegin(GL_LINES);
 			if(display_bound.initial.row < display_bound.final.row) {
 				for(int x = display_bound.initial.column; x <= display_bound.final.column; x++) {
@@ -311,7 +323,7 @@ namespace engine {
 
 	void View::draw_border() {
 		// { drawing border
-		glLineWidth(5);
+		//glLineWidth(5);
 		//glPushAttrib(GL_CURRENT_BIT);
 		//glColor3ub(VIOLET);
 		glBegin(GL_LINE_LOOP);
@@ -337,15 +349,21 @@ namespace engine {
 		//std::cout << "----------" << std::endl;
 		//std::cout << shift << std::endl;
 		for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
-			glPushMatrix();
-				if(i->second != NULL && real_bound.contains(*(i->second))) {
-					//std::cout << *(i->second) << std::endl;
-					i->first.object->display(*(i->second));
-					glTranslatef(i->second->column, i->second->row, 0);
-					//graphics::square();
-				}
-			glPopMatrix();
+			if(i->second != NULL && real_bound.contains(*(i->second))) {
+				//std::cout << *(i->second) << std::endl;
+				i->first.object->display(*(i->second));
+				//glTranslatef(i->second->column, i->second->row, 0);
+				//graphics::square();
+			}
 		}
+		/*for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
+			if(i->second != NULL) {
+				glPushMatrix();
+					glTranslatef((GLfloat) i->second->column, (GLfloat) i->second->row, 0);
+					graphics::square();
+				glPopMatrix();
+			}
+		}*/
 		//std::cout << std::endl;
 		// drawing points }
 	}

@@ -1,5 +1,5 @@
-#ifndef ENGINE_PRIMITIVES
-#define ENGINE_PRIMITIVES 1
+#ifndef BASE_H
+#define BASE_H 1
 
 namespace engine {
 

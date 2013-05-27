@@ -9,33 +9,35 @@ int main(int argc, char * argv[])
 	//game.add_field("Field", 10, 10);
 	//game.add_view("View", "Field");
 	game.fields[std::string("Field")] = new engine::Field(10, 10);
+
 	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
-	game.views[std::string("View")]->size = engine::Size(12, 12);
-	game.views[std::string("View")]->offset = engine::Point(-1, -1);
+	game.views[std::string("View")]->size     = engine::Size(12, 12);
+	game.views[std::string("View")]->offset   = engine::Point(-1, -1);
 	game.views[std::string("View")]->position = engine::Point(3, 3);
 
 	//const char * shape_names [2] = ["a", "b"];
+	//engine::Object aaa();
+	//engine::Object bbb(aaa);
 
-	game.colors[std::string("Violet")] = new graphics::Color(VIOLET);
+	/*game.colors[std::string("Violet")] = new graphics::Color(VIOLET);
 	game.colors[std::string("Blue")] = new graphics::Color(BLUE);
 	game.colors[std::string("Green")] = new graphics::Color(GREEN);
 	game.shapes[std::string("Square")] = new graphics::Square();
 	game.shapes[std::string("Circle")] = new graphics::Circle();
-	game.shapes[std::string("David")] = new graphics::David();
-	game.shapes[std::string("EmptySquare")] = new graphics::EmptySquare();
+	game.shapes[std::string("David")] = new graphics::David();*/
+	graphics::Shape * empty_square =  new graphics::EmptySquare();
+	game.shapes[std::string("EmptySquare")] = empty_square;
+	//game.shapes[std::string("Ring")] = new graphics::Ring();
 
-	game.objects[std::string("Box1")] = new engine::Object();
-	game.objects[std::string("Box2")] = new engine::Object(game.shapes[std::string("EmptySquare")]);
-	game.objects[std::string("Box1")]->type = std::string("Box");
-	game.objects[std::string("Box2")]->type = std::string("Box");
-	game.objects[std::string("Sokoban")] = new engine::Object(
-		game.shapes[std::string("Square")],
-		game.colors[std::string("Violet")]
-	);
+	//game.objects[std::string("Box1")] = new engine::Object();
+	//game.objects[std::string("Box2")] = new engine::Object();
+	/*game.objects[std::string("Box1")]->type = std::string("Box");
+	game.objects[std::string("Box2")]->type = std::string("Box");*/
+	game.objects[std::string("Sokoban")] = new engine::Object(empty_square);
 
-	game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(3, 3);
-	game.points[ engine::Placement(game.objects[std::string("Box2")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
 	game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
+	//game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
+	//game.points[ engine::Placement(game.objects[std::string("Box2")], game.fields[std::string("Field")]) ] = new engine::Point(3, 3);
 
 	/*for(engine::PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
 		std::cout << *(i->first.object) << " at " << *(i->first.field) << " : ";
@@ -92,7 +94,8 @@ int main(int argc, char * argv[])
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0.0, screen.width, 0.0, screen.width, -1.0, 1.0);
+	gluOrtho2D(0.0, screen.width, 0.0, screen.width);
+	//glOrtho2(0.0, screen.width, 0.0, screen.width, -1.0, 1.0);
 	//glOrtho(0.0, screen.size.width, 0.0, screen.size.height, -1.0, 1.0);
 
 	// drawing

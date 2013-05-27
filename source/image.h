@@ -7,11 +7,15 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
+	int sleep = 50;
+	int direction = -1;
+
 	void display()
 	{
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT);
 
+		// clear screen
 		glColor3ub(WHITE);
 		glBegin(GL_POLYGON);
 			glVertex2f(0, 0);
@@ -20,36 +24,53 @@ namespace image {
 			glVertex2f(0, screen.height);
 		glEnd();
 
-		//glLoadIdentity();
-
 		glPushMatrix();
-		glColor3ub(BLACK);
+			glColor3ub(BLACK);
 
-		for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
-			view->second->display();
-		}
+			/*for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
+				view->second->display();
+			}*/
 
-			/*glPushMatrix();
-				glTranslatef(1, 1, 0);
-				glColor3ub(WHITE);
-				graphics::square();
-				glPushMatrix();
-					glTranslatef(1, 1, 0);
-					glColor3ub(RED);
-					graphics::square();
-				glPopMatrix();
-			glPopMatrix();*/
+			if(!(scale > 0 && scale < 1)) {
+				direction *= -1;
+			}
+			scale = scale + direction * 0.05;
+
+			glPushMatrix();
+				//glScalef(scale, scale, 0);
+				glLoadIdentity();
+				gluOrtho2D(0, 1, 0, 1);
+				//game.objects[std::string("Sokoban")]->display();
+				//graphics::ngon(3, 1);
+				//graphics::ngon(4, 1);
+				//graphics::ngon(5, 1);
+				//graphics::ngon(5, 2);
+				//graphics::ngon(6, 1);
+				graphics::ngon(6, 2);
+				//graphics::ngon(7, 1);
+				//graphics::ngon(7, 2);
+				//graphics::ngon(7, 3);
+				//graphics::ngon(8, 1);
+				//graphics::ngon(8, 2);
+				//graphics::ngon(8, 3);
+				//graphics::ngon(9, 1);
+				//graphics::ngon(9, 2);
+				//graphics::ngon(9, 3);
+				//graphics::ngon(9, 4);
+				//graphics::circle();
+			glPopMatrix();
 
 		glPopMatrix();
 
-		//glFlush();
+		glFlush();
 		glutSwapBuffers();
+
 	}
 
 	void redisplay(int timer)
 	{
 		glutPostRedisplay();
-		glutTimerFunc(10, redisplay, 0);
+		glutTimerFunc(sleep, redisplay, 0);
 	}
 
 	void reshape(int width, int length)

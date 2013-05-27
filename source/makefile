@@ -1,4 +1,4 @@
-# Project: square
+# Project: points
 # Makefile created manually
 
 CPP = g++
@@ -6,10 +6,10 @@ CC  = gcc
 COMPILER = $(CPP)
 OPTIONS = #-std=gnu++11
 
-LIBS = -lglut
+LIBS = -lglut -lGLU
 
-PROJECT=square
-EXECUTABLE=usquare.exe
+PROJECT=points
+EXECUTABLE=upoints.exe
 RM = rm -rf
 
 SOURCES = main.cpp
