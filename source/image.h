@@ -7,7 +7,7 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	int sleep = 50;
+	int sleep = 1000 / 30;
 	int direction = -1;
 
 	void display()
@@ -37,8 +37,8 @@ namespace image {
 			scale = scale + direction * 0.05;
 
 			glPushMatrix();
-				//glScalef(scale, scale, 0);
 				glLoadIdentity();
+				glScalef(scale, scale, 0);
 				gluOrtho2D(0, 1, 0, 1);
 				//game.objects[std::string("Sokoban")]->display();
 				//graphics::ngon(3, 1);
