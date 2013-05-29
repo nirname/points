@@ -92,10 +92,12 @@ int main(int argc, char * argv[])
 
 	glClearColor(BLACK, 0.0);
 
-	glMatrixMode(GL_PROJECTION);
+	//glMatrixMode(GL_PROJECTION);
+	//glMatrixMode(BASE_MATRIX_MODE);
 	glLoadIdentity();
 	gluOrtho2D(0.0, screen.width, 0.0, screen.width);
 	//glOrtho2(0.0, screen.width, 0.0, screen.width, -1.0, 1.0);
+	
 	//glOrtho(0.0, screen.size.width, 0.0, screen.size.height, -1.0, 1.0);
 
 	// drawing

@@ -5,21 +5,14 @@ namespace graphics {
 
 	void square() {
 		glPushMatrix();
-			//glTranslatef(FIGURE_OFFSET, FIGURE_OFFSET, 0);
 			glTranslatef(0.5, 0.5, 0);
-			glPushMatrix();
-				glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
-				glBegin(GL_POLYGON);
-				/*glVertex2f(0, 0);
-				glVertex2f(1, 0);
-				glVertex2f(1, 1);
-				glVertex2f(0, 1);/**/
-				glVertex2f( 0.5,  0.5);
-				glVertex2f(-0.5,  0.5);
-				glVertex2f(-0.5, -0.5);
-				glVertex2f( 0.5, -0.5);/**/
-				glEnd();
-			glPopMatrix();
+			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
+			glBegin(GL_POLYGON);
+			glVertex2f( 0.5,  0.5);
+			glVertex2f(-0.5,  0.5);
+			glVertex2f(-0.5, -0.5);
+			glVertex2f( 0.5, -0.5);
+			glEnd();
 		glPopMatrix();
 	}
 

@@ -217,7 +217,7 @@ namespace engine {
 
 		FieldMap  fields;
 		ViewMap   views;
-		ColorMap  colors;
+		ColorMap  colors; // !!! use opengl palette
 		ShapeMap  shapes;
 		ObjectMap objects;
 

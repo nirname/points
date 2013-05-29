@@ -20,11 +20,12 @@
 
 #if defined(_WIN32) && defined(__GNUC__)
 	#include <gl/freeglut.h>
-	//#include <gl/glu.h>
+	//#define BASE_MATRIX_MODE GL_MODELVIEW
 #elif defined(__linux__) && defined(__GNUC__)
 	#include <GL/freeglut.h>
-	//#include <GL/glu.h>
+	//#define BASE_MATRIX_MODE GL_PROJECTION
 #endif
+#define BASE_MATRIX_MODE GL_MODELVIEW
 
 // own libraries
 

@@ -3,7 +3,7 @@
 
 #define EMPTY_SIZE 0.6f
 #define FIGURE_SIZE 0.6f
-const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2;
+const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2.0;
 //const float FIGURE_BORDER = FIGURE_SIZE + FIGURE_OFFSET;
 
 //#define BLUE 20, 73, 233 // blue
@@ -16,6 +16,7 @@ const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2;
 #define AZURE 61, 222, 235
 #define VIOLET 175, 0, 185
 #define GRAY 127, 127, 127
+#define ORANGE 255, 221, 0
 
 const float DEG2RAD = 3.14159 / 180;
 
@@ -57,12 +58,12 @@ namespace graphics {
 		void display() {
 			square();
 			glPushMatrix();
-			glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
-			glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
-			glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(WHITE);
-			square();
-			glPopAttrib();
+				glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+				glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+				glPushAttrib(GL_CURRENT_BIT);
+					glColor3ub(BLUE);
+					square();
+				glPopAttrib();
 			glPopMatrix();
 		}
 	};

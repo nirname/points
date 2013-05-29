@@ -7,7 +7,7 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	int sleep = 1000 / 30;
+	int sleep = 1000 / 60;
 	int direction = -1;
 
 	void display()
@@ -24,17 +24,18 @@ namespace image {
 			glVertex2f(0, screen.height);
 		glEnd();
 
+		glColor3ub(BLACK);
 		glPushMatrix();
-			glColor3ub(BLACK);
-
-			/*for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
+			for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
 				view->second->display();
-			}*/
-
-			if(!(scale > 0 && scale < 1)) {
-				direction *= -1;
+			}/**/
+			/*if(scale >= 1) {
+				direction = -1;
 			}
-			scale = scale + direction * 0.05;
+			if(scale <= 0) {
+				direction = 1;
+			}
+			scale += direction * 0.02;
 
 			glPushMatrix();
 				glLoadIdentity();
@@ -46,9 +47,9 @@ namespace image {
 				//graphics::ngon(5, 1);
 				//graphics::ngon(5, 2);
 				//graphics::ngon(6, 1);
-				graphics::ngon(6, 2);
+				//graphics::ngon(6, 2);
 				//graphics::ngon(7, 1);
-				//graphics::ngon(7, 2);
+				graphics::ngon(7, 2);
 				//graphics::ngon(7, 3);
 				//graphics::ngon(8, 1);
 				//graphics::ngon(8, 2);
@@ -58,7 +59,7 @@ namespace image {
 				//graphics::ngon(9, 3);
 				//graphics::ngon(9, 4);
 				//graphics::circle();
-			glPopMatrix();
+			glPopMatrix();/**/
 
 		glPopMatrix();
 
@@ -91,7 +92,7 @@ namespace image {
 			(GLsizei)(side * screen.height)
 		);
 
-		glMatrixMode(GL_PROJECTION);
+		//glMatrixMode(BASE_MATRIX_MODE);
 		glLoadIdentity();
 		glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
 
