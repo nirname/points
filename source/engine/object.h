@@ -31,7 +31,8 @@ struct Object
 		}
 
 		//void place(Field *, Point _position);
-		void move(Field *, Point _step);
+		// returns true if moving was successed
+		bool move(Field *, Point _step);
 		//void rotate(Field * _field) {}
 		//void symmetric(Field * _field) {}
 		//transformation();
@@ -77,8 +78,8 @@ struct Object
 	}
 
 	int Object::count = 0;
-	
-	
+
+
 
 
 }

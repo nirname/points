@@ -3,14 +3,14 @@
 
 namespace engine {
 
-	
-	
+
+
 	/*struct Interaction {
 		ObjectKindType first_type;
 		ObjectKindType second_type;
 	};*/
-	
-	
+
+
 }
 
 #include "engine/base.h"
@@ -24,30 +24,50 @@ namespace engine {
 namespace engine {
 
 	//!!! optimize this part
-	void Object::move(Field * _field, Point _step) {
+	bool Object::move(Field * _field, Point _step) {
 		/*Placement placement(this, _field);
 		Point * position = game.points[placement];
 		if(position != NULL && _field->bound().contains(*position + _step)) {
 			*(position) += _step;
 		}*/
-		
+
+		//this_object_info
+		//next_object_info
+		//this_point_info
+		//next_point_info
+
 		//std::cout << "moving..." << std::endl;
 		ObjectsInformationIterator information = _field->data.objects.find(this);
+
 		if(_field->data.contains(information)) {
 			//std::cout << "has object" << std::endl;
 			Point next_position = information->second + _step;
-			if(!_field->data.contains(next_position)) {
+			PointsInformationIterator next_point_information = _field->data.points.find(next_position);
+			if(!_field->data.contains(next_point_information)) {
+
 				// use interactions here
 				if(_field->bound().contains(next_position)) {
 					_field->data.points.erase(information->second);
-					information->second += _step;
+					information->second = next_position;
 					_field->data.points[information->second] = this;
+					return true;
 				}
+
+			} else {
+
+					if(next_point_information->second->move(_field, _step)) {
+						_field->data.points.erase(information->second);
+						information->second = next_position;
+						_field->data.points[information->second] = this;
+						return true;
+					}
+
 			}
 			//std::cout << _field->data.objects[this] << std::endl;
 		}/* else {
 			//std::cout << "has no object" << std::endl;
 		}*/
+		return false;
 	}
 
 	/*struct Cell
@@ -67,7 +87,7 @@ namespace engine {
 		{}
 		std::string hash();
 	};
-	
+
 	std::string Placement::hash() {
 		if (object == NULL || field == NULL) {
 			return std::string();
@@ -83,8 +103,8 @@ namespace engine {
 
 
 	// Contains width and height expressed by count of horizontal and vertical squares
-	
-	
+
+
 
 	struct Level {
 		std::string name;
@@ -92,7 +112,7 @@ namespace engine {
 			return false;
 		}
 	};
-	
+
 
 } // engine
 
