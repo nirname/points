@@ -34,12 +34,12 @@ namespace engine {
 		}
 
 		bool operator < (const Point & x) const {
-			return column < x.column && row < x.row;
+			return row < x.row || (row == x.row && column < x.column);
 		}
 
-		bool operator <= (const Point & x) const {
-			return column <= x.column && row <= x.row;
-		}
+		/*bool operator <= (const Point & x) const {
+			return row <= x.row && column <= x.column;
+		}*/
 
 	};
 
@@ -100,7 +100,10 @@ namespace engine {
 		{}
 
 		bool contains(Point x) const {
-			return initial <= x && x <= final;
+			//return initial <= x && x <= final;
+			return initial.row <= x.row && x.row <= final.row &&
+			initial.column <= x.column && x.column <= final.column;
+			//return false;
 		}
 
 		Bound & operator += (const Point & x) {

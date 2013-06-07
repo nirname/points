@@ -62,6 +62,10 @@ namespace graphics {
 	void circle() {
 		ngon(360);
 	}
+	
+	void star() {
+		ngon(5, 2);
+	}
 
 	void david() {
 		ngon(6, 2);

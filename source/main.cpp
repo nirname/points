@@ -8,6 +8,7 @@ int main(int argc, char * argv[])
 	// move this logic to Level class
 	//game.add_field("Field", 10, 10);
 	//game.add_view("View", "Field");
+	//std::cout << (engine::Point(0, 0) < engine::Point(0, 1)) << std::endl;
 	game.fields[std::string("Field")] = new engine::Field(10, 10);
 
 	game.views[std::string("View")] = new engine::View(game.fields[std::string("Field")]);
@@ -25,17 +26,19 @@ int main(int argc, char * argv[])
 	game.shapes[std::string("Square")] = new graphics::Square();
 	game.shapes[std::string("Circle")] = new graphics::Circle();
 	game.shapes[std::string("David")] = new graphics::David();*/
-	graphics::Shape * empty_square =  new graphics::EmptySquare();
-	game.shapes[std::string("EmptySquare")] = empty_square;
+	graphics::Shape * sokoban_shape =  new graphics::Star();
+	game.shapes[std::string("SokobanShape")] = sokoban_shape;
 	//game.shapes[std::string("Ring")] = new graphics::Ring();
 
-	//game.objects[std::string("Box1")] = new engine::Object();
+	game.objects[std::string("Box1")] = new engine::Object();
 	//game.objects[std::string("Box2")] = new engine::Object();
 	/*game.objects[std::string("Box1")]->type = std::string("Box");
 	game.objects[std::string("Box2")]->type = std::string("Box");*/
-	game.objects[std::string("Sokoban")] = new engine::Object(empty_square);
+	game.objects[std::string("Sokoban")] = new engine::Object(sokoban_shape);
 
-	game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
+	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Sokoban")], engine::Point(1, 1)) << std::endl;
+	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Box1")], engine::Point(5, 5)) << std::endl;
+	//game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
 	//game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
 	//game.points[ engine::Placement(game.objects[std::string("Box2")], game.fields[std::string("Field")]) ] = new engine::Point(3, 3);
 

@@ -7,7 +7,7 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	int sleep = 1000 / 60;
+	int sleep = 1000 / 30;
 	int direction = -1;
 
 	void display()
@@ -26,21 +26,22 @@ namespace image {
 
 		glColor3ub(BLACK);
 		glPushMatrix();
-			for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
-				view->second->display();
-			}/**/
-			/*if(scale >= 1) {
+			if(scale >= 1) {
 				direction = -1;
 			}
 			if(scale <= 0) {
 				direction = 1;
 			}
-			scale += direction * 0.02;
+			scale += direction * 0.1;
 
-			glPushMatrix();
-				glLoadIdentity();
-				glScalef(scale, scale, 0);
-				gluOrtho2D(0, 1, 0, 1);
+			for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
+				view->second->display();
+			}
+
+			/*glPushMatrix();
+				//glLoadIdentity();
+				//glScalef(scale, scale, 0);
+				//gluOrtho2D(0, 1, 0, 1);
 				//game.objects[std::string("Sokoban")]->display();
 				//graphics::ngon(3, 1);
 				//graphics::ngon(4, 1);
@@ -49,7 +50,7 @@ namespace image {
 				//graphics::ngon(6, 1);
 				//graphics::ngon(6, 2);
 				//graphics::ngon(7, 1);
-				graphics::ngon(7, 2);
+				//graphics::ngon(7, 2);
 				//graphics::ngon(7, 3);
 				//graphics::ngon(8, 1);
 				//graphics::ngon(8, 2);
@@ -70,8 +71,14 @@ namespace image {
 
 	void redisplay(int timer)
 	{
-		glutPostRedisplay();
-		glutTimerFunc(sleep, redisplay, 0);
+		if(!game.paused) {
+			clock_t time;
+			time = clock();
+			glutPostRedisplay();
+			time = clock() - time;
+			//std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
+			glutTimerFunc(sleep, redisplay, 0);
+		}
 	}
 
 	void reshape(int width, int length)

@@ -2,7 +2,7 @@
 #define GRAPHICS_H 1
 
 #define EMPTY_SIZE 0.6f
-#define FIGURE_SIZE 0.6f
+#define FIGURE_SIZE 0.8f
 const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2.0;
 //const float FIGURE_BORDER = FIGURE_SIZE + FIGURE_OFFSET;
 
@@ -44,6 +44,7 @@ namespace graphics {
 
 	// Any shape
 	struct Shape {
+		float figure_size;
 		// add size (radius, or something like that)
 		virtual void display() = 0;
 	};
@@ -54,14 +55,38 @@ namespace graphics {
 		}
 	};
 
-	struct EmptySquare : public Shape {
+	/*void emptiness(void (Shape::*display)()){
+		display();
+		glPushMatrix();
+			glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+			glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+			glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(WHITE);
+				display();
+			glPopAttrib();
+		glPopMatrix();
+	}*/
+	
+	struct Star : Shape {
+		void display() {
+			star();
+		}
+	};
+	
+	struct EmptyStar : Star {
+		void display() {
+			//emptiness(Star::display);
+		}
+	};
+	
+	struct EmptySquare : Shape {
 		void display() {
 			square();
 			glPushMatrix();
 				glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
 				glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
 				glPushAttrib(GL_CURRENT_BIT);
-					glColor3ub(BLUE);
+					glColor3ub(WHITE);
 					square();
 				glPopAttrib();
 			glPopMatrix();
@@ -78,12 +103,12 @@ namespace graphics {
 		void display() {
 			circle();
 			glPushMatrix();
-			glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
-			glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
-			glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(WHITE);
-			circle();
-			glPopAttrib();
+				glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+				glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+				glPushAttrib(GL_CURRENT_BIT);
+					glColor3ub(WHITE);
+					circle();
+				glPopAttrib();
 			glPopMatrix();
 		}
 	};
@@ -99,8 +124,6 @@ namespace graphics {
 		}
 	};
 
-	class Star : Shape {};
-
 	struct David : Shape {
 		void display() {
 			david();
@@ -108,10 +131,25 @@ namespace graphics {
 	};
 
 	enum ANIMATION_TYPE {
-		NONE,
-		FADE,
-		SCALE,
-		SLIDE
+		NONE  = 0,
+		FADE  = 1,
+		SCALE = 2,
+		SLIDE = 4
+	};
+	
+	enum ANIMATION_VARIATION {
+		DECREASE,
+		INCREASE
+	};
+	
+	struct Animation {
+		int duration; // msec
+		ANIMATION_TYPE type;
+		ANIMATION_VARIATION variation;
+		
+		/*glTranslatef(0.5, 0.5, 0);
+		glScalef(scale, scale, 0);
+		glTranslatef(-0.5, -0.5, 0)*/
 	};
 
 }
