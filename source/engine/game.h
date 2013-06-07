@@ -3,7 +3,7 @@
 
 namespace engine {
 
-	
+
 
 	// Describes current game
 	struct Game {
@@ -17,6 +17,7 @@ namespace engine {
 		ColorMap  colors; // !!! use opengl palette
 		ShapeMap  shapes;
 		ObjectMap objects;
+
 		InteractionMap interactions;
 		// Use unordered hash instead
 		//PointMap points;

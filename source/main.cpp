@@ -34,10 +34,17 @@ int main(int argc, char * argv[])
 	//game.objects[std::string("Box2")] = new engine::Object();
 	/*game.objects[std::string("Box1")]->type = std::string("Box");
 	game.objects[std::string("Box2")]->type = std::string("Box");*/
-	game.objects[std::string("Sokoban")] = new engine::Object(sokoban_shape);
+
+	engine::Object * sokoban = new engine::Object();
+	sokoban->shape = sokoban_shape;
+	sokoban->kind = "Sokoban";
+	game.objects[std::string("Sokoban")] = sokoban;
 
 	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Sokoban")], engine::Point(1, 1)) << std::endl;
 	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Box1")], engine::Point(5, 5)) << std::endl;
+
+
+	game.interactions[engine::PairOfKinds(std::string("Sokoban"), std::string("Box"))] = engine::PUSH_INTERACTION;
 	//game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
 	//game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
 	//game.points[ engine::Placement(game.objects[std::string("Box2")], game.fields[std::string("Field")]) ] = new engine::Point(3, 3);
@@ -100,7 +107,7 @@ int main(int argc, char * argv[])
 	glLoadIdentity();
 	gluOrtho2D(0.0, screen.width, 0.0, screen.width);
 	//glOrtho2(0.0, screen.width, 0.0, screen.width, -1.0, 1.0);
-	
+
 	//glOrtho(0.0, screen.size.width, 0.0, screen.size.height, -1.0, 1.0);
 
 	// drawing

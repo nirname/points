@@ -45,7 +45,7 @@ namespace engine {
 			PointsInformationIterator next_point_information = _field->data.points.find(next_position);
 			if(!_field->data.contains(next_point_information)) {
 
-				// use interactions here
+				// we can move an object to empty cell
 				if(_field->bound().contains(next_position)) {
 					_field->data.points.erase(information->second);
 					information->second = next_position;
@@ -55,12 +55,19 @@ namespace engine {
 
 			} else {
 
-					if(next_point_information->second->move(_field, _step)) {
-						_field->data.points.erase(information->second);
-						information->second = next_position;
-						_field->data.points[information->second] = this;
-						return true;
-					}
+					// use interactions here
+					PairOfKinds interaction_between(this->kind, next_point_information->second->kind);
+					//InteractionMapIterator current_kind_iterator = game.interactions.find(interaction_between);
+					//if(current_kind_iterator != game.interactions.end())
+						//if(current_kind_iterator->second == PUSH_INTERACTION) {
+							if(next_point_information->second->move(_field, _step)) {
+								_field->data.points.erase(information->second);
+								information->second = next_position;
+								_field->data.points[information->second] = this;
+								return true;
+							}
+						//}
+					//}
 
 			}
 			//std::cout << _field->data.objects[this] << std::endl;
@@ -76,35 +83,6 @@ namespace engine {
 		//graphics::Shape * shape;
 		//Cell(graphics::Color _color, graphics::Shape * shape)
 	};*/
-
-	// Link between object and field
-	/*struct Placement
-	{
-		Object * object;
-		Field * field;
-		Placement(Object * _object, Field * _field):
-			object(_object), field(_field)
-		{}
-		std::string hash();
-	};
-
-	std::string Placement::hash() {
-		if (object == NULL || field == NULL) {
-			return std::string();
-		}
-		else {
-			return std::string(lib::to_string(object->number) + lib::to_string(field->number));
-		}
-	}
-
-	bool operator < (Placement a, Placement b) {
-		return a.hash() < b.hash();
-	}*/
-
-
-	// Contains width and height expressed by count of horizontal and vertical squares
-
-
 
 	struct Level {
 		std::string name;

@@ -31,7 +31,6 @@ namespace engine {
 	struct Object;
 	struct Point;
 	struct Size;
-	//struct Placement;
 
 	typedef Field  * FieldPointer;
 	typedef View   * ViewPointer;
@@ -40,30 +39,29 @@ namespace engine {
 
 	typedef std::string KeyType;
 	typedef std::string ObjectKindType;
-	//typedef const char * KeyType;
+
 	typedef std::map< KeyType, FieldPointer  > FieldMap;
 	typedef std::map< KeyType, ViewPointer   > ViewMap;
 	typedef std::map< KeyType, ObjectPointer > ObjectMap;
 
-	//typedef std::map< Placement, PointPointer > PointMap;
-
 	typedef std::map< KeyType, graphics::ColorPointer > ColorMap;
 	typedef std::map< KeyType, graphics::ShapePointer > ShapeMap;
-	
-	typedef std::map<Object *, Point> ObjectsInformation;
-	typedef std::map<Point, Object *> PointsInformation;
-	
+
+	typedef std::map< Object *, Point > ObjectsInformation;
+	typedef std::map< Point, Object * > PointsInformation;
+
 	typedef ObjectsInformation::iterator ObjectsInformationIterator;
 	typedef PointsInformation::iterator PointsInformationIterator;
-	
+
 	enum INTERACTION_TYPE {
-		PUSH,
-		DESTROY,
-		CREATE
+		PUSH_INTERACTION,
+		DESTROY_INTERACTION,
+		CREATE_INTERACTION
 	};
-	
-	typedef std::pair < ObjectKindType, ObjectKindType > PairOfKinds;
+
+	typedef std::pair< ObjectKindType, ObjectKindType > PairOfKinds;
 	typedef std::map< PairOfKinds, INTERACTION_TYPE > InteractionMap;
+	typedef InteractionMap::iterator InteractionMapIterator;
 
 }
 
