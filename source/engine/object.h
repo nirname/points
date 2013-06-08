@@ -62,6 +62,7 @@ struct Object
 				glPushAttrib(GL_CURRENT_BIT);
 					if(color != NULL) color->use();
 					glPushMatrix(); // animation goes here
+
 						glTranslatef(0.5, 0.5, 0);
 						glScalef(scale, scale, 0);
 						glTranslatef(-0.5, -0.5, 0);

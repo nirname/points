@@ -30,7 +30,14 @@ int main(int argc, char * argv[])
 	game.shapes[std::string("SokobanShape")] = sokoban_shape;
 	//game.shapes[std::string("Ring")] = new graphics::Ring();
 
-	game.objects[std::string("Box1")] = new engine::Object();
+	engine::Object * box;
+	box = new engine::Object();
+	box->kind = "Box";
+	game.objects[std::string("Box1")] = box;
+	box = new engine::Object();
+	box->kind = "Box";
+	game.objects[std::string("Box2")] = box;
+
 	//game.objects[std::string("Box2")] = new engine::Object();
 	/*game.objects[std::string("Box1")]->type = std::string("Box");
 	game.objects[std::string("Box2")]->type = std::string("Box");*/
@@ -41,7 +48,9 @@ int main(int argc, char * argv[])
 	game.objects[std::string("Sokoban")] = sokoban;
 
 	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Sokoban")], engine::Point(1, 1)) << std::endl;
+
 	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Box1")], engine::Point(5, 5)) << std::endl;
+	std::cout << game.fields[std::string("Field")]->data.add(game.objects[std::string("Box2")], engine::Point(6, 5)) << std::endl;
 
 
 	game.interactions[engine::PairOfKinds(std::string("Sokoban"), std::string("Box"))] = engine::PUSH_INTERACTION;

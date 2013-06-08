@@ -20,6 +20,8 @@ namespace engine {
 #include "engine/view.h"
 #include "engine/screen.h"
 
+#include "engine/game.h"
+
 // engine
 namespace engine {
 
@@ -57,17 +59,17 @@ namespace engine {
 
 					// use interactions here
 					PairOfKinds interaction_between(this->kind, next_point_information->second->kind);
-					//InteractionMapIterator current_kind_iterator = game.interactions.find(interaction_between);
-					//if(current_kind_iterator != game.interactions.end())
-						//if(current_kind_iterator->second == PUSH_INTERACTION) {
+					InteractionMapIterator current_kind_iterator = game.interactions.find(interaction_between);
+					if(current_kind_iterator != game.interactions.end()) {
+						if(current_kind_iterator->second == PUSH_INTERACTION) {
 							if(next_point_information->second->move(_field, _step)) {
 								_field->data.points.erase(information->second);
 								information->second = next_position;
 								_field->data.points[information->second] = this;
 								return true;
 							}
-						//}
-					//}
+						}
+					}
 
 			}
 			//std::cout << _field->data.objects[this] << std::endl;
@@ -93,7 +95,5 @@ namespace engine {
 
 
 } // engine
-
-#include "engine/game.h"
 
 #endif

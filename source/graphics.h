@@ -66,19 +66,19 @@ namespace graphics {
 			glPopAttrib();
 		glPopMatrix();
 	}*/
-	
+
 	struct Star : Shape {
 		void display() {
 			star();
 		}
 	};
-	
+
 	struct EmptyStar : Star {
 		void display() {
 			//emptiness(Star::display);
 		}
 	};
-	
+
 	struct EmptySquare : Shape {
 		void display() {
 			square();
@@ -136,20 +136,31 @@ namespace graphics {
 		SCALE = 2,
 		SLIDE = 4
 	};
-	
+
 	enum ANIMATION_VARIATION {
 		DECREASE,
 		INCREASE
 	};
-	
+
 	struct Animation {
 		int duration; // msec
 		ANIMATION_TYPE type;
 		ANIMATION_VARIATION variation;
-		
-		/*glTranslatef(0.5, 0.5, 0);
-		glScalef(scale, scale, 0);
-		glTranslatef(-0.5, -0.5, 0)*/
+		float progress;
+
+		void start() {}
+		void stop() {}
+		void apply() {
+			glTranslatef(0.5, 0.5, 0);
+			switch(type) {
+				case NONE:  break;
+				case FADE:  break;
+				case SCALE: glScalef(progress, progress, 0); break;
+				case SLIDE: break;
+			}
+			glTranslatef(-0.5, -0.5, 0);
+		}
+
 	};
 
 }

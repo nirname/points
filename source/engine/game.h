@@ -3,8 +3,6 @@
 
 namespace engine {
 
-
-
 	// Describes current game
 	struct Game {
 
@@ -26,6 +24,7 @@ namespace engine {
 			game_kind(_game_kind), paused(false)
 		{}
 
+		//~Game();
 		~Game(){
 			for(FieldMap::iterator i = fields.begin(); i != fields.end(); ++i) {
 				delete i->second;
