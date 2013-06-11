@@ -6,41 +6,14 @@
 const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2.0;
 //const float FIGURE_BORDER = FIGURE_SIZE + FIGURE_OFFSET;
 
-//#define BLUE 20, 73, 233 // blue
-#define WHITE 255, 255, 255
-#define BLACK 0, 0, 0
-#define BLUE 17, 154, 255
-#define YELLOW 255, 232, 17
-#define GREEN 28, 174, 35
-#define RED 235, 80, 80
-#define AZURE 61, 222, 235
-#define VIOLET 175, 0, 185
-#define GRAY 127, 127, 127
-#define ORANGE 255, 221, 0
-
 const float DEG2RAD = 3.14159 / 180;
 
+#include "graphics/color.h"
 #include "graphics/drawing.h"
+#include "graphics/animation.h"
 
-// square graphic library
+// graphic library
 namespace graphics {
-
-	struct Color
-	{
-		positive red, green, blue;
-
-		Color(positive _red, positive _green, positive _blue):
-			red(_red), green(_green), blue(_blue)
-		{}
-
-		Color():
-			red(0), green(0), blue(0)
-		{}
-
-		void use() {
-			glColor3ub(red, green, blue);
-		}
-	};
 
 	// Any shape
 	struct Shape {
@@ -128,39 +101,6 @@ namespace graphics {
 		void display() {
 			david();
 		}
-	};
-
-	enum ANIMATION_TYPE {
-		NONE  = 0,
-		FADE  = 1,
-		SCALE = 2,
-		SLIDE = 4
-	};
-
-	enum ANIMATION_VARIATION {
-		DECREASE,
-		INCREASE
-	};
-
-	struct Animation {
-		int duration; // msec
-		ANIMATION_TYPE type;
-		ANIMATION_VARIATION variation;
-		float progress;
-
-		void start() {}
-		void stop() {}
-		void apply() {
-			glTranslatef(0.5, 0.5, 0);
-			switch(type) {
-				case NONE:  break;
-				case FADE:  break;
-				case SCALE: glScalef(progress, progress, 0); break;
-				case SLIDE: break;
-			}
-			glTranslatef(-0.5, -0.5, 0);
-		}
-
 	};
 
 }

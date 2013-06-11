@@ -3,14 +3,21 @@
 
 namespace engine {
 
+/*struct ObjectKind {
+
+};*/
+
 struct Object
 	{
 		static int count;
+		static std::map<ObjectKindType, int> count_of_kind;
 
 		int number;
 		ObjectKindType kind;
 		graphics::Shape * shape;
 		graphics::Color * color;
+		typedef std::list<graphics::Animation *> AnimationList;
+		AnimationList animations;
 
 		/*Object(const Object & _object) {
 			type = _object.type;
@@ -32,6 +39,9 @@ struct Object
 
 		//void place(Field *, Point _position);
 		// returns true if moving was successed
+		//bool move(Field *, Point _step, graphics::Animation * _animation);
+		void go_to(Field * _field, Point _position);
+
 		bool move(Field *, Point _step);
 		//void rotate(Field * _field) {}
 		//void symmetric(Field * _field) {}
@@ -56,21 +66,8 @@ struct Object
 			} else graphics::square();
 		}
 
-		void display(const Point & _position = Point()) { //, const Animation & = NULL
-			glPushMatrix();
-				glTranslatef(_position.column, _position.row, 0);
-				glPushAttrib(GL_CURRENT_BIT);
-					if(color != NULL) color->use();
-					glPushMatrix(); // animation goes here
+		void display(const Point & _position);
 
-						glTranslatef(0.5, 0.5, 0);
-						glScalef(scale, scale, 0);
-						glTranslatef(-0.5, -0.5, 0);
-						draw_shape();
-					glPopMatrix();
-					glPopAttrib();
-			glPopMatrix();
-		}
 	};
 
 	std::ostream & operator << (std::ostream & _ostream, const Object & _object) {
@@ -79,8 +76,6 @@ struct Object
 	}
 
 	int Object::count = 0;
-
-
 
 
 }

@@ -5,6 +5,8 @@ typedef unsigned int positive;
 
 float scale = 1.0;
 
+typedef std::string KeyType;
+
 namespace lib {
 	//template <typename Type> class List;
 }
@@ -20,11 +22,18 @@ namespace graphics {
 
 	typedef Color * ColorPointer;
 	typedef Shape * ShapePointer;
+
+	struct Animation;
+	typedef Animation * AnimationPointer;
+	typedef std::map< KeyType, AnimationPointer > AnimationMap;
+	typedef AnimationMap::iterator AnimationMapIterator;
+
 }
 
 namespace engine {
 
 	struct Screen;
+	struct Level;
 	struct Game;
 	struct Field;
 	struct View;
@@ -37,7 +46,6 @@ namespace engine {
 	typedef Object * ObjectPointer;
 	typedef Point  * PointPointer;
 
-	typedef std::string KeyType;
 	typedef std::string ObjectKindType;
 
 	typedef std::map< KeyType, FieldPointer  > FieldMap;
@@ -47,14 +55,15 @@ namespace engine {
 	typedef std::map< KeyType, graphics::ColorPointer > ColorMap;
 	typedef std::map< KeyType, graphics::ShapePointer > ShapeMap;
 
-	typedef std::map< Object *, Point > ObjectsInformation;
-	typedef std::map< Point, Object * > PointsInformation;
+	typedef std::map< Object *, Point > ObjectInformation;
+	typedef std::map< Point, Object * > PointInformation;
 
-	typedef ObjectsInformation::iterator ObjectsInformationIterator;
-	typedef PointsInformation::iterator PointsInformationIterator;
+	typedef ObjectInformation::iterator ObjectInformationIterator;
+	typedef PointInformation::iterator PointInformationIterator;
 
 	enum INTERACTION_TYPE {
 		PUSH_INTERACTION,
+		PULL_INTERACTION,
 		DESTROY_INTERACTION,
 		CREATE_INTERACTION
 	};
@@ -62,6 +71,9 @@ namespace engine {
 	typedef std::pair< ObjectKindType, ObjectKindType > PairOfKinds;
 	typedef std::map< PairOfKinds, INTERACTION_TYPE > InteractionMap;
 	typedef InteractionMap::iterator InteractionMapIterator;
+
+	typedef std::list <Level> LevelList;
+	typedef LevelList::iterator LevelListIterator;
 
 }
 

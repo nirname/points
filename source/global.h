@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <stdio.h>
 #include <math.h>
 
@@ -29,6 +30,9 @@
 	//#define BASE_MATRIX_MODE GL_PROJECTION
 #endif
 #define BASE_MATRIX_MODE GL_MODELVIEW
+
+
+#include "include/yaml-cpp/yaml.h"
 
 // own libraries
 

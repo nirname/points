@@ -6,7 +6,10 @@ CC  = gcc
 COMPILER = $(CPP)
 OPTIONS = #-std=gnu++11
 
-LIBS = -lglut -lGLU
+INCLUDE_PATH = include
+LIBRARIES_PATH = libraries
+
+LIBS = -lglut -lGLU -lyaml-cpp
 
 PROJECT=points
 EXECUTABLE=upoints.exe
@@ -17,8 +20,7 @@ SOURCES = main.cpp
 all: $(PROJECT)
 
 $(PROJECT): $(SOURCES)
-	$(COMPILER) $(SOURCES) -o $(EXECUTABLE) $(LIBS) $(OPTIONS)
+	$(COMPILER) $(SOURCES) -o $(EXECUTABLE) -I $(INCLUDE_PATH) -L $(LIBRARIES_PATH) $(LIBS) $(OPTIONS)
 
 clean:
 	${RM} $(EXECUTABLE)
-

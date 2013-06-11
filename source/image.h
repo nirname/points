@@ -24,15 +24,20 @@ namespace image {
 			glVertex2f(0, screen.height);
 		glEnd();
 
-		glColor3ub(BLACK);
-		glPushMatrix();
-			if(scale >= 1) {
+		for (graphics::AnimationMapIterator i = game.animations.begin(); i != game.animations.end(); ++i) {
+			i->second->next();
+		}
+
+			/*if(scale >= 1) {
 				direction = -1;
 			}
 			if(scale <= 0) {
 				direction = 1;
 			}
-			scale += direction * 0.1;
+			scale += direction * 0.1;*/
+
+		glColor3ub(BLACK);
+		glPushMatrix();
 
 			for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
 				view->second->display();

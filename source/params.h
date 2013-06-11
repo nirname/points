@@ -13,7 +13,7 @@ namespace params
 	enum WINDOW_SIZE {TINY, SMALL, MIDDLE, LARGE};
 	WINDOW_SIZE window_size = SMALL;
 
-	void upload_params()
+	void load()
 	{
 		display_mode = GLUT_RGB | GLUT_DOUBLE;
 		switch(window_size)

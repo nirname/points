@@ -8,11 +8,16 @@ namespace graphics {
 			glTranslatef(0.5, 0.5, 0);
 			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
 			glBegin(GL_POLYGON);
+			//glColor3ub(BLUE);
 			glVertex2f( 0.5,  0.5);
+			//glColor3ub(GREEN);
 			glVertex2f(-0.5,  0.5);
+			//glColor3ub(YELLOW);
 			glVertex2f(-0.5, -0.5);
+			//glColor3ub(VIOLET);
 			glVertex2f( 0.5, -0.5);
 			glEnd();
+			//glColor3ub(BLACK);
 		glPopMatrix();
 	}
 
@@ -38,6 +43,7 @@ namespace graphics {
 		for(int j = 0; j < loops_count; j++) {
 			if(use_splitter) {
 				glBegin(GL_TRIANGLE_FAN);
+				//glColor3ub(YELLOW);
 				glVertex2f(0, 0);
 			} else {
 				glBegin(GL_POLYGON);
@@ -48,6 +54,12 @@ namespace graphics {
 			//glBegin(GL_TRIANGLE_STRIP);loop_length
 			for(int i = 0; i <= loop_length; i++) {
 				float deg_in_rad = (j * angle + i * step) * DEG2RAD;
+				/*if(i % 2 == 0) {
+					glColor3ub(BLUE);
+				} else {
+					glColor3ub(GREEN);
+				}*/
+				//glColor3ub(BLUE);
 				glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
 				/*if(use_splitter && i > 0) {
 					glVertex2f(0, 0);
@@ -55,14 +67,16 @@ namespace graphics {
 				}*/
 			}
 			glEnd();
+			//glColor3ub(BLACK);
 		}
 		glPopMatrix();
+		glColor3ub(BLACK);
 	}
 
 	void circle() {
 		ngon(360);
 	}
-	
+
 	void star() {
 		ngon(5, 2);
 	}
