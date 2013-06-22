@@ -3,6 +3,15 @@
 
 namespace engine {
 
+	/*void check_node(YAML::Node * _node, const char _option[]) {
+		std::cout << _option << ": ";
+		if((*_node)[_option]) {
+			std::cout << "true" << std::endl;
+		} else {
+			std::cout << "no" << std::endl;
+		}
+	}*/
+
 	// Describes current game
 	struct Game {
 
@@ -12,6 +21,7 @@ namespace engine {
 		bool paused;
 
 		LevelList    levels;
+
 		FieldMap     fields;
 		ViewMap      views;
 		ColorMap     colors; // !!! use opengl palette
@@ -50,6 +60,7 @@ namespace engine {
 			for(graphics::AnimationMap::iterator i = animations.begin(); i != animations.end(); ++i) {
 				delete i->second;
 			}
+
 		}
 
 		bool load() {
@@ -74,8 +85,19 @@ namespace engine {
 			}
 			level_data.close();*/
 
-			YAML::Node level_config = YAML::LoadFile("levels/qq.yaml");
-			std::cout << (level_config["first"].as<std::string>()) << std::endl;
+			/*YAML::Node level_config = YAML::LoadFile("levels/level_1.yaml");
+
+			if(level_config.IsMap()) {
+				check_node(&level_config, "kinds");
+				check_node(&level_config, "objects");
+				check_node(&level_config, "interactions");
+				check_node(&level_config, "fields");
+				check_node(&level_config, "views");
+			} else {
+				std::cout << "Config shoul contains mapping" << std::endl;
+			}*/
+
+			//std::cout << (level_config["first"].as<std::string>()) << std::endl;
 
 			/*YAML::Node node;
 			while(parser.GetNextDocument(node)) {
@@ -108,7 +130,8 @@ namespace engine {
 			//game.add_view("View", "Field");
 			//std::cout << (engine::Point(0, 0) < engine::Point(0, 1)) << std::endl;
 			//game.fields[std::string("Field")] = new engine::Field(10, 10);
-			field("Field")->size = engine::Size(10, 10);
+			fields["Field"] = new Field();
+			fields["Field"]->size = engine::Size(10, 10);
 
 			views["View"] = new engine::View(fields[std::string("Field")]);
 			views["View"]->size     = engine::Size(12, 12);
@@ -184,10 +207,63 @@ namespace engine {
 			}
 		}
 
+		#define GET_COMPONENT(_Type, _component)\
+		_Type##Pointer get_##_component(std::string _name) {\
+			_Type##Pointer result = NULL;\
+			if(_component##s.find(_name) != _component##s.end()) {\
+				result = _component##s[_name];\
+			}\
+			return result;\
+		}
+
+		#define ADD_COMPONENT(_Type, _component)\
+		_Type##Pointer add_##_component(std::string _name) {\
+			_Type##Pointer result = NULL;\
+			if(_get_##_component != NULL) {\
+				result = new _Type();\
+				_component##s[_name] = result;\
+			}\
+			return result;\
+		}
+
+		GET_COMPONENT(Field,  field);
+		GET_COMPONENT(View,   view);
+		GET_COMPONENT(Object, object);
+
+		GET_COMPONENT(graphics::Color, color);
+		GET_COMPONENT(graphics::Shape, shape);
+
+		/*FieldPointer get_field(std::string _name) {
+			FieldPointer result = NULL;
+			if(fields.find(_name) != fields.end()) {
+				result = fields[_name];
+			}
+			return result;
+		}*/
+
+		/*FieldPointer add_field(std::string _name) {
+			FieldPointer result = NULL;
+			if(get_field(_name) != NULL) {
+				result = new Field();
+				fields[_name] = result;
+			}
+			return result;
+		}*/
+
+		void remove_field(std::string _name) {
+			FieldPointer field = get_field(_name);
+			if(field != NULL) {
+				delete field;
+			}
+			fields.erase(_name);
+		}
+
+
 		/*FieldPointer field(const char * _name) {
 			field(std::string(_name));
 		}*/
-		FieldPointer field(std::string _name) {
+
+		/**FieldPointer field(std::string _name) {
 			if(fields.find(_name) != fields.end()) {
 				return fields[_name];
 			} else {
@@ -195,7 +271,7 @@ namespace engine {
 				fields[_name] = new_field;
 				return new_field;
 			}
-		}
+		}*/
 		/*FieldPointer add_field(const char * _name, int _width = 1, int _height = 1) {
 			std::string field_name(_name);
 			FieldPointer field;
@@ -209,8 +285,81 @@ namespace engine {
 			return field;
 		}*/
 
+//< KeyType, _ResultType >
+
+		/*template<typename ResultType> ResultType get(std::string _name, typename Mapping<ResultType>::Pointer _component) {
+			ResultType result;
+			if(_component != NULL) { // make fetch
+				if(_component->find(_name) != _component->end()) {
+					result = (*_component)[_name];
+				}
+			}
+			return result;
+		}*/
+
+		/*FieldPointer get_field(std::string _name) {
+			return get<FieldPointer>(_name, &fields);
+		}*/
+
+		/*FieldPointer add_field(std::string _name) { }*/
+
+		// make this one private
+		//std::map<KeyType, ResultType> *
+		//(typename Mapping<ResultType>::Pointer)
+		/*template<typename ResultType> struct Component {
+			typedef typename Mapping<ResultType>::Pointer ResultTypeMappingPointer;
+			template<ResultType> static ResultTypeMappingPointer get() {
+				// throw an exception here!!! unknown component!
+				return NULL;
+			}
+		};*/
+
+		/*template<typename ResultType> std::map<KeyType, ResultType> * component_by_type() {
+			// throw an exception here!!! unknown component!
+			return NULL;
+		}
+
+		template<typename ResultType> ResultType get(std::string _name) {
+			//typename Mapping<ResultType>::Pointer component = Component<ResultType>::get();
+			typename Mapping<ResultType>::Pointer component = component_by_type<ResultType>();
+			ResultType result;
+			if(component != NULL && component->find(_name) != component->end()) {
+				result = (*component)[_name];
+			}
+			return result;
+		}*/
+
+		/*template<typename ResultType> ResultType add(std::string _name) {
+			typename Mapping<ResultType>::Pointer component = component_by_type<ResultType>();
+		}*/
+
 	};
 
+	/*template<> FieldMapPointer Game::Component<FieldMapPointer>::get() {
+		return & fields;
+	}*/
+
+	/*template<> FieldMapPointer Game::component_by_type () {
+		return & fields;
+	}
+	template<> ViewMapPointer Game::component_by_type () {
+		return & views;
+	}
+	template<> ObjectMapPointer Game::component_by_type () {
+		return & objects;
+	}
+	template<> ColorMapPointer Game::component_by_type () {
+		return & colors;
+	}
+	template<> ShapeMapPointer Game::component_by_type () {
+		return & shapes;
+	}*/
+
+	/*#
+	define _FIELD_COMPONENT_ACCESSOR(TYPE) 1
+	*/
+
 }
+
 
 #endif

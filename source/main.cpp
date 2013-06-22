@@ -15,6 +15,10 @@ int main(int argc, char * argv[])
 	//graphics::load_palette();
 	params::load();
 	game.load();
+	//game.fields.erase("qq");
+	std::cout << *game.get_field("Field") << std::endl;
+	//game.component_by_type<engine::View *>();
+	//std::cout << * game.get<engine::Field *>("Field") << std::endl;
 
 	/*std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
 	std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;

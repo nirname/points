@@ -32,7 +32,7 @@
 #define BASE_MATRIX_MODE GL_MODELVIEW
 
 
-#include "include/yaml-cpp/yaml.h"
+//#include "include/yaml-cpp/yaml.h"
 
 // own libraries
 

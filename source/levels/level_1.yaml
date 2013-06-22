@@ -1,48 +1,46 @@
----
 interactions:
-  #sokoban: # it's an object kind name
-  #  push:
-  #    - light_box
-  #    - heavy_box
-  sokoban: # it's an object kind name
-    light_box: *push
-    heavy_box: *push
+  sokoban: # object kind
+    push: # interactions
+      - light_box
+      - heavy_box
   heavy_box:
-    light_box: *push
+    push: light_box # scalar or sequense
+
+kinds:
+  light_box:
+    color: green
+  heavy_box:
+    color: blue
+  sokoban:
+    color: violet
+    shape: star
 
 objects:
-  box_1:
-    color: *green
-    kind: light_box
-  box_2:
-    color: *green
-    kind: light_box
-  box_3:
-    color: *blue
-    kind: heavy_box
+  light_box:
+    - box_1
+    - box_2
+  heavy_box:
+    - box_3
   sokoban:
-    color: *violet
-    kind: sokoban
-    shape: *star
+    - sokoban_1
+    - sokoban_2
 
 fields:
-  field: # field name
+  field:
     size:
       width: 10
       height: 10
     objects:
-      sokoban:
+      sokoban: # object name
         column: 1
         row: 1
-      box_1:
+      box_1: # you may use mapping with 'column' and 'row' keys ...
         column: 5
-        row:    5
-      box_2:
-        column: 6
-        row:    5
-      box_3:
-        column: 4
-        row:    3
+        row: 5
+      box_2: # ... or 2 element sequense
+        - 6
+        - 5
+      box_3: [4, 3]# it can be written as a comma separated list within square brackets
 
 views:
   view:

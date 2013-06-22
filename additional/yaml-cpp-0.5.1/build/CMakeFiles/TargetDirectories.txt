@@ -1,0 +1,7 @@
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/CMakeFiles/debuggable.dir
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/util/CMakeFiles/parse.dir
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/util/CMakeFiles/read.dir
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/CMakeFiles/releasable.dir
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/test/CMakeFiles/run-tests.dir
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/util/CMakeFiles/sandbox.dir
+E:/Nicolas/Projects/Games/Points/additional/yaml-cpp-0.5.1/build/CMakeFiles/yaml-cpp.dir

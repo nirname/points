@@ -34,7 +34,7 @@ namespace engine {
 			number = count++;
 		}
 		~Field() {
-			//--count;
+			
 		}
 		INFINITY_TYPE infinity_type() {
 			return INFINITY_TYPE(

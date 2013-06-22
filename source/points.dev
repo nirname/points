@@ -4,14 +4,14 @@ Name=points
 Type=1
 Ver=2
 ObjFiles=
-Includes=
-Libs=
+Includes=E:\Nicolas\Projects\Games\Points\source\include\;"C:\Program Files\boost\boost_1_51\"
+Libs=E:\Nicolas\Projects\Games\Points\source\libraries\windows
 PrivateResource=
 ResourceIncludes=
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker=-lopengl32_@@_-lfreeglut_@@_-lglu32_@@__@@_
+Linker=-lopengl32_@@_-lfreeglut_@@_-lglu32_@@_-lyaml-cpp_@@_
 IsCpp=1
 Icon=
 ExeOutput=
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=20
+UnitCount=21
 
 [VersionInfo]
 Major=1
@@ -242,6 +242,16 @@ BuildCmd=
 
 [Unit20]
 FileName=graphics\animation.h
+CompileCpp=1
+Folder=graphics
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit21]
+FileName=graphics\color.h
 CompileCpp=1
 Folder=graphics
 Compile=1

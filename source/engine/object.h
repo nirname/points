@@ -3,21 +3,30 @@
 
 namespace engine {
 
-/*struct ObjectKind {
+struct ObjectKind {
+	static int count;
+	int number;
+	graphics::Shape * shape;
+	graphics::Color * color;
 
-};*/
+	ObjectKind() {
+		number = ++count;
+	}
+};
+
+int ObjectKind::count = 0;
 
 struct Object
 	{
 		static int count;
-		static std::map<ObjectKindType, int> count_of_kind;
+		//static std::map<ObjectKindType, int> count_of_kind;
 
 		int number;
 		ObjectKindType kind;
 		graphics::Shape * shape;
 		graphics::Color * color;
-		typedef std::list<graphics::Animation *> AnimationList;
-		AnimationList animations;
+		/*typedef std::list<graphics::Animation *> AnimationList;
+		AnimationList animations;*/
 
 		/*Object(const Object & _object) {
 			type = _object.type;

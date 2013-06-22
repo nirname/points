@@ -1,11 +1,33 @@
 #ifndef DECLARATIONS_H
 #define DECLARATIONS_H 1
 
+
+// make types.h without namespace
 typedef unsigned int positive;
-
-float scale = 1.0;
-
 typedef std::string KeyType;
+
+//template<typename> class Mapping
+template<typename ValueType> struct Mapping {
+	typedef std::map<KeyType, ValueType> Type;
+	typedef Type * Pointer;
+};
+
+//typename std::map Mapping;
+/*template<typename T>
+struct At
+{
+	typedef typename A<T, true> Type;
+};
+
+template<typename T>
+struct Af
+{
+	typedef typename A<T, false> Type;
+};
+
+Af<int>::Type foo;
+At<float>::Type bar;*/
+
 
 namespace lib {
 	//template <typename Type> class List;
@@ -27,7 +49,6 @@ namespace graphics {
 	typedef Animation * AnimationPointer;
 	typedef std::map< KeyType, AnimationPointer > AnimationMap;
 	typedef AnimationMap::iterator AnimationMapIterator;
-
 }
 
 namespace engine {
@@ -48,12 +69,26 @@ namespace engine {
 
 	typedef std::string ObjectKindType;
 
-	typedef std::map< KeyType, FieldPointer  > FieldMap;
-	typedef std::map< KeyType, ViewPointer   > ViewMap;
-	typedef std::map< KeyType, ObjectPointer > ObjectMap;
+	typedef Mapping< FieldPointer  > FieldMetaMapping;
+	typedef Mapping< ViewPointer   > ViewMetaMapping;
+	typedef Mapping< ObjectPointer > ObjectMetaMapping;
+	typedef Mapping< graphics::ColorPointer > ColorMetaMapping;
+	typedef Mapping< graphics::ShapePointer > ShapeMetaMapping;
 
-	typedef std::map< KeyType, graphics::ColorPointer > ColorMap;
-	typedef std::map< KeyType, graphics::ShapePointer > ShapeMap;
+	typedef typename  FieldMetaMapping::Type  FieldMap;
+	typedef typename   ViewMetaMapping::Type   ViewMap;
+	typedef typename ObjectMetaMapping::Type ObjectMap;
+	typedef typename  ColorMetaMapping::Type  ColorMap;
+	typedef typename  ShapeMetaMapping::Type  ShapeMap;
+
+	typedef typename  FieldMetaMapping::Pointer  FieldMapPointer;
+	typedef typename   ViewMetaMapping::Pointer   ViewMapPointer;
+	typedef typename ObjectMetaMapping::Pointer ObjectMapPointer;
+	typedef typename  ColorMetaMapping::Pointer  ColorMapPointer;
+	typedef typename  ShapeMetaMapping::Pointer  ShapeMapPointer;
+
+	/*typedef Mapping< graphics::ColorPointer >::Type ColorMap;
+	typedef Mapping< graphics::ShapePointer >::Type ShapeMap;*/
 
 	typedef std::map< Object *, Point > ObjectInformation;
 	typedef std::map< Point, Object * > PointInformation;

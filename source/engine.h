@@ -30,9 +30,9 @@ namespace engine {
 				//graphics::use_color(color);
 				if(color != NULL) color->use();
 				glPushMatrix(); // animation goes here
-					for(AnimationList::iterator a = animations.begin(); a != animations.end(); ++a) {
+					/*for(AnimationList::iterator a = animations.begin(); a != animations.end(); ++a) {
 						(*a)->apply();
-					}
+					}*/
 					//game.animations["Scale"]->apply();
 					/*glTranslatef(0.5, 0.5, 0);
 					glScalef(scale, scale, 0);

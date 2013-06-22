@@ -1,0 +1,53 @@
+interactions:
+  sokoban:
+    light_box: push
+    heavy_box: push
+  heavy_box:
+    light_box: push
+
+objects:
+  box_1:
+    color: green
+    kind: light_box
+  box_2:
+    color: green
+    kind: light_box
+  box_3:
+    color: blue
+    kind: heavy_box
+  sokoban:
+    color: violet
+    kind: sokoban
+    shape: star
+
+fields:
+  field:
+    size:
+      width: 10
+      height: 10
+    objects:
+      sokoban:
+        column: 1
+        row: 1
+      box_1:
+        column: 5
+        row:    5
+      box_2:
+        column: 6
+        row:    5
+      box_3:
+        column: 4
+        row:    3
+
+views:
+  view:
+    field: field
+    size:
+      width: 12
+      height: 12
+    offset:
+      column: -1
+      row: -1
+    position:
+      column: 3
+      row: 3
