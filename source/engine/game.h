@@ -22,11 +22,12 @@ namespace engine {
 
 		LevelList    levels;
 
-		FieldMap     fields;
-		ViewMap      views;
-		ColorMap     colors; // !!! use opengl palette
-		ShapeMap     shapes;
-		ObjectMap    objects;
+		FieldMap      fields;
+		ViewMap       views;
+		ColorMap      colors; // !!! use opengl palette
+		ShapeMap      shapes;
+		ObjectKindMap object_kinds;
+		ObjectMap     objects;
 
 		graphics::AnimationMap animations;
 
@@ -52,6 +53,9 @@ namespace engine {
 				delete i->second;
 			}
 			for(ShapeMap::iterator i = shapes.begin(); i != shapes.end(); ++i) {
+				delete i->second;
+			}
+			for(ObjectKindMap::iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
 				delete i->second;
 			}
 			for(ObjectMap::iterator i = objects.begin(); i != objects.end(); ++i) {
@@ -145,42 +149,43 @@ namespace engine {
 			/*shapes[std::string("Square")] = new graphics::Square();
 			shapes[std::string("Circle")] = new graphics::Circle();
 			shapes[std::string("David")] = new graphics::David();/**/
-			graphics::Shape * sokoban_shape =  new graphics::Star();
-			shapes[std::string("SokobanShape")] = sokoban_shape;
+
+			shapes[std::string("Star")] = new graphics::Star();
 			shapes[std::string("Ring")] = new graphics::Ring();
 
-			engine::Object * box;
-			box = new engine::Object();
+			ObjectKind * sokoban = new ObjectKind();
+			sokoban->shape = shapes[std::string("Star")];
+			sokoban->color = colors[std::string("Violet")];
+			object_kinds[std::string("Sokoban")] = sokoban;
+			ObjectKind * box = new ObjectKind();
 			box->color = colors[std::string("Green")];
-			box->kind = "Box";
-			objects[std::string("Box1")] = box;
-			box = new engine::Object();
-			box->color = colors[std::string("Green")];
-			box->kind = "Box";
-			objects[std::string("Box2")] = box;
-			engine::Object * heavy = new engine::Object();
+			object_kinds[std::string("Box")] = box;
+			ObjectKind * heavy = new ObjectKind();
 			heavy->color = colors[std::string("Blue")];
-			heavy->kind = "Heavy";
-			objects[std::string("Heavy")] = heavy;
+			object_kinds[std::string("Heavy")] = heavy;
+
+			Object * box1 = new engine::Object();
+			box1->kind = object_kinds[std::string("Box")];
+			objects[std::string("Box1")] = box1;
+			engine::Object * heavy1 = new engine::Object();
+			heavy1->kind = object_kinds[std::string("Heavy")];
+			objects[std::string("Heavy")] = heavy1;
 			//game.objects[std::string("Box2")] = new engine::Object();
 			/*game.objects[std::string("Box1")]->type = std::string("Box");
 			game.objects[std::string("Box2")]->type = std::string("Box");*/
 
-			engine::Object * sokoban = new engine::Object();
-			sokoban->shape = sokoban_shape;
-			sokoban->color = colors[std::string("Violet")];
-			sokoban->kind = "Sokoban";
+			engine::Object * sokoban1 = new engine::Object();
+			sokoban1->kind = object_kinds[std::string("Sokoban")];
 			//sokoban->animations.push_back(animation);
-			objects[std::string("Sokoban")] = sokoban;
+			objects[std::string("Sokoban")] = sokoban1;
 
 			fields[std::string("Field")]->data.add(objects[std::string("Sokoban")], engine::Point(1, 1));
 
-			interactions[engine::PairOfKinds(std::string("Sokoban"), std::string("Box"))] = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(std::string("Sokoban"), std::string("Heavy"))] = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(std::string("Heavy"), std::string("Box"))] = engine::PUSH_INTERACTION;
-
+			interactions[engine::PairOfKinds(sokoban, box)] = engine::PUSH_INTERACTION;
+			interactions[engine::PairOfKinds(sokoban, heavy)] = engine::PUSH_INTERACTION;
+			interactions[engine::PairOfKinds(heavy, box)]   = engine::PUSH_INTERACTION;
 			fields[std::string("Field")]->data.add(objects[std::string("Box1")], engine::Point(5, 5));
-			fields[std::string("Field")]->data.add(objects[std::string("Box2")], engine::Point(6, 5));
+			//fields[std::string("Field")]->data.add(objects[std::string("Box2")], engine::Point(6, 5));
 			fields[std::string("Field")]->data.add(objects[std::string("Heavy")], engine::Point(4, 3));
 
 			//game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);

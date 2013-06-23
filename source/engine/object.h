@@ -15,6 +15,7 @@ struct ObjectKind {
 };
 
 int ObjectKind::count = 0;
+//typedef ObjectKind * ObjectKindPointer;
 
 struct Object
 	{
@@ -22,9 +23,10 @@ struct Object
 		//static std::map<ObjectKindType, int> count_of_kind;
 
 		int number;
-		ObjectKindType kind;
-		graphics::Shape * shape;
-		graphics::Color * color;
+		//ObjectKindType kind;
+		ObjectKindPointer kind;
+		/*graphics::Shape * shape;
+		graphics::Color * color;*/
 		/*typedef std::list<graphics::Animation *> AnimationList;
 		AnimationList animations;*/
 
@@ -35,9 +37,12 @@ struct Object
 			number = count++;
 		}*/
 
-		Object(graphics::Shape * _shape = NULL, graphics::Color * _color = NULL) :
+		/*Object(graphics::Shape * _shape = NULL, graphics::Color * _color = NULL) :
 			shape(_shape), color(_color)
 		{
+			number = count++;
+		}*/
+		Object() {
 			number = count++;
 		}
 
@@ -70,9 +75,15 @@ struct Object
 
 		// make this one private
 		void draw_shape() {
-			if(shape != NULL) {
-				shape->display();
+			if(kind != NULL && kind->shape != NULL) {
+				kind->shape->display();
 			} else graphics::square();
+		}
+
+		void use_color() {
+			if(kind != NULL && kind->color != NULL) {
+				kind->color->use();
+			}
 		}
 
 		void display(const Point & _position);

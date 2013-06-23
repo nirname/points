@@ -28,7 +28,7 @@ namespace engine {
 			glTranslatef(_position.column, _position.row, 0);
 			glPushAttrib(GL_CURRENT_BIT);
 				//graphics::use_color(color);
-				if(color != NULL) color->use();
+				use_color();
 				glPushMatrix(); // animation goes here
 					/*for(AnimationList::iterator a = animations.begin(); a != animations.end(); ++a) {
 						(*a)->apply();
@@ -60,6 +60,7 @@ namespace engine {
 
 	// !!! optimize this part
 	// !!! rename objects and points collections
+	// use stack?
 	bool Object::move(Field * _field, Point _step) {
 
 		//this_object_info
