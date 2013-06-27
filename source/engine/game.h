@@ -164,11 +164,15 @@ namespace engine {
 			heavy->color = colors[std::string("Blue")];
 			object_kinds[std::string("Heavy")] = heavy;
 
-			Object * box1 = new engine::Object();
-			box1->kind = object_kinds[std::string("Box")];
+			interactions[engine::PairOfKinds(sokoban, box)]   = engine::PUSH_INTERACTION;
+			interactions[engine::PairOfKinds(sokoban, heavy)] = engine::PUSH_INTERACTION;
+			interactions[engine::PairOfKinds(heavy, box)]     = engine::PUSH_INTERACTION;
+
+			Object * box1 = new engine::Object(box);
+			//box1->kind = object_kinds[std::string("Box")];
 			objects[std::string("Box1")] = box1;
-			engine::Object * heavy1 = new engine::Object();
-			heavy1->kind = object_kinds[std::string("Heavy")];
+			engine::Object * heavy1 = new engine::Object(heavy);
+			//heavy1->kind = object_kinds[std::string("Heavy")];
 			objects[std::string("Heavy")] = heavy1;
 			//game.objects[std::string("Box2")] = new engine::Object();
 			/*game.objects[std::string("Box1")]->type = std::string("Box");
@@ -180,10 +184,6 @@ namespace engine {
 			objects[std::string("Sokoban")] = sokoban1;
 
 			fields[std::string("Field")]->data.add(objects[std::string("Sokoban")], engine::Point(1, 1));
-
-			interactions[engine::PairOfKinds(sokoban, box)] = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(sokoban, heavy)] = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(heavy, box)]   = engine::PUSH_INTERACTION;
 			fields[std::string("Field")]->data.add(objects[std::string("Box1")], engine::Point(5, 5));
 			//fields[std::string("Field")]->data.add(objects[std::string("Box2")], engine::Point(6, 5));
 			fields[std::string("Field")]->data.add(objects[std::string("Heavy")], engine::Point(4, 3));
@@ -212,7 +212,7 @@ namespace engine {
 			}
 		}
 
-		#define GET_COMPONENT(_Type, _component)\
+		/*#define GET_COMPONENT(_Type, _component)\
 		_Type##Pointer get_##_component(std::string _name) {\
 			_Type##Pointer result = NULL;\
 			if(_component##s.find(_name) != _component##s.end()) {\
@@ -237,58 +237,35 @@ namespace engine {
 
 		GET_COMPONENT(graphics::Color, color);
 		GET_COMPONENT(graphics::Shape, shape);
+		*/
 
-		/*FieldPointer get_field(std::string _name) {
+		FieldPointer get_field(std::string _name) {
 			FieldPointer result = NULL;
 			if(fields.find(_name) != fields.end()) {
 				result = fields[_name];
 			}
 			return result;
-		}*/
+		}
 
-		/*FieldPointer add_field(std::string _name) {
+		FieldPointer add_field(std::string _name) {
 			FieldPointer result = NULL;
 			if(get_field(_name) != NULL) {
 				result = new Field();
 				fields[_name] = result;
 			}
 			return result;
-		}*/
+		}
 
-		void remove_field(std::string _name) {
+		//template<typename Type, Game::*component> get
+
+		/*void remove_field(std::string _name) {
 			FieldPointer field = get_field(_name);
 			if(field != NULL) {
 				delete field;
 			}
 			fields.erase(_name);
-		}
-
-
-		/*FieldPointer field(const char * _name) {
-			field(std::string(_name));
 		}*/
 
-		/**FieldPointer field(std::string _name) {
-			if(fields.find(_name) != fields.end()) {
-				return fields[_name];
-			} else {
-				FieldPointer new_field = new Field;
-				fields[_name] = new_field;
-				return new_field;
-			}
-		}*/
-		/*FieldPointer add_field(const char * _name, int _width = 1, int _height = 1) {
-			std::string field_name(_name);
-			FieldPointer field;
-			if(fields[field_name] != NULL) {
-				field = fields[field_name];
-				std::cout << "Field \"" << _name << "\" already exists" << std::endl;
-			} else {
-				field = new engine::Field(_width, _height);
-				fields[field_name] = field;
-			}
-			return field;
-		}*/
 
 //< KeyType, _ResultType >
 
@@ -319,23 +296,45 @@ namespace engine {
 			}
 		};*/
 
-		/*template<typename ResultType> std::map<KeyType, ResultType> * component_by_type() {
+		/*template<typename ResultTypePointer>
+		MAPPING(ResultTypePointer) * component_by_type() {
 			// throw an exception here!!! unknown component!
 			return NULL;
 		}
 
-		template<typename ResultType> ResultType get(std::string _name) {
-			//typename Mapping<ResultType>::Pointer component = Component<ResultType>::get();
-			typename Mapping<ResultType>::Pointer component = component_by_type<ResultType>();
-			ResultType result;
-			if(component != NULL && component->find(_name) != component->end()) {
-				result = (*component)[_name];
+		template<typename ResultTypePointer>
+		ResultTypePointer fetch(std::string name, MAPPING(ResultTypePointer) * component) {
+			ResultTypePointer result;
+			if(component->find(name) != component->end()) {
+				result = (*component)[name];
 			}
 			return result;
-		}*/
+		}
 
-		/*template<typename ResultType> ResultType add(std::string _name) {
-			typename Mapping<ResultType>::Pointer component = component_by_type<ResultType>();
+		template<typename ResultTyper>
+		ResultType * get(std::string name) {
+			typedef ResultType * ResultTypePointer;
+			MAPPING(ResultTypePointer) * component = component_by_type<ResultTypePointer>();
+			ResultTypePointer result;
+			if(component != NULL) {
+				result = fetch<ResultTypePointer>(name, component);
+			}
+			return result;
+		}
+
+		template<typename ResultType>
+		ResultType * add(std::string name) {
+			typedef ResultType * ResultTypePointer;
+			MAPPING(ResultTypePointer) * component = component_by_type<ResultTypePointer>();
+			ResultTypePointer result;
+			if(component != NULL) {
+				result = fetch<ResultTypePointer>(name, component);
+				if(result == NULL) {
+					component[name] = new ResultType();
+				}
+			}
+			//typename Mapping<ResultType>::Pointer component = component_by_type<ResultType>();
+			return result;
 		}*/
 
 	};
@@ -344,7 +343,7 @@ namespace engine {
 		return & fields;
 	}*/
 
-	/*template<> FieldMapPointer Game::component_by_type () {
+	/*mplate<> FieldMapPointer Game::component_by_type () {
 		return & fields;
 	}
 	template<> ViewMapPointer Game::component_by_type () {
@@ -358,6 +357,9 @@ namespace engine {
 	}
 	template<> ShapeMapPointer Game::component_by_type () {
 		return & shapes;
+	}
+	template<> ObjectKindMapPointer Game::component_by_type() {
+		return & object_kinds;
 	}*/
 
 	/*#

@@ -46,6 +46,10 @@ struct Object
 			number = count++;
 		}
 
+		Object(ObjectKindPointer _kind) : kind(_kind) {
+			number = count++;
+		}
+
 		~Object() {
 			//!!! remove its points
 			//--count;

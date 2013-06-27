@@ -86,11 +86,12 @@ namespace engine {
 	typedef typename  ColorMetaMapping::Type  ColorMap;
 	typedef typename  ShapeMetaMapping::Type  ShapeMap;*/
 
-	typedef  FieldMap *  FieldMapPointer;
-	typedef   ViewMap *   ViewMapPointer;
-	typedef ObjectMap * ObjectMapPointer;
-	typedef  ColorMap *  ColorMapPointer;
-	typedef  ShapeMap *  ShapeMapPointer;
+	typedef      FieldMap *      FieldMapPointer;
+	typedef       ViewMap *       ViewMapPointer;
+	typedef ObjectKindMap * ObjectKindMapPointer;
+	typedef     ObjectMap *     ObjectMapPointer;
+	typedef      ColorMap *      ColorMapPointer;
+	typedef      ShapeMap *      ShapeMapPointer;
 
 	/*typedef Mapping< graphics::ColorPointer >::Type ColorMap;
 	typedef Mapping< graphics::ShapePointer >::Type ShapeMap;*/

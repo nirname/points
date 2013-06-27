@@ -16,7 +16,8 @@ int main(int argc, char * argv[])
 	params::load();
 	game.load();
 	//game.fields.erase("qq");
-	std::cout << *game.get_field("Field") << std::endl;
+	//std::cout << *game.get_field("Field") << std::endl;
+	//std::cout << *game.get<engine::FieldPointer>(std::string("Field")) << std::endl;
 	//game.component_by_type<engine::View *>();
 	//std::cout << * game.get<engine::Field *>("Field") << std::endl;
 
