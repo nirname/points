@@ -6,11 +6,39 @@
 typedef unsigned int positive;
 typedef std::string KeyType;
 
-//template<typename> class Mapping
-/*template<typename ValueType> struct Mapping {
-	typedef std::map<KeyType, ValueType> Type;
-	typedef Type * Pointer;
-};*/
+template<typename Type> struct Mapping {
+
+	typedef Type * TypePointer;
+	typedef std::map<KeyType, TypePointer> Container;
+
+	Container container;
+
+	Mapping() {}
+
+	~Mapping() {
+		for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
+			delete i->second;
+		}
+	}
+
+	TypePointer get(std::string _name) {
+		TypePointer result = NULL;
+		if(container.find(_name) != container.end()) {
+			result = container[_name];
+		}
+		return result;
+	}
+
+	TypePointer add(std::string _name) {
+		TypePointer result = get(_name);
+		if(result == NULL) {
+			result = new Type();
+			container[_name] = result;
+		}
+		return result;
+	}
+
+};
 
 #define MAPPING(_ValueType) std::map<KeyType, _ValueType>
 
@@ -63,15 +91,20 @@ namespace engine {
 	struct Object;
 	struct Point;
 	struct Size;
+	struct ObjectKind;
 
 	typedef Field  * FieldPointer;
 	typedef View   * ViewPointer;
 	typedef Object * ObjectPointer;
 	typedef Point  * PointPointer;
-
-	struct ObjectKind;
 	typedef ObjectKind * ObjectKindPointer;
-	//typedef std::string ObjectKindType;
+
+	typedef Mapping< Field           >      FieldMapping;
+	typedef Mapping< View            >       ViewMapping;
+	typedef Mapping< ObjectKind      > ObjectKindMapping;
+	typedef Mapping< Object          >     ObjectMapping;
+	typedef Mapping< graphics::Color >      ColorMapping;
+	typedef Mapping< graphics::Shape >      ShapeMapping;
 
 	typedef MAPPING( FieldPointer           ) FieldMap;
 	typedef MAPPING( ViewPointer            ) ViewMap;
@@ -79,12 +112,6 @@ namespace engine {
 	typedef MAPPING( ObjectPointer          ) ObjectMap;
 	typedef MAPPING( graphics::ColorPointer ) ColorMap;
 	typedef MAPPING( graphics::ShapePointer ) ShapeMap;
-
-	/*typedef typename  FieldMetaMapping::Type  FieldMap;
-	typedef typename   ViewMetaMapping::Type   ViewMap;
-	typedef typename ObjectMetaMapping::Type ObjectMap;
-	typedef typename  ColorMetaMapping::Type  ColorMap;
-	typedef typename  ShapeMetaMapping::Type  ShapeMap;*/
 
 	typedef      FieldMap *      FieldMapPointer;
 	typedef       ViewMap *       ViewMapPointer;
