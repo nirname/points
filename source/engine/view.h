@@ -23,8 +23,11 @@ namespace engine {
 		//Screen * screen;
 		Point position; // position at screen
 
-		View(Field * _field)
-		{
+		View() {
+			direction = BACKWARD_DIRECTION;
+		}
+
+		View(Field * _field) {
 			field = _field;
 			size = _field->size;
 			direction = BACKWARD_DIRECTION;
@@ -53,24 +56,27 @@ namespace engine {
 
 	void View::display()
 	{
-		Point shift = offset * direction;
+		if(field != NULL) {
+			Point shift = offset * direction;
 
-		Bound view_bound = this->bound();
-		Bound field_bound = field->bound() + shift;
-		Bound display_bound = view_bound & field_bound;
-		Bound real_bound = display_bound - shift;
-		display_bound.final += Point(1, 1);
+			Bound view_bound = this->bound();
+			Bound field_bound = field->bound() + shift;
+			Bound display_bound = view_bound & field_bound;
+			Bound real_bound = display_bound - shift;
+			display_bound.final += Point(1, 1);
 
-		// positioning
-		glPushMatrix();
-			glTranslatef(position.column, position.row, 0);
-			draw_grid(display_bound);
-			draw_border();
+			// positioning
 			glPushMatrix();
-				glTranslatef(shift.column, shift.row, 0);
-				draw_objects(real_bound);
+				glTranslatef(position.column, position.row, 0);
+				draw_grid(display_bound);
+				draw_border();
+				glPushMatrix();
+					glTranslatef(shift.column, shift.row, 0);
+					draw_objects(real_bound);
+				glPopMatrix();
 			glPopMatrix();
-		glPopMatrix();
+
+		}
 	}
 
 	void View::draw_grid(const Bound & display_bound) {

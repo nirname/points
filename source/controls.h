@@ -36,8 +36,8 @@ namespace controls {
 				default: std::cout << "free: ";
 			}
 			// move all views
-			game.views[std::string("View")]->position += position;
-			game.views[std::string("View")]->offset += offset;
+			//game.views[std::string("View")]->position += position;
+			//game.views[std::string("View")]->offset += offset;
 			//game.objects[std::string("Sokoban")];
 			//std::cout << "Key: " << key << std::endl;
 			glutPostRedisplay();
@@ -80,7 +80,7 @@ namespace controls {
 			//game.animations["Scale"]->do_after = move_sokoban;
 			//game.animations["Scale"]->start();
 			//, game.animations[std::string("Scale")]
-			sokoban->move(field, step);
+			//sokoban->move(field, step);
 			//sokoban->move(field, step);
 			//std::cout << "Key: " << key << std::endl;
 			//glutPostRedisplay();

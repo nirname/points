@@ -64,6 +64,12 @@ namespace graphics {
 		void use() {
 			glColor3ub(red, green, blue);
 		}
+
+		void set(positive _red, positive _green, positive _blue) {
+			red = _red;
+			green = _green;
+			blue = _blue;
+		}
 	};
 
 }

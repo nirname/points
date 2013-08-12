@@ -13,7 +13,6 @@
 
 #include <time.h>
 
-
 //#include <unordered_map>
 #include <string>
 #include <functional>
@@ -31,10 +30,12 @@
 #endif
 #define BASE_MATRIX_MODE GL_MODELVIEW
 
-
 //#include "include/yaml-cpp/yaml.h"
 
 // own libraries
+
+#include "types.h"
+#include "mapping.h"
 
 #include "declarations.h"
 

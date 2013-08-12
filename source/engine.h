@@ -37,7 +37,8 @@ namespace engine {
 					/*glTranslatef(0.5, 0.5, 0);
 					glScalef(scale, scale, 0);
 					glTranslatef(-0.5, -0.5, 0);*/
-					draw_shape();
+					//draw_shape();
+					graphics::square();
 				glPopMatrix();
 				glPopAttrib();
 		glPopMatrix();

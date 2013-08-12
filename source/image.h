@@ -24,7 +24,7 @@ namespace image {
 			glVertex2f(0, screen.height);
 		glEnd();
 
-		for (graphics::AnimationMapIterator i = game.animations.begin(); i != game.animations.end(); ++i) {
+		for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
 			i->second->next();
 		}
 
@@ -39,7 +39,7 @@ namespace image {
 		glColor3ub(BLACK);
 		glPushMatrix();
 
-			for(engine::ViewMap::iterator view = game.views.begin(); view != game.views.end(); ++view) {
+			for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
 				view->second->display();
 			}
 

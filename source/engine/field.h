@@ -28,28 +28,34 @@ namespace engine {
 		Size size;
 		CLOSURE_TYPE closure;
 		Data data;
-		Field(int _width = 1, int _height = 1)
-		{
+
+		Field(int _width = 1, int _height = 1) {
 			size = Size(_width, _height);
 			number = count++;
 		}
-		~Field() {
-			
-		}
+
+		~Field() {}
+
 		INFINITY_TYPE infinity_type() {
 			return INFINITY_TYPE(
 				(size.height == 0 ? VERTICAL_INFINITY : FINITE) |
 				(size.width == 0 ? HORIZONTAL_INFINITY : FINITE)
 			);
 		}
+
 		Bound bound() {
 			return Bound(Point(size.width, size.height) - Point(1, 1)); //shift
 		}
+
+		void print(std::ostream & _ostream) const {
+			_ostream << "Field(" << number << ")";
+		}
+
 	};
 	int Field::count = 0;
 
 	std::ostream & operator << (std::ostream & _ostream, const Field & _field) {
-		_ostream << "Field(" << _field.number << ")";
+		_field.print(_ostream);
 		return _ostream;
 	}
 

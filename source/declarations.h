@@ -2,62 +2,7 @@
 #define DECLARATIONS_H 1
 
 
-// make types.h without namespace
-typedef unsigned int positive;
-typedef std::string KeyType;
-
-template<typename Type> struct Mapping {
-
-	typedef Type * TypePointer;
-	typedef std::map<KeyType, TypePointer> Container;
-
-	Container container;
-
-	Mapping() {}
-
-	~Mapping() {
-		for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
-			delete i->second;
-		}
-	}
-
-	TypePointer get(std::string _name) {
-		TypePointer result = NULL;
-		if(container.find(_name) != container.end()) {
-			result = container[_name];
-		}
-		return result;
-	}
-
-	TypePointer add(std::string _name) {
-		TypePointer result = get(_name);
-		if(result == NULL) {
-			result = new Type();
-			container[_name] = result;
-		}
-		return result;
-	}
-
-};
-
-#define MAPPING(_ValueType) std::map<KeyType, _ValueType>
-
-//typename std::map Mapping;
-/*template<typename T>
-struct At
-{
-	typedef typename A<T, true> Type;
-};
-
-template<typename T>
-struct Af
-{
-	typedef typename A<T, false> Type;
-};
-
-Af<int>::Type foo;
-At<float>::Type bar;*/
-
+//#define MAPPING(_ValueType) std::map<KeyType, _ValueType>
 
 namespace lib {
 	//template <typename Type> class List;
@@ -77,8 +22,9 @@ namespace graphics {
 
 	struct Animation;
 	typedef Animation * AnimationPointer;
-	typedef std::map< KeyType, AnimationPointer > AnimationMap;
-	typedef AnimationMap::iterator AnimationMapIterator;
+	typedef Mapping< Animation > AnimationMapping;
+	//typedef std::map< KeyType, AnimationPointer > AnimationMap;
+	//typedef AnimationMap::iterator AnimationMapIterator;
 }
 
 namespace engine {
@@ -106,19 +52,19 @@ namespace engine {
 	typedef Mapping< graphics::Color >      ColorMapping;
 	typedef Mapping< graphics::Shape >      ShapeMapping;
 
-	typedef MAPPING( FieldPointer           ) FieldMap;
+	/*typedef MAPPING( FieldPointer           ) FieldMap;
 	typedef MAPPING( ViewPointer            ) ViewMap;
 	typedef MAPPING( ObjectKindPointer      ) ObjectKindMap;
 	typedef MAPPING( ObjectPointer          ) ObjectMap;
 	typedef MAPPING( graphics::ColorPointer ) ColorMap;
-	typedef MAPPING( graphics::ShapePointer ) ShapeMap;
+	typedef MAPPING( graphics::ShapePointer ) ShapeMap;*/
 
-	typedef      FieldMap *      FieldMapPointer;
+	/*typedef      FieldMap *      FieldMapPointer;
 	typedef       ViewMap *       ViewMapPointer;
 	typedef ObjectKindMap * ObjectKindMapPointer;
 	typedef     ObjectMap *     ObjectMapPointer;
 	typedef      ColorMap *      ColorMapPointer;
-	typedef      ShapeMap *      ShapeMapPointer;
+	typedef      ShapeMap *      ShapeMapPointer;*/
 
 	/*typedef Mapping< graphics::ColorPointer >::Type ColorMap;
 	typedef Mapping< graphics::ShapePointer >::Type ShapeMap;*/

@@ -10,8 +10,26 @@ struct ObjectKind {
 	graphics::Color * color;
 
 	ObjectKind() {
+		shape = NULL;
+		color = NULL;
 		number = ++count;
 	}
+
+	void draw_shape() {
+		//try { throw 1; } catch(int a) { cout << "Caught exception number:  " << a << endl; return; }
+		if(shape != NULL) {
+			shape->display();
+		} else {
+			graphics::square();
+		}
+	}
+
+	void use_color() {
+		if(color != NULL) {
+			color->use();
+		}
+	}
+
 };
 
 int ObjectKind::count = 0;
@@ -79,14 +97,16 @@ struct Object
 
 		// make this one private
 		void draw_shape() {
-			if(kind != NULL && kind->shape != NULL) {
-				kind->shape->display();
-			} else graphics::square();
+			if(kind != NULL) {
+				kind->draw_shape();
+			} else {
+				graphics::square();
+			}
 		}
 
 		void use_color() {
-			if(kind != NULL && kind->color != NULL) {
-				kind->color->use();
+			if(kind != NULL) {
+				kind->use_color();
 			}
 		}
 

@@ -21,12 +21,9 @@ namespace engine {
 					points[_point] = _object;
 					return ADDED_SUCCESSFULLY;
 				}
-				else {
-					return OBJECTS_CONFLICT;
-				}
-			} else {
-				return OBJECT_IS_REPEATED;
+				return OBJECTS_CONFLICT;
 			}
+			return OBJECT_IS_REPEATED;
 		}
 
 		void remove(Object * _object) {

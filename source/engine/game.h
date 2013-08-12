@@ -22,14 +22,20 @@ namespace engine {
 
 		LevelList    levels;
 
-		FieldMap      fields;
-		ViewMap       views;
-		ColorMap      colors; // !!! use opengl palette
-		ShapeMap      shapes;
-		ObjectKindMap object_kinds;
-		ObjectMap     objects;
+		FieldMapping      fields;
+		ViewMapping       views;
+		ColorMapping      colors;
+		ShapeMapping      shapes;
+		ObjectKindMapping object_kinds;
+		ObjectMapping     objects;
+		graphics::AnimationMapping animations;
 
-		graphics::AnimationMap animations;
+		//ViewMap       views;
+		//ColorMap      colors; // !!! use opengl palette
+		//ShapeMap      shapes;
+		//ObjectKindMap object_kinds;
+		//ObjectMap     objects;
+		//graphics::AnimationMap animations;
 
 		InteractionMap interactions;
 		// Use unordered hash instead
@@ -41,31 +47,40 @@ namespace engine {
 			current_level = levels.begin();
 		}
 
-		//~Game();
-		~Game(){
-			for(FieldMap::iterator i = fields.begin(); i != fields.end(); ++i) {
-				delete i->second;
+		void print() {
+			std::cout << "----" << std::endl << "Game" << std::endl << "----" << std::endl;
+			std::cout << "> Fields:" << std::endl;
+			for(FieldMapping::Iterator i = fields.begin(); i != fields.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
 			}
-			for(ViewMap::iterator i = views.begin(); i != views.end(); ++i) {
-				delete i->second;
+			std::cout << "> Views:" << std::endl;
+			for(ViewMapping::Iterator i = views.begin(); i != views.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
 			}
-			for(ColorMap::iterator i = colors.begin(); i != colors.end(); ++i) {
-				delete i->second;
+			std::cout << "> Colors:" << std::endl;
+			for(ColorMapping::Iterator i = colors.begin(); i != colors.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
 			}
-			for(ShapeMap::iterator i = shapes.begin(); i != shapes.end(); ++i) {
-				delete i->second;
+			std::cout << "> Objects Kinds:" << std::endl;
+			for(ObjectKindMapping::Iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
 			}
-			for(ObjectKindMap::iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
-				delete i->second;
+			std::cout << "> Objects:" << std::endl;
+			for(ObjectMapping::Iterator i = objects.begin(); i != objects.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
 			}
-			for(ObjectMap::iterator i = objects.begin(); i != objects.end(); ++i) {
-				delete i->second;
+			std::cout << "> Shapes:" << std::endl;
+			for(ShapeMapping::Iterator i = shapes.begin(); i != shapes.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
 			}
-			for(graphics::AnimationMap::iterator i = animations.begin(); i != animations.end(); ++i) {
-				delete i->second;
-			}
-
+			/*for(graphics::AnimationMap::iterator i = animations.begin(); i != animations.end(); ++i) {
+				std::cout << i->first << ": " << i->second << std::endl;
+			}*/
 		}
+		/*std::ostream print << (std::ostream & _ostream, const Object & _object) {
+			_ostream << "Object(" << _object.number << ")";
+			return _ostream;
+		}*/
 
 		bool load() {
 
@@ -121,9 +136,11 @@ namespace engine {
 				return EXIT_FAILURE;
 			}*/
 
-			colors[std::string("Violet")] = new graphics::Color(VIOLET);
+			colors.add("Violet");
+			colors["Violet"]->set(VIOLET);
+			/*colors[std::string("Violet")] = new graphics::Color(VIOLET);
 			colors[std::string("Blue")] = new graphics::Color(BLUE);
-			colors[std::string("Green")] = new graphics::Color(GREEN);
+			colors[std::string("Green")] = new graphics::Color(GREEN);*/
 
 			//graphics::Animation * animation = new graphics::Animation(graphics::SCALE_ANIMATION, graphics::DECREASE);
 			//animation->do_after = move_up;
@@ -134,10 +151,13 @@ namespace engine {
 			//game.add_view("View", "Field");
 			//std::cout << (engine::Point(0, 0) < engine::Point(0, 1)) << std::endl;
 			//game.fields[std::string("Field")] = new engine::Field(10, 10);
-			fields["Field"] = new Field();
+			//fields["Field"] = new Field();
+			//views["View"] = new engine::View(fields[std::string("Field")]);
+			fields.add("Field");
 			fields["Field"]->size = engine::Size(10, 10);
 
-			views["View"] = new engine::View(fields[std::string("Field")]);
+			views.add("View");
+			views["View"]->field    = fields["Field"];
 			views["View"]->size     = engine::Size(12, 12);
 			views["View"]->offset   = engine::Point(-1, -1);
 			views["View"]->position = engine::Point(3, 3);
@@ -150,10 +170,16 @@ namespace engine {
 			shapes[std::string("Circle")] = new graphics::Circle();
 			shapes[std::string("David")] = new graphics::David();/**/
 
-			shapes[std::string("Star")] = new graphics::Star();
-			shapes[std::string("Ring")] = new graphics::Ring();
+			/*shapes[std::string("Star")] = new graphics::Star();
+			shapes[std::string("Ring")] = new graphics::Ring();*/
 
-			ObjectKind * sokoban = new ObjectKind();
+			object_kinds.add("Sokoban");
+			object_kinds["Sokoban"]->color = colors["Violet"];
+
+			objects.add("Fred");
+			objects["Fred"]->kind = object_kinds["Sokoban"];
+
+			/*ObjectKind * sokoban = new ObjectKind();
 			sokoban->shape = shapes[std::string("Star")];
 			sokoban->color = colors[std::string("Violet")];
 			object_kinds[std::string("Sokoban")] = sokoban;
@@ -162,23 +188,23 @@ namespace engine {
 			object_kinds[std::string("Box")] = box;
 			ObjectKind * heavy = new ObjectKind();
 			heavy->color = colors[std::string("Blue")];
-			object_kinds[std::string("Heavy")] = heavy;
+			object_kinds[std::string("Heavy")] = heavy;*/
 
-			interactions[engine::PairOfKinds(sokoban, box)]   = engine::PUSH_INTERACTION;
+			/*interactions[engine::PairOfKinds(sokoban, box)]   = engine::PUSH_INTERACTION;
 			interactions[engine::PairOfKinds(sokoban, heavy)] = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(heavy, box)]     = engine::PUSH_INTERACTION;
+			interactions[engine::PairOfKinds(heavy, box)]     = engine::PUSH_INTERACTION;*/
 
-			Object * box1 = new engine::Object(box);
+			//Object * box1 = new engine::Object(box);
 			//box1->kind = object_kinds[std::string("Box")];
-			objects[std::string("Box1")] = box1;
-			engine::Object * heavy1 = new engine::Object(heavy);
+			//objects[std::string("Box1")] = box1;
+			//engine::Object * heavy1 = new engine::Object(heavy);
 			//heavy1->kind = object_kinds[std::string("Heavy")];
-			objects[std::string("Heavy")] = heavy1;
+			//objects[std::string("Heavy")] = heavy1;
 			//game.objects[std::string("Box2")] = new engine::Object();
 			/*game.objects[std::string("Box1")]->type = std::string("Box");
 			game.objects[std::string("Box2")]->type = std::string("Box");*/
 
-			engine::Object * sokoban1 = new engine::Object();
+			/*engine::Object * sokoban1 = new engine::Object();
 			sokoban1->kind = object_kinds[std::string("Sokoban")];
 			//sokoban->animations.push_back(animation);
 			objects[std::string("Sokoban")] = sokoban1;
@@ -186,7 +212,12 @@ namespace engine {
 			fields[std::string("Field")]->data.add(objects[std::string("Sokoban")], engine::Point(1, 1));
 			fields[std::string("Field")]->data.add(objects[std::string("Box1")], engine::Point(5, 5));
 			//fields[std::string("Field")]->data.add(objects[std::string("Box2")], engine::Point(6, 5));
-			fields[std::string("Field")]->data.add(objects[std::string("Heavy")], engine::Point(4, 3));
+			fields[std::string("Field")]->data.add(objects[std::string("Heavy")], engine::Point(4, 3));*/
+
+			fields["Field"]->data.add(objects["Fred"], engine::Point(1, 1));
+
+			//std::cout << objects["Fred"] << std::endl;
+			//->data.add(objects["Fred"], engine::Point(1, 1));
 
 			//game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
 			//game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
@@ -201,15 +232,16 @@ namespace engine {
 				}
 			}
 			std::cout << std::ends;*/
+			print();
 
 			//std::count << (&(game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ]) == NULL);
 
-			if(current_level == levels.begin()) ++current_level;
+			/*if(current_level == levels.begin()) ++current_level;
 			if(current_level != levels.end()) {
 				current_level->load();
 			} else {
 				// game is over
-			}
+			}*/
 		}
 
 		/*#define GET_COMPONENT(_Type, _component)\
@@ -239,7 +271,7 @@ namespace engine {
 		GET_COMPONENT(graphics::Shape, shape);
 		*/
 
-		FieldPointer get_field(std::string _name) {
+		/*FieldPointer get_field(std::string _name) {
 			FieldPointer result = NULL;
 			if(fields.find(_name) != fields.end()) {
 				result = fields[_name];
@@ -254,7 +286,7 @@ namespace engine {
 				fields[_name] = result;
 			}
 			return result;
-		}
+		}*/
 
 		//template<typename Type, Game::*component> get
 
@@ -367,6 +399,5 @@ namespace engine {
 	*/
 
 }
-
 
 #endif

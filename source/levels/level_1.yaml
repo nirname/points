@@ -54,3 +54,11 @@ views:
     position:
       column: 3
       row: 3
+
+controls:
+  w: # list of objects
+    sokoban: # list of actions
+      move: 1 1
+  a: # list of objects
+    sokoban: # list of actions
+      move: 1 1
