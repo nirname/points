@@ -3,14 +3,14 @@
 
 namespace engine {
 
-	/*void check_node(YAML::Node * _node, const char _option[]) {
+	void check_node(YAML::Node * _node, const char _option[]) {
 		std::cout << _option << ": ";
 		if((*_node)[_option]) {
 			std::cout << "true" << std::endl;
 		} else {
 			std::cout << "no" << std::endl;
 		}
-	}*/
+	}
 
 	// Describes current game
 	struct Game {
@@ -104,7 +104,7 @@ namespace engine {
 			}
 			level_data.close();*/
 
-			/*YAML::Node level_config = YAML::LoadFile("levels/level_1.yaml");
+			YAML::Node level_config = YAML::LoadFile("levels/level_1.yaml");
 
 			if(level_config.IsMap()) {
 				check_node(&level_config, "kinds");
@@ -113,8 +113,8 @@ namespace engine {
 				check_node(&level_config, "fields");
 				check_node(&level_config, "views");
 			} else {
-				std::cout << "Config shoul contains mapping" << std::endl;
-			}*/
+				std::cout << "Configuration file should contain mapping" << std::endl;
+			}
 
 			//std::cout << (level_config["first"].as<std::string>()) << std::endl;
 

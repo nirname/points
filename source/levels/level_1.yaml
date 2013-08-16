@@ -40,7 +40,7 @@ fields:
       box_2: # ... or 2 element sequense
         - 6
         - 5
-      box_3: [4, 3]# it can be written as a comma separated list within square brackets
+      box_3: [4, 3] # it can be written as a comma separated list within square brackets
 
 views:
   view:
