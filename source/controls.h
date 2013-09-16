@@ -11,12 +11,30 @@
 
 namespace controls {
 
+	enum ACTION_KIND {
+		MOVE
+	};
+
+	class Action {
+		ACTION_KIND kind;
+	};
+
 	void keyboard(unsigned char key, int x, int y)
 	{
+		printf("%i", key);
 		if(key == ESCAPE_KEY) {
-			printf("%i", key);
-			std::cout << std::endl;
+			std::cout << ": quit" << std::endl;
 			exit(EXIT_SUCCESS);
+		}
+		if(key == 'p') {
+			game.paused = !game.paused;
+			if(game.paused) {
+				std::cout << ": pause";
+			}
+			else {
+				std::cout << ": resume";
+				glutTimerFunc(0, image::redisplay, 0);
+			}
 		}
 		if(!game.paused) {
 			engine::Point position;
@@ -32,8 +50,9 @@ namespace controls {
 				case 's': offset   = engine::Point( 0, -1); break;
 				case 'a': offset   = engine::Point(-1,  0); break;
 				case 'd': offset   = engine::Point( 1,  0); break;
+				case 'p': break;
 				// case 'x': animation_type = graphics::FADE_ANIMATION; break;
-				default: std::cout << "free: ";
+				default: std::cout << ": free";
 			}
 			// move all views
 			//game.views[std::string("View")]->position += position;
@@ -42,13 +61,6 @@ namespace controls {
 			//std::cout << "Key: " << key << std::endl;
 			glutPostRedisplay();
 		}
-		if(key == 'p') {
-			game.paused = !game.paused;
-			if(!game.paused) {
-				glutTimerFunc(0, image::redisplay, 0);
-			}
-		}
-		printf("%i", key);
 		std::cout << std::endl;
 	}
 

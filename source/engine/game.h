@@ -3,14 +3,14 @@
 
 namespace engine {
 
-	void check_node(YAML::Node * _node, const char _option[]) {
+	/*void check_node(YAML::Node * _node, const char _option[]) {
 		std::cout << _option << ": ";
 		if((*_node)[_option]) {
 			std::cout << "true" << std::endl;
 		} else {
 			std::cout << "no" << std::endl;
 		}
-	}
+	}*/
 
 	// Describes current game
 	struct Game {
@@ -30,6 +30,7 @@ namespace engine {
 		ObjectMapping     objects;
 		graphics::AnimationMapping animations;
 
+
 		//ViewMap       views;
 		//ColorMap      colors; // !!! use opengl palette
 		//ShapeMap      shapes;
@@ -48,30 +49,30 @@ namespace engine {
 		}
 
 		void print() {
-			std::cout << "----" << std::endl << "Game" << std::endl << "----" << std::endl;
-			std::cout << "> Fields:" << std::endl;
-			for(FieldMapping::Iterator i = fields.begin(); i != fields.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
-			}
-			std::cout << "> Views:" << std::endl;
-			for(ViewMapping::Iterator i = views.begin(); i != views.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
-			}
-			std::cout << "> Colors:" << std::endl;
-			for(ColorMapping::Iterator i = colors.begin(); i != colors.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
-			}
-			std::cout << "> Objects Kinds:" << std::endl;
+			//std::cout << "----" << std::endl << "Game" << std::endl << "----" << std::endl;
+			std::cout << "Object kinds:" << std::endl;
 			for(ObjectKindMapping::Iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
+				std::cout << "  " << i->first << ": " << i->second << std::endl;
 			}
-			std::cout << "> Objects:" << std::endl;
+			std::cout << "Objects:" << std::endl;
 			for(ObjectMapping::Iterator i = objects.begin(); i != objects.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
+				std::cout << "  " << i->first << " (" << i->second->kind << "): " << *i->second << "(" << i->second << ")" << std::endl;
 			}
-			std::cout << "> Shapes:" << std::endl;
+			std::cout << "Fields:" << std::endl;
+			for(FieldMapping::Iterator i = fields.begin(); i != fields.end(); ++i) {
+				std::cout << "  " << i->first << ": " << i->second << std::endl;
+			}
+			std::cout << "Views:" << std::endl;
+			for(ViewMapping::Iterator i = views.begin(); i != views.end(); ++i) {
+				std::cout << "  " << i->first << ": " << i->second << std::endl;
+			}
+			std::cout << "Colors:" << std::endl;
+			for(ColorMapping::Iterator i = colors.begin(); i != colors.end(); ++i) {
+				std::cout << "  " << i->first << ": " << i->second << std::endl;
+			}
+			std::cout << "Shapes:" << std::endl;
 			for(ShapeMapping::Iterator i = shapes.begin(); i != shapes.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
+				std::cout << "  " << i->first << ": " << i->second << std::endl;
 			}
 			/*for(graphics::AnimationMap::iterator i = animations.begin(); i != animations.end(); ++i) {
 				std::cout << i->first << ": " << i->second << std::endl;
@@ -84,6 +85,7 @@ namespace engine {
 
 		bool load() {
 
+		lib::stage("GAME LOADING");
 		/*if(config["lastLogin"])
 		std::cout << "Last logged in: " << config["lastLogin"].as<DateTime>() << "\n";
 
@@ -104,18 +106,123 @@ namespace engine {
 			}
 			level_data.close();*/
 
-			YAML::Node level_config = YAML::LoadFile("levels/level_1.yaml");
+			YAML::Node level = YAML::LoadFile("levels/level_1.yaml");
+			if(level.IsMap()) {
+				std::cout << "Loading level data\n" << std::endl;
+				for(YAML::const_iterator block = level.begin(); block != level.end(); ++block) {
+					std::cout << block->first.as<std::string>() << std::endl;
+				}
+				std::cout << "----------" << std::endl;
+				const YAML::Node& object_kinds_node = level["object_kinds"];
+				if(object_kinds_node) {
+					if(object_kinds_node.IsMap()) {
+						for(
+							YAML::const_iterator
+							object_kind = object_kinds_node.begin();
+							object_kind != object_kinds_node.end();
+							++object_kind
+						) {
+							//std::cout << object_kind->first.as<std::string>() << std::endl;
+							object_kinds.add( object_kind->first.as<std::string>(), object_kind->second );
+						}
+					}
+					//YAML::Node level_object_kinds = level["object_kinds"];
+					/*for(YAML::const_iterator object_kind = level.begin(); block != level.end(); ++block) {
+					std::cout << block->first.as<std::string>() << std::endl;*/
+				}
+				const YAML::Node& interactions_node = level["interactions"];
+				if(interactions_node) {
+					if(interactions_node.IsMap()) {
+						for(
+							YAML::const_iterator
+							interaction = interactions_node.begin();
+							interaction != interactions_node.end();
+							++interaction
+						) {
+							std::string first_object_kind_name = interaction->first.as<std::string>();
+							std::cout << "* " << first_object_kind_name << std::endl;
+							if( object_kinds.has(first_object_kind_name) ) {
+								ObjectKindPointer first_object_kind = object_kinds.get(first_object_kind_name);
+								const YAML::Node& actions_node = interaction->second;
+								if(actions_node.IsMap()) {
+									for(
+										YAML::const_iterator
+										action = actions_node.begin();
+										action != actions_node.end();
+										++action
+									) {
+										std::string action_name = action->first.as<std::string>();
+										std::cout << "** " << action_name << std::endl;
+										INTERACTION_TYPE interaction_type = get_interaction_type(action_name);
+										if(interaction_type != NO_INTERACTION) {
+											const YAML::Node& second_object_kinds = action->second;
+											if(second_object_kinds.IsScalar()) {
+												std::cout << "Scalar!!!" << std::endl;
+												std::string second_object_kind_name = second_object_kinds.as<std::string>();
+												std::cout << second_object_kind_name << std::endl;
+												if(object_kinds.has(second_object_kind_name)) {
+													ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
 
-			if(level_config.IsMap()) {
-				check_node(&level_config, "kinds");
-				check_node(&level_config, "objects");
-				check_node(&level_config, "interactions");
-				check_node(&level_config, "fields");
-				check_node(&level_config, "views");
+												}
+											}
+											if(second_object_kinds.IsSequence()) {
+												std::cout << "Sequence!!!" << std::endl;
+												for(
+													YAML::const_iterator
+													second_object_kind_name = second_object_kinds.begin();
+													second_object_kind_name != second_object_kinds.end();
+													++second_object_kind_name
+												) {
+													std::cout << second_object_kind_name->as<std::string>() << std::endl;
+												}
+											}
+										}
+									}
+								} else {
+									std::cout << "Actions should be a map" << std::endl;
+								}
+							} else {
+									std::cout << "Can not find object kind" << std::endl;
+							}
+							/*if(interaction.IsMap()) {
+
+							}*/
+
+							//object_kinds.add( object_kind->first.as<std::string>(), object_kind->second );
+							//interactions
+						}
+					} else {
+						std::cout << "Interaction should be a map" << std::endl;
+					}
+					//YAML::Node level_object_kinds = level["object_kinds"];
+					/*for(YAML::const_iterator object_kind = level.begin(); block != level.end(); ++block) {
+					std::cout << block->first.as<std::string>() << std::endl;*/
+				}
+
 			} else {
 				std::cout << "Configuration file should contain mapping" << std::endl;
 			}
+			//std::cout << level_config << std::endl;
+			/*if(level.IsMap()) {
+				check_node(&level, "kinds");
+				check_node(&level, "objects");
+				check_node(&level, "interactions");
+				check_node(&level, "fields");
+				check_node(&level, "views");
+			} else {
+				std::cout << "Configuration file should contain mapping" << std::endl;
+			}*/
 
+
+
+			//for(unsigned int i; i < _object_kinds.size(); i++) {
+			//	std::cout << i << std::endl;
+				//ObjectKindPointer object_kind = object_kinds.build();
+				//std::string key, value;
+				//object_kinds.add(lib::to_string(i), object_kind);
+				//_object_kinds[i] >> *ok;
+				//fields["Field"]->size = engine::Size(10, 10);
+			//}
 			//std::cout << (level_config["first"].as<std::string>()) << std::endl;
 
 			/*YAML::Node node;
@@ -136,8 +243,6 @@ namespace engine {
 				return EXIT_FAILURE;
 			}*/
 
-			colors.add("Violet");
-			colors["Violet"]->set(VIOLET);
 			/*colors[std::string("Violet")] = new graphics::Color(VIOLET);
 			colors[std::string("Blue")] = new graphics::Color(BLUE);
 			colors[std::string("Green")] = new graphics::Color(GREEN);*/
@@ -153,14 +258,6 @@ namespace engine {
 			//game.fields[std::string("Field")] = new engine::Field(10, 10);
 			//fields["Field"] = new Field();
 			//views["View"] = new engine::View(fields[std::string("Field")]);
-			fields.add("Field");
-			fields["Field"]->size = engine::Size(10, 10);
-
-			views.add("View");
-			views["View"]->field    = fields["Field"];
-			views["View"]->size     = engine::Size(12, 12);
-			views["View"]->offset   = engine::Point(-1, -1);
-			views["View"]->position = engine::Point(3, 3);
 
 			//const char * shape_names [2] = ["a", "b"];
 			//engine::Object aaa();
@@ -172,12 +269,6 @@ namespace engine {
 
 			/*shapes[std::string("Star")] = new graphics::Star();
 			shapes[std::string("Ring")] = new graphics::Ring();*/
-
-			object_kinds.add("Sokoban");
-			object_kinds["Sokoban"]->color = colors["Violet"];
-
-			objects.add("Fred");
-			objects["Fred"]->kind = object_kinds["Sokoban"];
 
 			/*ObjectKind * sokoban = new ObjectKind();
 			sokoban->shape = shapes[std::string("Star")];
@@ -214,7 +305,26 @@ namespace engine {
 			//fields[std::string("Field")]->data.add(objects[std::string("Box2")], engine::Point(6, 5));
 			fields[std::string("Field")]->data.add(objects[std::string("Heavy")], engine::Point(4, 3));*/
 
+			/*---------------------------------------------------------------
+			colors.add("Violet");
+			colors["Violet"]->set(VIOLET);
+			fields.add("Field");
+			fields["Field"]->size = engine::Size(10, 10);
+
+			views.add("View");
+			views["View"]->field    = fields["Field"];
+			views["View"]->size     = engine::Size(12, 12);
+			views["View"]->offset   = engine::Point(-1, -1);
+			views["View"]->position = engine::Point(3, 3);
+
+			object_kinds.add("Sokoban");
+			object_kinds["Sokoban"]->color = colors["Violet"];
+
+			objects.add("Fred");
+			objects["Fred"]->kind = object_kinds["Sokoban"];
+
 			fields["Field"]->data.add(objects["Fred"], engine::Point(1, 1));
+			------------------------------------------------------------------*/
 
 			//std::cout << objects["Fred"] << std::endl;
 			//->data.add(objects["Fred"], engine::Point(1, 1));
@@ -232,6 +342,7 @@ namespace engine {
 				}
 			}
 			std::cout << std::ends;*/
+			std::cout << "\nGame data\n"<< std::endl;
 			print();
 
 			//std::count << (&(game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ]) == NULL);

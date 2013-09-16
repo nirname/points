@@ -25,6 +25,10 @@ template<typename Type> class Mapping {
 
 	private:
 
+		inline TypePointer build() {
+			return new Type();
+		}
+
 		// Alias for container operator []
 		inline TypePointer fetch(std::string _name) {
 			return container[_name];
@@ -67,6 +71,17 @@ template<typename Type> class Mapping {
 			} else {
 				set(_name, _pointer);
 				return _pointer;
+			}
+		}
+
+		TypePointer add(std::string _name, const YAML::Node& options) {
+			if(has(_name)) {
+				return NULL;
+			} else {
+				TypePointer instance = build();
+				options >> *instance;
+				set(_name, instance);
+				return instance;
 			}
 		}
 

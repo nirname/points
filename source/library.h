@@ -15,6 +15,10 @@ template <typename T> std::string to_string (T value) {
 	stream << value;
 	return stream.str();
 }
+
+void stage(const char * information) {
+	std::cout << "\n\n" << information << std::endl;
+}
 /*std::string to_string (int value) {
 	std::stringstream stream;
 	stream << value;

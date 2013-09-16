@@ -1,12 +1,4 @@
-interactions:
-  sokoban: # object kind
-    push: # interactions
-      - light_box
-      - heavy_box
-  heavy_box:
-    push: light_box # scalar or sequense
-
-kinds:
+object_kinds:
   light_box:
     color: green
   heavy_box:
@@ -14,6 +6,14 @@ kinds:
   sokoban:
     color: violet
     shape: star
+
+interactions:
+  sokoban: # object kind
+    push: # interactions
+      - light_box
+      - heavy_box
+  heavy_box:
+    push: light_box # scalar or sequense
 
 objects:
   light_box:
@@ -57,8 +57,8 @@ views:
 
 controls:
   w: # list of objects
-    sokoban: # list of actions
-      move: 1 1
-  a: # list of objects
-    sokoban: # list of actions
-      move: 1 1
+    sokoban: # list of actions with this object
+      move: [1, 1]
+  a:
+    sokoban:
+      move: [1, 1]

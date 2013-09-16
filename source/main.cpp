@@ -9,12 +9,22 @@ void hello() {
 
 int main(int argc, char * argv[])
 {
+	std::cout << std::endl;
+	std::cout << "Point Independent Games" << std::endl;
+	std::cout << "Arcades, Puzzles & Traditional games" << std::endl;
+	std::cout << "Author: Nicolay Rozhkov" << std::endl;
+
 	// initialize glut
 	glutInit(&argc, argv);
 
 	//graphics::load_palette();
+
+	lib::stage("LOADING PARAMETERS");
+
 	params::load();
-	game.load();
+
+	lib::stage("INITIALIZING GRAPHICS");
+
 	//game.fields.erase("qq");
 	//std::cout << *game.get_field("Field") << std::endl;
 	//std::cout << *game.get<engine::FieldPointer>(std::string("Field")) << std::endl;
@@ -79,6 +89,10 @@ int main(int argc, char * argv[])
 	glutKeyboardFunc(controls::keyboard);
 	glutSpecialFunc(controls::special);
 	glutMouseFunc(controls::mouse);
+
+	game.load();
+
+	lib::stage("STARTING GAME\n");
 
 	// main loop
 	glutMainLoop();

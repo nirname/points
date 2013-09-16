@@ -76,11 +76,20 @@ namespace engine {
 	typedef PointInformation::iterator PointInformationIterator;
 
 	enum INTERACTION_TYPE {
+		NO_INTERACTION,
 		PUSH_INTERACTION,
 		PULL_INTERACTION,
 		DESTROY_INTERACTION,
 		CREATE_INTERACTION
 	};
+
+	INTERACTION_TYPE get_interaction_type(std::string const & interaction_type_name) {
+		if(interaction_type_name == "push") return PUSH_INTERACTION;
+		if(interaction_type_name == "pull") return PULL_INTERACTION;
+		if(interaction_type_name == "destroy") return DESTROY_INTERACTION;
+		if(interaction_type_name == "create") return CREATE_INTERACTION;
+		return NO_INTERACTION;
+	}
 
 	typedef std::pair< ObjectKindPointer, ObjectKindPointer > PairOfKinds;
 	typedef std::map< PairOfKinds, INTERACTION_TYPE > InteractionMap;
@@ -88,6 +97,9 @@ namespace engine {
 
 	typedef std::list <Level> LevelList;
 	typedef LevelList::iterator LevelListIterator;
+
+
+	void operator >> (const YAML::Node & options, ObjectKind &);
 
 }
 

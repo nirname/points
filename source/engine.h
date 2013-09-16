@@ -1,15 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H 1
 
-namespace engine {
-
-	/*struct Interaction {
-		ObjectKindType first_type;
-		ObjectKindType second_type;
-	};*/
-
-}
-
 #include "engine/base.h"
 #include "engine/object.h"
 #include "engine/data.h"
@@ -109,6 +100,17 @@ namespace engine {
 			//std::cout << "has no object" << std::endl;
 		}*/
 		return false;
+	}
+
+	void operator >> (const YAML::Node& options, ObjectKind& object_kind) {
+		const YAML::Node & color_node = options["color"];
+		if(color_node) {
+			object_kind.color = game.colors[color_node.as<std::string>()];
+		}
+		const YAML::Node & shape_node = options["shape"];
+		if(shape_node) {
+			object_kind.shape = game.shapes[shape_node.as<std::string>()];
+		}
 	}
 
 	/*struct Cell

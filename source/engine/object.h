@@ -4,6 +4,7 @@
 namespace engine {
 
 struct ObjectKind {
+
 	static int count;
 	int number;
 	graphics::Shape * shape;
@@ -115,7 +116,7 @@ struct Object
 	};
 
 	std::ostream & operator << (std::ostream & _ostream, const Object & _object) {
-		_ostream << "Object(" << _object.number << ")";
+		_ostream << "Object#" << _object.number;
 		return _ostream;
 	}
 
