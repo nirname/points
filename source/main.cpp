@@ -10,7 +10,8 @@ void hello() {
 int main(int argc, char * argv[])
 {
 	std::cout << std::endl;
-	std::cout << "Point Independent Games" << std::endl;
+	std::cout << "Points" << std::endl;
+	std::cout << "Independent Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Traditional games" << std::endl;
 	std::cout << "Author: Nicolay Rozhkov" << std::endl;
 

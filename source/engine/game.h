@@ -3,14 +3,18 @@
 
 namespace engine {
 
-	/*void check_node(YAML::Node * _node, const char _option[]) {
-		std::cout << _option << ": ";
-		if((*_node)[_option]) {
-			std::cout << "true" << std::endl;
-		} else {
-			std::cout << "no" << std::endl;
-		}
-	}*/
+	bool has_extension(const char * name, const char * extension)
+	{
+		size_t name_length = std::strlen(name);
+		size_t extension_length = strlen(extension);
+		//std::cout << (name + (name_length - extension_length) * sizeof(char) ) << std::endl;
+		return
+			name_length > extension_length &&
+			strcmp(
+				name + (name_length - extension_length) * sizeof(char),
+				extension
+			) == 0;
+	}
 
 	// Describes current game
 	struct Game {
@@ -24,19 +28,11 @@ namespace engine {
 
 		FieldMapping      fields;
 		ViewMapping       views;
-		ColorMapping      colors;
+		ColorMapping      colors; // use opengl palette
 		ShapeMapping      shapes;
 		ObjectKindMapping object_kinds;
 		ObjectMapping     objects;
 		graphics::AnimationMapping animations;
-
-
-		//ViewMap       views;
-		//ColorMap      colors; // !!! use opengl palette
-		//ShapeMap      shapes;
-		//ObjectKindMap object_kinds;
-		//ObjectMap     objects;
-		//graphics::AnimationMap animations;
 
 		InteractionMap interactions;
 		// Use unordered hash instead
@@ -53,6 +49,10 @@ namespace engine {
 			std::cout << "Object kinds:" << std::endl;
 			for(ObjectKindMapping::Iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
 				std::cout << "  " << i->first << ": " << i->second << std::endl;
+			}
+			std::cout << "Interactions:" << std::endl;
+			for(InteractionMapIterator i = interactions.begin(); i != interactions.end(); ++i) {
+				std::cout << "  " << i->first.first << " can " << i->second << " " << i->first.second << std::endl;
 			}
 			std::cout << "Objects:" << std::endl;
 			for(ObjectMapping::Iterator i = objects.begin(); i != objects.end(); ++i) {
@@ -83,121 +83,165 @@ namespace engine {
 			return _ostream;
 		}*/
 
+		bool load_object_kinds(const YAML::Node & level) {
+			bool result = true;
+			const YAML::Node & object_kinds_node = level["object_kinds"];
+			if(object_kinds_node) {
+				if(object_kinds_node.IsMap()) {
+					for(
+						YAML::const_iterator
+						object_kind = object_kinds_node.begin();
+						object_kind != object_kinds_node.end();
+						++object_kind
+					) {
+						object_kinds.add( object_kind->first.as<std::string>(), object_kind->second );
+					}
+				}
+			} else {
+				/*void check_node(YAML::Node * _node, const char _option[]) {
+					std::cout << _option << ": ";
+					if((*_node)[_option]) {
+						std::cout << "true" << std::endl;
+					} else {
+						std::cout << "no" << std::endl;
+					}
+				}*/
+			}
+			return result;
+		} // bool load_object_kinds
+
+		bool load_interactions(const YAML::Node & level) {
+			bool result = true;
+			const YAML::Node& interactions_node = level["interactions"];
+			if(interactions_node) {
+				if(interactions_node.IsMap()) {
+					for(
+						YAML::const_iterator
+						interaction = interactions_node.begin();
+						interaction != interactions_node.end();
+						++interaction
+					) {
+						std::string first_object_kind_name = interaction->first.as<std::string>();
+						//std::cout << "* " << first_object_kind_name << std::endl;
+						if( object_kinds.has(first_object_kind_name) ) {
+							ObjectKindPointer first_object_kind = object_kinds.get(first_object_kind_name);
+							const YAML::Node& actions_node = interaction->second;
+							if(actions_node.IsMap()) {
+								for(
+									YAML::const_iterator
+									action = actions_node.begin();
+									action != actions_node.end();
+									++action
+								) {
+									std::string action_name = action->first.as<std::string>();
+									//std::cout << "** " << action_name << std::endl;
+									INTERACTION_TYPE interaction_type = get_interaction_type(action_name);
+									if(interaction_type != NO_INTERACTION) {
+										const YAML::Node& second_object_kinds = action->second;
+										if(second_object_kinds.IsScalar()) {
+											//std::cout << "Scalar!!!" << std::endl;
+											std::string second_object_kind_name = second_object_kinds.as<std::string>();
+											//std::cout << second_object_kind_name << std::endl;
+											if(object_kinds.has(second_object_kind_name)) {
+												ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
+												interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
+											} else {
+												std::cout << "Can not find object kind" << std::endl;
+											}
+										}
+										if(second_object_kinds.IsSequence()) {
+											//std::cout << "Sequence!!!" << std::endl;
+											for(
+												YAML::const_iterator
+												second_object_kind_iterator = second_object_kinds.begin();
+												second_object_kind_iterator != second_object_kinds.end();
+												++second_object_kind_iterator
+											) {
+												std::string second_object_kind_name = second_object_kind_iterator->as<std::string>();
+												//std::cout << second_object_kind_name << std::endl;
+												if(object_kinds.has(second_object_kind_name)) {
+													ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
+													interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
+												} else {
+													std::cout << "Can not find object kind" << std::endl;
+												}
+											}
+										}
+									} else {
+										std::cout << "No interaction" << std::endl;
+									}
+								}
+							} else {
+								std::cout << "Actions should be a map" << std::endl;
+							}
+						} else {
+							std::cout << "Can not find object kind" << std::endl;
+						}
+					}
+				} else {
+					std::cout << "Interaction should be a map" << std::endl;
+				}
+			}
+			return result;
+		}
+
+		bool load_objects(const YAML::Node & level) {
+			bool result = true;
+			return result;
+		}
+		bool load_fields(const YAML::Node & level) {
+			bool result = true;
+			return result;
+		}
+		bool load_views(const YAML::Node & level) {
+			bool result = true;
+			return result;
+		}
+		bool load_controls(const YAML::Node & level) {
+			bool result = true;
+			return result;
+		}
+
 		bool load() {
 
-		lib::stage("GAME LOADING");
-		/*if(config["lastLogin"])
-		std::cout << "Last logged in: " << config["lastLogin"].as<DateTime>() << "\n";
+			lib::stage("GAME LOADING\n");
 
-		const std::string username = config["username"].as<std::string>();
-		const std::string password = config["password"].as<std::string>();
-		login(username, password);
-		config["lastLogin"] = getCurrentDateTime();
-
-		std::ofstream fout("config.yaml");
-		fout << config;*/
-
-			//std::ifstream level_data("levels/level_1.yaml");
-			//YAML::Parser parser(level_data);
-
-			/*std::string buffer;
-			while(std::getline(level_data, buffer)) {
-				std::cout << buffer << std::endl;
+			std::cout << "Searching levels\n" << std::endl;
+			DIR *dir;
+			struct dirent * entry;
+			if ((dir = opendir ("./levels/")) != NULL) {
+				// print all the files and directories within directory
+				while ((entry = readdir (dir)) != NULL) {
+					if (entry->d_type == DT_REG && has_extension(entry->d_name, ".yaml")) { // DT DIR
+						std::cout << "File: " << std::ends;
+						/*printf(
+							"%zu - %s [%d] %d\n",
+							entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen
+						);*/
+						printf("%s\n", entry->d_name);
+					}
+				}
+				closedir(dir);
+			} else {
+				// could not open directory
+				perror("");
+				//return EXIT_FAILURE;
 			}
-			level_data.close();*/
 
 			YAML::Node level = YAML::LoadFile("levels/level_1.yaml");
 			if(level.IsMap()) {
-				std::cout << "Loading level data\n" << std::endl;
+				std::cout << "\nLoading level data\n" << std::endl;
 				for(YAML::const_iterator block = level.begin(); block != level.end(); ++block) {
 					std::cout << block->first.as<std::string>() << std::endl;
 				}
 				std::cout << "----------" << std::endl;
-				const YAML::Node& object_kinds_node = level["object_kinds"];
-				if(object_kinds_node) {
-					if(object_kinds_node.IsMap()) {
-						for(
-							YAML::const_iterator
-							object_kind = object_kinds_node.begin();
-							object_kind != object_kinds_node.end();
-							++object_kind
-						) {
-							//std::cout << object_kind->first.as<std::string>() << std::endl;
-							object_kinds.add( object_kind->first.as<std::string>(), object_kind->second );
-						}
-					}
-					//YAML::Node level_object_kinds = level["object_kinds"];
-					/*for(YAML::const_iterator object_kind = level.begin(); block != level.end(); ++block) {
-					std::cout << block->first.as<std::string>() << std::endl;*/
-				}
-				const YAML::Node& interactions_node = level["interactions"];
-				if(interactions_node) {
-					if(interactions_node.IsMap()) {
-						for(
-							YAML::const_iterator
-							interaction = interactions_node.begin();
-							interaction != interactions_node.end();
-							++interaction
-						) {
-							std::string first_object_kind_name = interaction->first.as<std::string>();
-							std::cout << "* " << first_object_kind_name << std::endl;
-							if( object_kinds.has(first_object_kind_name) ) {
-								ObjectKindPointer first_object_kind = object_kinds.get(first_object_kind_name);
-								const YAML::Node& actions_node = interaction->second;
-								if(actions_node.IsMap()) {
-									for(
-										YAML::const_iterator
-										action = actions_node.begin();
-										action != actions_node.end();
-										++action
-									) {
-										std::string action_name = action->first.as<std::string>();
-										std::cout << "** " << action_name << std::endl;
-										INTERACTION_TYPE interaction_type = get_interaction_type(action_name);
-										if(interaction_type != NO_INTERACTION) {
-											const YAML::Node& second_object_kinds = action->second;
-											if(second_object_kinds.IsScalar()) {
-												std::cout << "Scalar!!!" << std::endl;
-												std::string second_object_kind_name = second_object_kinds.as<std::string>();
-												std::cout << second_object_kind_name << std::endl;
-												if(object_kinds.has(second_object_kind_name)) {
-													ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
 
-												}
-											}
-											if(second_object_kinds.IsSequence()) {
-												std::cout << "Sequence!!!" << std::endl;
-												for(
-													YAML::const_iterator
-													second_object_kind_name = second_object_kinds.begin();
-													second_object_kind_name != second_object_kinds.end();
-													++second_object_kind_name
-												) {
-													std::cout << second_object_kind_name->as<std::string>() << std::endl;
-												}
-											}
-										}
-									}
-								} else {
-									std::cout << "Actions should be a map" << std::endl;
-								}
-							} else {
-									std::cout << "Can not find object kind" << std::endl;
-							}
-							/*if(interaction.IsMap()) {
-
-							}*/
-
-							//object_kinds.add( object_kind->first.as<std::string>(), object_kind->second );
-							//interactions
-						}
-					} else {
-						std::cout << "Interaction should be a map" << std::endl;
-					}
-					//YAML::Node level_object_kinds = level["object_kinds"];
-					/*for(YAML::const_iterator object_kind = level.begin(); block != level.end(); ++block) {
-					std::cout << block->first.as<std::string>() << std::endl;*/
-				}
+				load_object_kinds(level);
+				load_interactions(level);
+				load_objects(level);
+				load_fields(level);
+				load_views(level);
+				load_controls(level);
 
 			} else {
 				std::cout << "Configuration file should contain mapping" << std::endl;
@@ -212,8 +256,6 @@ namespace engine {
 			} else {
 				std::cout << "Configuration file should contain mapping" << std::endl;
 			}*/
-
-
 
 			//for(unsigned int i; i < _object_kinds.size(); i++) {
 			//	std::cout << i << std::endl;
@@ -355,159 +397,8 @@ namespace engine {
 			}*/
 		}
 
-		/*#define GET_COMPONENT(_Type, _component)\
-		_Type##Pointer get_##_component(std::string _name) {\
-			_Type##Pointer result = NULL;\
-			if(_component##s.find(_name) != _component##s.end()) {\
-				result = _component##s[_name];\
-			}\
-			return result;\
-		}
-
-		#define ADD_COMPONENT(_Type, _component)\
-		_Type##Pointer add_##_component(std::string _name) {\
-			_Type##Pointer result = NULL;\
-			if(_get_##_component != NULL) {\
-				result = new _Type();\
-				_component##s[_name] = result;\
-			}\
-			return result;\
-		}
-
-		GET_COMPONENT(Field,  field);
-		GET_COMPONENT(View,   view);
-		GET_COMPONENT(Object, object);
-
-		GET_COMPONENT(graphics::Color, color);
-		GET_COMPONENT(graphics::Shape, shape);
-		*/
-
-		/*FieldPointer get_field(std::string _name) {
-			FieldPointer result = NULL;
-			if(fields.find(_name) != fields.end()) {
-				result = fields[_name];
-			}
-			return result;
-		}
-
-		FieldPointer add_field(std::string _name) {
-			FieldPointer result = NULL;
-			if(get_field(_name) != NULL) {
-				result = new Field();
-				fields[_name] = result;
-			}
-			return result;
-		}*/
-
-		//template<typename Type, Game::*component> get
-
-		/*void remove_field(std::string _name) {
-			FieldPointer field = get_field(_name);
-			if(field != NULL) {
-				delete field;
-			}
-			fields.erase(_name);
-		}*/
-
-
-//< KeyType, _ResultType >
-
-		/*template<typename ResultType> ResultType get(std::string _name, typename Mapping<ResultType>::Pointer _component) {
-			ResultType result;
-			if(_component != NULL) { // make fetch
-				if(_component->find(_name) != _component->end()) {
-					result = (*_component)[_name];
-				}
-			}
-			return result;
-		}*/
-
-		/*FieldPointer get_field(std::string _name) {
-			return get<FieldPointer>(_name, &fields);
-		}*/
-
-		/*FieldPointer add_field(std::string _name) { }*/
-
-		// make this one private
-		//std::map<KeyType, ResultType> *
-		//(typename Mapping<ResultType>::Pointer)
-		/*template<typename ResultType> struct Component {
-			typedef typename Mapping<ResultType>::Pointer ResultTypeMappingPointer;
-			template<ResultType> static ResultTypeMappingPointer get() {
-				// throw an exception here!!! unknown component!
-				return NULL;
-			}
-		};*/
-
-		/*template<typename ResultTypePointer>
-		MAPPING(ResultTypePointer) * component_by_type() {
-			// throw an exception here!!! unknown component!
-			return NULL;
-		}
-
-		template<typename ResultTypePointer>
-		ResultTypePointer fetch(std::string name, MAPPING(ResultTypePointer) * component) {
-			ResultTypePointer result;
-			if(component->find(name) != component->end()) {
-				result = (*component)[name];
-			}
-			return result;
-		}
-
-		template<typename ResultTyper>
-		ResultType * get(std::string name) {
-			typedef ResultType * ResultTypePointer;
-			MAPPING(ResultTypePointer) * component = component_by_type<ResultTypePointer>();
-			ResultTypePointer result;
-			if(component != NULL) {
-				result = fetch<ResultTypePointer>(name, component);
-			}
-			return result;
-		}
-
-		template<typename ResultType>
-		ResultType * add(std::string name) {
-			typedef ResultType * ResultTypePointer;
-			MAPPING(ResultTypePointer) * component = component_by_type<ResultTypePointer>();
-			ResultTypePointer result;
-			if(component != NULL) {
-				result = fetch<ResultTypePointer>(name, component);
-				if(result == NULL) {
-					component[name] = new ResultType();
-				}
-			}
-			//typename Mapping<ResultType>::Pointer component = component_by_type<ResultType>();
-			return result;
-		}*/
-
 	};
 
-	/*template<> FieldMapPointer Game::Component<FieldMapPointer>::get() {
-		return & fields;
-	}*/
-
-	/*mplate<> FieldMapPointer Game::component_by_type () {
-		return & fields;
-	}
-	template<> ViewMapPointer Game::component_by_type () {
-		return & views;
-	}
-	template<> ObjectMapPointer Game::component_by_type () {
-		return & objects;
-	}
-	template<> ColorMapPointer Game::component_by_type () {
-		return & colors;
-	}
-	template<> ShapeMapPointer Game::component_by_type () {
-		return & shapes;
-	}
-	template<> ObjectKindMapPointer Game::component_by_type() {
-		return & object_kinds;
-	}*/
-
-	/*#
-	define _FIELD_COMPONENT_ACCESSOR(TYPE) 1
-	*/
 
 }
 

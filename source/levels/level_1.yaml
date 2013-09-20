@@ -62,3 +62,16 @@ controls:
   a:
     sokoban:
       move: [1, 1]
+  s:
+    sokoban:
+      move: [1, 1]
+  d:
+    sokoban:
+      move: [1, 1]
+  # or more even complex
+  #e:
+  #  actions:
+  #    move:
+  #  targets:
+  #    objects:
+  #    objects_kinds:

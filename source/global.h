@@ -8,6 +8,11 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+
+#if defined(__linux__) && defined(__GNUC__)
+	#include <cstring>
+#endif
+
 #include <stdio.h>
 #include <math.h>
 
@@ -21,11 +26,15 @@
 #include <vector>
 #include <list>
 
+#include <sys/types.h>
+
 #if defined(_WIN32) && defined(__GNUC__)
 	#include <gl/freeglut.h>
+	#include "include/dirent/windows/dirent.h"
 	//#define BASE_MATRIX_MODE GL_MODELVIEW
 #elif defined(__linux__) && defined(__GNUC__)
 	#include <GL/freeglut.h>
+	#include "include/dirent/linux/dirent.h"
 	//#define BASE_MATRIX_MODE GL_PROJECTION
 #endif
 #define BASE_MATRIX_MODE GL_MODELVIEW
