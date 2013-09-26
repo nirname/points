@@ -13,7 +13,9 @@ namespace engine {
 
 		ObjectInformation objects; // object with points
 		PointInformation points; // points with information about objects
+
 		/*void contains() {}*/
+
 		EFFECT_OF_ADDING add(Object * _object, Point _point) {
 			if( objects.find(_object) == objects.end() ) {
 				if( points.find(_point) == points.end() ) {
@@ -27,7 +29,6 @@ namespace engine {
 		}
 
 		void remove(Object * _object) {
-
 		}
 
 		bool contains(Object * _object) const {

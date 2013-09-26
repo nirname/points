@@ -24,12 +24,17 @@ namespace engine {
 		Point position; // position at screen
 
 		View() {
+			field = NULL;
 			direction = BACKWARD_DIRECTION;
+		}
+
+		void adjust_size() {
+			size = field->size;
 		}
 
 		View(Field * _field) {
 			field = _field;
-			size = _field->size;
+			adjust_size();
 			direction = BACKWARD_DIRECTION;
 		}
 
@@ -152,16 +157,6 @@ namespace engine {
 		}*/
 		//std::cout << std::endl;
 		// drawing points }
-	}
-
-	void operator >> (const YAML::Node & options, View & view) {
-		if(options.IsMap()) {
-			/*if(options["size"]) {
-				options["size"] >> view.size;
-			}*/
-		} else {
-			std::cout << "Options for view should be a mapping" << std::endl;
-		}
 	}
 
 } // namespace engine

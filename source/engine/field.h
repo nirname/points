@@ -60,16 +60,6 @@ namespace engine {
 		return _ostream;
 	}
 
-	void operator >> (const YAML::Node & options, Field & field) {
-		if(options.IsMap()) {
-			if(options["size"]) {
-				options["size"] >> field.size;
-			}
-		} else {
-			std::cout << "Options for field should be a mapping" << std::endl;
-		}
-	}
-
 } // namespace engine
 
 

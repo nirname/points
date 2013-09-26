@@ -130,9 +130,6 @@ template<typename Type> std::ostream & operator << (std::ostream & _ostream, Map
 
 /*void operator >> (std::string s, Mapping<typename Type> &) {
 	std::cout << "HELLO!!!!!!!!!!" << std::endl;
-}*/
-
-/*template<typename T> void qqq(std::string s, Mapping<T> &) {
 }
 
 template<typename T> void operator >> (std::string s, Mapping<T> &) {

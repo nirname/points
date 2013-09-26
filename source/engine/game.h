@@ -1,22 +1,13 @@
 #ifndef GAME_H
 #define GAME_H 1
 
-/*template std::ostream & operator << (std::ostream & _ostream, const typename Mapping<engine::ObjectKind>::Iterator & iterator) {
-	_ostream << iterator->first;
-	_ostream << iterator->second;
-	return _ostream;
-}*/
-
-/*std::ostream & operator << (std::ostream & _ostream, typename Mapping<engine::ObjectKind>::Iterator iterator) {
-	_ostream << iterator->first;
-	_ostream << iterator->second;
-	return _ostream;
-}*/
-
-/*template<typename T> std::ostream & operator << (std::ostream & _ostream, const typename Mapping<T>::Iterator & iterator) {
-	_ostream << iterator->first;
-	_ostream << iterator->second;
-	return _ostream;
+/*void check_node(YAML::Node * _node, const char _option[]) {
+	std::cout << _option << ": ";
+	if((*_node)[_option]) {
+		std::cout << "true" << std::endl;
+	} else {
+		std::cout << "no" << std::endl;
+	}
 }*/
 
 namespace engine {
@@ -72,14 +63,27 @@ namespace engine {
 			std::cout << "Views:\n" << views << std::endl;
 			std::cout << "Colors:\n" << colors << std::endl;
 			std::cout << "Shapes:\n" << shapes << std::endl;
-			/*std::cout << "Animations:" << std::endl;
-			for(graphics::AnimationMap::iterator i = animations.begin(); i != animations.end(); ++i) {
-				std::cout << i->first << ": " << i->second << std::endl;
-			}*/
+			std::cout << "Animations:\n" << animations << std::endl;
+
 		}
 
 		bool load_object_kinds(const YAML::Node & level) {
 			bool result = true;
+			if(level["object_kinds"]) {
+				const YAML::Node & node = level["object_kinds"];
+				if(node.IsMap()) {
+					for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
+						iterator >> object_kinds;
+					}
+				} else {
+					std::cout << "Object kinds should me a map" << std::endl;
+				}
+			} else {
+				std::cout << "No object kinds" << std::endl;
+			}
+			return result;
+
+			/*bool result = true;
 			if(level["object_kinds"]) {
 				const YAML::Node & object_kinds_node = level["object_kinds"];
 				if(object_kinds_node.IsMap()) {
@@ -94,16 +98,8 @@ namespace engine {
 				}
 			} else {
 				std::cout << "No object kinds specified" << std::endl;
-				/*void check_node(YAML::Node * _node, const char _option[]) {
-					std::cout << _option << ": ";
-					if((*_node)[_option]) {
-						std::cout << "true" << std::endl;
-					} else {
-						std::cout << "no" << std::endl;
-					}
-				}*/
 			}
-			return result;
+			return result;*/
 		} // bool load_object_kinds
 
 		bool load_interactions(const YAML::Node & level) {
@@ -233,7 +229,7 @@ namespace engine {
 
 		bool load_fields(const YAML::Node & level) {
 			bool result = true;
-			/*if(level["fields"]) {
+			if(level["fields"]) {
 				const YAML::Node & node = level["fields"];
 				if(node.IsMap()) {
 					for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
@@ -244,28 +240,50 @@ namespace engine {
 				}
 			} else {
 				std::cout << "No fields" << std::endl;
-			}*/
+			}
 			return result;
 		}
 
 		bool load_views(const YAML::Node & level) {
 			bool result = true;
-			/*if(level["views"]) {
+			if(level["views"]) {
 				const YAML::Node & node = level["views"];
 				if(node.IsMap()) {
 					for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
-						iterator >> views;
+						const YAML::Node & options = iterator->second;
+						if( options["field"] && fields.has(options["field"].as<std::string>()) ) {
+							iterator >> views;
+						}
 					}
 				} else {
 					std::cout << "Views should me a map" << std::endl;
 				}
 			} else {
 				std::cout << "No views" << std::endl;
-			}*/
+			}
 			return result;
 		}
 
 		bool load_controls(const YAML::Node & level) {
+			bool result = true;
+			return result;
+		}
+
+		bool load_colors(const YAML::Node & level) {
+			colors.add(std::string("white"),  new graphics::Color(WHITE));
+			colors.add(std::string("black"),  new graphics::Color(BLACK));
+			colors.add(std::string("blue"),   new graphics::Color(BLUE));
+			colors.add(std::string("yellow"), new graphics::Color(YELLOW));
+			colors.add(std::string("green"),  new graphics::Color(GREEN));
+			colors.add(std::string("red"),    new graphics::Color(RED));
+			colors.add(std::string("azure"),  new graphics::Color(AZURE));
+			colors.add(std::string("violet"), new graphics::Color(VIOLET));
+			colors.add(std::string("gray"),   new graphics::Color(GRAY));
+			colors.add(std::string("orange"), new graphics::Color(ORANGE));
+			return true;
+		}
+
+		bool load_shapes(const YAML::Node & level) {
 			bool result = true;
 			return result;
 		}
@@ -296,35 +314,32 @@ namespace engine {
 				//return EXIT_FAILURE;
 			}
 
-			YAML::Node level = YAML::LoadFile("levels/level_1.yaml");
-			if(level.IsMap()) {
-				std::cout << "\nLoading level data\n" << std::endl;
-				for(YAML::const_iterator block = level.begin(); block != level.end(); ++block) {
-					std::cout << block->first.as<std::string>() << std::endl;
+			try {
+				YAML::Node level = YAML::LoadFile("levels/level_1.yaml");
+				if(level.IsMap()) {
+					std::cout << "\nLoading level data\n" << std::endl;
+					for(YAML::const_iterator block = level.begin(); block != level.end(); ++block) {
+						std::cout << block->first.as<std::string>() << std::endl;
+					}
+					std::cout << std::endl;
+
+					load_colors(level);
+					load_shapes(level);
+
+					load_object_kinds(level);
+					load_interactions(level);
+					load_objects(level);
+					load_fields(level);
+					load_views(level);
+
+					load_controls(level);
+
+				} else {
+					std::cout << "Configuration file should contain mapping" << std::endl;
 				}
-				std::cout << std::endl;
-
-				/*load_object_kinds(level);
-				load_interactions(level);
-				load_objects(level);
-				load_fields(level);
-				load_views(level);
-				load_controls(level);*/
-
-			} else {
-				std::cout << "Configuration file should contain mapping" << std::endl;
+			} catch (YAML::ParserException & exception) {
+				std::cout << "Can'not load level" << std::endl;
 			}
-			//std::cout << level_config << std::endl;
-			/*if(level.IsMap()) {
-				check_node(&level, "kinds");
-				check_node(&level, "objects");
-				check_node(&level, "interactions");
-				check_node(&level, "fields");
-				check_node(&level, "views");
-			} else {
-				std::cout << "Configuration file should contain mapping" << std::endl;
-			}*/
-
 			//for(unsigned int i; i < _object_kinds.size(); i++) {
 			//	std::cout << i << std::endl;
 				//ObjectKindPointer object_kind = object_kinds.build();
@@ -338,24 +353,6 @@ namespace engine {
 			/*YAML::Node node;
 			while(parser.GetNextDocument(node)) {
 			}*/
-
-			/*DIR *dir;
-			struct dirent *ent;
-			if ((dir = opendir ("c:\\src\\")) != NULL) {
-				// print all the files and directories within directory
-				while ((ent = readdir (dir)) != NULL) {
-					printf ("%s\n", ent->d_name);
-				}
-				closedir(dir);
-			} else {
-				// could not open directory
-				perror("");
-				return EXIT_FAILURE;
-			}*/
-
-			/*colors[std::string("Violet")] = new graphics::Color(VIOLET);
-			colors[std::string("Blue")] = new graphics::Color(BLUE);
-			colors[std::string("Green")] = new graphics::Color(GREEN);*/
 
 			//graphics::Animation * animation = new graphics::Animation(graphics::SCALE_ANIMATION, graphics::DECREASE);
 			//animation->do_after = move_up;
@@ -454,8 +451,6 @@ namespace engine {
 			std::cout << std::ends;*/
 			std::cout << "\nGame data\n"<< std::endl;
 			print();
-
-			//std::count << (&(game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ]) == NULL);
 
 			/*if(current_level == levels.begin()) ++current_level;
 			if(current_level != levels.end()) {
