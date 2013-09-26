@@ -96,11 +96,11 @@ template<typename Type> class Mapping {
 		}
 
 		// Does the same action for each element
-		void each(void (* handler)(TypePointer)) {
+		/*void each(void (* handler)(TypePointer)) {
 			for(Iterator object = container.begin(); object != container.end(); ++object) {
 				handler(object->second);
 			}
-		}
+		}*/
 
 		Iterator begin() {
 			return container.begin();
@@ -110,6 +110,42 @@ template<typename Type> class Mapping {
 			return container.end();
 		}
 
-};
+
+		void print(std::ostream & _ostream = std::cout) {
+			if(!container.empty()) {
+				for(Iterator iterator = container.begin(); iterator != container.end(); ++iterator) {
+					_ostream << iterator->first << ": " << iterator->second << std::endl;
+				}
+			} else {
+				_ostream << "is empty" << std::endl;
+			}
+		}
+
+}; // template Mapping
+
+template<typename Type> std::ostream & operator << (std::ostream & _ostream, Mapping<Type> & mapping) {
+	mapping.print(_ostream);
+	return _ostream;
+}
+
+/*void operator >> (std::string s, Mapping<typename Type> &) {
+	std::cout << "HELLO!!!!!!!!!!" << std::endl;
+}*/
+
+/*template<typename T> void qqq(std::string s, Mapping<T> &) {
+}
+
+template<typename T> void operator >> (std::string s, Mapping<T> &) {
+	std::cout << s << std::endl;
+}*/
+
+template<typename T> void operator >> (const YAML::const_iterator & iterator, Mapping<T> & mapping) {
+	std::string entity_name = iterator->first.as<std::string>();
+	std::cout << entity_name << std::endl;
+	T * entity_pointer = mapping.add(entity_name);
+	if(entity_pointer != NULL) {
+		iterator->second >> *entity_pointer;
+	}
+}
 
 #endif

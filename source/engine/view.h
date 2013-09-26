@@ -154,6 +154,16 @@ namespace engine {
 		// drawing points }
 	}
 
-}
+	void operator >> (const YAML::Node & options, View & view) {
+		if(options.IsMap()) {
+			/*if(options["size"]) {
+				options["size"] >> view.size;
+			}*/
+		} else {
+			std::cout << "Options for view should be a mapping" << std::endl;
+		}
+	}
+
+} // namespace engine
 
 #endif

@@ -48,10 +48,11 @@ namespace engine {
 		}
 
 		void print(std::ostream & _ostream) const {
-			_ostream << "Field(" << number << ")";
+			_ostream << "Field#" << number;
 		}
 
-	};
+	}; // Field
+
 	int Field::count = 0;
 
 	std::ostream & operator << (std::ostream & _ostream, const Field & _field) {
@@ -59,6 +60,17 @@ namespace engine {
 		return _ostream;
 	}
 
-}
+	void operator >> (const YAML::Node & options, Field & field) {
+		if(options.IsMap()) {
+			if(options["size"]) {
+				options["size"] >> field.size;
+			}
+		} else {
+			std::cout << "Options for field should be a mapping" << std::endl;
+		}
+	}
+
+} // namespace engine
+
 
 #endif

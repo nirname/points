@@ -8,6 +8,8 @@ namespace lib {
 	//template <typename Type> class List;
 }
 
+template<typename Type> class Mapping;
+
 namespace image {
 	void redisplay(int);
 }

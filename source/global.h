@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+//#include <iomanip>
 
 #if defined(__linux__) && defined(__GNUC__)
 	#include <cstring>
@@ -44,10 +45,10 @@
 // own libraries
 
 #include "types.h"
-#include "mapping.h"
 
 #include "declarations.h"
 
+#include "mapping.h"
 #include "library.h"
 #include "graphics.h"
 #include "logic.h"

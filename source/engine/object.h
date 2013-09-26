@@ -3,41 +3,48 @@
 
 namespace engine {
 
-struct ObjectKind {
+	struct ObjectKind {
 
-	static int count;
-	int number;
-	graphics::Shape * shape;
-	graphics::Color * color;
+		static int count;
+		int number;
+		graphics::Shape * shape;
+		graphics::Color * color;
 
-	ObjectKind() {
-		shape = NULL;
-		color = NULL;
-		number = ++count;
-	}
-
-	void draw_shape() {
-		//try { throw 1; } catch(int a) { cout << "Caught exception number:  " << a << endl; return; }
-		if(shape != NULL) {
-			shape->display();
-		} else {
-			graphics::square();
+		ObjectKind() {
+			shape = NULL;
+			color = NULL;
+			number = ++count;
 		}
-	}
 
-	void use_color() {
-		if(color != NULL) {
-			color->use();
+		void draw_shape() {
+			//try { throw 1; } catch(int a) { cout << "Caught exception number:  " << a << endl; return; }
+			if(shape != NULL) {
+				shape->display();
+			} else {
+				graphics::square();
+			}
 		}
+
+		void use_color() {
+			if(color != NULL) {
+				color->use();
+			}
+		}
+
+	}; // class ObjectKind
+
+	std::ostream & operator << (std::ostream & _ostream, const ObjectKind & _object_kind) {
+		_ostream << "ObjectKind#" << _object_kind.number;
+		return _ostream;
 	}
 
-};
+	/*void operator >> (const YAML::Node & options, ObjectKind &) {
+	}*/
 
-int ObjectKind::count = 0;
+	int ObjectKind::count = 0;
 //typedef ObjectKind * ObjectKindPointer;
 
-struct Object
-	{
+	struct Object {
 		static int count;
 		//static std::map<ObjectKindType, int> count_of_kind;
 
@@ -113,7 +120,7 @@ struct Object
 
 		void display(const Point & _position);
 
-	};
+	}; // class Object
 
 	std::ostream & operator << (std::ostream & _ostream, const Object & _object) {
 		_ostream << "Object#" << _object.number;
@@ -122,7 +129,7 @@ struct Object
 
 	int Object::count = 0;
 
-
 }
+
 
 #endif
