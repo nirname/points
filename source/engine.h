@@ -2,6 +2,7 @@
 #define ENGINE_H 1
 
 #include "engine/base.h"
+#include "engine/object_kind.h"
 #include "engine/object.h"
 #include "engine/data.h"
 #include "engine/field.h"
@@ -28,10 +29,10 @@ namespace engine {
 					/*glTranslatef(0.5, 0.5, 0);
 					glScalef(scale, scale, 0);
 					glTranslatef(-0.5, -0.5, 0);*/
-					//draw_shape();
-					graphics::square();
+					draw_shape();
+					//graphics::square();
 				glPopMatrix();
-				glPopAttrib();
+			glPopAttrib();
 		glPopMatrix();
 	}
 
@@ -174,7 +175,6 @@ namespace engine {
 				std::cout << "Some problems occured while adding object" << std::endl;
 			}
 		}
-		//fields["Field"]->data.add(objects["Fred"], engine::Point(1, 1));
 	}
 
 	void operator >> (const YAML::Node & options, Field & field) {

@@ -128,14 +128,6 @@ template<typename Type> std::ostream & operator << (std::ostream & _ostream, Map
 	return _ostream;
 }
 
-/*void operator >> (std::string s, Mapping<typename Type> &) {
-	std::cout << "HELLO!!!!!!!!!!" << std::endl;
-}
-
-template<typename T> void operator >> (std::string s, Mapping<T> &) {
-	std::cout << s << std::endl;
-}*/
-
 template<typename T> void operator >> (const YAML::const_iterator & iterator, Mapping<T> & mapping) {
 	std::string entity_name = iterator->first.as<std::string>();
 	std::cout << entity_name << std::endl;

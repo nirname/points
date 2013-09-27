@@ -3,53 +3,11 @@
 
 namespace engine {
 
-	struct ObjectKind {
-
-		static int count;
-		int number;
-		graphics::Shape * shape;
-		graphics::Color * color;
-
-		ObjectKind() {
-			shape = NULL;
-			color = NULL;
-			number = ++count;
-		}
-
-		void draw_shape() {
-			//try { throw 1; } catch(int a) { cout << "Caught exception number:  " << a << endl; return; }
-			if(shape != NULL) {
-				shape->display();
-			} else {
-				graphics::square();
-			}
-		}
-
-		void use_color() {
-			if(color != NULL) {
-				color->use();
-			}
-		}
-
-	}; // class ObjectKind
-
-	std::ostream & operator << (std::ostream & _ostream, const ObjectKind & _object_kind) {
-		_ostream << "ObjectKind#" << _object_kind.number;
-		return _ostream;
-	}
-
-	/*void operator >> (const YAML::Node & options, ObjectKind &) {
-	}*/
-
-	int ObjectKind::count = 0;
-//typedef ObjectKind * ObjectKindPointer;
-
 	struct Object {
+
 		static int count;
-		//static std::map<ObjectKindType, int> count_of_kind;
 
 		int number;
-		//ObjectKindType kind;
 		ObjectKindPointer kind;
 		/*graphics::Shape * shape;
 		graphics::Color * color;*/
@@ -120,10 +78,16 @@ namespace engine {
 
 		void display(const Point & _position);
 
+		void print(std::ostream & _ostream) const {
+			_ostream << "Object#" << number << " ("
+				<< "kind: " << lib::to_string(kind)
+			<< ")";
+		}
+
 	}; // class Object
 
 	std::ostream & operator << (std::ostream & _ostream, const Object & _object) {
-		_ostream << "Object#" << _object.number;
+		_object.print(_ostream);
 		return _ostream;
 	}
 

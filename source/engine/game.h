@@ -1,15 +1,6 @@
 #ifndef GAME_H
 #define GAME_H 1
 
-/*void check_node(YAML::Node * _node, const char _option[]) {
-	std::cout << _option << ": ";
-	if((*_node)[_option]) {
-		std::cout << "true" << std::endl;
-	} else {
-		std::cout << "no" << std::endl;
-	}
-}*/
-
 namespace engine {
 
 	bool has_extension(const char * name, const char * extension)
@@ -65,6 +56,13 @@ namespace engine {
 			std::cout << "Shapes:\n" << shapes << std::endl;
 			std::cout << "Animations:\n" << animations << std::endl;
 
+			for(ObjectKindMapping::Iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
+				std::cout << "  " << i->first << ": " << *i->second << std::endl;
+			}
+			for(ObjectMapping::Iterator i = objects.begin(); i != objects.end(); ++i) {
+				std::cout << "  " << i->first << ": " << *i->second << std::endl;
+			}
+
 		}
 
 		bool load_object_kinds(const YAML::Node & level) {
@@ -82,24 +80,6 @@ namespace engine {
 				std::cout << "No object kinds" << std::endl;
 			}
 			return result;
-
-			/*bool result = true;
-			if(level["object_kinds"]) {
-				const YAML::Node & object_kinds_node = level["object_kinds"];
-				if(object_kinds_node.IsMap()) {
-					for(
-						YAML::const_iterator
-						object_kind = object_kinds_node.begin();
-						object_kind != object_kinds_node.end();
-						++object_kind
-					) {
-						object_kinds.add( object_kind->first.as<std::string>(), object_kind->second );
-					}
-				}
-			} else {
-				std::cout << "No object kinds specified" << std::endl;
-			}
-			return result;*/
 		} // bool load_object_kinds
 
 		bool load_interactions(const YAML::Node & level) {
@@ -197,7 +177,6 @@ namespace engine {
 								ObjectPointer object = objects.add(object_name);
 								if(object != NULL) {
 									object->kind = object_kind;
-									//object->color
 								}
 								// use >> operator here
 							}
@@ -285,6 +264,11 @@ namespace engine {
 
 		bool load_shapes(const YAML::Node & level) {
 			bool result = true;
+			shapes.add(std::string("square"), new graphics::Square());
+			shapes.add(std::string("circle"), new graphics::Circle());
+			shapes.add(std::string("david"),  new graphics::David());
+			shapes.add(std::string("star"),   new graphics::Star());
+			shapes.add(std::string("ring"),   new graphics::Ring());
 			return result;
 		}
 
@@ -369,13 +353,6 @@ namespace engine {
 			//const char * shape_names [2] = ["a", "b"];
 			//engine::Object aaa();
 			//engine::Object bbb(aaa);
-
-			/*shapes[std::string("Square")] = new graphics::Square();
-			shapes[std::string("Circle")] = new graphics::Circle();
-			shapes[std::string("David")] = new graphics::David();/**/
-
-			/*shapes[std::string("Star")] = new graphics::Star();
-			shapes[std::string("Ring")] = new graphics::Ring();*/
 
 			/*ObjectKind * sokoban = new ObjectKind();
 			sokoban->shape = shapes[std::string("Star")];

@@ -29,6 +29,9 @@ namespace engine {
 		}
 
 		void remove(Object * _object) {
+			if( objects.find(_object) != objects.end() ) {
+
+			}
 		}
 
 		bool contains(Object * _object) const {

@@ -32,9 +32,12 @@ fields:
       height: 10
     closure: full
     data:
-      sokoban: # object name
+      sokoban_1: # object name
         column: 1
         row: 1
+      sokoban_2: # object name
+        column: 2
+        row: 2
       box_1: # you may use mapping with 'column' and 'row' keys ...
         column: 5
         row: 5
