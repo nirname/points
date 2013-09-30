@@ -5,8 +5,8 @@ namespace engine {
 
 	bool has_extension(const char * name, const char * extension)
 	{
-		size_t name_length = std::strlen(name);
-		size_t extension_length = strlen(extension);
+		size_t name_length = lib::strlen(name);
+		size_t extension_length = lib::strlen(extension);
 		return
 			name_length > extension_length &&
 			strcmp(

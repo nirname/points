@@ -73,7 +73,9 @@
 #ifndef DIRENT_H
 #define DIRENT_H
 
-#define WIN32_LEAN_AND_MEAN
+#ifndef WIN32_LEAN_AND_MEAN
+	#define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
 #include <string.h>
 #include <stdlib.h>
@@ -92,9 +94,10 @@
 # define S_IWRITE _S_IWRITE                    /* write permission */
 # define S_IEXEC  _S_IEXEC                     /* execute permission */
 #endif
-#define S_IFBLK   0                            /* block device */
-#define S_IFLNK   0                            /* link */
-#define S_IFSOCK  0                            /* socket */
+
+//#define S_IFBLK   0                            /* block device */
+//#define S_IFLNK   0                            /* link */
+//#define S_IFSOCK  0                            /* socket */
 
 #if defined(_MSC_VER)
 # define S_IRUSR  S_IREAD                      /* read, user */
@@ -130,6 +133,8 @@
  * only defined for compatibility.  These macros should always return false
  * on Windows.
  */
+
+/*
 #define	S_ISFIFO(mode) (((mode) & S_IFMT) == S_IFFIFO)
 #define	S_ISDIR(mode)  (((mode) & S_IFMT) == S_IFDIR)
 #define	S_ISREG(mode)  (((mode) & S_IFMT) == S_IFREG)
@@ -137,6 +142,7 @@
 #define	S_ISSOCK(mode) (((mode) & S_IFMT) == S_IFSOCK)
 #define	S_ISCHR(mode)  (((mode) & S_IFMT) == S_IFCHR)
 #define	S_ISBLK(mode)  (((mode) & S_IFMT) == S_IFBLK)
+*/
 
 #ifdef __cplusplus
 extern "C" {

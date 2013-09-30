@@ -1,9 +1,0 @@
-NOTATION
-========
-
-Notation examples are given:
-
-* MyClass
-* my_variable
-* MY_CONSTANT or MY_DEFINITION
-* my_namespace
