@@ -1,3 +1,8 @@
+game:
+  kind: sokoban
+  screen: [20, 20]
+  figure_size: 1
+
 object_kinds:
   light_box:
     color: green

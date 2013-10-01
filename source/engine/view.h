@@ -54,6 +54,8 @@ namespace engine {
 		}
 
 		void display();
+		void draw_background(const Bound &);
+		void draw_cells(const Bound &);
 		void draw_grid(const Bound &);
 		void draw_border();
 		void draw_objects(const Bound &);
@@ -73,6 +75,8 @@ namespace engine {
 			// positioning
 			glPushMatrix();
 				glTranslatef(position.column, position.row, 0);
+				//draw_background(view_bound);
+				draw_cells(display_bound);
 				draw_grid(display_bound);
 				draw_border();
 				glPushMatrix();
@@ -84,19 +88,19 @@ namespace engine {
 		}
 	}
 
-	void View::draw_grid(const Bound & display_bound) {
+	void View::draw_grid(const Bound & _bound) {
 		//glLineWidth(2);
 		glBegin(GL_LINES);
-			if(display_bound.initial.row < display_bound.final.row) {
-				for(int x = display_bound.initial.column; x <= display_bound.final.column; x++) {
-					glVertex2f(x, display_bound.initial.row);
-					glVertex2f(x, display_bound.final.row);
+			if(_bound.initial.row < _bound.final.row) {
+				for(int x = _bound.initial.column; x <= _bound.final.column; x++) {
+					glVertex2f(x, _bound.initial.row);
+					glVertex2f(x, _bound.final.row);
 				}
 			}
-			if(display_bound.initial.column < display_bound.final.column) {
-				for(int y = display_bound.initial.row; y <= display_bound.final.row; y++) {
-					glVertex2f(display_bound.initial.column, y);
-					glVertex2f(display_bound.final.column, y);
+			if(_bound.initial.column < _bound.final.column) {
+				for(int y = _bound.initial.row; y <= _bound.final.row; y++) {
+					glVertex2f(_bound.initial.column, y);
+					glVertex2f(_bound.final.column, y);
 				}
 			}
 		glEnd();
@@ -115,6 +119,33 @@ namespace engine {
 		glEnd();/**/
 		//glPopAttrib(CL_CURRENT_BIT);
 		// drawing border }
+	}
+
+	void View::draw_cells(const Bound & bound) {
+		for (int row = bound.initial.row;
+		row < bound.final.row;
+		row++)
+		{
+			for (int column = bound.initial.column;
+				column < bound.final.column;
+				column++)
+			{
+				glPushMatrix();
+					glTranslatef(column, row, 0);
+					glPushAttrib(GL_CURRENT_BIT);
+						glColor3ub(LIGHT_GRAY);
+						graphics::square();
+					glPopAttrib();
+				glPopMatrix();
+			}
+		}
+	}
+
+	void View::draw_background(const Bound & bound) {
+		glPushAttrib(GL_CURRENT_BIT);
+			//glColor3ub(ORANGE);
+			glRectf(0, 0, size.width, size.height);
+		glPopAttrib();
 	}
 
 	void View::draw_objects(const Bound & real_bound) {
@@ -145,6 +176,15 @@ namespace engine {
 					//std::cout << placement << std::endl;
 					field->data.points[placement]->display(placement);
 				}
+				/*else {
+					glPushMatrix();
+					glTranslatef(column, row, 0);
+						glPushAttrib(GL_CURRENT_BIT);
+							glColor3ub(LIGHT_GRAY);
+							graphics::square();
+						glPopAttrib();
+					glPopMatrix();
+				}*/
 			}
 		}
 		/*for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {

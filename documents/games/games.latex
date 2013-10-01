@@ -2,13 +2,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 
-\title{Описание игр}
+\title{ОПИСАНИЕ ИГР}
+\usepackage{indentfirst}
 
 \begin{document}
 
-ОПИСАНИЕ ИГР
+\maketitle
 
-I. Один игрок
+\section{Один игрок}
 
 1. Змейка / Snake
 
@@ -57,12 +58,19 @@ II. Несколько игроков
 IV. Заставки, фоны, дополнительные материалы
 
 1. Жизнь / Live
+
 2. Расстановка ферзей / Queens puzzle
+
 3. Карта земли / Earth map
+
 	а) Подсветка по времени суток
+
 	б) Географичекая
+
 	в) Политическая
+
 4. Черепашья графика / Turtle graphics
+
 5. Эквалайзер / Equalizer
 
 VI. Усложнённые версии игр
@@ -72,11 +80,17 @@ VI. Усложнённые версии игр
 Требуют вывода чисел
 
 1. Японский кроссворд / Nonogram
+
 2. Одинокое число / Sudoku
+
 3. Mines / Сапёр
 
 Требуют вывода более сложных элементов или не придерживаются сетки
 
 1. Кикс / Qix (яп. クイックス Kuikkusu?) — аркадная игра, выпущенная Taito America Corporation в 1981 году.
+
 2. JezzBall (Jeremy Ball)
+
+\tableofcontents
+
 \end{document}

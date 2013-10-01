@@ -11,7 +11,9 @@
 #define AZURE 61, 222, 235
 #define VIOLET 175, 0, 185
 #define GRAY 127, 127, 127
-#define ORANGE 255, 221, 0
+#define ORANGE 245, 121, 0
+#define DARK_GRAY 63, 63, 63
+#define LIGHT_GRAY 192, 192, 192
 
 //GLfloat glutGetColor(int cell, int component);
 //void glutSetColor(int cell, GLfloat red, GLfloat green, GLfloat blue);

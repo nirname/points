@@ -7,17 +7,20 @@ namespace graphics {
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);
 			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
+			glRectf(-0.5, -0.5, 0.5, 0.5);
+			/*
 			glBegin(GL_POLYGON);
-			//glColor3ub(BLUE);
-			glVertex2f( 0.5,  0.5);
-			//glColor3ub(GREEN);
-			glVertex2f(-0.5,  0.5);
-			//glColor3ub(YELLOW);
-			glVertex2f(-0.5, -0.5);
-			//glColor3ub(VIOLET);
-			glVertex2f( 0.5, -0.5);
+				//glColor3ub(BLUE);
+				glVertex2f( 0.5,  0.5);
+				//glColor3ub(GREEN);
+				glVertex2f(-0.5,  0.5);
+				//glColor3ub(YELLOW);
+				glVertex2f(-0.5, -0.5);
+				//glColor3ub(VIOLET);
+				glVertex2f( 0.5, -0.5);
 			glEnd();
 			//glColor3ub(BLACK);
+			*/
 		glPopMatrix();
 	}
 
