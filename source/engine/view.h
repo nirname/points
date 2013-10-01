@@ -23,9 +23,15 @@ namespace engine {
 		//Screen * screen;
 		Point position; // position at screen
 
+		graphics::ColorPointer background_color, cells_color, grid_color, border_color;
+
 		View() {
 			field = NULL;
 			direction = BACKWARD_DIRECTION;
+			background_color = NULL;
+			cells_color      = NULL;
+			grid_color       = NULL;
+			border_color     = NULL;
 		}
 
 		void adjust_size() {
@@ -54,11 +60,14 @@ namespace engine {
 		}
 
 		void display();
+
 		void draw_background(const Bound &);
 		void draw_cells(const Bound &);
 		void draw_grid(const Bound &);
 		void draw_border();
+
 		void draw_objects(const Bound &);
+
 	};
 
 	void View::display()
@@ -75,7 +84,7 @@ namespace engine {
 			// positioning
 			glPushMatrix();
 				glTranslatef(position.column, position.row, 0);
-				//draw_background(view_bound);
+				draw_background(view_bound);
 				draw_cells(display_bound);
 				draw_grid(display_bound);
 				draw_border();
@@ -90,20 +99,23 @@ namespace engine {
 
 	void View::draw_grid(const Bound & _bound) {
 		//glLineWidth(2);
-		glBegin(GL_LINES);
-			if(_bound.initial.row < _bound.final.row) {
-				for(int x = _bound.initial.column; x <= _bound.final.column; x++) {
-					glVertex2f(x, _bound.initial.row);
-					glVertex2f(x, _bound.final.row);
+		glPushAttrib(GL_CURRENT_BIT);
+			if(grid_color != NULL) grid_color->use();
+			glBegin(GL_LINES);
+				if(_bound.initial.row < _bound.final.row) {
+					for(int x = _bound.initial.column; x <= _bound.final.column; x++) {
+						glVertex2f(x, _bound.initial.row);
+						glVertex2f(x, _bound.final.row);
+					}
 				}
-			}
-			if(_bound.initial.column < _bound.final.column) {
-				for(int y = _bound.initial.row; y <= _bound.final.row; y++) {
-					glVertex2f(_bound.initial.column, y);
-					glVertex2f(_bound.final.column, y);
+				if(_bound.initial.column < _bound.final.column) {
+					for(int y = _bound.initial.row; y <= _bound.final.row; y++) {
+						glVertex2f(_bound.initial.column, y);
+						glVertex2f(_bound.final.column, y);
+					}
 				}
-			}
-		glEnd();
+			glEnd();
+		glPopAttrib();
 	}
 
 	void View::draw_border() {
@@ -111,39 +123,49 @@ namespace engine {
 		//glLineWidth(5);
 		//glPushAttrib(GL_CURRENT_BIT);
 		//glColor3ub(VIOLET);
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(0         , 0          );
-			glVertex2f(size.width, 0          );
-			glVertex2f(size.width, size.height);
-			glVertex2f(0         , size.height);
-		glEnd();/**/
-		//glPopAttrib(CL_CURRENT_BIT);
+		glPushAttrib(GL_CURRENT_BIT);
+			if(border_color != NULL) grid_color->use();
+			glBegin(GL_LINE_LOOP);
+				glVertex2f(0         , 0          );
+				glVertex2f(size.width, 0          );
+				glVertex2f(size.width, size.height);
+				glVertex2f(0         , size.height);
+			glEnd();
+		glPopAttrib();
 		// drawing border }
 	}
 
 	void View::draw_cells(const Bound & bound) {
-		for (int row = bound.initial.row;
-		row < bound.final.row;
-		row++)
-		{
-			for (int column = bound.initial.column;
-				column < bound.final.column;
-				column++)
-			{
-				glPushMatrix();
-					glTranslatef(column, row, 0);
-					glPushAttrib(GL_CURRENT_BIT);
-						glColor3ub(LIGHT_GRAY);
-						graphics::square();
-					glPopAttrib();
-				glPopMatrix();
+		glPushAttrib(GL_CURRENT_BIT);
+			if(cells_color != NULL) {
+				cells_color->use();
+			} else {
+				glColor3ub(LIGHT_GRAY);
 			}
-		}
+			for (int row = bound.initial.row;
+			row < bound.final.row;
+			row++)
+			{
+				for (int column = bound.initial.column;
+					column < bound.final.column;
+					column++)
+				{
+					glPushMatrix();
+						glTranslatef(column, row, 0);
+							graphics::square();
+					glPopMatrix();
+				}
+			}
+		glPopAttrib();
 	}
 
 	void View::draw_background(const Bound & bound) {
 		glPushAttrib(GL_CURRENT_BIT);
-			//glColor3ub(ORANGE);
+			if(background_color != NULL) {
+				background_color->use();
+			} else {
+				glColor3ub(ORANGE);
+			}
 			glRectf(0, 0, size.width, size.height);
 		glPopAttrib();
 	}
