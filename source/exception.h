@@ -1,0 +1,8 @@
+#ifndef EXCEPTION_H
+#define EXCEPTION_H 1
+
+enum EXCEPTION {
+	UNKNOWN_ATTRIBUTE
+};
+
+#endif

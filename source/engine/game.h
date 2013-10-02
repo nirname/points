@@ -32,6 +32,18 @@ namespace engine {
 		ObjectKindMapping object_kinds;
 		ObjectMapping     objects;
 		graphics::AnimationMapping animations;
+		//int controls;
+
+		/*template<typename Type> Mapping<Type> * attribute(std::string attribute_name) {
+			if(attribute_name == "fields") return & fields;
+			else if(attribute_name == "views") return & views;
+			else if(attribute_name == "colors") return & colors;
+			else if(attribute_name == "shapes") return & shapes;
+			else if(attribute_name == "object_kinds") return & object_kinds;
+			else if(attribute_name == "objects") return & objects;
+			else if(attribute_name == "animations") return & animations;
+			else throw UNKNOWN_ATTRIBUTE;
+		};*/
 
 		InteractionMap interactions;
 		// Use unordered hash instead

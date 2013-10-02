@@ -65,18 +65,33 @@ views:
       row: 5
 
 controls:
-  w: # list of objects
-    sokoban: # list of actions with this object
-      move: [1, 1]
+  w:
+    actions: { move: [0, 1] }
+    targets: { objects: sokoban_1 }
   a:
-    sokoban:
-      move: [1, 1]
+    actions: { move: [-1, 0] }
+    targets: { objects: sokoban_1 }
   s:
-    sokoban:
-      move: [1, 1]
+    actions: { move: [0, -1] }
+    targets: { objects: sokoban_1 }
   d:
-    sokoban:
-      move: [1, 1]
+    actions: { move: [1, 0] } # pass also field name, where object is moving
+    targets: { objects: sokoban_1 }
+  q:
+    actions: destroy
+    targets: { objects: sokoban_2 }
+  #w: # list of objects
+  #  sokoban: # list of actions with this object
+  #    move: [1, 1]
+  #a:
+  #  sokoban:
+  #    move: [1, 1]
+  #s:
+  #  sokoban:
+  #    move: [1, 1]
+  #d:
+  #  sokoban:
+  #    move: [1, 1]
   # or more even complex
   #e:
   #  actions:

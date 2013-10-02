@@ -54,6 +54,7 @@ namespace engine {
 	typedef Mapping< graphics::Color >      ColorMapping;
 	typedef Mapping< graphics::Shape >      ShapeMapping;
 
+
 	/*typedef MAPPING( FieldPointer           ) FieldMap;
 	typedef MAPPING( ViewPointer            ) ViewMap;
 	typedef MAPPING( ObjectKindPointer      ) ObjectKindMap;

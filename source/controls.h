@@ -9,15 +9,32 @@
 
 #define ESCAPE_KEY 27
 
+struct EntityIdentifier {
+	const char * entity_kind;
+	std::string entity_name;
+};
+
 namespace controls {
 
-	enum ACTION_KIND {
+	enum ACTION_NAME {
 		MOVE
 	};
 
-	class Action {
-		ACTION_KIND kind;
+	/*class Action {
+		ACTION_NAME name;
+		std::list<engine::Point> options;
+	};*/
+
+	struct ActionOptions {
+		std::list<engine::Point> points;
+		std::list<EntityIdentifier> entities;
 	};
+
+	class ControlHandler {
+		Mapping<ActionOptions> actions; // actions with it's options
+		std::list<EntityIdentifier> entities;
+	};
+
 
 	void keyboard(unsigned char key, int x, int y)
 	{

@@ -46,6 +46,7 @@
 // own libraries
 
 #include "types.h"
+#include "exception.h"
 
 #include "declarations.h"
 
