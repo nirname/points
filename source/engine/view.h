@@ -68,6 +68,12 @@ namespace engine {
 
 		void draw_objects(const Bound &);
 
+		void print(std::ostream & _ostream) const {
+			_ostream << "View#" << this << " ("
+				<< "field: " << field
+			<< ")";
+		}
+
 	};
 
 	void View::display()
@@ -219,7 +225,15 @@ namespace engine {
 		}*/
 		//std::cout << std::endl;
 		// drawing points }
+
 	}
+
+
+	std::ostream & operator << (std::ostream & _ostream, const View & _view) {
+		_view.print(_ostream);
+		return _ostream;
+	}
+
 
 } // namespace engine
 

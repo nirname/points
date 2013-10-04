@@ -9,32 +9,22 @@
 
 #define ESCAPE_KEY 27
 
-struct EntityIdentifier {
+/*struct EntityIdentifier {
 	const char * entity_kind;
 	std::string entity_name;
-};
+};*/
+
+/*class Action {
+	ACTION_NAME name;
+	std::list<engine::Point> options;
+};*/
+
+/*struct ActionOptions {
+	std::list<engine::Point> points;
+	std::list<EntityIdentifier> entities;
+};*/
 
 namespace controls {
-
-	enum ACTION_NAME {
-		MOVE
-	};
-
-	/*class Action {
-		ACTION_NAME name;
-		std::list<engine::Point> options;
-	};*/
-
-	struct ActionOptions {
-		std::list<engine::Point> points;
-		std::list<EntityIdentifier> entities;
-	};
-
-	class ControlHandler {
-		Mapping<ActionOptions> actions; // actions with it's options
-		std::list<EntityIdentifier> entities;
-	};
-
 
 	void keyboard(unsigned char key, int x, int y)
 	{
@@ -56,8 +46,14 @@ namespace controls {
 		if(!game.paused) {
 			engine::Point position;
 			engine::Point offset;
+			std::string string_key = lib::to_string(key);
+			if(game.controls.has(string_key)) {
+				game.controls[string_key]->evaluate();
+			} else {
+			std::cout << ": free";
+			}
 			//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
-			switch(key)
+			/*switch(key)
 			{
 				case '8': position = engine::Point( 0,  1); break;
 				case '5': position = engine::Point( 0, -1); break;
@@ -70,7 +66,7 @@ namespace controls {
 				case 'p': break;
 				// case 'x': animation_type = graphics::FADE_ANIMATION; break;
 				default: std::cout << ": free";
-			}
+			}*/
 			// move all views
 			//game.views[std::string("View")]->position += position;
 			//game.views[std::string("View")]->offset += offset;

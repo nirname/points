@@ -29,7 +29,7 @@ template<typename Type> class Mapping {
 			return new Type();
 		}
 
-		// Alias for container operator []
+		// Retrive an entry from container or create a new one
 		inline TypePointer fetch(std::string _name) {
 			return container[_name];
 		}
@@ -78,8 +78,16 @@ template<typename Type> class Mapping {
 			if(has(_name)) {
 				return NULL;
 			} else {
+				// !!! catch exceptions here
 				TypePointer instance = build();
-				options >> *instance;
+				try {
+				// !!! and catch exceptions here if there is problems during loading
+					options >> *instance;
+				} catch(...) {
+					std::cout << "An a error occured during creating entity" << std::endl;
+					delete instance;
+					return NULL;
+				}
 				set(_name, instance);
 				return instance;
 			}
@@ -110,11 +118,10 @@ template<typename Type> class Mapping {
 			return container.end();
 		}
 
-
 		void print(std::ostream & _ostream = std::cout) {
 			if(!container.empty()) {
 				for(Iterator iterator = container.begin(); iterator != container.end(); ++iterator) {
-					_ostream << iterator->first << ": " << iterator->second << std::endl;
+					_ostream << iterator->first << ": " << *iterator->second << std::endl;
 				}
 			} else {
 				_ostream << "is empty" << std::endl;
@@ -129,11 +136,11 @@ template<typename Type> std::ostream & operator << (std::ostream & _ostream, Map
 }
 
 template<typename T> void operator >> (const YAML::const_iterator & iterator, Mapping<T> & mapping) {
-	std::string entity_name = iterator->first.as<std::string>();
-	std::cout << entity_name << std::endl;
-	T * entity_pointer = mapping.add(entity_name);
-	if(entity_pointer != NULL) {
-		iterator->second >> *entity_pointer;
+	try {
+		mapping.add(iterator->first.as<std::string>(), iterator->second);
+	}
+	catch(YAML::TypedBadConversion<std::string()> & exception) {
+		std::cout << "Can't upload entity" << std::endl;
 	}
 }
 

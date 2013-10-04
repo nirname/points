@@ -92,7 +92,7 @@ int main(int argc, char * argv[])
 	glutMouseFunc(controls::mouse);
 
 	game.load();
-	//std::cout << game.attribute("fields") << std::endl;
+	//std::cout << "\nTest\n" << game.attribute("fields")["field"] << std::endl;
 
 	lib::stage("STARTING GAME\n");
 

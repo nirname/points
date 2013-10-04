@@ -48,7 +48,7 @@ namespace engine {
 		}
 
 		void print(std::ostream & _ostream) const {
-			_ostream << "Field#" << number;
+			_ostream << "Field#" << this;
 		}
 
 	}; // Field

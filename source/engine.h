@@ -9,6 +9,7 @@
 #include "engine/view.h"
 #include "engine/screen.h"
 #include "engine/level.h"
+#include "engine/control_handler.h"
 
 #include "engine/game.h"
 
@@ -64,7 +65,7 @@ namespace engine {
 		//ObjectInformationIterator this_object_info = _field->data.find(this);
 		//PointInformationIterator this_point_info = _field->data.find();
 
-		//std::cout << "moving..." << std::endl;
+		std::cout << "moving..." << std::endl;
 		ObjectInformationIterator information = _field->data.objects.find(this);
 
 		if(_field->data.contains(information)) {
@@ -97,10 +98,18 @@ namespace engine {
 
 			}
 			//std::cout << _field->data.objects[this] << std::endl;
-		}/* else {
-			//std::cout << "has no object" << std::endl;
-		}*/
+		}// else {
+		//	std::cout << "has no object" << std::endl;
+		//}
 		return false;
+	}
+
+	void ControlHandler::evaluate() {
+		std::cout << ": eval\n";
+		for(FieldMapping::Iterator iterator = game.fields.begin(); iterator != game.fields.end(); ++iterator) {
+			std::cout << iterator->second << std::endl;
+			object->move(iterator->second, option);
+		}
 	}
 
 	void operator >> (const YAML::Node & options, Size & size) {
@@ -150,8 +159,8 @@ namespace engine {
 				if(options.size() == 1) {
 					point.column = point.row = options[0].as<int>();
 				} else if(options.size() == 2) {
-					point.row = options[0].as<int>();
-					point.column = options[1].as<int>();
+					point.column = options[0].as<int>();
+					point.row = options[1].as<int>();
 				} else {
 					std::cout << "Wrong number of arguments for point" << std::endl;
 				}
@@ -223,6 +232,18 @@ namespace engine {
 		} else {
 			std::cout << "Options for view should be a mapping" << std::endl;
 		}
+	}
+
+	void operator >> (const YAML::Node & options, ControlHandler & handler) {
+		if(options.IsMap()) {
+			if(options["object"]) handler.object = game.objects[options["object"].as<std::string>()];
+			if(options["action"]) handler.action = MOVE;
+			if(options["option"]) options["option"] >> handler.option;
+		}
+		//ObjectPointer object = game.objects[->first.as<std::string>()];
+		//if(object != NULL) {
+			//YAML::NodeType::value node_type = iterator->second.Type();
+		//}
 	}
 
 	/*struct Cell

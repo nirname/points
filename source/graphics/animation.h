@@ -90,12 +90,22 @@ namespace graphics {
 				}*/
 			}
 		};
+
 		void repair() {
 			state = READY;
 			initialize_progress();
 		}; //clear
 
+		void print(std::ostream & _ostream) const {
+			_ostream << "Animation#" << this;
+		}
+
 	};
+
+	std::ostream & operator << (std::ostream & _ostream, const graphics::Animation & entity) {
+		entity.print(_ostream);
+		return _ostream;
+	}
 
 }
 #endif

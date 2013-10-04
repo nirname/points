@@ -9,6 +9,11 @@ namespace graphics {
 		float figure_size;
 		// add size (radius, or something like that)
 		virtual void display() = 0;
+
+		void print(std::ostream & _ostream) const {
+			_ostream << "Shape#" << this;
+		}
+
 	};
 
 	struct Square : public Shape {
@@ -91,6 +96,11 @@ namespace graphics {
 			david();
 		}
 	};
+
+	std::ostream & operator << (std::ostream & _ostream, const Shape & _shape) {
+		_shape.print(_ostream);
+		return _ostream;
+	}
 
 }
 

@@ -32,9 +32,9 @@ namespace engine {
 		ObjectKindMapping object_kinds;
 		ObjectMapping     objects;
 		graphics::AnimationMapping animations;
-		//int controls;
+		Mapping<ControlHandler> controls;
 
-		/*template<typename Type> Mapping<Type> * attribute(std::string attribute_name) {
+		/*void * attribute(std::string attribute_name) {
 			if(attribute_name == "fields") return & fields;
 			else if(attribute_name == "views") return & views;
 			else if(attribute_name == "colors") return & colors;
@@ -57,23 +57,18 @@ namespace engine {
 
 		void print() {
 			std::cout << "Object kinds:\n" << object_kinds << std::endl;
-			std::cout << "Interactions:" << std::endl;
+			std::cout << "Interactions:\n";
 			for(InteractionMapIterator i = interactions.begin(); i != interactions.end(); ++i) {
-				std::cout << "  " << i->first.first << " can " << i->second << " " << i->first.second << std::endl;
+				std::cout << i->first.first << " can " << i->second << " " << i->first.second << std::endl;
 			}
+			std::cout << std::endl;
 			std::cout << "Objects:\n" << objects << std::endl;
 			std::cout << "Fields:\n" << fields << std::endl;
 			std::cout << "Views:\n" << views << std::endl;
 			std::cout << "Colors:\n" << colors << std::endl;
 			std::cout << "Shapes:\n" << shapes << std::endl;
 			std::cout << "Animations:\n" << animations << std::endl;
-
-			for(ObjectKindMapping::Iterator i = object_kinds.begin(); i != object_kinds.end(); ++i) {
-				std::cout << "  " << i->first << ": " << *i->second << std::endl;
-			}
-			for(ObjectMapping::Iterator i = objects.begin(); i != objects.end(); ++i) {
-				std::cout << "  " << i->first << ": " << *i->second << std::endl;
-			}
+			std::cout << "Controls:\n" << controls << std::endl;
 
 		}
 
@@ -257,6 +252,19 @@ namespace engine {
 
 		bool load_controls(const YAML::Node & level) {
 			bool result = true;
+			if(level["controls"]) {
+				const YAML::Node & node = level["controls"];
+				if(node.IsMap()) {
+					for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
+						//ControlHandler * _handler = controls.add("w");
+						iterator >> this->controls;
+					}
+				} else {
+					std::cout << "Controls should me a map" << std::endl;
+				}
+			} else {
+				std::cout << "No controls specified" << std::endl;
+			}
 			return result;
 		}
 

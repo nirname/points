@@ -29,6 +29,7 @@ namespace graphics {
 	//typedef AnimationMap::iterator AnimationMapIterator;
 }
 
+
 namespace engine {
 
 	struct Screen;
@@ -40,6 +41,7 @@ namespace engine {
 	struct Point;
 	struct Size;
 	struct ObjectKind;
+	struct ControlHandler;
 
 	typedef Field  * FieldPointer;
 	typedef View   * ViewPointer;
@@ -53,24 +55,7 @@ namespace engine {
 	typedef Mapping< Object          >     ObjectMapping;
 	typedef Mapping< graphics::Color >      ColorMapping;
 	typedef Mapping< graphics::Shape >      ShapeMapping;
-
-
-	/*typedef MAPPING( FieldPointer           ) FieldMap;
-	typedef MAPPING( ViewPointer            ) ViewMap;
-	typedef MAPPING( ObjectKindPointer      ) ObjectKindMap;
-	typedef MAPPING( ObjectPointer          ) ObjectMap;
-	typedef MAPPING( graphics::ColorPointer ) ColorMap;
-	typedef MAPPING( graphics::ShapePointer ) ShapeMap;*/
-
-	/*typedef      FieldMap *      FieldMapPointer;
-	typedef       ViewMap *       ViewMapPointer;
-	typedef ObjectKindMap * ObjectKindMapPointer;
-	typedef     ObjectMap *     ObjectMapPointer;
-	typedef      ColorMap *      ColorMapPointer;
-	typedef      ShapeMap *      ShapeMapPointer;*/
-
-	/*typedef Mapping< graphics::ColorPointer >::Type ColorMap;
-	typedef Mapping< graphics::ShapePointer >::Type ShapeMap;*/
+	typedef Mapping< ControlHandler  >   ControlsMapping;
 
 	typedef std::map< Object *, Point > ObjectInformation;
 	typedef std::map< Point, Object * > PointInformation;

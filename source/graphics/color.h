@@ -72,7 +72,21 @@ namespace graphics {
 			green = _green;
 			blue = _blue;
 		}
+
+		void print(std::ostream & _ostream) const {
+			_ostream << "Color#" << this << " ("
+				<< red << ", "
+				<< green << ", "
+				<< blue
+			<< ")";
+		}
+
 	};
+
+	std::ostream & operator << (std::ostream & _ostream, const Color & _color) {
+		_color.print(_ostream);
+		return _ostream;
+	}
 
 }
 

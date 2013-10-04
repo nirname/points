@@ -17,6 +17,7 @@ interactions:
     push: # interactions
       - light_box
       - heavy_box
+      - sokoban
   heavy_box:
     push: light_box # scalar or sequense
 
@@ -66,32 +67,49 @@ views:
 
 controls:
   w:
-    actions: { move: [0, 1] }
-    targets: { objects: sokoban_1 }
+    object: sokoban_1
+    action: move
+    option: [0, 1]
   a:
-    actions: { move: [-1, 0] }
-    targets: { objects: sokoban_1 }
+    object: sokoban_1
+    action: move
+    option: [-1, 0]
   s:
-    actions: { move: [0, -1] }
-    targets: { objects: sokoban_1 }
+    object: sokoban_1
+    action: move
+    option: [0, -1]
   d:
-    actions: { move: [1, 0] } # pass also field name, where object is moving
-    targets: { objects: sokoban_1 }
-  q:
-    actions: destroy
-    targets: { objects: sokoban_2 }
+    object: sokoban_1
+    action: move
+    option: [1, 0]
+
+  #w:
+  #  actions: { move: [0, 1] }
+  #  targets: { objects: sokoban_1 }
+  #a:
+  #  actions: { move: [-1, 0] }
+  #  targets: { objects: sokoban_1 }
+  #s:
+  #  actions: { move: [0, -1] }
+  #  targets: { objects: sokoban_1 }
+  #d:
+  #  actions: { move: [1, 0] } # pass also field name, where object is moving
+  #  targets: { objects: sokoban_1 }
+  #q:
+  #  actions: destroy
+  #  targets: { objects: sokoban_2 }
   #w: # list of objects
   #  sokoban: # list of actions with this object
-  #    move: [1, 1]
+  #    move: [0, 1]
   #a:
   #  sokoban:
-  #    move: [1, 1]
+  #    move: [-1, 0]
   #s:
   #  sokoban:
-  #    move: [1, 1]
+  #    move: [0, -1]
   #d:
   #  sokoban:
-  #    move: [1, 1]
+  #    move: [1, 0]
   # or more even complex
   #e:
   #  actions:
