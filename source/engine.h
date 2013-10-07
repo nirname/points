@@ -112,6 +112,8 @@ namespace engine {
 		}
 	}
 
+	// !!! move this functions to another files
+
 	void operator >> (const YAML::Node & options, Size & size) {
 		try {
 			if(options.IsMap()) {
@@ -199,14 +201,17 @@ namespace engine {
 					for(YAML::const_iterator iterator = data_node.begin(); iterator != data_node.end(); ++iterator) {
 						iterator >> field.data;
 					}
+				} else if (data_node.IsSequence()) {
+					std::cout << "<<<<<<<<<<SEQUENCE" << std::endl;
 				}
+
 			}
 		} else {
 			std::cout << "Options for field should be a mapping" << std::endl;
 		}
 	}
 
-	void operator >> (const YAML::Node& options, ObjectKind & object_kind) {
+	void operator >> (const YAML::Node & options, ObjectKind & object_kind) {
 		if(options["color"]) {
 			object_kind.color = game.colors[options["color"].as<std::string>()];
 		}

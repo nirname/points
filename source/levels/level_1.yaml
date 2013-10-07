@@ -1,3 +1,4 @@
+# example of colors, figures and interactions
 game:
   kind: sokoban
   screen: [20, 20]
@@ -8,18 +9,21 @@ object_kinds:
     color: green
   heavy_box:
     color: blue
+  magic_box:
+    color: red
   sokoban:
     color: violet
-    shape: star
+    shape: circle
 
 interactions:
   sokoban: # object kind
     push: # interactions
       - light_box
       - heavy_box
-      - sokoban
   heavy_box:
-    push: light_box # scalar or sequense
+    push: light_box
+  light_box:
+    push: magic_box
 
 objects:
   light_box:
@@ -27,6 +31,9 @@ objects:
     - box_2
   heavy_box:
     - box_3
+  magic_box:
+    - box_4
+    - box_5
   sokoban:
     - sokoban_1
     - sokoban_2
@@ -51,6 +58,8 @@ fields:
         - 6
         - 5
       box_3: [4, 3] # it can be written as a comma separated list within square brackets
+      box_4: [3, 7]
+      box_5: [7, 7]
   info:
     size: 5
 
