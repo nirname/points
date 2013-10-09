@@ -146,7 +146,7 @@ namespace engine {
 			if(cells_color != NULL) {
 				cells_color->use();
 			} else {
-				glColor3ub(LIGHT_GRAY);
+				glColor3ub(GRAY);
 			}
 			for (int row = bound.initial.row;
 			row < bound.final.row;
@@ -158,7 +158,7 @@ namespace engine {
 				{
 					glPushMatrix();
 						glTranslatef(column, row, 0);
-							graphics::square();
+						graphics::square();
 					glPopMatrix();
 				}
 			}
@@ -169,10 +169,10 @@ namespace engine {
 		glPushAttrib(GL_CURRENT_BIT);
 			if(background_color != NULL) {
 				background_color->use();
-			} else {
-				glColor3ub(ORANGE);
-			}
-			glRectf(0, 0, size.width, size.height);
+				glRectf(0, 0, size.width, size.height);
+			}/* else {
+				glColor3ub(BLACK);
+			}*/
 		glPopAttrib();
 	}
 
@@ -233,8 +233,6 @@ namespace engine {
 		_view.print(_ostream);
 		return _ostream;
 	}
-
-
 
 } // namespace engine
 

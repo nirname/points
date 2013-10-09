@@ -6,6 +6,7 @@
 #include "engine/object.h"
 #include "engine/data.h"
 #include "engine/field.h"
+#include "engine/cell.h"
 #include "engine/view.h"
 #include "engine/screen.h"
 #include "engine/level.h"
@@ -111,8 +112,6 @@ namespace engine {
 			object->move(iterator->second, option);
 		}
 	}
-
-	#include "engine/parser/parser.h"
 
 } // engine
 

@@ -72,6 +72,8 @@ namespace engine {
 
 		}
 
+		// !!! move this functions to loader file
+
 		bool load_object_kinds(const YAML::Node & level) {
 			bool result = true;
 			if(level["object_kinds"]) {
@@ -269,6 +271,7 @@ namespace engine {
 		}
 
 		bool load_colors(const YAML::Node & level) {
+			// !!! move this to function load default colors
 			colors.add(std::string("white"),  new graphics::Color(WHITE));
 			colors.add(std::string("black"),  new graphics::Color(BLACK));
 			colors.add(std::string("blue"),   new graphics::Color(BLUE));

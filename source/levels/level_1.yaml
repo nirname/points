@@ -1,2 +1,22 @@
 colors:
-  fantazy: 58, 11, 233
+  # default: all # or just redefine them
+  fantazy: [255, 200, 200]
+
+fields:
+  f:
+    size: [10, 10]
+    data:
+      a: [1, 1]
+
+views:
+  v:
+    field: f
+    background_color: white
+
+object_kinds:
+  A:
+    color: fantazy
+
+objects:
+  A:
+    a

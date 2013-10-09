@@ -83,8 +83,12 @@ template<typename Type> class Mapping {
 				try {
 				// !!! and catch exceptions here if there is problems during loading
 					options >> *instance;
+				} catch(const EXCEPTION & exception) {
+					std::cout << exception << std::endl;
+					delete instance;
+					return NULL;
 				} catch(...) {
-					std::cout << "An a error occured during creating entity" << std::endl;
+					std::cout << "An a error occured creating entity" << std::endl;
 					delete instance;
 					return NULL;
 				}
