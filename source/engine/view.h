@@ -92,12 +92,12 @@ namespace engine {
 				glTranslatef(position.column, position.row, 0);
 				draw_background(view_bound);
 				draw_cells(display_bound);
-				draw_grid(display_bound);
 				draw_border();
 				glPushMatrix();
 					glTranslatef(shift.column, shift.row, 0);
 					draw_objects(real_bound);
 				glPopMatrix();
+				draw_grid(display_bound);
 			glPopMatrix();
 
 		}
@@ -233,6 +233,7 @@ namespace engine {
 		_view.print(_ostream);
 		return _ostream;
 	}
+
 
 
 } // namespace engine

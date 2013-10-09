@@ -88,6 +88,18 @@ namespace graphics {
 		return _ostream;
 	}
 
+	void operator >> (const YAML::Node & options, Color & color) {
+		if(options.IsSequence()) {
+			color.red = options[0].as<positive>();
+			color.green = options[1].as<positive>();
+			color.blue = options[2].as<positive>();
+		} else if (options.IsMap()) {
+			if(options["red"]) color.red = options["red"].as<positive>();
+			if(options["green"]) color.green = options["green"].as<positive>();
+			if(options["blue"]) color.blue = options["blue"].as<positive>();
+		}
+	}
+
 }
 
 #endif

@@ -6,7 +6,9 @@ namespace graphics {
 
 	// Any shape
 	struct Shape {
-		float figure_size;
+		//float figure_size; // use persent or real size?
+
+
 		// add size (radius, or something like that)
 		virtual void display() = 0;
 

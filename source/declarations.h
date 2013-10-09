@@ -29,6 +29,7 @@ namespace graphics {
 	//typedef AnimationMap::iterator AnimationMapIterator;
 }
 
+typedef graphics::Color Color;
 
 namespace engine {
 

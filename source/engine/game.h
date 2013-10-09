@@ -27,7 +27,7 @@ namespace engine {
 
 		FieldMapping      fields;
 		ViewMapping       views;
-		ColorMapping      colors; // use opengl palette
+		ColorMapping      colors;
 		ShapeMapping      shapes;
 		ObjectKindMapping object_kinds;
 		ObjectMapping     objects;
@@ -279,6 +279,21 @@ namespace engine {
 			colors.add(std::string("violet"), new graphics::Color(VIOLET));
 			colors.add(std::string("gray"),   new graphics::Color(GRAY));
 			colors.add(std::string("orange"), new graphics::Color(ORANGE));
+
+			if(level["colors"]) {
+				const YAML::Node & node = level["colors"];
+				if(node.IsMap()) {
+					for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
+						iterator >> colors;
+					}
+				} else {
+					std::cout << "Colors should be a map" << std::endl;
+				}
+			} else {
+				std::cout << "No colors specified" << std::endl;
+			}
+
+
 			return true;
 		}
 
@@ -342,8 +357,13 @@ namespace engine {
 					std::cout << "Configuration file should contain mapping" << std::endl;
 				}
 			} catch (YAML::ParserException & exception) {
-				std::cout << "Can'not load level" << std::endl;
+				std::cout << "I can not load level" << std::endl;
+				return false;
+			} catch (YAML::BadFile) {
+				std::cout << "There is no level" << std::endl;
+				return false;
 			}
+
 			//for(unsigned int i; i < _object_kinds.size(); i++) {
 			//	std::cout << i << std::endl;
 				//ObjectKindPointer object_kind = object_kinds.build();
