@@ -47,7 +47,7 @@ namespace image {
 			time = clock();
 			glutPostRedisplay();
 			time = clock() - time;
-			std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
+			//std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
 			glutTimerFunc(sleep, redisplay, 0);
 		}
 	}

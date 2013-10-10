@@ -148,27 +148,25 @@ namespace engine {
 	}
 
 	void View::draw_cells(const Bound & bound) {
-		glPushAttrib(GL_CURRENT_BIT);
-			if(cells_color != NULL) {
+		if(cells_color != NULL) {
+			glPushAttrib(GL_CURRENT_BIT);
 				cells_color->use();
-			} else {
-				glColor3ub(GRAY);
-			}
-			for (int row = bound.initial.row;
-			row < bound.final.row;
-			row++)
-			{
-				for (int column = bound.initial.column;
-					column < bound.final.column;
-					column++)
+				for (int row = bound.initial.row;
+				row < bound.final.row;
+				row++)
 				{
-					glPushMatrix();
-						glTranslatef(column, row, 0);
-						graphics::square();
-					glPopMatrix();
+					for (int column = bound.initial.column;
+						column < bound.final.column;
+						column++)
+					{
+						glPushMatrix();
+							glTranslatef(column, row, 0);
+							graphics::square();
+						glPopMatrix();
+					}
 				}
-			}
-		glPopAttrib();
+			glPopAttrib();
+		}
 	}
 
 	void View::draw_background(const Bound & bound) {

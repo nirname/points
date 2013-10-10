@@ -28,7 +28,7 @@ namespace controls {
 
 	void keyboard(unsigned char key, int x, int y)
 	{
-		printf("%i", key);
+		if(!game.paused) printf("%i", key);
 		if(key == ESCAPE_KEY) {
 			std::cout << ": quit" << std::endl;
 			exit(EXIT_SUCCESS);
@@ -36,10 +36,10 @@ namespace controls {
 		if(key == 'p') {
 			game.paused = !game.paused;
 			if(game.paused) {
-				std::cout << ": pause";
+				std::cout << ": game is paused; press `p` to resume";
 			}
 			else {
-				std::cout << ": resume";
+				std::cout << ": game is resumed; press `p` to pause again";
 				glutTimerFunc(0, image::redisplay, 0);
 			}
 		}

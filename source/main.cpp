@@ -1,7 +1,7 @@
 #include "global.h"
 
 engine::Screen screen(22.0, 22.0); // move screen to game?
-engine::Game game(logic::SOKOBAN);
+engine::Game game;
 
 void hello() {
 	std::cout << "Hello" << std::endl;
@@ -94,7 +94,7 @@ int main(int argc, char * argv[])
 	game.load();
 	//std::cout << "\nTest\n" << game.attribute("fields")["field"] << std::endl;
 
-	lib::stage("STARTING GAME\n");
+	lib::stage("STARTING GAME\npress `p` to pause game\n");
 
 	// main loop
 	glutMainLoop();

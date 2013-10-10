@@ -105,7 +105,7 @@ namespace graphics {
 			if(options["green"]) color.green = options["green"].as<positive>();
 			if(options["blue"]) color.blue = options["blue"].as<positive>();
 		} else {
-			throw UNKNOWN_YAML_TYPE;
+			throw WRONG_YAML_TYPE;
 		}
 	}
 

@@ -2,8 +2,7 @@ game:
   sleep: 1000
 
 colors:
-  # default: all # or just redefine them
-  fantazy: [255, 200, 200]
+  sky: [0, 156, 255]
 
 fields:
   f:
@@ -17,7 +16,7 @@ views:
 
 object_kinds:
   A:
-    color: fantazy
+    color: sky
 
 objects:
   A:
@@ -25,20 +24,22 @@ objects:
 
 controls:
   w:
-    object: s
+    object: a
     action: move
     option: [0, 1]
   a:
-    object: s
+    object: a
     action: move
     option: [-1, 0]
   s:
-    object: s
+    object: a
     action: move
     option: [0, -1]
   d:
-    object: s
+    object: a
     action: move
     option: [1, 0]
 
-#timer:
+timer:
+  object: s
+  action: move

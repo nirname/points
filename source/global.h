@@ -63,6 +63,4 @@
 #include "variables.h"
 #include "params.h"
 
-
-
 #endif

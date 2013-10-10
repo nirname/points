@@ -98,7 +98,7 @@ namespace engine {
 	typedef InteractionMap::iterator InteractionMapIterator;
 
 	typedef std::list <Level> LevelList;
-	typedef LevelList::iterator LevelListIterator;
+	typedef Mapping<Level> LevelMapping;
 
 
 	void operator >> (const YAML::Node & options, ObjectKind &);
