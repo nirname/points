@@ -99,6 +99,25 @@ namespace graphics {
 		}
 	};
 
+	struct Retro : Shape {
+		void display() {
+			square();
+			glPushMatrix();
+				glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+				glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+				glPushAttrib(GL_CURRENT_BIT);
+					glColor3ub(WHITE);
+					square();
+				glPopAttrib();
+				glPushMatrix();
+					glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+					glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+						square();
+				glPopMatrix();
+			glPopMatrix();
+		}
+	};
+
 	std::ostream & operator << (std::ostream & _ostream, const Shape & _shape) {
 		_shape.print(_ostream);
 		return _ostream;

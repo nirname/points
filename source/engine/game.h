@@ -226,6 +226,7 @@ namespace engine {
 			shapes.add(std::string("david"),  new graphics::David());
 			shapes.add(std::string("star"),   new graphics::Star());
 			shapes.add(std::string("ring"),   new graphics::Ring());
+			shapes.add(std::string("retro"),  new graphics::Retro());
 		}
 
 		bool load() {
