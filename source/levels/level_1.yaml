@@ -1,3 +1,6 @@
+game:
+  sleep: 1000
+
 colors:
   # default: all # or just redefine them
   fantazy: [255, 200, 200]
@@ -11,7 +14,6 @@ fields:
 views:
   v:
     field: f
-    background_color: white
 
 object_kinds:
   A:
@@ -20,3 +22,23 @@ object_kinds:
 objects:
   A:
     a
+
+controls:
+  w:
+    object: s
+    action: move
+    option: [0, 1]
+  a:
+    object: s
+    action: move
+    option: [-1, 0]
+  s:
+    object: s
+    action: move
+    option: [0, -1]
+  d:
+    object: s
+    action: move
+    option: [1, 0]
+
+#timer:

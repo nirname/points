@@ -106,7 +106,11 @@ namespace engine {
 	void View::draw_grid(const Bound & _bound) {
 		//glLineWidth(2);
 		glPushAttrib(GL_CURRENT_BIT);
-			if(grid_color != NULL) grid_color->use();
+			if(grid_color != NULL) {
+				grid_color->use();
+			} else {
+				glColor3ub(BLACK);
+			}
 			glBegin(GL_LINES);
 				if(_bound.initial.row < _bound.final.row) {
 					for(int x = _bound.initial.column; x <= _bound.final.column; x++) {
@@ -127,10 +131,12 @@ namespace engine {
 	void View::draw_border() {
 		// { drawing border
 		//glLineWidth(5);
-		//glPushAttrib(GL_CURRENT_BIT);
-		//glColor3ub(VIOLET);
 		glPushAttrib(GL_CURRENT_BIT);
-			if(border_color != NULL) grid_color->use();
+			if(border_color != NULL) {
+				border_color->use();
+			} else {
+				glColor3ub(VIOLET);
+			}
 			glBegin(GL_LINE_LOOP);
 				glVertex2f(0         , 0          );
 				glVertex2f(size.width, 0          );

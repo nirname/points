@@ -1,7 +1,18 @@
+#ifndef VIEW_PARSER_H
+#define VIEW_PARSER_H 1
+
 void operator >> (const YAML::Node & options, View & view) {
 
 	if(options.IsMap()) {
-		view.field = game.fields[options["field"].as<std::string>()];
+
+		if(options["field"]) {
+			view.field = game.fields[options["field"].as<std::string>()];
+		} else {
+			throw ATTRIBUTE_IS_MISSED;
+		}
+		if(view.field == NULL) {
+			throw OBJECT_IS_NOT_FOUND;
+		}
 
 		if(options["size"]) {
 			options["size"] >> view.size;
@@ -34,3 +45,5 @@ void operator >> (const YAML::Node & options, View & view) {
 	}
 
 }
+
+#endif

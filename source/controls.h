@@ -53,25 +53,6 @@ namespace controls {
 			std::cout << ": free";
 			}
 			//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
-			/*switch(key)
-			{
-				case '8': position = engine::Point( 0,  1); break;
-				case '5': position = engine::Point( 0, -1); break;
-				case '4': position = engine::Point(-1,  0); break;
-				case '6': position = engine::Point( 1,  0); break;
-				case 'w': offset   = engine::Point( 0,  1); break;
-				case 's': offset   = engine::Point( 0, -1); break;
-				case 'a': offset   = engine::Point(-1,  0); break;
-				case 'd': offset   = engine::Point( 1,  0); break;
-				case 'p': break;
-				// case 'x': animation_type = graphics::FADE_ANIMATION; break;
-				default: std::cout << ": free";
-			}*/
-			// move all views
-			//game.views[std::string("View")]->position += position;
-			//game.views[std::string("View")]->offset += offset;
-			//game.objects[std::string("Sokoban")];
-			//std::cout << "Key: " << key << std::endl;
 			glutPostRedisplay();
 		}
 		std::cout << std::endl;
@@ -85,10 +66,6 @@ namespace controls {
 	GLUT_KEY_INSERT - Insert key */
 
 	engine::Point step;
-
-	void move_sokoban() {
-		game.objects[std::string("Sokoban")]->move(game.fields[std::string("Field")], step);
-	}
 
 	void special(int key, int x, int y)
 	{

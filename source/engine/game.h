@@ -33,6 +33,7 @@ namespace engine {
 		ObjectMapping     objects;
 		graphics::AnimationMapping animations;
 		Mapping<ControlHandler> controls;
+		std::list<ControlHandler> actions;
 
 		/*void * attribute(std::string attribute_name) {
 			if(attribute_name == "fields") return & fields;
@@ -46,8 +47,6 @@ namespace engine {
 		};*/
 
 		InteractionMap interactions;
-		// Use unordered hash instead
-		//PointMap points;
 
 		Game(logic::GAME_KIND _game_kind):
 			game_kind(_game_kind), paused(false)
@@ -213,6 +212,10 @@ namespace engine {
 				}
 			}
 			return result;
+		}
+
+		template<typename Type> void load_attribute(const YAML::Node & level, Type attribute) {
+
 		}
 
 		bool load_fields(const YAML::Node & level) {

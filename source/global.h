@@ -56,7 +56,7 @@
 #include "logic.h"
 #include "engine.h"
 
-#include "parser/parser.h"
+#include "parser.h"
 
 #include "controls.h"
 #include "image.h"

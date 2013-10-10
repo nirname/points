@@ -7,13 +7,11 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	int sleep = 1000 / 30;
-	int direction = -1;
+	int sleep = 1000;
 
 	void display()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glClear(GL_COLOR_BUFFER_BIT);
 
 		// clear screen
 		glColor3ub(WHITE);
@@ -24,17 +22,9 @@ namespace image {
 			glVertex2f(0, screen.height);
 		glEnd();
 
-		for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
+		/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
 			i->second->next();
-		}
-
-			/*if(scale >= 1) {
-				direction = -1;
-			}
-			if(scale <= 0) {
-				direction = 1;
-			}
-			scale += direction * 0.1;*/
+		}*/
 
 		glColor3ub(BLACK);
 		glPushMatrix();
@@ -42,30 +32,6 @@ namespace image {
 			for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
 				view->second->display();
 			}
-
-			/*glPushMatrix();
-				//glLoadIdentity();
-				//glScalef(scale, scale, 0);
-				//gluOrtho2D(0, 1, 0, 1);
-				//game.objects[std::string("Sokoban")]->display();
-				//graphics::ngon(3, 1);
-				//graphics::ngon(4, 1);
-				//graphics::ngon(5, 1);
-				//graphics::ngon(5, 2);
-				//graphics::ngon(6, 1);
-				//graphics::ngon(6, 2);
-				//graphics::ngon(7, 1);
-				//graphics::ngon(7, 2);
-				//graphics::ngon(7, 3);
-				//graphics::ngon(8, 1);
-				//graphics::ngon(8, 2);
-				//graphics::ngon(8, 3);
-				//graphics::ngon(9, 1);
-				//graphics::ngon(9, 2);
-				//graphics::ngon(9, 3);
-				//graphics::ngon(9, 4);
-				//graphics::circle();
-			glPopMatrix();/**/
 
 		glPopMatrix();
 
@@ -81,7 +47,7 @@ namespace image {
 			time = clock();
 			glutPostRedisplay();
 			time = clock() - time;
-			//std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
+			std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
 			glutTimerFunc(sleep, redisplay, 0);
 		}
 	}
