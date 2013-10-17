@@ -231,6 +231,8 @@ namespace engine {
 
 		bool load() {
 
+			return false;
+
 			lib::stage("GAME LOADING\n");
 
 			std::cout << "Searching for levels\n" << std::endl;

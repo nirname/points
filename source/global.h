@@ -52,6 +52,9 @@
 
 #include "mapping.h"
 #include "library.h"
+
+#include "letter.h"
+
 #include "graphics.h"
 #include "logic.h"
 #include "engine.h"

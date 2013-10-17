@@ -1,6 +1,6 @@
 #include "global.h"
 
-engine::Screen screen(22.0, 22.0); // move screen to game?
+engine::Screen screen(400.0, 300.0); // move screen to game?
 engine::Game game;
 
 void hello() {
@@ -62,33 +62,41 @@ int main(int argc, char * argv[])
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_SMOOTH);
-	
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+
+	/*glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_POLYGON_SMOOTH);
 
 	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_POINT_SMOOTH);
 
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_LINE_SMOOTH);
+	*glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_LINE_SMOOTH);*/
 
 	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_ALPHA_TEST); 
+	glEnable(GL_ALPHA_TEST);
 
 	//glMatrixMode(GL_PROJECTION);
 	//glMatrixMode(BASE_MATRIX_MODE);
-	glLoadIdentity();
-	gluOrtho2D(0.0, screen.width, 0.0, screen.width);
-	//glOrtho2(0.0, screen.width, 0.0, screen.width, -1.0, 1.0);
 
-	//glOrtho(0.0, screen.size.width, 0.0, screen.size.height, -1.0, 1.0);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0.0, screen.width, 0.0, screen.height);
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_DEPTH_TEST);
+
+	/*glLoadIdentity();
+	gluOrtho2D(0.0, screen.width, 0.0, screen.width);*/
 
 	// drawing
 	glutDisplayFunc(image::display);
 	glutReshapeFunc(image::reshape);
 
 	glutIdleFunc(image::idle);
-	glutTimerFunc(50, image::redisplay, 0);
+	//glutTimerFunc(1000, image::redisplay, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);

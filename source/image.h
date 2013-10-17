@@ -9,11 +9,48 @@ namespace image {
 
 	int sleep = 1000;
 
+	/*void glEnter2D(void) {
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		gluOrtho2D(0, screen.width, 0, screen.height);
+
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		glDisable(GL_DEPTH_TEST);
+	}
+
+	void glLeave2D(void) {
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
+
+		glEnable(GL_DEPTH_TEST);
+	}*/
+
+	void glWrite(float x, float y, int *font, char text[256], int kls) {
+		glRasterPos2f(x, y);
+		//glTranslatef(5, 5, 0);
+		for (int i = 0; i < kls; i++) {
+			glutBitmapCharacter(font, (int)text[i]);
+		}/**/
+
+		/*glPushMatrix();
+			for (int i = 0; i < kls; i++) {
+				glutStrokeCharacter(GLUT_STROKE_ROMAN, (int)text[i]);
+			}
+		glPopMatrix();/**/
+
+	}
+
 	void display()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glPushAttrib(GL_CURRENT_BIT);
+		/*glPushAttrib(GL_CURRENT_BIT);
 			glColor3ub(WHITE);
 			glRectf(0.0, 0.0, screen.width, screen.height);
 			/*glBegin(GL_POLYGON);
@@ -22,18 +59,23 @@ namespace image {
 				glVertex2f(screen.width, screen.height);
 				glVertex2f(0, screen.height);
 			glEnd();*/
-		glPopAttrib();
+		/*glPopAttrib();*/
+
+		//glEnter2D();
+		glColor3ub(SOFT_BLUE);
+		glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Logic Games", 12);
+		//glLeave2D();
 
 		/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
 			i->second->next();
 		}*/
 
 		//glColor3ub(BLACK);
-		glPushMatrix();
+		/*glPushMatrix();
 			for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
 				view->second->display();
 			}
-		glPopMatrix();
+		glPopMatrix();*/
 
 		glFlush();
 		glutSwapBuffers();
