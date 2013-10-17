@@ -13,26 +13,26 @@ namespace image {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// clear screen
-		glColor3ub(WHITE);
-		glBegin(GL_POLYGON);
-			glVertex2f(0, 0);
-			glVertex2f(screen.width, 0);
-			glVertex2f(screen.width, screen.height);
-			glVertex2f(0, screen.height);
-		glEnd();
+		glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(WHITE);
+			glRectf(0.0, 0.0, screen.width, screen.height);
+			/*glBegin(GL_POLYGON);
+				glVertex2f(0, 0);
+				glVertex2f(screen.width, 0);
+				glVertex2f(screen.width, screen.height);
+				glVertex2f(0, screen.height);
+			glEnd();*/
+		glPopAttrib();
 
 		/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
 			i->second->next();
 		}*/
 
-		glColor3ub(BLACK);
+		//glColor3ub(BLACK);
 		glPushMatrix();
-
 			for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
 				view->second->display();
 			}
-
 		glPopMatrix();
 
 		glFlush();
@@ -54,10 +54,12 @@ namespace image {
 
 	void reshape(int width, int length)
 	{
-		glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
+		//glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
 
-		//glViewport(0,0,(GLsizei)width - 100, (GLsizei)length);
+		//glViewport(0,0,(GLsizei)width, (GLsizei)length);
 		//float side = (width < length) ? width : length;
+		//float margin = 50.0;
+		//float padding = 10.0;
 
 		float x_ort = width / screen.width;
 		float y_ort = length / screen.height;
@@ -71,8 +73,8 @@ namespace image {
 		);
 
 		//glMatrixMode(BASE_MATRIX_MODE);
-		glLoadIdentity();
-		glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
+		//glLoadIdentity();
+		//glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
 
 		//glViewport(0, 0, 1, 1);
 	}

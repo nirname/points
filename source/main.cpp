@@ -55,21 +55,25 @@ int main(int argc, char * argv[])
 	// creating game
 	// testing inside display function
 
-	glShadeModel(GL_SMOOTH);    // Разрешить плавное сглаживание
-	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	//glEnable(GL_LINE_SMOOTH);
+	glClearColor(BLACK, 0.5f);
+	glClearDepth(1.0f);
+
+	glEnable(GL_BLEND);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glShadeModel(GL_SMOOTH);
+	
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_POLYGON_SMOOTH);
+
 	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_POINT_SMOOTH);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_BLEND);
 
-	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST); // Сглаживание линий
-	//glEnable(GL_BLEND);         // Разрешить смешивание
-	//glEnable(GL_LINE_SMOOTH);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_LINE_SMOOTH);
 
-	glClearColor(BLACK, 0.0f);
-	glClearDepth(1.0f);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_ALPHA_TEST); 
 
 	//glMatrixMode(GL_PROJECTION);
 	//glMatrixMode(BASE_MATRIX_MODE);

@@ -17,7 +17,6 @@ views:
 object_kinds:
   A:
     color: sky
-    shape: retro
 
 objects:
   A:
