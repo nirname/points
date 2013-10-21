@@ -21,7 +21,7 @@ LogOutputEnabled=0
 OverrideOutput=0
 OverrideOutputName=point_games.exe
 HostApplication=
-Folders=
+Folders=engine,graphics,parser,parser/controls,parser/engine
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=38
+UnitCount=39
 
 [VersionInfo]
 Major=1
@@ -50,10 +50,20 @@ ProductVersion=1.0.0.0
 AutoIncBuildNr=0
 SyncProduct=1
 
+[Unit38]
+FileName=parser\engine\size_parser.h
+CompileCpp=1
+Folder=parser/engine
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit1]
 FileName=main.cpp
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -63,7 +73,7 @@ BuildCmd=
 [Unit2]
 FileName=variables.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -73,7 +83,7 @@ BuildCmd=
 [Unit3]
 FileName=controls.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -83,7 +93,7 @@ BuildCmd=
 [Unit4]
 FileName=declarations.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -93,7 +103,7 @@ BuildCmd=
 [Unit5]
 FileName=engine.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -101,9 +111,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=global.h
+FileName=exception.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -111,9 +121,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit7]
-FileName=graphics.h
+FileName=global.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -121,9 +131,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=image.h
+FileName=graphics.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -131,9 +141,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=library.h
+FileName=image.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -141,9 +151,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=logic.h
+FileName=letter.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -151,59 +161,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit11]
-FileName=params.h
+FileName=library.h
 CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit17]
-FileName=graphics\shape.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit18]
-FileName=parser\controls\control_handler_parser.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit19]
-FileName=parser\engine\view_parser.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit20]
-FileName=parser\engine\data_parser.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit21]
-FileName=parser\engine\field_parser.h
-CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -211,9 +171,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit12]
-FileName=exception.h
+FileName=logic.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -223,7 +183,7 @@ BuildCmd=
 [Unit13]
 FileName=mapping.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -231,9 +191,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit14]
-FileName=parser.h
+FileName=params.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -241,9 +201,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=typename.h
+FileName=parser.h
 CompileCpp=1
-Folder=
+Folder=points
 Compile=1
 Link=1
 Priority=1000
@@ -251,9 +211,59 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit16]
+FileName=typename.h
+CompileCpp=1
+Folder=points
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit17]
 FileName=types.h
 CompileCpp=1
-Folder=
+Folder=points
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit18]
+FileName=engine\view.h
+CompileCpp=1
+Folder=engine
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit19]
+FileName=engine\base.h
+CompileCpp=1
+Folder=engine
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit20]
+FileName=engine\cell.h
+CompileCpp=1
+Folder=engine
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit21]
+FileName=engine\control_handler.h
+CompileCpp=1
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -261,9 +271,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit22]
-FileName=parser\engine\object_kind_parser.h
+FileName=engine\data.h
 CompileCpp=1
-Folder=
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -271,9 +281,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit23]
-FileName=parser\engine\point_parser.h
+FileName=engine\field.h
 CompileCpp=1
-Folder=
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -281,9 +291,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit24]
-FileName=parser\engine\size_parser.h
+FileName=engine\game.h
 CompileCpp=1
-Folder=
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -291,9 +301,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit25]
-FileName=engine\view.h
+FileName=engine\level.h
 CompileCpp=1
-Folder=points
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -301,9 +311,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit26]
-FileName=engine\base.h
+FileName=engine\object.h
 CompileCpp=1
-Folder=points
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -311,9 +321,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit27]
-FileName=engine\cell.h
+FileName=engine\object_kind.h
 CompileCpp=1
-Folder=points
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -321,9 +331,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit28]
-FileName=engine\control_handler.h
+FileName=engine\screen.h
 CompileCpp=1
-Folder=points
+Folder=engine
 Compile=1
 Link=1
 Priority=1000
@@ -331,9 +341,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit29]
-FileName=engine\data.h
+FileName=graphics\shape.h
 CompileCpp=1
-Folder=points
+Folder=graphics
 Compile=1
 Link=1
 Priority=1000
@@ -341,9 +351,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit30]
-FileName=engine\field.h
+FileName=graphics\animation.h
 CompileCpp=1
-Folder=points
+Folder=graphics
 Compile=1
 Link=1
 Priority=1000
@@ -351,9 +361,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit31]
-FileName=engine\game.h
+FileName=graphics\color.h
 CompileCpp=1
-Folder=points
+Folder=graphics
 Compile=1
 Link=1
 Priority=1000
@@ -361,9 +371,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit32]
-FileName=engine\level.h
+FileName=graphics\drawing.h
 CompileCpp=1
-Folder=points
+Folder=graphics
 Compile=1
 Link=1
 Priority=1000
@@ -371,9 +381,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit33]
-FileName=engine\object.h
+FileName=parser\engine\view_parser.h
 CompileCpp=1
-Folder=points
+Folder=parser/engine
 Compile=1
 Link=1
 Priority=1000
@@ -381,9 +391,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit34]
-FileName=engine\object_kind.h
+FileName=parser\engine\data_parser.h
 CompileCpp=1
-Folder=points
+Folder=parser/engine
 Compile=1
 Link=1
 Priority=1000
@@ -391,9 +401,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit35]
-FileName=engine\screen.h
+FileName=parser\engine\field_parser.h
 CompileCpp=1
-Folder=points
+Folder=parser/engine
 Compile=1
 Link=1
 Priority=1000
@@ -401,9 +411,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit36]
-FileName=graphics\animation.h
+FileName=parser\engine\object_kind_parser.h
 CompileCpp=1
-Folder=points
+Folder=parser/engine
 Compile=1
 Link=1
 Priority=1000
@@ -411,19 +421,19 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit37]
-FileName=graphics\color.h
+FileName=parser\engine\point_parser.h
 CompileCpp=1
-Folder=points
+Folder=parser/engine
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit38]
-FileName=graphics\drawing.h
+[Unit39]
+FileName=parser\controls\control_handler_parser.h
 CompileCpp=1
-Folder=points
+Folder=parser/controls
 Compile=1
 Link=1
 Priority=1000
