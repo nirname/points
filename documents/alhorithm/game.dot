@@ -1,0 +1,78 @@
+digraph Game {
+	dpi=300
+	node[shape = box, style = filled]
+
+	subgraph System { label = "System"
+		node[fillcolor = white]
+		system[label = "System"]
+	}
+	
+	subgraph Introductory { label = "Introductory"
+		node[color = pink]
+		rank = same
+		introductory[label = "Introductory"]
+		farewell[label = "Farewell"]
+	}
+	
+	subgraph Menu { label = "Menu"
+		node[color = green]
+		menu[label = "Main menu"]
+		game[label = "Game menu"]
+		level[label = "Level menu"]
+	}
+
+	subgraph Gameplay { label = "Gameplay"
+		node[color = yellow]
+		countdown[label = "Countdown"]
+		stage[label = "Stage playing"]
+	}
+	
+
+	subgraph Screensaver { label = "Screensavers"
+		node[color = violet]
+		screensaver[label = "Screensaver"]
+	}
+	
+	subgraph Information { label = "Information"
+		node[color = cyan]
+		winner[label = "Winner screen"]
+		looser[label = "Looser screen"]
+		pause[label = "Pause screen"]
+		completion[label = "Completion"]
+	}
+	
+	introductory -> menu[label = "wait, skip"]
+	
+	menu -> game[label = "<enter> start"]
+	game -> menu[label = "<escape> back"]
+	menu -> farewell[label = "quit"]
+	
+	{ menu game level } -> screensaver[label = "wait"]
+	
+	screensaver -> menu[label = "skip"]
+	
+	game -> level[label = "<enter> select"]
+	level -> game[label = "<escape> back"]
+	
+	level -> countdown[label = "play"]
+	
+	countdown -> stage[label = "wait"]
+	stage -> completion[label = "pass"]
+	completion -> winner[label = "next (all levels are passed)"]
+	stage -> looser[label = "fail"]
+	stage -> pause[label = "pause"]
+	pause -> stage[label = "<escape> resume"]
+	
+	pause -> menu[label = "<enter> stop"]
+	
+	completion -> countdown[label = "next"]
+	
+	looser -> countdown[label = "<enter> repeat"]
+	looser -> menu[label = "<escape> stop"]
+	
+	winner -> game[label = "skip"]
+	
+	system -> introductory[label = "run"]
+	farewell -> system[label = "skip"]
+	
+}
