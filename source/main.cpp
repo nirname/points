@@ -1,7 +1,9 @@
 #include "global.h"
 
-engine::Screen screen(400.0, 300.0); // move screen to game?
+engine::Screen screen(20, 20); // move screen to game?
 engine::Game game;
+PROGRAM_MODE mode = GAMEPLAY_MODE;
+int graphics::sleep = 50;
 
 void hello() {
 	std::cout << "Hello" << std::endl;
@@ -96,7 +98,7 @@ int main(int argc, char * argv[])
 	glutReshapeFunc(image::reshape);
 
 	glutIdleFunc(image::idle);
-	//glutTimerFunc(1000, image::redisplay, 0);
+	glutTimerFunc(graphics::sleep, image::redisplay, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);

@@ -7,7 +7,7 @@ digraph Game {
 		system[label = "System"]
 	}
 	
-	subgraph Introductory { label = "Introductory"
+	subgraph Introduction { label = "Introduction"
 		node[color = pink]
 		rank = same
 		introductory[label = "Introductory"]

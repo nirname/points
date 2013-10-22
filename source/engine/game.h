@@ -68,6 +68,11 @@ namespace engine {
 
 		}
 
+		/*void load_interactions(const YAML::Node &);
+		void load_objects(const YAML::Node &);
+		void load_default_colors();
+		void load_default_shapes();*/
+
 		// !!! move this functions to loader file and to level class
 
 		void load_interactions(const YAML::Node & level) {
@@ -230,8 +235,6 @@ namespace engine {
 		}
 
 		bool load() {
-
-			return false;
 
 			lib::stage("GAME LOADING\n");
 

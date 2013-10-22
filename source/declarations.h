@@ -15,6 +15,9 @@ namespace image {
 }
 
 namespace graphics {
+
+  extern int sleep;
+
 	void square();
 	struct Color;
 	struct Shape;
@@ -107,5 +110,6 @@ namespace engine {
 
 extern engine::Screen screen;
 extern engine::Game game;
+extern PROGRAM_MODE mode;
 
 #endif

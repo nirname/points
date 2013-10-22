@@ -7,8 +7,6 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	int sleep = 1000;
-
 	/*void glEnter2D(void) {
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
@@ -50,32 +48,45 @@ namespace image {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		/*glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(WHITE);
-			glRectf(0.0, 0.0, screen.width, screen.height);
-			/*glBegin(GL_POLYGON);
-				glVertex2f(0, 0);
-				glVertex2f(screen.width, 0);
-				glVertex2f(screen.width, screen.height);
-				glVertex2f(0, screen.height);
-			glEnd();*/
-		/*glPopAttrib();*/
+		if(mode == TITRES_MODE) {
 
-		//glEnter2D();
-		glColor3ub(SOFT_BLUE);
-		glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Logic Games", 12);
-		//glLeave2D();
+			//glEnter2D();
+			glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(SOFT_BLUE);
+				glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
+			glPopAttrib();
+			//glLeave2D();
 
-		/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
-			i->second->next();
-		}*/
+		} else if(mode == MENU_MODE) {
 
-		//glColor3ub(BLACK);
-		/*glPushMatrix();
-			for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
-				view->second->display();
-			}
-		glPopMatrix();*/
+			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Menu", 4);
+
+		} else if(mode == SCREENSAVER_MODE) {
+
+			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
+
+		} else if(mode == GAMEPLAY_MODE) {
+
+			glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(WHITE);
+				glRectf(0.0, 0.0, screen.width, screen.height);
+			glPopAttrib();
+
+			/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
+				i->second->next();
+			}*/
+
+			glPushMatrix();
+				for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
+					view->second->display();
+				}
+			glPopMatrix();
+
+		} else if(mode == INFORMATION_MODE) {
+
+			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Information", 11);
+
+		}
 
 		glFlush();
 		glutSwapBuffers();
@@ -90,7 +101,7 @@ namespace image {
 			glutPostRedisplay();
 			time = clock() - time;
 			//std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
-			glutTimerFunc(sleep, redisplay, 0);
+			glutTimerFunc(graphics::sleep, redisplay, 0);
 		}
 	}
 

@@ -5,39 +5,51 @@
 // (!!!) remove logic file at all?
 namespace logic {
 
-	enum GAME_KIND
-	{
-		SOKOBAN, // кладовщик
-		SNAKE, // змейка
-		LABYRINTH, // обычный лабиринт / написать генератор лабиринтов
-		PENTAMINO, // расставлять набор фигур
-		TETRIS, // тетрис
-		LANGO, // реверси
-		LIGHTS, // выключить свет
-		LINES, // линии
-		FOUR_IN_A_ROW, // четыре в ряд
-		SWAP, // обмен двух клеток и схлопывание рядов
-		ROBOTS, // Убегать от роботов
-		PAINTER, // Закрасить как можно больше клеток (всё поле)
-		GOMOKU, // Крестики нолики
-		SUDOKU, // судоку
-		SAPPER, //MINES, // сапёр
-		NONOGRAM, // японские кроссворды
-		SEA, // морской бой
-		THRONE, // выжить как можно дольше
-		POINTS, // go
-		RUSH_OUR, // машина должна выехать со стоянки
-		FIGURE_GROUND, // передвигать области. замкнутые области становятся самостоятельными
-		// я и сам не знаю, чё это такое
-		JEZZ_BELL,
+	enum GAME_KIND {
+
+		// Single player
+
+		SNAKE = 0x00,
+		SOKOBAN,
 		ATOMIX,
-		BACKGAMMON, // нарды
-		CHECKERS // шашки
+		RUSH_HOUR,
+		LIGHTS,
+		TETRIS,
+		ROBOTS,
+		LABYRINTH,
+		SWAP,
+		POLYMINO,
+		BACKGROUND,
+		LINES,
+		NETWALK,
+		MOWER,
+		MASYU,
+		RINGS,
+
+		// Multiplayer
+
+		REVERSI = 0x20,
+		GOMOKU,
+		FOUR_IN_A_ROW,
+		TRHONE,
+		BATTLESHIP,
+		POINTS,
+		GO,
+		STICS,
+		CORNERS,
+
+		// Screensavers
+
+		LIVE = 0x40,
+		QUEENS,
+		GEOGRAPHIC_EARTH_MAP,
+		DAY_NIGHT_EARTH_MAP,
+		POLITICAL_EARTH_MAP,
+		TURTLE,
+		EQUALIZER,
+		TIMER
+
 	};
-
-	/*class Cursor
-	{};*/
-
 
 }
 

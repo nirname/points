@@ -47,6 +47,7 @@
 
 #include "types.h"
 #include "exception.h"
+#include "program_mode.h"
 
 #include "declarations.h"
 
