@@ -50,8 +50,6 @@
 
 #include "declarations.h"
 
-#include "program.h"
-
 #include "mapping.h"
 #include "library.h"
 
@@ -63,9 +61,12 @@
 
 #include "parser.h"
 
+#include "program.h"
+
 #include "controls.h"
 #include "image.h"
 #include "variables.h"
+
 #include "params.h"
 
 #endif

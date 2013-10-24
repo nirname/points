@@ -78,10 +78,10 @@ template<typename Type> class Mapping {
 			if(has(_name)) {
 				return NULL;
 			} else {
-				// !!! catch exceptions here
+				// TODO catch exceptions here
 				TypePointer instance = build();
 				try {
-				// !!! and catch exceptions here if there is problems during loading
+				// TODO and catch exceptions here if there is problems during loading
 					options >> *instance;
 				} catch(const EXCEPTION & exception) {
 					std::cout << exception << std::endl;

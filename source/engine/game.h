@@ -3,7 +3,7 @@
 
 namespace engine {
 
-	// !!! move this to level class
+	// TODO move this to level class
 	bool has_extension(const char * name, const char * extension)
 	{
 		size_t name_length = lib::strlen(name);
@@ -73,7 +73,7 @@ namespace engine {
 		void load_default_colors();
 		void load_default_shapes();*/
 
-		// !!! move this functions to loader file and to level class
+		// TODO move this functions to loader file and to level class
 
 		void load_interactions(const YAML::Node & level) {
 			const YAML::Node & interactions_node = level["interactions"];
@@ -103,7 +103,7 @@ namespace engine {
 									if(interaction_type != NO_INTERACTION) {
 										const YAML::Node& second_object_kinds = action->second;
 										if(second_object_kinds.IsScalar()) {
-											//std::cout << "Scalar!!!" << std::endl;
+											//std::cout << "ScalarTODO" << std::endl;
 											std::string second_object_kind_name = second_object_kinds.as<std::string>();
 											//std::cout << second_object_kind_name << std::endl;
 											if(object_kinds.has(second_object_kind_name)) {
@@ -114,7 +114,7 @@ namespace engine {
 											}
 										}
 										if(second_object_kinds.IsSequence()) {
-											//std::cout << "Sequence!!!" << std::endl;
+											//std::cout << "SequenceTODO" << std::endl;
 											for(
 												YAML::const_iterator
 												second_object_kind_iterator = second_object_kinds.begin();
@@ -148,7 +148,7 @@ namespace engine {
 			}
 		}
 
-		// (!!!) use specialization for mapping operator >> and put this code there
+		// (TODO) use specialization for mapping operator >> and put this code there
 		// drop this function and use load_attribute instead
 		void load_objects(const YAML::Node & level) {
 			const YAML::Node & objects_node = level["objects"];
@@ -274,7 +274,7 @@ namespace engine {
 
 					load_attribute(object_kinds, level, "object_kinds");
 
-					// !!! refactor it too
+					// TODO refactor it too
 					load_interactions(level);
 					load_objects(level);
 

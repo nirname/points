@@ -1,9 +1,9 @@
 #include "global.h"
 
-engine::Screen screen(150, 100); // move screen to game?
-engine::Game game;
+// TODO: move all to params
+engine::Screen screen(150, 100);
+engine::Game game; // TODO use pointer here
 engine::Program program;
-//PROGRAM_MODE mode = GAMEPLAY_MODE;
 int graphics::sleep = 50;
 
 void hello() {
@@ -27,12 +27,6 @@ int main(int argc, char * argv[])
 	params::load();
 
 	lib::stage("INITIALIZING GRAPHICS");
-
-	//game.fields.erase("qq");
-	//std::cout << *game.get_field("Field") << std::endl;
-	//std::cout << *game.get<engine::FieldPointer>(std::string("Field")) << std::endl;
-	//game.component_by_type<engine::View *>();
-	//std::cout << * game.get<engine::Field *>("Field") << std::endl;
 
 	/*std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
 	std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
@@ -98,15 +92,12 @@ int main(int argc, char * argv[])
 	glutTimerFunc(graphics::sleep, image::redisplay, 0);
 
 	//glutTimerFunc(graphics::sleep, image::animate, 0);
-	glutTimerFunc(5000, engine::menu_autoload, 0);
+	glutTimerFunc(params::time_to_menu_autoload, engine::menu_autoload, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);
 	glutSpecialFunc(controls::special);
 	glutMouseFunc(controls::mouse);
-
-	//game.load();
-	//std::cout << "\nTest\n" << game.attribute("fields")["field"] << std::endl;
 
 	lib::stage(
 		"STARTING GAME\n"
@@ -116,8 +107,6 @@ int main(int argc, char * argv[])
 
 	// main loop
 	glutMainLoop();
-
-	//system("PAUSE");
 
 	return EXIT_SUCCESS;
 }

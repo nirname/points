@@ -2,7 +2,7 @@
 #define LOGIC_H 1
 
 // game logic
-// (!!!) remove logic file at all?
+// TODO: remove logic file at all?
 namespace logic {
 
 	enum GAME_KIND {

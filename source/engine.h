@@ -46,15 +46,15 @@ namespace engine {
 	};*/
 
 	void Object::go_to(Field * _field, Point _target) {
-		// !!! use animations here
+		// TODO use animations here
 		ObjectInformationIterator information = _field->data.objects.find(this);
 		_field->data.points.erase(information->second);
 		information->second = _target;
 		_field->data.points[_target] = this;
 	};
 
-	// !!! optimize this part
-	// !!! rename objects and points collections
+	// TODO optimize this part
+	// TODO rename objects and points collections
 	// use stack?
 	bool Object::move(Field * _field, Point _step) {
 

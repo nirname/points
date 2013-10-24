@@ -11,7 +11,7 @@ void operator >> (const YAML::Node & options, ControlHandler & handler) {
 		} else {
 			throw ATTRIBUTE_IS_MISSED;
 		}
-		if(options["action"]) handler.action = MOVE; // !!! do action loader
+		if(options["action"]) handler.action = MOVE; // TODO do action loader
 		if(options["option"]) options["option"] >> handler.option;
 	}
 }

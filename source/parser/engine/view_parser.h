@@ -26,7 +26,7 @@ void operator >> (const YAML::Node & options, View & view) {
 			options["position"] >> view.position;
 		}
 
-		// !!! use here >> (adds not named color and sets it pointer to view)
+		// TODO use here >> (adds not named color and sets it pointer to view)
 		if(options["background_color"]) {
 			view.background_color = game.colors[options["background_color"].as<std::string>()];
 		}

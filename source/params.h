@@ -3,6 +3,9 @@
 
 namespace params
 {
+
+	int time_to_menu_autoload = 5000;
+
 	int window_width = 0, window_height = 0;
 	const char * mode_string;
 
@@ -10,11 +13,12 @@ namespace params
 	bool full_screen = false;
 	unsigned int display_mode = 0;
 
-	enum WINDOW_SIZE {TINY, SMALL, MIDDLE, LARGE};
+	enum WINDOW_SIZE { TINY, SMALL, MIDDLE, LARGE };
 	WINDOW_SIZE window_size = SMALL;
 
 	void load()
 	{
+
 		display_mode = GLUT_RGB | GLUT_DOUBLE;
 		switch(window_size)
 		{
@@ -24,6 +28,9 @@ namespace params
 			case LARGE:  window_width = 1280, window_height = 1024; mode_string = "1280x1024:32"; break;
 			default:     window_width = 1280, window_height = 1024; mode_string = "1280x1024:32"; break;
 		}
+
+		// TODO load config.yaml here
+
 	}
 
 }

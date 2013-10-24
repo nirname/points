@@ -13,7 +13,11 @@ namespace engine {
 
 		void set(PROGRAM_MODE _mode) {
 			// do something here
+			if(_mode == GAMEPLAY_MODE) {
+				game.load();
+			}
 			mode = _mode;
+
 		}
 
 		void titres_process(int key) {

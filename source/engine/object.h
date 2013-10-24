@@ -35,7 +35,7 @@ namespace engine {
 		}
 
 		~Object() {
-			//!!! remove its points
+			// TODO: remove its points
 			//--count;
 		}
 

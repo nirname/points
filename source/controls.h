@@ -71,7 +71,7 @@ namespace controls {
 
 	void special(int key, int x, int y)
 	{
-		program.process(key);
+		//program.process(key);
 		/*if(!game.paused) {
 			engine::Field * field = game.fields[std::string("Field")];
 			engine::Object * sokoban = game.objects[std::string("Sokoban")];
