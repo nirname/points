@@ -208,26 +208,8 @@ namespace engine {
 					//std::cout << placement << std::endl;
 					field->data.points[placement]->display(placement);
 				}
-				/*else {
-					glPushMatrix();
-					glTranslatef(column, row, 0);
-						glPushAttrib(GL_CURRENT_BIT);
-							glColor3ub(LIGHT_GRAY);
-							graphics::square();
-						glPopAttrib();
-					glPopMatrix();
-				}*/
 			}
 		}
-		/*for(PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
-			if(i->second != NULL && real_bound.contains(*(i->second))) {
-				//std::cout << *(i->second) << std::endl;
-				i->first.object->display(*(i->second));
-				//glTranslatef(i->second->column, i->second->row, 0);
-				//graphics::square();
-			}
-		}*/
-		//std::cout << std::endl;
 		// drawing points }
 
 	}

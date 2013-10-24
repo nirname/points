@@ -2,7 +2,7 @@
 
 // TODO: move all to params
 engine::Screen screen(150, 100);
-engine::Game game; // TODO use pointer here
+engine::Game game; // TODO(!): use pointer here
 engine::Program program;
 int graphics::sleep = 50;
 
@@ -92,7 +92,8 @@ int main(int argc, char * argv[])
 	glutTimerFunc(graphics::sleep, image::redisplay, 0);
 
 	//glutTimerFunc(graphics::sleep, image::animate, 0);
-	glutTimerFunc(params::time_to_menu_autoload, engine::menu_autoload, 0);
+	glutTimerFunc(params::titres_timeout, engine::menu_autoload, 0);
+	//glutTimerFunc(1000, engine::screensaver_autoload, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);

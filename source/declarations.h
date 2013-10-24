@@ -103,8 +103,14 @@ namespace engine {
 
 }
 
+namespace params {
+	extern time_t last_menu_activity_time;
+	extern int menu_timeout;
+}
+
 extern engine::Screen screen;
 extern engine::Game game;
 extern engine::Program program;
+
 
 #endif

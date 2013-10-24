@@ -1,7 +1,9 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H 1
 
-// extern libraries
+// TODO: split this one into two files
+
+// extern headers
 
 #include <cstdlib>
 #include <algorithm>
@@ -41,7 +43,7 @@
 
 #include "include/yaml-cpp/yaml.h"
 
-// own libraries
+// own headers
 
 #include "constants.h"
 #include "types.h"
@@ -66,6 +68,8 @@
 #include "controls.h"
 #include "image.h"
 #include "variables.h"
+
+#include "menu.h"
 
 #include "params.h"
 

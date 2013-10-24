@@ -70,8 +70,8 @@ namespace image {
 
 		} else if(program.mode == GAMEPLAY_MODE) {
 
-			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
 			game.display();
+			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
 
 		} else if(program.mode == INFORMATION_MODE) {
 
@@ -86,14 +86,15 @@ namespace image {
 
 	void redisplay(int timer)
 	{
-		if(!game.paused) {
-			clock_t time;
-			time = clock();
+		/*if(!game.paused) {
+			clock_t time = clock();
 			glutPostRedisplay();
 			time = clock() - time;
-			//std::cout << "time: " << time << ", rest: " << sleep - time << std::endl;
+			//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
 			glutTimerFunc(graphics::sleep, redisplay, 0);
-		}
+		}*/
+		glutPostRedisplay();
+		glutTimerFunc(graphics::sleep, redisplay, 0);
 	}
 
 	void reshape(int width, int length)

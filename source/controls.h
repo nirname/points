@@ -26,38 +26,7 @@ namespace controls {
 
 	void keyboard(unsigned char key, int x, int y)
 	{
-		//printf("%i", key);
-
-
-		//if(!game.paused) printf("%i", key);
-
-
-		program.process((int)key);
-
-		/*
-		if(key == 'p') {
-			game.paused = !game.paused;
-			if(game.paused) {
-				std::cout << ": game is paused; press `p` to resume";
-			}
-			else {
-				std::cout << ": game is resumed; press `p` to pause again";
-				glutTimerFunc(0, image::redisplay, 0);
-			}
-		}
-		if(!game.paused) {
-			engine::Point position;
-			engine::Point offset;
-			std::string string_key = lib::to_string(key);
-			if(game.controls.has(string_key)) {
-				game.controls[string_key]->evaluate();
-			} else {
-			std::cout << ": free";
-			}
-			//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
-			//glutPostRedisplay();
-		}*/
-		//std::cout << std::endl;
+		program.process(key);
 	}
 
 	/* Callbacks for special keys, such as:
@@ -72,26 +41,6 @@ namespace controls {
 	void special(int key, int x, int y)
 	{
 		//program.process(key);
-		/*if(!game.paused) {
-			engine::Field * field = game.fields[std::string("Field")];
-			engine::Object * sokoban = game.objects[std::string("Sokoban")];
-			switch(key)
-			{
-				case GLUT_KEY_UP:    step = engine::Point( 0,  1); break;
-				case GLUT_KEY_DOWN:  step = engine::Point( 0, -1); break;
-				case GLUT_KEY_LEFT:  step = engine::Point(-1,  0); break;
-				case GLUT_KEY_RIGHT: step = engine::Point( 1,  0); break;
-			}
-			//game.animations["Scale"]->do_after = move_sokoban;
-			//game.animations["Scale"]->start();
-			//, game.animations[std::string("Scale")]
-			//sokoban->move(field, step);
-			//sokoban->move(field, step);
-			//std::cout << "Key: " << key << std::endl;
-			//glutPostRedisplay();
-			printf("%i", key);
-			std::cout << std::endl;
-		}*/
 	}
 
 	void mouse(int button, int state, int width, int height)

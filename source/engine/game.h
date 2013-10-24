@@ -21,6 +21,7 @@ namespace engine {
 
 		//logic::GAME_KIND game_kind;
 		bool paused;
+		bool loaded;
 
 		//LevelListIterator current_level;
 		//LevelList levels;
@@ -42,7 +43,9 @@ namespace engine {
 
 		Game(bool _paused = false):
 			paused(_paused)
-		{}
+		{
+			loaded = false;
+		}
 		//Game(){};
 
 		/*Game(logic::GAME_KIND _game_kind):
@@ -98,14 +101,11 @@ namespace engine {
 									++action
 								) {
 									std::string action_name = action->first.as<std::string>();
-									//std::cout << "** " << action_name << std::endl;
 									INTERACTION_TYPE interaction_type = get_interaction_type(action_name);
 									if(interaction_type != NO_INTERACTION) {
 										const YAML::Node& second_object_kinds = action->second;
 										if(second_object_kinds.IsScalar()) {
-											//std::cout << "ScalarTODO" << std::endl;
 											std::string second_object_kind_name = second_object_kinds.as<std::string>();
-											//std::cout << second_object_kind_name << std::endl;
 											if(object_kinds.has(second_object_kind_name)) {
 												ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
 												interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
@@ -114,7 +114,6 @@ namespace engine {
 											}
 										}
 										if(second_object_kinds.IsSequence()) {
-											//std::cout << "SequenceTODO" << std::endl;
 											for(
 												YAML::const_iterator
 												second_object_kind_iterator = second_object_kinds.begin();
@@ -122,7 +121,6 @@ namespace engine {
 												++second_object_kind_iterator
 											) {
 												std::string second_object_kind_name = second_object_kind_iterator->as<std::string>();
-												//std::cout << second_object_kind_name << std::endl;
 												if(object_kinds.has(second_object_kind_name)) {
 													ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
 													interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
@@ -293,74 +291,6 @@ namespace engine {
 				return false;
 			}
 
-			//graphics::Animation * animation = new graphics::Animation(graphics::SCALE_ANIMATION, graphics::DECREASE);
-			//animation->do_after = move_up;
-			//std::cout << "* progress: " << animation->progress << std::endl;
-			//animations["Scale"] = animation;
-			// move this logic to Level class
-			//game.add_field("Field", 10, 10);
-			//game.add_view("View", "Field");
-			//std::cout << (engine::Point(0, 0) < engine::Point(0, 1)) << std::endl;
-			//game.fields[std::string("Field")] = new engine::Field(10, 10);
-			//fields["Field"] = new Field();
-			//views["View"] = new engine::View(fields[std::string("Field")]);
-
-			//const char * shape_names [2] = ["a", "b"];
-			//engine::Object aaa();
-			//engine::Object bbb(aaa);
-
-			/*ObjectKind * sokoban = new ObjectKind();
-			sokoban->shape = shapes[std::string("Star")];
-			sokoban->color = colors[std::string("Violet")];
-			object_kinds[std::string("Sokoban")] = sokoban;
-			ObjectKind * box = new ObjectKind();
-			box->color = colors[std::string("Green")];
-			object_kinds[std::string("Box")] = box;
-			ObjectKind * heavy = new ObjectKind();
-			heavy->color = colors[std::string("Blue")];
-			object_kinds[std::string("Heavy")] = heavy;*/
-
-			/*interactions[engine::PairOfKinds(sokoban, box)]   = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(sokoban, heavy)] = engine::PUSH_INTERACTION;
-			interactions[engine::PairOfKinds(heavy, box)]     = engine::PUSH_INTERACTION;*/
-
-			//Object * box1 = new engine::Object(box);
-			//box1->kind = object_kinds[std::string("Box")];
-			//objects[std::string("Box1")] = box1;
-			//engine::Object * heavy1 = new engine::Object(heavy);
-			//heavy1->kind = object_kinds[std::string("Heavy")];
-			//objects[std::string("Heavy")] = heavy1;
-			//game.objects[std::string("Box2")] = new engine::Object();
-			/*game.objects[std::string("Box1")]->type = std::string("Box");
-			game.objects[std::string("Box2")]->type = std::string("Box");*/
-
-			/*engine::Object * sokoban1 = new engine::Object();
-			sokoban1->kind = object_kinds[std::string("Sokoban")];
-			//sokoban->animations.push_back(animation);
-			objects[std::string("Sokoban")] = sokoban1;
-
-			fields[std::string("Field")]->data.add(objects[std::string("Sokoban")], engine::Point(1, 1));
-			fields[std::string("Field")]->data.add(objects[std::string("Box1")], engine::Point(5, 5));
-			//fields[std::string("Field")]->data.add(objects[std::string("Box2")], engine::Point(6, 5));
-			fields[std::string("Field")]->data.add(objects[std::string("Heavy")], engine::Point(4, 3));*/
-
-
-			//std::cout << objects["Fred"] << std::endl;
-			//->data.add(objects["Fred"], engine::Point(1, 1));
-
-			//game.points[ engine::Placement(game.objects[std::string("Sokoban")], game.fields[std::string("Field")]) ] = new engine::Point(1, 1);
-			//game.points[ engine::Placement(game.objects[std::string("Box1")], game.fields[std::string("Field")]) ] = new engine::Point(2, 2);
-			//game.points[ engine::Placement(game.objects[std::string("Box2")], game.fields[std::string("Field")]) ] = new engine::Point(3, 3);
-
-			/*for(engine::PointMap::iterator i = game.points.begin(); i != game.points.end(); ++i) {
-				std::cout << *(i->first.object) << " at " << *(i->first.field) << " : ";
-				if(i->second != NULL) {
-					std::cout << *(i->second) << std::endl;
-				} else {
-					std::cout << "no position" << std::endl;
-				}
-			}
-			std::cout << std::ends;*/
 			lib::stage("GAME IS LOADED\n");
 			print();
 
@@ -370,10 +300,69 @@ namespace engine {
 			} else {
 				// game is over
 			}*/
+			loaded = true;
+
+		}
+
+		void pause() {
+			paused = true;
+		}
+
+		void resume() {
+			paused = false;
+		}
+
+		void process(unsigned char key) {
+			/*if(key == 'p') {
+				paused = !paused;
+				if(paused) {
+					std::cout << ": game is paused; press `p` to resume";
+				}
+				else {
+					std::cout << ": game is resumed; press `p` to pause again";
+					glutTimerFunc(0, image::redisplay, 0);
+				}
+			}*/
+			if(!paused) {
+				engine::Point position;
+				engine::Point offset;
+				std::string string_key = lib::to_string(key);
+				if(controls.has(string_key)) {
+					controls[string_key]->evaluate();
+				} else {
+					std::cout << ": free";
+				}
+				//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
+				//glutPostRedisplay();
+			}
+			//std::cout << std::endl;
+
+
+			/*if(!paused) {
+				engine::Field * field = fields[std::string("Field")];
+				engine::Object * sokoban = objects[std::string("Sokoban")];
+				switch(key)
+				{
+					case GLUT_KEY_UP:    step = engine::Point( 0,  1); break;
+					case GLUT_KEY_DOWN:  step = engine::Point( 0, -1); break;
+					case GLUT_KEY_LEFT:  step = engine::Point(-1,  0); break;
+					case GLUT_KEY_RIGHT: step = engine::Point( 1,  0); break;
+				}
+				//animations["Scale"]->do_after = move_sokoban;
+				//animations["Scale"]->start();
+				//, animations[std::string("Scale")]
+				//sokoban->move(field, step);
+				//sokoban->move(field, step);
+				//std::cout << "Key: " << key << std::endl;
+				//glutPostRedisplay();
+				printf("%i", key);
+				std::cout << std::endl;
+			}*/
+
 		}
 
 		void display() {
-			/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
+			/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 				i->second->next();
 			}*/
 

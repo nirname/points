@@ -4,7 +4,12 @@
 namespace params
 {
 
-	int time_to_menu_autoload = 5000;
+	int titres_timeout = 5000;
+	time_t last_menu_activity_time = clock();
+
+	// TODO: set it around 1 minute
+	// Screensaver starts after the specified time at seconds
+	int menu_timeout = 60; // TODO: convert this one to msec
 
 	int window_width = 0, window_height = 0;
 	const char * mode_string;
