@@ -1,13 +1,6 @@
 #ifndef DECLARATIONS_H
 #define DECLARATIONS_H 1
 
-
-//#define MAPPING(_ValueType) std::map<KeyType, _ValueType>
-
-namespace lib {
-	//template <typename Type> class List;
-}
-
 template<typename Type> class Mapping;
 
 namespace image {
@@ -16,7 +9,7 @@ namespace image {
 
 namespace graphics {
 
-  extern int sleep;
+	extern int sleep;
 
 	void square();
 	struct Color;
@@ -35,6 +28,8 @@ namespace graphics {
 typedef graphics::Color Color;
 
 namespace engine {
+
+	struct Program;
 
 	struct Screen;
 	struct Level;
@@ -110,6 +105,6 @@ namespace engine {
 
 extern engine::Screen screen;
 extern engine::Game game;
-extern PROGRAM_MODE mode;
+extern engine::Program program;
 
 #endif

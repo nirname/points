@@ -1,8 +1,9 @@
 #include "global.h"
 
-engine::Screen screen(20, 20); // move screen to game?
+engine::Screen screen(150, 100); // move screen to game?
 engine::Game game;
-PROGRAM_MODE mode = GAMEPLAY_MODE;
+engine::Program program;
+//PROGRAM_MODE mode = GAMEPLAY_MODE;
 int graphics::sleep = 50;
 
 void hello() {
@@ -12,8 +13,7 @@ void hello() {
 int main(int argc, char * argv[])
 {
 	std::cout << std::endl;
-	std::cout << "Points" << std::endl;
-	std::cout << "Independent Games" << std::endl;
+	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Traditional games" << std::endl;
 	std::cout << "Author: Nicolay Rozhkov" << std::endl;
 
@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
 		glutGameModeString(params::mode_string);
 		glutEnterGameMode();
 	} else {
-		glutCreateWindow("Point Games");
+		glutCreateWindow("Logic Games");
 		if(params::full_screen) {
 			glutFullScreen();
 		}
@@ -77,9 +77,6 @@ int main(int argc, char * argv[])
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
 
-	//glMatrixMode(GL_PROJECTION);
-	//glMatrixMode(BASE_MATRIX_MODE);
-
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -100,15 +97,22 @@ int main(int argc, char * argv[])
 	glutIdleFunc(image::idle);
 	glutTimerFunc(graphics::sleep, image::redisplay, 0);
 
+	//glutTimerFunc(graphics::sleep, image::animate, 0);
+	glutTimerFunc(5000, engine::menu_autoload, 0);
+
 	// commands
 	glutKeyboardFunc(controls::keyboard);
 	glutSpecialFunc(controls::special);
 	glutMouseFunc(controls::mouse);
 
-	game.load();
+	//game.load();
 	//std::cout << "\nTest\n" << game.attribute("fields")["field"] << std::endl;
 
-	lib::stage("STARTING GAME\npress `p` to pause game\n");
+	lib::stage(
+		"STARTING GAME\n"
+		"press `p` to pause game\n"
+		"press `ctrl-q` to quit immediatly\n"
+	);
 
 	// main loop
 	glutMainLoop();

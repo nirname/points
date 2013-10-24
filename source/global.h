@@ -31,25 +31,26 @@
 #include <sys/types.h>
 
 #if defined(_WIN32) && defined(__GNUC__)
-		#include "include/dirent/windows/dirent.h"
+	#include "include/dirent/windows/dirent.h"
 	#include <gl/freeglut.h>
-	//#define BASE_MATRIX_MODE GL_MODELVIEW
 #elif defined(__linux__) && defined(__GNUC__)
 	#include "include/dirent/linux/dirent.h"
 	#include <GL/freeglut.h>
-	//#define BASE_MATRIX_MODE GL_PROJECTION
 #endif
-#define BASE_MATRIX_MODE GL_MODELVIEW
+
 
 #include "include/yaml-cpp/yaml.h"
 
 // own libraries
 
+#include "constants.h"
 #include "types.h"
 #include "exception.h"
-#include "program_mode.h"
+#include "mode.h"
 
 #include "declarations.h"
+
+#include "program.h"
 
 #include "mapping.h"
 #include "library.h"

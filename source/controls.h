@@ -1,13 +1,11 @@
-#ifndef VARIABLES_H
-#define VARIABLES_H 1
+#ifndef CONTROLS_H
+#define CONTROLS_H 1
 
 /*#if defined(_WIN32) && defined(__GNUC__)
 	#define ESCAPE_KEY VK_ESCAPE
 #elif defined(__linux__) && defined(__GNUC__)
 	#define ESCAPE_KEY 0x1B
 #endif*/
-
-#define ESCAPE_KEY 27
 
 /*struct EntityIdentifier {
 	const char * entity_kind;
@@ -28,11 +26,15 @@ namespace controls {
 
 	void keyboard(unsigned char key, int x, int y)
 	{
-		if(!game.paused) printf("%i", key);
-		if(key == ESCAPE_KEY) {
-			std::cout << ": quit" << std::endl;
-			exit(EXIT_SUCCESS);
-		}
+		//printf("%i", key);
+
+
+		//if(!game.paused) printf("%i", key);
+
+
+		program.process((int)key);
+
+		/*
 		if(key == 'p') {
 			game.paused = !game.paused;
 			if(game.paused) {
@@ -53,9 +55,9 @@ namespace controls {
 			std::cout << ": free";
 			}
 			//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
-			glutPostRedisplay();
-		}
-		std::cout << std::endl;
+			//glutPostRedisplay();
+		}*/
+		//std::cout << std::endl;
 	}
 
 	/* Callbacks for special keys, such as:
@@ -69,7 +71,8 @@ namespace controls {
 
 	void special(int key, int x, int y)
 	{
-		if(!game.paused) {
+		program.process(key);
+		/*if(!game.paused) {
 			engine::Field * field = game.fields[std::string("Field")];
 			engine::Object * sokoban = game.objects[std::string("Sokoban")];
 			switch(key)
@@ -88,7 +91,7 @@ namespace controls {
 			//glutPostRedisplay();
 			printf("%i", key);
 			std::cout << std::endl;
-		}
+		}*/
 	}
 
 	void mouse(int button, int state, int width, int height)

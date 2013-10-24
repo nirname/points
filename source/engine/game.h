@@ -372,6 +372,18 @@ namespace engine {
 			}*/
 		}
 
+		void display() {
+			/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
+				i->second->next();
+			}*/
+
+			glPushMatrix();
+				for(ViewMapping::Iterator view = views.begin(); view != views.end(); ++view) {
+					view->second->display();
+				}
+			glPopMatrix();
+		}
+
 	};
 
 

@@ -48,41 +48,32 @@ namespace image {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if(mode == TITRES_MODE) {
+		glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(WHITE);
+			glRectf(0.0, 0.0, screen.width, screen.height);
+		glPopAttrib();
+		glColor3ub(BLACK);
+
+		if(program.mode == TITRES_MODE) {
 
 			//glEnter2D();
-			glPushAttrib(GL_CURRENT_BIT);
-				glColor3ub(SOFT_BLUE);
-				glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
-			glPopAttrib();
+			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
 			//glLeave2D();
 
-		} else if(mode == MENU_MODE) {
+		} else if(program.mode == MENU_MODE) {
 
 			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Menu", 4);
 
-		} else if(mode == SCREENSAVER_MODE) {
+		} else if(program.mode == SCREENSAVER_MODE) {
 
 			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
 
-		} else if(mode == GAMEPLAY_MODE) {
+		} else if(program.mode == GAMEPLAY_MODE) {
 
-			glPushAttrib(GL_CURRENT_BIT);
-				glColor3ub(WHITE);
-				glRectf(0.0, 0.0, screen.width, screen.height);
-			glPopAttrib();
+			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
+			game.display();
 
-			/*for(graphics::AnimationMapping::Iterator i = game.animations.begin(); i != game.animations.end(); ++i) {
-				i->second->next();
-			}*/
-
-			glPushMatrix();
-				for(engine::ViewMapping::Iterator view = game.views.begin(); view != game.views.end(); ++view) {
-					view->second->display();
-				}
-			glPopMatrix();
-
-		} else if(mode == INFORMATION_MODE) {
+		} else if(program.mode == INFORMATION_MODE) {
 
 			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Information", 11);
 
