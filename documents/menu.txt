@@ -1,0 +1,50 @@
+THE TEN COMMANDMENTS OF VIDEO GAME MENUS
+
+A good video game menu is like a good roadie: It stays out of the way. But still, far too many menus waste far too much of our time. People want to play games, not mess around in menus!
+
+We've gone up to the top of Video Game Mountain in search of answers, and have come down with ten rules all video game menus should obey. Ten "commandments," if you will.
+
+10. Allow Players To Skip The Splash Screens
+
+For while players are no doubt excited about the Unreal Engine, Dolby Digital and Speedtree, they shall doubtless be less psyched about them after the hundredth time they watch the opening splash screens.
+
+9. Make "Continue" The First Option In The Main Menu
+
+For lo, many players art excited to play their game, and so they press the A button repeatedly to skip through the splash screens (provided thou art obeying commandment #10), and therefore shall likely press 'A' straight through the main menu. This pressing of A shall take them into their most recent saved game. It shall not tell them that starting a new game will overwrite all auto-save information. Please mindeth the flow.
+
+8. Not Place A Montage Video Before The Main Menu
+
+Looketh. We art all excited to play the game in question, but we already bought it, and there is no reason to play a hypey montage video before the menu even loads. We are about to see the game itself! We do not need to see any more trailers. If the game doesn't convince us it's awesome, no trailer before the game is going to. This is not Battlestar Galactica, and you know, come to think of it, we never understood why they played pre-episode clip-montages either.
+
+Which brings us to this Sub-Commandment: Not Cut Away From The Main Menu To Show An Attract-Mode Sizzle Reel Of The Game, For This Is Not A 1990s Arcade Cabinet
+
+7. Automatically Save Settings Once They Are Changed
+
+For it is known that players like to tweak settings in the options menu, and shall become irate if they have to enter every menu twice to make sure that whatever settings they just implemented actually stuck. Again, this is known.
+
+6. Quit Reminding Us That The Game Auto-Saves
+
+While it is known that this is a requirement put in place by hardware manufacturers and publishers, it is also known that every single person who has ever played a video game is now aware that video games quick-save, and furthermore, if one were to turneth off the console in the middle of saving, it would somehow be detrimental to the system. However, if this were to actually happen, it would likely be because the power went out, not because the player decided this would be a good time to turn off the system.
+
+5. We All Shall Agree Where Everything Goes
+
+For there are but a few basic types of menus, and we shall agree on what goes where. Subtitle toggling shall forever go under audio, not video video, not audio. (Okay, we art convinced.) Y-axis inversion shall forever go under controls, not gameplay. Difficulty and violence filters shall be placed under gameplay, however. PC games shall condense the "video" and "graphics" menus into one menu called "video," because we think we can all agreeth that we do not need two menus for video options and "graphics" is a silly term.
+
+4. Giveth The Option To Invert The Y Axis Before The Game Begins
+
+In a perfect world, one without sin, all games would be like Xbox 360 games and would remember your preference. But until we arrive at that perfect world, all games shall give some sort of access to the options menu before the game begins, so that the very first thing a player does in the actual game isn't pause to invert the Y-axis. Or worse, try to pause only to accidentally skip the very first cutscene.
+
+3. Agree To Use 'A' To Advance And 'B' To Go Back
+
+Whatever the menu or the function, the 'A' button shall move players one step forward, while the 'B' button shall move players one step back, eventually landing them in the main menu. (Or, "X" and "O" for PlayStation.) The 'B' button shall be required to get players into the game (we are looking at you, Mass Effect), nor shall it be used to quit the actual game (ahem, PC versions of Crysis 2 and Arkham City).
+
+
+2. Not Bury The Map Behind More Than One (1) Level Of Menus. In Fact, Just Anchor The Map To The Select Button Because Come On Already
+
+Lo, it is understandable that there are a great many functions to assign to the various buttons on the controller, but the map is always one of the most important aspects of a game, and shall be easily accessible. Putting it behind even one extra layer of menus is annoying at first and maddening over time. Players shall not need to memorize a button combination just to quickly access the map.
+
+1. Always Allow The Player To Quit To Desktop
+
+In every menu, there shall be one option called "Quit." Upon selecting that option, the player shalt be given one (1) pop-up menu that lets them either quit to the desktop (or dashboard) or to the main menu. not, under any circumstances, force players to first quit to the main menu, then quit again to the desktop. not get cute with the language in the qutting pop-up, and if thou placeth a loading screen between quitting and actually being out of the game, rot in a special circle of Hell, where inconveniencers and meddlers go.
+
+By obeying these commandments, game developers shall make video games a more user-friendly and enjoyable experience for all man and womankind.

@@ -57,25 +57,54 @@ namespace image {
 		if(program.mode == TITRES_MODE) {
 
 			//glEnter2D();
-			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
+			glPushMatrix();
+				glScalef(0.1, 0.1, 0);
+				glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)"Titres");
+			glPopMatrix();
+			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
 			//glLeave2D();
 
 		} else if(program.mode == MENU_MODE) {
 
-			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Menu", 4);
+			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Menu", 4);
+
+			//glLineWidth(5);
+			unsigned const char * c = (unsigned const char *)"Logic Games";
+
+			float s = screen.width / glutStrokeLength(GLUT_STROKE_ROMAN, c);
+			//std::cout << s << std::endl;
+
+			glPushMatrix();
+				glScalef(s, s, 0);
+				//glutBitmapString(GLUT_BITMAP_8_BY_13, (unsigned char *)"will draw text facing the user");
+				glutStrokeString(GLUT_STROKE_ROMAN, c);
+			glPopMatrix();
 
 		} else if(program.mode == SCREENSAVER_MODE) {
 
-			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
+			glPushMatrix();
+				glScalef(0.1, 0.1, 0);
+				glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)"Screensaver");
+			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
+			glPopMatrix();
 
 		} else if(program.mode == GAMEPLAY_MODE) {
 
 			game.display();
-			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
+			//screen = engine::Screen(20, 15);
+			//glLoadIdentity();
+
+			/*glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+			glLoadIdentity();
+			gluOrtho2D(0.0, screen.width, 0.0, screen.height);*/
+
+
+			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
 
 		} else if(program.mode == INFORMATION_MODE) {
 
-			glWrite(20, 20, (int*)GLUT_BITMAP_8_BY_13, (char*)"Information", 11);
+			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Information", 11);
 
 		}
 
