@@ -7,15 +7,22 @@ digraph Game {
 		system[label = "System"]
 	}
 	
-	subgraph Introduction { label = "Introduction"
+	subgraph Introduction { label = "Titres"
 		node[color = pink]
-		rank = same
-		introductory[label = "Introductory"]
+		titres_mode[label = "Titres mode"]
+		introduction[label = "Introduction"]
 		farewell[label = "Farewell"]
+	}
+	
+	{
+		rank = same
+		introduction
+		farewell
 	}
 	
 	subgraph Menu { label = "Menu"
 		node[color = green]
+		menu_mode[label = "Menu mode"]
 		menu[label = "Main menu"]
 		game[label = "Game menu"]
 		level[label = "Level menu"]
@@ -23,56 +30,67 @@ digraph Game {
 
 	subgraph Gameplay { label = "Gameplay"
 		node[color = yellow]
+		gameplay_mode[label = "Gameplay mode"]
 		countdown[label = "Countdown"]
 		stage[label = "Stage playing"]
 	}
-	
 
 	subgraph Screensaver { label = "Screensavers"
 		node[color = violet]
+		screensaver_mode[label = "Screensaver mode"]
 		screensaver[label = "Screensaver"]
 	}
-	
+
 	subgraph Information { label = "Information"
 		node[color = cyan]
+		information_mode [label = "Information mode"]
 		winner[label = "Winner screen"]
 		looser[label = "Looser screen"]
 		pause[label = "Pause screen"]
 		completion[label = "Completion"]
 	}
-	
-	introductory -> menu[label = "wait, skip"]
-	
-	menu -> game[label = "<enter> start"]
+
+	titres_mode ->
+	menu_mode ->
+	screensaver_mode ->
+	gameplay_mode ->
+	information_mode [style = dotted, arrowhead = none]
+
+	system -> introduction[label = "run"]
+	farewell -> system[label = "<5 sec> wait, skip"]
+
+	introduction -> menu[label = "<5 sec> wait,\n<any> skip"]
+
+	menu -> game[label = "<enter> open"]
 	game -> menu[label = "<escape> back"]
-	menu -> farewell[label = "quit"]
 	
-	{ menu game level } -> screensaver[label = "wait"]
-	
-	screensaver -> menu[label = "skip"]
-	
+	menu -> farewell[label = "<escape> quit"]
+	{ menu game level } -> screensaver[label = "<60 sec> wait"]
+
+	screensaver -> menu[label = "<any> skip"]
+
 	game -> level[label = "<enter> select"]
 	level -> game[label = "<escape> back"]
+
+	level -> countdown[label = "<enter> start"]
+
+	countdown -> stage[label = "<N sec> wait"]
+	countdown -> pause[label = "<escape> pause"]
 	
-	level -> countdown[label = "play"]
-	
-	countdown -> stage[label = "wait"]
 	stage -> completion[label = "pass"]
-	completion -> winner[label = "next (all levels are passed)"]
 	stage -> looser[label = "fail"]
-	stage -> pause[label = "pause"]
-	pause -> stage[label = "<escape> resume"]
+	stage -> pause[label = "<escape> pause"]
+	pause -> stage[label = "<escape> exit"]
 	
-	pause -> menu[label = "<enter> stop"]
+	pause -> menu[label = "<enter> resume"]
 	
-	completion -> countdown[label = "next"]
-	
+	completion -> countdown[<enter> label = "next"]
+	completion -> menu[label = "<escape> to menu"]
+	completion -> winner[label = "<enter> next (all levels are passed)"]
+		
 	looser -> countdown[label = "<enter> repeat"]
 	looser -> menu[label = "<escape> stop"]
 	
-	winner -> game[label = "skip"]
-	
-	system -> introductory[label = "run"]
-	farewell -> system[label = "skip"]
-	
+	winner -> game[label = "<M sec> wait,\n<enter> skip congratulations"]
+
 }
