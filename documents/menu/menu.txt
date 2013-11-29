@@ -1,0 +1,50 @@
+Main menu
+  Start
+  Continue
+  Extras
+
+Options
+  Grid type ( SQUARE | EDGE BASED HEXAGON | CORNER BASED HEXAGON )
+  (play and save after once changed)
+  Animation ( NO | FADE | SCALE | SLIDE | RANDOM )
+  Selection ( COLOR 1 | COLOR 2 | RANDOM )
+  Defaults
+
+Continue options
+  Game
+  Level
+  Grid type
+
+Extras
+  Authors
+  Media
+    Splash screens
+    Images
+    Music
+  Components
+    Fonts (?)
+    Generators (?)
+
+Media
+  (left <- right -> to toggle, <Enter> to play, any key to stop)
+  (save immidiately)
+  NONE ( ONE | COLLECTION ) ALL
+  OFF    FIRST     ON
+  OFF    SECOND    ON
+  OFF    THIRD     ON
+
+Common
+  Rescue (Quit immidiately) <Ctrl-Q>
+  Options
+
+Controls
+  <Ecs> Back
+  <Enter> Select
+
+  <Ctrl-Q> Rescue
+  <F1> Show hints
+  <Pause>, <P> Pause / Resume / Show timer immidiately
+  (options shortcuts)
+  <Ctrl-Space> Change grid
+  <Ctrl-A> Change animation
+  <Ctrl-S> Change selection

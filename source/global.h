@@ -52,6 +52,7 @@
 
 #include "declarations.h"
 
+
 #include "mapping.h"
 #include "library.h"
 
@@ -65,11 +66,10 @@
 
 #include "program.h"
 
+#include "menu.h"
 #include "controls.h"
 #include "image.h"
 #include "variables.h"
-
-#include "menu.h"
 
 #include "params.h"
 

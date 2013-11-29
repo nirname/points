@@ -4,6 +4,9 @@
 engine::Screen screen(200, 150);
 engine::Game game; // TODO(!): use pointer here
 engine::Program program;
+
+Menu menu("MAIN MENU");
+
 int graphics::sleep = 50;
 
 void hello() {
@@ -12,6 +15,11 @@ void hello() {
 
 int main(int argc, char * argv[])
 {
+
+	menu.add(new Menu("START"));
+	menu.add(new Menu("CONTINUE"));
+	menu.add(new Menu("EXTRAS"));
+
 	std::cout << std::endl;
 	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Traditional games" << std::endl;

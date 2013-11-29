@@ -108,9 +108,12 @@ namespace params {
 	extern int menu_timeout;
 }
 
+struct Menu;
+
 extern engine::Screen screen;
 extern engine::Game game;
 extern engine::Program program;
+extern Menu menu;
 
 
 #endif

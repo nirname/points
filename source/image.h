@@ -34,14 +34,7 @@ namespace image {
 		//glTranslatef(5, 5, 0);
 		for (int i = 0; i < kls; i++) {
 			glutBitmapCharacter(font, (int)text[i]);
-		}/**/
-
-		/*glPushMatrix();
-			for (int i = 0; i < kls; i++) {
-				glutStrokeCharacter(GLUT_STROKE_ROMAN, (int)text[i]);
-			}
-		glPopMatrix();/**/
-
+		}
 	}
 
 	void display()
@@ -55,57 +48,18 @@ namespace image {
 		glColor3ub(BLACK);
 
 		if(program.mode == TITRES_MODE) {
-
-			//glEnter2D();
-			glPushMatrix();
-				glScalef(0.1, 0.1, 0);
-				glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)"Titres");
-			glPopMatrix();
-			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
-			//glLeave2D();
-
+			//float s = screen.width / glutStrokeLength(GLUT_STROKE_ROMAN, c);
+			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
 		} else if(program.mode == MENU_MODE) {
-
-			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Menu", 4);
-
-			//glLineWidth(5);
-			unsigned const char * c = (unsigned const char *)"Logic Games";
-
-			float s = screen.width / glutStrokeLength(GLUT_STROKE_ROMAN, c);
-			//std::cout << s << std::endl;
-
-			glPushMatrix();
-				glScalef(s, s, 0);
-				//glutBitmapString(GLUT_BITMAP_8_BY_13, (unsigned char *)"will draw text facing the user");
-				glutStrokeString(GLUT_STROKE_ROMAN, c);
-			glPopMatrix();
-
+			menu.display();
 		} else if(program.mode == SCREENSAVER_MODE) {
-
-			glPushMatrix();
-				glScalef(0.1, 0.1, 0);
-				glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)"Screensaver");
-			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
-			glPopMatrix();
-
+			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
 		} else if(program.mode == GAMEPLAY_MODE) {
-
 			game.display();
-			//screen = engine::Screen(20, 15);
-			//glLoadIdentity();
-
-			/*glMatrixMode(GL_PROJECTION);
-			glPopMatrix();
-			glLoadIdentity();
-			gluOrtho2D(0.0, screen.width, 0.0, screen.height);*/
-
-
-			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
-
+			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
 		} else if(program.mode == INFORMATION_MODE) {
-
+			// TODO: remove information mode
 			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Information", 11);
-
 		}
 
 		glFlush();
