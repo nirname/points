@@ -29,11 +29,10 @@ namespace image {
 		glEnable(GL_DEPTH_TEST);
 	}*/
 
-	void glWrite(float x, float y, int *font, char text[256], int kls) {
-		glRasterPos2f(x, y);
-		//glTranslatef(5, 5, 0);
+	void glWrite(char text[256], int kls) {
+		glRasterPos2f(screen.width / 10, screen.height / 10);
 		for (int i = 0; i < kls; i++) {
-			glutBitmapCharacter(font, (int)text[i]);
+			glutBitmapCharacter((int*)GLUT_BITMAP_8_BY_13, (int)text[i]);
 		}
 	}
 
@@ -49,17 +48,14 @@ namespace image {
 
 		if(program.mode == TITRES_MODE) {
 			//float s = screen.width / glutStrokeLength(GLUT_STROKE_ROMAN, c);
-			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Titres", 6);
+			glWrite((char*)"Titres", 6);
 		} else if(program.mode == MENU_MODE) {
 			menu.display();
 		} else if(program.mode == SCREENSAVER_MODE) {
-			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Screensaver", 11);
+			glWrite((char*)"Screensaver", 11);
 		} else if(program.mode == GAMEPLAY_MODE) {
 			game.display();
-			//glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Game", 4);
-		} else if(program.mode == INFORMATION_MODE) {
-			// TODO: remove information mode
-			glWrite(0, 0, (int*)GLUT_BITMAP_8_BY_13, (char*)"Information", 11);
+			glWrite((char*)"Gameplay", 4);
 		}
 
 		glFlush();

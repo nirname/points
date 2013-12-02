@@ -71,19 +71,6 @@ namespace engine {
 			}
 		}
 
-		void information_process(unsigned char key) {
-			if(key == ENTER_KEY) {
-				std::cout << ": resume";
-				set(GAMEPLAY_MODE);
-			} else if (key == ESCAPE_KEY) {
-				std::cout << ": exit";
-				// TODO: kill game here
-				set(MENU_MODE);
-			} else {
-				std::cout << ": free";
-			}
-		}
-
 		void screensaver_process(unsigned char key) {
 			std::cout << ": skip";
 			set(MENU_MODE);
@@ -107,8 +94,6 @@ namespace engine {
 				screensaver_process(key);
 			} else if(mode == GAMEPLAY_MODE) {
 				game_process(key);
-			} else if(mode == INFORMATION_MODE) {
-				information_process(key);
 			}
 
 			std::cout << std::endl;

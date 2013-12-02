@@ -4,10 +4,10 @@
 namespace params
 {
 
-	int titres_timeout = 5000;
+	// TODO: convert titres timeout to seconds or menu timeout to msec
+	int titres_timeout = 5;
 	time_t last_menu_activity_time = clock();
 
-	// TODO: set it around 1 minute
 	// Screensaver starts after the specified time at seconds
 	int menu_timeout = 60; // TODO: convert this one to msec
 

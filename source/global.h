@@ -48,7 +48,7 @@
 #include "constants.h"
 #include "types.h"
 #include "exception.h"
-#include "mode.h"
+#include "program_mode.h"
 
 #include "declarations.h"
 
