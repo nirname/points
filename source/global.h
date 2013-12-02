@@ -64,9 +64,9 @@
 
 #include "parser.h"
 
-#include "program.h"
-
 #include "menu.h"
+
+#include "program.h"
 #include "controls.h"
 #include "image.h"
 #include "variables.h"

@@ -16,13 +16,19 @@ float stroke_length(std::string & string) {
 }
 
 struct Menu {
+
+	typedef Menu * MenuPointer;
+	typedef std::list<MenuPointer> ItemsList;
+
 	std::string name;
-	typedef std::list<Menu *> ItemsList;
 	ItemsList items;
+	ItemsList::iterator current_item;
 
 	Menu(std::string _name):
 		name(_name)
-	{}
+	{
+		current_item = items.begin();
+	}
 
 	~Menu() {
 		for(ItemsList::iterator i = items.begin(); i != items.end(); ++i) {
@@ -40,36 +46,67 @@ struct Menu {
 
 void Menu::add(Menu * item) {
 	items.push_back(item);
+	/*if(current_item == items.begin()) {
+		current_item++;
+	}*/
 }
 
 void Menu::display_name() {
 	glPushMatrix();
-		glTranslatef(screen.width / 2, 0, 0);
 		glScalef(0.1, 0.1, 0);
-		glTranslatef(-stroke_length(name) / 2, 0, 0);
-		glLineWidth(3);
+		glTranslatef(-stroke_length(name) / 2.0, 0, 0);
+		//glTranslatef(0, -glutStrokeHeight(GLUT_STROKE_ROMAN), 0);
+		//glTranslatef(0, -20, 0);
+		glLineWidth(2);
 			draw_string(name);
 		glLineWidth(1);
 	glPopMatrix();
 }
 
 void Menu::display() {
-	//unsigned const char * c = (unsigned const char *)"Titres";
-	//float s = screen.width / glutStrokeLength(GLUT_STROKE_ROMAN, c);
+
+	float font_height = 10;
+
 	glPushMatrix();
-		glTranslatef(0, screen.height - 20, 0);
-		display_name();
-	glPopMatrix();
-	glPushMatrix();
-		glScalef(0.5, 0.5, 0);
-		int y = 10;
-		for(ItemsList::iterator i = items.begin(); i != items.end(); ++i) {
-			y += 20;
+
+		glPushMatrix();
+			glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(SOFT_BLUE);
+				glRectf(0, screen.height - font_height * 3, screen.width, screen.height);
+			glPopAttrib();
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(screen.width / 2.0, screen.height - font_height * 2, 0);
+			glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(WHITE);
+				display_name();
+			glPopAttrib();
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(screen.width / 2.0, screen.height / 2.0, 0);
+
 			glPushMatrix();
-				glTranslatef(0, screen.height - 20 - y, 0);
-				(*i)->display_name();
+				glScalef(0.5, 0.5, 0);
+
+				glTranslatef(0, font_height * 2 * items.size() / 2, 0);
+				for(ItemsList::iterator i = items.begin(); i != items.end(); ++i) {
+					//glPushMatrix();
+					glPushAttrib(GL_CURRENT_BIT);
+						if(i == menu.current_item) {
+							glColor3ub(SOFT_BLUE);
+						}
+						glTranslatef(0, -font_height * 2, 0);
+						(*i)->display_name();
+					//glPopMatrix();
+					glPopAttrib();
+				}
+
 			glPopMatrix();
-		}
+
+		glPopMatrix();
+
 	glPopMatrix();
 
 }

@@ -40,6 +40,7 @@ namespace engine {
 			// Reset menu activity value on user actions
 			params::last_menu_activity_time = time(NULL);
 
+			// TODO: handle all actions to menu
 			if(key == ESCAPE_KEY) {
 				std::cout << ": quit";
 				std::cout << std::endl;
@@ -47,6 +48,12 @@ namespace engine {
 			} else if(key == ENTER_KEY) {
 				std::cout << ": start";
 				set(GAMEPLAY_MODE);
+			} else if(key == 115) {
+				std::cout << ": next item";
+				++menu.current_item;
+			} else if(key == 119) {
+				std::cout << ": previous item";
+				--menu.current_item;
 			} else {
 				std::cout << ": free";
 			}
@@ -56,7 +63,8 @@ namespace engine {
 		void game_process(unsigned char key) {
 			if(key == ESCAPE_KEY) {
 				std::cout << ": info";
-				set(INFORMATION_MODE);
+				//set(INFORMATION_MODE);
+				set(MENU_MODE);
 			} else {
 				game.process(key);
 				//std::cout << ": free";

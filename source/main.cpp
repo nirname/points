@@ -5,7 +5,7 @@ engine::Screen screen(200, 150);
 engine::Game game; // TODO(!): use pointer here
 engine::Program program;
 
-Menu menu("MAIN MENU");
+Menu menu("Main Menu");
 
 int graphics::sleep = 50;
 
@@ -16,9 +16,10 @@ void hello() {
 int main(int argc, char * argv[])
 {
 
-	menu.add(new Menu("START"));
-	menu.add(new Menu("CONTINUE"));
-	menu.add(new Menu("EXTRAS"));
+	menu.add(new Menu("Start"));
+	menu.add(new Menu("Continue"));
+	menu.add(new Menu("Extras"));
+	//menu.current_item = menu.items.begin()++;
 
 	std::cout << std::endl;
 	std::cout << "Independent Logic Games" << std::endl;
@@ -67,16 +68,14 @@ int main(int argc, char * argv[])
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_SMOOTH);
 
-	/*
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+	/*glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_POLYGON_SMOOTH);
 
 	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_POINT_SMOOTH);
 
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_LINE_SMOOTH);
-	*/
+	glEnable(GL_LINE_SMOOTH);*/
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
