@@ -48,10 +48,10 @@ namespace engine {
 			} else if(key == ENTER_KEY) {
 				std::cout << ": start";
 				set(GAMEPLAY_MODE);
-			} else if(key == 115) {
+			} else if(key == 115 || key == 100) {
 				std::cout << ": next item";
 				++menu.current_item;
-			} else if(key == 119) {
+			} else if(key == 119 || key == 97) {
 				std::cout << ": previous item";
 				--menu.current_item;
 			} else {
