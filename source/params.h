@@ -16,7 +16,6 @@ namespace params
 
 	bool game_mode = false;
 	bool full_screen = false;
-	unsigned int display_mode = 0;
 
 	enum WINDOW_SIZE { TINY, SMALL, MIDDLE, LARGE };
 	WINDOW_SIZE window_size = SMALL;
@@ -24,7 +23,6 @@ namespace params
 	void load()
 	{
 
-		display_mode = GLUT_RGB | GLUT_DOUBLE;
 		switch(window_size)
 		{
 			case TINY:   window_width = 640,  window_height = 480;  mode_string = "640x480:32";   break;

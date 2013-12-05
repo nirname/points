@@ -57,9 +57,9 @@ void Menu::display_name() {
 		glTranslatef(-stroke_length(name) / 2.0, 0, 0);
 		//glTranslatef(0, -glutStrokeHeight(GLUT_STROKE_ROMAN), 0);
 		//glTranslatef(0, -20, 0);
-		glLineWidth(2);
+		//glLineWidth(2);
 			draw_string(name);
-		glLineWidth(1);
+		//glLineWidth(1);
 	glPopMatrix();
 }
 

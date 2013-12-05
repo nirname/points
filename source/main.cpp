@@ -41,7 +41,9 @@ int main(int argc, char * argv[])
 	std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
 	std::cout << "blue: "  << glutGetColor(12, GLUT_BLUE)  << std::endl;*/
 
-	glutInitDisplayMode(params::display_mode);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+	glEnable(GL_MULTISAMPLE_ARB);
+	//glutInitDisplayMode(GLUT_RGBA | GLUT_MULTISAMPLE);
 
 	// set window parameters
 	glutInitWindowSize(params::window_width, params::window_height);
@@ -63,7 +65,7 @@ int main(int argc, char * argv[])
 	glClearColor(BLACK, 0.5f);
 	glClearDepth(1.0f);
 
-	glEnable(GL_BLEND);
+	/*glEnable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_SMOOTH);
@@ -76,6 +78,8 @@ int main(int argc, char * argv[])
 
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_LINE_SMOOTH);*/
+
+	glEnable(GL_MULTISAMPLE);
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);

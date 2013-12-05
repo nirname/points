@@ -12,6 +12,8 @@
 #include <fstream>
 //#include <iomanip>
 
+//#include "arb_multisample.h"
+
 #if defined(__linux__) && defined(__GNUC__)
 	#include <cstring>
 #endif
