@@ -117,6 +117,8 @@ extern engine::Screen screen;
 extern engine::Game game;
 extern engine::Program program;
 extern Menu menu;
+extern Menu common_menu;
+//extern std::stack<Menu *> menus;
 
 
 #endif

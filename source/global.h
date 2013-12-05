@@ -27,6 +27,7 @@
 #include <string>
 #include <functional>
 #include <set>
+#include <stack>
 #include <map>
 #include <vector>
 #include <list>

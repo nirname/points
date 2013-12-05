@@ -15,14 +15,22 @@ float stroke_length(std::string & string) {
 	return length;
 }
 
+// TODO: refactor this class
+//struct Menu;
+
+typedef Menu * MenuPointer;
+typedef std::list<MenuPointer> MenusList;
+
+typedef Mapping<Menu> MenuMapping;
+
 struct Menu {
 
-	typedef Menu * MenuPointer;
-	typedef std::list<MenuPointer> ItemsList;
+	std::string name; // TODO: remove this attribute
+	MenusList items;
+	// TODO: replace it with mapping;
+	MenusList::iterator current_item;
 
-	std::string name;
-	ItemsList items;
-	ItemsList::iterator current_item;
+	Menu() {}
 
 	Menu(std::string _name):
 		name(_name)
@@ -31,7 +39,7 @@ struct Menu {
 	}
 
 	~Menu() {
-		for(ItemsList::iterator i = items.begin(); i != items.end(); ++i) {
+		for(MenusList::iterator i = items.begin(); i != items.end(); ++i) {
 			delete (*i);
 		}
 	}
@@ -98,7 +106,7 @@ void Menu::display() {
 				glScalef(0.5, 0.5, 0);
 
 				glTranslatef(0, font_height * 2 * items.size() / 2, 0);
-				for(ItemsList::iterator i = items.begin(); i != items.end(); ++i) {
+				for(MenusList::iterator i = items.begin(); i != items.end(); ++i) {
 					//glPushMatrix();
 					glPushAttrib(GL_CURRENT_BIT);
 						if(i == menu.current_item) {
@@ -133,7 +141,7 @@ void Menu::display() {
 		{1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 1},
 	}; // M */
-	bool a[h][w] = {
+	/*bool a[h][w] = {
 		{0, 1, 1, 1, 0},
 		{1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 1},
@@ -141,13 +149,22 @@ void Menu::display() {
 		{1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 1},
-	}; // A
+	}; // A */
+	bool a[h][w] = {
+		{1, 0, 0, 0, 1},
+		{1, 1, 0, 0, 1},
+		{1, 0, 1, 0, 1},
+		{1, 0, 0, 1, 1},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+	}; // N
 	//for(int y = h-1; y >= 0; y--) {
 	for(int y = 0; y < h; y++) {
 		for(int x = 0; x < w; x++) {
 			if(a[y][x] == 1) {
 				//point(x, (h-y-1)); // original size
-				point(x*z, (h-y-1)*z); // expanded size
+				point(x*z, (h-y-1)*z); // expanded
 				for(int sx = 0; sx < z; sx++) {
 					//point(x*z + sx, (h-y-1)*z + sx); // diagonal
 					//point(x*z + sx, (h-y-1)*z); // IBM style, horizontal striped
@@ -168,6 +185,21 @@ void Menu::display() {
 	//graphics::grid(engine::Point(screen.width, screen.height));
 
 }
+
+// TODO: add menu manager
+struct MenuManager {
+
+	MenuMapping menus;
+	std::stack<MenuPointer> stack;
+	//MenusList menus;
+
+	/*~MenuManager() {
+		for(MenusList::iterator i = menus.begin(); i != menus.end(); ++i) {
+			delete (*i);
+		}
+	}/**/
+
+};
 
 
 #endif

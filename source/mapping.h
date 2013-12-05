@@ -107,6 +107,10 @@ template<typename Type> class Mapping {
 			return this->get(_name);
 		}
 
+		// TODO: write something here
+		void remove() {
+		}
+
 		// Does the same action for each element
 		/*void each(void (* handler)(TypePointer)) {
 			for(Iterator object = container.begin(); object != container.end(); ++object) {

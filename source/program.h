@@ -47,6 +47,7 @@ namespace engine {
 				exit(EXIT_SUCCESS);
 			} else if(key == ENTER_KEY) {
 				std::cout << ": start";
+
 				set(GAMEPLAY_MODE);
 			} else if(key == 115 || key == 100) {
 				std::cout << ": next item";
