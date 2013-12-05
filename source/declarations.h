@@ -31,14 +31,17 @@ namespace engine {
 
 	struct Program;
 
+	struct Point;
+	struct Size;
+	struct Bound;
+
 	struct Screen;
 	struct Level;
 	struct Game;
 	struct Field;
 	struct View;
 	struct Object;
-	struct Point;
-	struct Size;
+
 	struct ObjectKind;
 	struct ControlHandler;
 

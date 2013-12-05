@@ -15,15 +15,16 @@
 #include "engine/game.h"
 
 // engine
+// TODO: move it from here
 namespace engine {
 
 	void Object::display(const Point & _position = Point()) { //, const Animation & = NULL
-		glPushMatrix();
-			glTranslatef(_position.column, _position.row, 0);
-			glPushAttrib(GL_CURRENT_BIT);
-				//graphics::use_color(color);
-				use_color();
-				glPushMatrix(); // animation goes here
+		glPushAttrib(GL_CURRENT_BIT);
+			//graphics::use_color(color);
+			use_color();
+			glPushMatrix();
+				glTranslatef(_position.column, _position.row, 0);
+					glPushMatrix(); // animation goes here
 					/*for(AnimationList::iterator a = animations.begin(); a != animations.end(); ++a) {
 						(*a)->apply();
 					}*/
@@ -34,8 +35,8 @@ namespace engine {
 					draw_shape();
 					//graphics::square();
 				glPopMatrix();
-			glPopAttrib();
-		glPopMatrix();
+			glPopMatrix();
+		glPopAttrib();
 	}
 
 	/*bool Object::move(Field * _field, Point _step, graphics::Animation * _animation) {

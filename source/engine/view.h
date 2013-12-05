@@ -104,8 +104,9 @@ namespace engine {
 	}
 
 	void View::draw_grid(const Bound & _bound) {
+		graphics::grid(_bound, grid_color);
 		//glLineWidth(2);
-		glPushAttrib(GL_CURRENT_BIT);
+		/*glPushAttrib(GL_CURRENT_BIT);
 			if(grid_color != NULL) {
 				grid_color->use();
 			} else {
@@ -125,7 +126,7 @@ namespace engine {
 					}
 				}
 			glEnd();
-		glPopAttrib();
+		glPopAttrib();*/
 	}
 
 	void View::draw_border() {

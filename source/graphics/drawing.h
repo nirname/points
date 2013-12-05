@@ -55,7 +55,6 @@ namespace graphics {
 		ngon(6, 2);
 	}
 
-
 }
 
 #endif
