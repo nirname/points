@@ -1,6 +1,8 @@
 #ifndef MENU_H
 #define MENU_H 1
 
+// TODO: refactor this file
+
 void draw_string(std::string & string) {
 	for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, *i);
@@ -25,7 +27,7 @@ typedef Mapping<Menu> MenuMapping;
 
 struct Menu {
 
-	std::string name; // TODO: remove this attribute
+	std::string name; // TODO: do not remove this attribute; rename to title?
 	MenusList items;
 	// TODO: replace it with mapping;
 	MenusList::iterator current_item;
@@ -38,10 +40,25 @@ struct Menu {
 		current_item = items.begin();
 	}
 
-	~Menu() {
-		for(MenusList::iterator i = items.begin(); i != items.end(); ++i) {
-			delete (*i);
+	void qq() {
+		std::cout << ": " << this->name;
+	}
+
+	void process(unsigned char key) {
+		if(current_item != items.end()) {
+			(*current_item)->qq();
+		} else {
+			std::cout << ": no current item";
 		}
+	}
+
+	~Menu() {
+		/*for(MenusList::iterator i = items.begin(); i != items.end(); ++i) {
+			try {
+				delete (*i);
+			} catch {
+			}
+		}*/
 	}
 
 	void display_name();
@@ -131,7 +148,7 @@ void Menu::display() {
 	glPushMatrix();
 	glTranslatef(10, 0, 0);
 	const int h = 7, w = 5;
-	const int z = 2;
+	const int z = 3;
 	/*bool a[h][w] = {
 		{1, 0, 0, 0, 1},
 		{1, 1, 0, 1, 1},
@@ -165,14 +182,14 @@ void Menu::display() {
 			if(a[y][x] == 1) {
 				//point(x, (h-y-1)); // original size
 				point(x*z, (h-y-1)*z); // expanded
-				for(int sx = 0; sx < z; sx++) {
+				//for(int sx = 0; sx < z; sx++) {
 					//point(x*z + sx, (h-y-1)*z + sx); // diagonal
 					//point(x*z + sx, (h-y-1)*z); // IBM style, horizontal striped
 					//point(x*z, (h-y-1)*z + sx); // vertical striped
 					/*for(int sy = 0; sy < z; sy++) {
 						point(x*z + sx, (h-y-1)*z + sy); // scaled
 					}*/
-				}
+				//}
 			}
 		}
 	}

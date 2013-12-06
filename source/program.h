@@ -13,19 +13,28 @@ namespace engine {
 			mode = TITRES_MODE;
 		}
 
+		// Reset menu activity value on user actions
+		void reset_last_activity_time() {
+			params::last_menu_activity_time = time(NULL);
+		}
+
 		void set(PROGRAM_MODE _mode) {
-			// do something here
+			reset_last_activity_time();
 			if(_mode == MENU_MODE) {
-				params::last_menu_activity_time = time(NULL);
 				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
+				if(game.loaded) {
+					game.pause(); // TODO: delete game here
+				}
 			} else if(_mode == GAMEPLAY_MODE) {
 				if(!game.loaded) {
 					game.load();
 				} else if(game.paused) {
 					game.resume();
 				}
-			} else if (_mode == INFORMATION_MODE) {
-				game.pause();
+			} else if(_mode == INFORMATION_MODE) {
+				if(game.paused) {
+					game.resume();
+				}
 			}
 			mode = _mode;
 		}
@@ -38,7 +47,8 @@ namespace engine {
 		void menu_process(unsigned char key) {
 
 			// Reset menu activity value on user actions
-			params::last_menu_activity_time = time(NULL);
+			//params::last_menu_activity_time = time(NULL);
+			reset_last_activity_time();
 
 			// TODO: handle all actions to menu
 			if(key == ESCAPE_KEY) {
@@ -46,9 +56,9 @@ namespace engine {
 				std::cout << std::endl;
 				exit(EXIT_SUCCESS);
 			} else if(key == ENTER_KEY) {
-				std::cout << ": start";
-
-				set(GAMEPLAY_MODE);
+				//std::cout << ": start";
+				menu.process(key);
+				//set(GAMEPLAY_MODE);
 			} else if(key == 115 || key == 100) {
 				std::cout << ": next item";
 				++menu.current_item;

@@ -6,7 +6,7 @@ enum PROGRAM_MODE {
 	MENU_MODE, // Main menu, Game menu, Level menu
 	SCREENSAVER_MODE, // Any screensaver
 	GAMEPLAY_MODE, // Gameplay itself, Countdown?
-	INFORMATION_MODE // Pause, Completion, Looser, Winner
+	INFORMATION_MODE // Pause, Completion, Looser, Winner // TODO: remove it?
 };
 
 #endif

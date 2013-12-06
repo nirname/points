@@ -16,9 +16,18 @@ void hello() {
 int main(int argc, char * argv[])
 {
 
-	menu.add(new Menu("Start"));
-	menu.add(new Menu("Continue"));
-	menu.add(new Menu("Extras"));
+	Menu game1 = Menu("Game 1");
+	Menu game2 = Menu("Game 2");
+
+	Menu extras_menu = Menu("Extras");
+	Menu game_menu   = Menu("Start");
+	Menu exit_menu   = Menu("Exit");
+
+	menu.add(&game_menu);
+	menu.add(&extras_menu);
+	menu.add(&exit_menu);
+
+
 	//menu.current_item = menu.items.begin()++;
 
 	std::cout << std::endl;

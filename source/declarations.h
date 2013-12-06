@@ -29,11 +29,11 @@ typedef graphics::Color Color;
 
 namespace engine {
 
-	struct Program;
-
 	struct Point;
 	struct Size;
 	struct Bound;
+
+	struct Program;
 
 	struct Screen;
 	struct Level;
