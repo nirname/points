@@ -42,7 +42,7 @@ int main(int argc, char * argv[])
 	std::cout << "blue: "  << glutGetColor(12, GLUT_BLUE)  << std::endl;*/
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-	glEnable(GL_MULTISAMPLE_ARB);
+	//glEnable(GL_MULTISAMPLE_ARB);
 	//glutInitDisplayMode(GLUT_RGBA | GLUT_MULTISAMPLE);
 
 	// set window parameters
@@ -79,7 +79,7 @@ int main(int argc, char * argv[])
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_LINE_SMOOTH);*/
 
-	glEnable(GL_MULTISAMPLE);
+	//glEnable(GL_MULTISAMPLE);
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
