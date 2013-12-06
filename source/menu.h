@@ -199,6 +199,10 @@ struct MenuManager {
 		}
 	}/**/
 
+	void add() {
+
+	}
+
 };
 
 

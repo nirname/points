@@ -5,7 +5,9 @@ template<typename Type> class Mapping {
 
 	public:
 
+		typedef std::string KeyType;
 		typedef Type * TypePointer;
+
 		typedef std::map<KeyType, TypePointer> Container;
 		typedef typename Container::iterator Iterator;
 
@@ -30,18 +32,18 @@ template<typename Type> class Mapping {
 		}
 
 		// Retrive an entry from container or create a new one
-		inline TypePointer fetch(std::string _name) {
+		inline TypePointer fetch(const KeyType & _name) {
 			return container[_name];
 		}
 
 		// Creates new object by name
-		inline TypePointer set(std::string _name) {
+		inline TypePointer set(const KeyType & _name) {
 			TypePointer result = new Type();
 			container[_name] = result;
 			return result;
 		}
 
-		inline TypePointer set(std::string _name, TypePointer _pointer) {
+		inline TypePointer set(const KeyType & _name, TypePointer _pointer) {
 			container[_name] = _pointer;
 			return _pointer;
 		}
@@ -49,22 +51,22 @@ template<typename Type> class Mapping {
 	public:
 
 		// Checkes if container contains an ojbect by name
-		inline bool has(std::string _name) {
+		inline bool has(const KeyType & _name) {
 			return container.find(_name) != container.end();
 		}
 
 		// Get object without creatinga an extra object
-		TypePointer get(std::string _name) {
+		TypePointer get(const KeyType & _name) {
 			return (has(_name))? fetch(_name) : NULL;
 		}
 
 		// Returns pointer if successed
 		// Otherwise returns NULL
-		TypePointer add(std::string _name) {
+		TypePointer add(const KeyType & _name) {
 			return (has(_name))? NULL : set(_name);
 		}
 
-		TypePointer add(std::string _name, TypePointer _pointer) {
+		TypePointer add(const KeyType & _name, TypePointer _pointer) {
 			if(has(_name)) {
 				delete _pointer;
 				return NULL;
@@ -74,14 +76,13 @@ template<typename Type> class Mapping {
 			}
 		}
 
-		TypePointer add(std::string _name, const YAML::Node& options) {
+		TypePointer add(const KeyType & _name, const YAML::Node & options) {
 			if(has(_name)) {
 				return NULL;
 			} else {
 				// TODO catch exceptions here
 				TypePointer instance = build();
 				try {
-				// TODO and catch exceptions here if there is problems during loading
 					options >> *instance;
 				} catch(const EXCEPTION & exception) {
 					std::cout << exception << std::endl;
@@ -98,17 +99,21 @@ template<typename Type> class Mapping {
 		}
 
 		// Adds or gets
-		TypePointer use(std::string _name) {
+		TypePointer use(const KeyType & _name) {
 			return (has(_name))? fetch(_name) : set(_name);
 		}
 
 		// Does the same as 'get' does
-		TypePointer operator[] (std::string _name) {
+		TypePointer operator[] (const KeyType & _name) {
 			return this->get(_name);
 		}
 
 		// TODO: write something here
-		void remove() {
+		void remove(const KeyType & _name) {
+			if(this->has(_name)) {
+				delete this->fetch();
+				container.erase(_name);
+			}
 		}
 
 		// Does the same action for each element

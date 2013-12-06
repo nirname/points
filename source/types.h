@@ -2,6 +2,6 @@
 #define TYPES_H 1
 
 typedef unsigned int positive;
-typedef std::string KeyType;
+//typedef std::string KeyType;
 
 #endif
