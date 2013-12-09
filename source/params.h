@@ -9,7 +9,7 @@ namespace params
 	time_t last_menu_activity_time = clock();
 
 	// Screensaver starts after the specified time at seconds
-	int menu_timeout = 60; // TODO: convert this one to msec
+	int menu_timeout = 5; // TODO: convert this one to msec
 
 	int window_width = 0, window_height = 0;
 	const char * mode_string;

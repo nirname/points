@@ -21,7 +21,7 @@ namespace engine {
 		void set(PROGRAM_MODE _mode) {
 			reset_last_activity_time();
 			if(_mode == MENU_MODE) {
-				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
+				//glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
 				if(game.loaded) {
 					game.pause(); // TODO: delete game here
 				}

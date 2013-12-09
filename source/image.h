@@ -47,7 +47,10 @@ namespace image {
 		glColor3ub(BLACK);
 
 		if(program.mode == TITRES_MODE) {
-			//float s = screen.width / glutStrokeLength(GLUT_STROKE_ROMAN, c);
+
+			//load_bmp();
+			//readBMP();
+
 			glWrite((char*)"Titres", 6);
 		} else if(program.mode == MENU_MODE) {
 			menu.display();

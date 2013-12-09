@@ -16,6 +16,9 @@ void hello() {
 int main(int argc, char * argv[])
 {
 
+	load_bmp();
+	//readBMP();
+
 	Menu game1 = Menu("Game 1");
 	Menu game2 = Menu("Game 2");
 
@@ -111,11 +114,10 @@ int main(int argc, char * argv[])
 	glutReshapeFunc(image::reshape);
 
 	glutIdleFunc(image::idle);
-	glutTimerFunc(graphics::sleep, image::redisplay, 0);
+	//glutTimerFunc(graphics::sleep, image::redisplay, 0);
 
 	//glutTimerFunc(graphics::sleep, image::animate, 0);
-	glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
-	//glutTimerFunc(1000, engine::screensaver_autoload, 0);
+	//glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);
