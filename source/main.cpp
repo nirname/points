@@ -99,7 +99,7 @@ int main(int argc, char * argv[])
 
 	lib::stage("LOADING");
 
-	screen.set(10, 10);
+	screen.set(200, 150);
 	// TODO: write text "LOADING"
 
 	// TODO: move these code to program class

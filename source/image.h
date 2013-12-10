@@ -49,11 +49,12 @@ namespace image {
 		if(program.mode == TITRES_MODE) {
 
 			//display_bmp(opening);
+			// TODO: skip if there is nothing to show
 			opening.display();
 			//load_bmp();
 			//readBMP();
 
-			glWrite((char*)"Titres", 6);
+			//glWrite((char*)"Titres", 6);
 		} else if(program.mode == MENU_MODE) {
 			menu.display();
 		} else if(program.mode == SCREENSAVER_MODE) {

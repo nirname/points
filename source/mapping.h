@@ -19,10 +19,17 @@ template<typename Type> class Mapping {
 
 		Mapping() {}
 
-		~Mapping() {
+		void clean() {
 			for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
 				delete i->second;
 			}
+		}
+
+		~Mapping() {
+			clean();
+			/*for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
+				delete i->second;
+			}*/
 		}
 
 	private:

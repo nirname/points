@@ -2,6 +2,7 @@
 #define PROGRAM_MODE_H 1
 
 enum PROGRAM_MODE {
+	DISABLED_MODE,    // Nothing to do
 	LOADING_MODE,     // Game is being loaded now
 	TITRES_MODE,      // Introduction, Finale
 	MENU_MODE,        // Main menu, Game menu, Level menu

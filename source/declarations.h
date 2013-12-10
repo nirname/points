@@ -112,6 +112,14 @@ namespace params {
 	extern int menu_timeout;
 }
 
+namespace lib {
+
+	size_t strlen(const char *);
+	template <typename T> std::string to_string (T);
+	void stage(const char *);
+
+}
+
 struct Menu;
 class BitmapImage;
 

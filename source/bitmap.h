@@ -1,11 +1,4 @@
-#include "include/bitmap/bitmap_image.hpp"
-
-	//bitmap_image image("../images/patterns/ornament/test.bmp");
-	//opening.file_name_ = "../images/patterns/ornament/test.bmp";
-	//opening.load_bitmap();
-void display_bmp(bitmap_image & image) {
-
-}
+#pragma once
 
 class BitmapImage {
 

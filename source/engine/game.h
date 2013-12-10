@@ -3,19 +3,6 @@
 
 namespace engine {
 
-	// TODO move this to level class
-	bool has_extension(const char * name, const char * extension)
-	{
-		size_t name_length = lib::strlen(name);
-		size_t extension_length = lib::strlen(extension);
-		return
-			name_length > extension_length &&
-			strcmp(
-				name + (name_length - extension_length) * sizeof(char),
-				extension
-			) == 0;
-	}
-
 	// Describes current game
 	struct Game {
 
@@ -39,13 +26,13 @@ namespace engine {
 
 		InteractionMap interactions;
 
-		//Game() {}
+		Game() : paused(false), loaded(false) {}
 
-		Game(bool _paused = false):
+		/*Game(bool _paused = false):
 			paused(_paused)
 		{
 			loaded = false;
-		}
+		}*/
 		//Game(){};
 
 		/*Game(logic::GAME_KIND _game_kind):
@@ -236,24 +223,7 @@ namespace engine {
 
 			lib::stage("GAME LOADING\n");
 
-			std::cout << "Searching for levels\n" << std::endl;
-			DIR *dir;
-			struct dirent * entry;
-			if ((dir = opendir ("./levels/")) != NULL) {
-				// print all the files and directories within directory
-				while ((entry = readdir (dir)) != NULL) {
-					if (entry->d_type == DT_REG && has_extension(entry->d_name, ".yaml")) { // DT DIR
-						std::cout << "File: " << std::ends;
-						/*printf("%zu - %s [%d] %d\n", entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen );*/
-						printf("%s\n", entry->d_name);
-					}
-				}
-				closedir(dir);
-			} else {
-				// could not open directory
-				perror("");
-				//return EXIT_FAILURE;
-			}
+			// TODO: load list of levels here
 
 			try {
 				YAML::Node level = YAML::LoadFile("levels/level_1.yaml");

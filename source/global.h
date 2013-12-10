@@ -1,18 +1,13 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H 1
 
-// TODO: split this one into two files
-
-// extern headers
+// std headers
 
 #include <cstdlib>
 #include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <fstream>
-//#include <iomanip>
-
-//#include "arb_multisample.h"
 
 #if defined(__linux__) && defined(__GNUC__)
 	#include <cstring>
@@ -23,7 +18,6 @@
 
 #include <time.h>
 
-//#include <unordered_map>
 #include <string>
 #include <functional>
 #include <set>
@@ -35,6 +29,8 @@
 
 #include <sys/types.h>
 
+// external headers
+
 #if defined(_WIN32) && defined(__GNUC__)
 	#include "include/dirent/windows/dirent.h"
 	#include <gl/freeglut.h>
@@ -43,10 +39,12 @@
 	#include <GL/freeglut.h>
 #endif
 
-
 #include "include/yaml-cpp/yaml.h"
+#include "include/bitmap/bitmap_image.hpp"
 
 // own headers
+
+// constants
 
 #include "constants.h"
 #include "types.h"
@@ -55,6 +53,7 @@
 
 #include "declarations.h"
 
+#include "directory.h"
 
 #include "mapping.h"
 #include "library.h"

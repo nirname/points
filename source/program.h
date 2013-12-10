@@ -22,13 +22,13 @@ namespace engine {
 		void set(PROGRAM_MODE _mode) {
 			glutPostRedisplay();
 			reset_last_activity_time(); // TODO: move to menu
-			if(_mode == LOADING_MODE) {
 				// nothing to do
+			if(_mode == LOADING_MODE) {
 			} else if(_mode == TITRES_MODE) {
-				screen.set(100, 100);
+				screen.set(89, 90); // TODO: set to uploaded image size
 				opening.open("../images/patterns/ornament/test.bmp");
 			} else if(_mode == MENU_MODE) {
-				screen.set(200, 150);
+				screen.set(200, 150); // TODO: set to what you want
 				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
 				if(game.loaded) {
 					game.pause(); // TODO: delete game here
@@ -39,6 +39,7 @@ namespace engine {
 				} else if(game.paused) {
 					game.resume();
 				}
+				screen.set(10, 10);
 			} else if(_mode == INFORMATION_MODE) {
 				if(game.paused) {
 					game.resume();
@@ -65,8 +66,8 @@ namespace engine {
 				exit(EXIT_SUCCESS);
 			} else if(key == ENTER_KEY) {
 				//std::cout << ": start";
-				menu.process(key);
-				//set(GAMEPLAY_MODE);
+				//menu.process(key);
+				set(GAMEPLAY_MODE);
 			} else if(key == 115 || key == 100) {
 				std::cout << ": next item";
 				++menu.current_item;
