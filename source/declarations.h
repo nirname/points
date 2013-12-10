@@ -5,6 +5,7 @@ template<typename Type> class Mapping;
 
 namespace image {
 	void redisplay(int);
+	void reshape(int, int);
 }
 
 namespace graphics {
@@ -112,6 +113,7 @@ namespace params {
 }
 
 struct Menu;
+class BitmapImage;
 
 extern engine::Screen screen;
 extern engine::Game game;
@@ -119,6 +121,7 @@ extern engine::Program program;
 extern Menu menu;
 extern Menu common_menu;
 //extern std::stack<Menu *> menus;
+extern BitmapImage opening; // TODO: remove namespace image and name it properly
 
 
 #endif

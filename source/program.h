@@ -10,18 +10,26 @@ namespace engine {
 		PROGRAM_MODE mode;
 
 		Program() {
-			mode = TITRES_MODE;
+			mode == LOADING_MODE;
 		}
 
+		// TODO: move to menu
 		// Reset menu activity value on user actions
 		void reset_last_activity_time() {
 			params::last_menu_activity_time = time(NULL);
 		}
 
 		void set(PROGRAM_MODE _mode) {
-			reset_last_activity_time();
-			if(_mode == MENU_MODE) {
-				//glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
+			glutPostRedisplay();
+			reset_last_activity_time(); // TODO: move to menu
+			if(_mode == LOADING_MODE) {
+				// nothing to do
+			} else if(_mode == TITRES_MODE) {
+				screen.set(100, 100);
+				opening.open("../images/patterns/ornament/test.bmp");
+			} else if(_mode == MENU_MODE) {
+				screen.set(200, 150);
+				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
 				if(game.loaded) {
 					game.pause(); // TODO: delete game here
 				}

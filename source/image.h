@@ -48,6 +48,8 @@ namespace image {
 
 		if(program.mode == TITRES_MODE) {
 
+			//display_bmp(opening);
+			opening.display();
 			//load_bmp();
 			//readBMP();
 

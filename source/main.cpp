@@ -1,11 +1,13 @@
 #include "global.h"
 
 // TODO: move all to params
-engine::Screen screen(200, 150);
+engine::Screen screen;
 engine::Game game; // TODO(!): use pointer here
 engine::Program program;
 
 Menu menu("Main Menu");
+
+BitmapImage opening;
 
 int graphics::sleep = 50;
 
@@ -16,26 +18,9 @@ void hello() {
 int main(int argc, char * argv[])
 {
 
-	load_bmp();
-	//readBMP();
-
-	Menu game1 = Menu("Game 1");
-	Menu game2 = Menu("Game 2");
-
-	Menu extras_menu = Menu("Extras");
-	Menu game_menu   = Menu("Start");
-	Menu exit_menu   = Menu("Exit");
-
-	menu.add(&game_menu);
-	menu.add(&extras_menu);
-	menu.add(&exit_menu);
-
-
-	//menu.current_item = menu.items.begin()++;
-
 	std::cout << std::endl;
 	std::cout << "Independent Logic Games" << std::endl;
-	std::cout << "Arcades, Puzzles & Traditional games" << std::endl;
+	std::cout << "Arcades, Puzzles & Classical games" << std::endl;
 	std::cout << "Author: Nicolay Rozhkov" << std::endl;
 
 	// initialize glut
@@ -43,11 +28,9 @@ int main(int argc, char * argv[])
 
 	//graphics::load_palette();
 
-	lib::stage("LOADING PARAMETERS");
+	lib::stage("INITIALIZING");
 
 	params::load();
-
-	lib::stage("INITIALIZING GRAPHICS");
 
 	/*std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
 	std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
@@ -96,18 +79,8 @@ int main(int argc, char * argv[])
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
 
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0.0, screen.width, 0.0, screen.height);
-
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_DEPTH_TEST);
-
-	/*glLoadIdentity();
-	gluOrtho2D(0.0, screen.width, 0.0, screen.width);*/
+	//screen.switch_to(200, 150);
+	//screen.switch_to(100, 100);
 
 	// drawing
 	glutDisplayFunc(image::display);
@@ -123,6 +96,25 @@ int main(int argc, char * argv[])
 	glutKeyboardFunc(controls::keyboard);
 	glutSpecialFunc(controls::special);
 	glutMouseFunc(controls::mouse);
+
+	lib::stage("LOADING");
+
+	screen.set(10, 10);
+	// TODO: write text "LOADING"
+
+	// TODO: move these code to program class
+	Menu game1 = Menu("Game 1");
+	Menu game2 = Menu("Game 2");
+
+	Menu extras_menu = Menu("Extras");
+	Menu game_menu   = Menu("Start");
+	Menu exit_menu   = Menu("Exit");
+
+	menu.add(&game_menu);
+	menu.add(&extras_menu);
+	menu.add(&exit_menu);
+
+	program.set(TITRES_MODE);
 
 	lib::stage(
 		"STARTING GAME\n"
