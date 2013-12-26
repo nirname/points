@@ -1,45 +1,58 @@
 game:
-  sleep: 1000
+  kind: sokoban
+  screen: [10, 10]
 
 colors:
   sky: [0, 156, 255]
+  viol: [219, 103, 217]
 
 fields:
-  f:
+  field:
     size: [10, 10]
     data:
-      a: [1, 1]
+      s: [1, 1]
+      1: [1, 5]
+      2: [6, 7]
+      3: [5, 3]
 
 views:
-  v:
-    field: f
+  view:
+    field: field
 
 object_kinds:
-  A:
+  sokoban:
     color: sky
+    shape: star
+  box:
+    color: viol
+
+interactions:
+  sokoban:
+    push: box
 
 objects:
-  A:
-    a
+  sokoban: s
+  box: [1, 2, 3]
 
 controls:
-  w:
-    object: a
+  w: &up
+    object: s
     action: move
     option: [0, 1]
-  a:
-    object: a
+  a: &left
+    object: s
     action: move
     option: [-1, 0]
-  s:
-    object: a
+  s: &down
+    object: s
     action: move
     option: [0, -1]
-  d:
-    object: a
+  d: &right
+    object: s
     action: move
     option: [1, 0]
+  ö: &up
+  ô: &left
+  û: &down
+  â: &right
 
-timer:
-  object: s
-  action: move

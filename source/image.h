@@ -71,14 +71,14 @@ namespace image {
 
 	void redisplay(int timer)
 	{
-		/*if(!game.paused) {
+		//if(!game.paused) {
 			clock_t time = clock();
 			glutPostRedisplay();
 			time = clock() - time;
 			//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
 			glutTimerFunc(graphics::sleep, redisplay, 0);
-		}*/
-		glutPostRedisplay();
+		//}
+		//glutPostRedisplay();
 		glutTimerFunc(graphics::sleep, redisplay, 0);
 	}
 
