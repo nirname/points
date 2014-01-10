@@ -26,7 +26,8 @@ namespace engine {
 			if(_mode == LOADING_MODE) {
 			} else if(_mode == TITRES_MODE) {
 				screen.set(89, 90); // TODO: set to uploaded image size
-				opening.open("../images/patterns/ornament/test.bmp");
+				//opening.open("../images/patterns/ornament/test.bmp");
+				opening.open("fonts/ru.bmp");
 			} else if(_mode == MENU_MODE) {
 				screen.set(200, 150); // TODO: set to what you want
 				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
