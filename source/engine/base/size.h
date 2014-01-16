@@ -1,5 +1,4 @@
-#ifndef SIZE_H
-#define SIZE_H 1
+#pragma once
 
 namespace engine {
 
@@ -12,5 +11,3 @@ namespace engine {
 	};
 
 }
-
-#endif

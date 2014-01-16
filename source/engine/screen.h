@@ -1,9 +1,9 @@
-#ifndef SCREEN_H
-#define SCREEN_H 1
+#pragma once
 
 namespace engine {
 
 	struct Screen {
+
 		float width, height, margin;
 		Screen(float _width = 10.0, float _height = 10.0, float _margin = 0.0):
 			width(_width), height(_height), margin(_margin)
@@ -12,12 +12,10 @@ namespace engine {
 		void load() {
 
 			glMatrixMode(GL_PROJECTION);
-			//glPushMatrix();
 			glLoadIdentity();
 			gluOrtho2D(0.0, screen.width, 0.0, screen.height);
 
 			glMatrixMode(GL_MODELVIEW);
-			//glPushMatrix();
 			glLoadIdentity();
 
 			image::reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
@@ -33,5 +31,3 @@ namespace engine {
 	};
 
 }
-
-#endif

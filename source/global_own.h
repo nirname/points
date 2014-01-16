@@ -6,8 +6,10 @@
 #include "exception.h"
 #include "program_mode.h"
 
+// declarations
 #include "declarations.h"
 
+// headers
 #include "directory.h"
 
 #include "mapping.h"
@@ -18,6 +20,7 @@
 #include "graphics.h"
 #include "logic.h"
 #include "engine.h"
+#include "grid.h"
 
 #include "parser.h"
 

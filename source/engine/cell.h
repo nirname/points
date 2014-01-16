@@ -1,7 +1,9 @@
+#pragma once
+
 namespace engine {
-	struct Cell
-	{
+
+	struct Cell {
 		graphics::Color * color;
-		//graphics::Shape * shape;
 	};
+
 }

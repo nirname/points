@@ -21,7 +21,6 @@ int main(int argc, char * argv[])
 	std::cout << std::endl;
 	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Classical games" << std::endl;
-	std::cout << "Author: Nicolay Rozhkov" << std::endl;
 
 	// initialize glut
 	glutInit(&argc, argv);

@@ -13,6 +13,11 @@ namespace graphics {
 	extern int sleep;
 
 	void square();
+	void ngon(int, int);
+	void circle();
+	void star();
+	void david();
+
 	struct Color;
 	struct Shape;
 
@@ -105,6 +110,10 @@ namespace engine {
 
 	void operator >> (const YAML::Node & options, ObjectKind &);
 
+}
+
+namespace graphics {
+	void grid(const engine::Bound &, Color *);
 }
 
 namespace params {

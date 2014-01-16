@@ -1,5 +1,4 @@
-#ifndef OBJECT_H
-#define OBJECT_H 1
+#pragma once
 
 namespace engine {
 
@@ -9,8 +8,6 @@ namespace engine {
 
 		int number;
 		ObjectKindPointer kind;
-		/*graphics::Shape * shape;
-		graphics::Color * color;*/
 		/*typedef std::list<graphics::Animation *> AnimationList;
 		AnimationList animations;*/
 
@@ -21,11 +18,6 @@ namespace engine {
 			number = count++;
 		}*/
 
-		/*Object(graphics::Shape * _shape = NULL, graphics::Color * _color = NULL) :
-			shape(_shape), color(_color)
-		{
-			number = count++;
-		}*/
 		Object() {
 			number = count++;
 		}
@@ -94,6 +86,3 @@ namespace engine {
 	int Object::count = 0;
 
 }
-
-
-#endif

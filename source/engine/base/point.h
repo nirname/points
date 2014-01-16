@@ -1,5 +1,4 @@
-#ifndef POINT_H
-#define POINT_H 1
+#pragma once
 
 namespace engine {
 
@@ -37,10 +36,6 @@ namespace engine {
 			return row < x.row || (row == x.row && column < x.column);
 		}
 
-		/*bool operator <= (const Point & x) const {
-			return row <= x.row && column <= x.column;
-		}*/
-
 	};
 
 	std::ostream & operator << (std::ostream & _ostream, const Point & _point) {
@@ -77,5 +72,3 @@ namespace engine {
 	}
 
 }
-
-#endif

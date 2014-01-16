@@ -1,5 +1,4 @@
-#ifndef BOUND_H
-#define BOUND_H 1
+#pragma once
 
 namespace engine {
 
@@ -67,5 +66,3 @@ namespace engine {
 	}
 
 }
-
-#endif

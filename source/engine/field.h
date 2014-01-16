@@ -1,9 +1,8 @@
-#ifndef FIELD_H
-#define FIELD_H 1
+#pragma once
 
 namespace engine {
 
-	// make this types splitted by dimensions
+	// Make this types splitted by dimensions
 	enum CLOSURE_TYPE
 	{
 		NO_CLOSURE,
@@ -12,7 +11,7 @@ namespace engine {
 		FULL_CLOSURE
 	};
 
-	// make this types splitted by dimensions
+	// Make this types splitted by dimensions
 	enum INFINITY_TYPE
 	{
 		FINITE,
@@ -61,6 +60,3 @@ namespace engine {
 	}
 
 } // namespace engine
-
-
-#endif

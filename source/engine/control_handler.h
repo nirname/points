@@ -1,7 +1,6 @@
 // TODO move it from here
 
-#ifndef CONTROL_HANDLER_H
-#define CONTROL_HANDLER_H 1
+#pragma once
 
 namespace engine {
 
@@ -41,5 +40,3 @@ namespace engine {
 	}
 
 }
-
-#endif

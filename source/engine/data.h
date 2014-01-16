@@ -1,5 +1,4 @@
-#ifndef DATA_H
-#define DATA_H 1
+#pragma once
 
 namespace engine {
 
@@ -28,7 +27,7 @@ namespace engine {
 
 		void remove(Object * _object) {
 			if( contains(_object) ) {
-
+				// TODO: do something here;
 			}
 		}
 
@@ -51,5 +50,3 @@ namespace engine {
 	};
 
 }
-
-#endif

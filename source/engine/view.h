@@ -1,27 +1,20 @@
-#ifndef VIEW_H
-#define VIEW_H 1
+#pragma once
 
 namespace engine {
 
 	const Point FORWARD_DIRECTION(1, 1);
 	const Point BACKWARD_DIRECTION(-1, -1);
 
-	enum POSITION_TYPE {
-		ORIGIN,
-		CENTER
-	};
-
 	// Displays part of specified field
 	// at specified position at screen
-	struct View
-	{
-		Field * field;
-		Size size; // view size; by default it is the same as field size is
-		Point offset; // field offset
+	//
+	struct View {
+
+		Field * field;   // field represented by it's view
+		Size size;       // view size; by default it is the same as field size is
+		Point offset;    // field offset
 		Point direction; // offset direction
-		// (!) use ORIGIN and CENTER
-		//Screen * screen;
-		Point position; // position at screen
+		Point position;  // position at screen
 
 		graphics::ColorPointer background_color, cells_color, grid_color, border_color;
 
@@ -34,22 +27,13 @@ namespace engine {
 			border_color     = NULL;
 		}
 
-		void adjust_size() {
-			size = field->size;
-		}
+		void adjust_size();
 
 		View(Field * _field) {
 			field = _field;
 			adjust_size();
 			direction = BACKWARD_DIRECTION;
 		}
-
-		/*Point set_position(POSITION_TYPE x) {
-			return position;
-		}
-
-		Point set_offset(POSITION_TYPE x) {
-		}*/
 
 		Bound bound() {
 			return Bound(Point(size.width, size.height) - Point(1, 1));
@@ -68,13 +52,19 @@ namespace engine {
 
 		void draw_objects(const Bound &);
 
-		void print(std::ostream & _ostream) const {
-			_ostream << "View#" << this << " ("
-				<< "field: " << field
-			<< ")";
-		}
+		void print(std::ostream & _ostream) const;
 
-	};
+	}; // View
+
+	void View::adjust_size() {
+		size = field->size;
+	}
+
+	void View::print(std::ostream & _ostream) const {
+		_ostream << "View#" << this << " ("
+			<< "field: " << field
+		<< ")";
+	}
 
 	void View::display()
 	{
@@ -105,33 +95,9 @@ namespace engine {
 
 	void View::draw_grid(const Bound & _bound) {
 		graphics::grid(_bound, grid_color);
-		//glLineWidth(2);
-		/*glPushAttrib(GL_CURRENT_BIT);
-			if(grid_color != NULL) {
-				grid_color->use();
-			} else {
-				glColor3ub(BLACK);
-			}
-			glBegin(GL_LINES);
-				if(_bound.initial.row < _bound.final.row) {
-					for(int x = _bound.initial.column; x <= _bound.final.column; x++) {
-						glVertex2f(x, _bound.initial.row);
-						glVertex2f(x, _bound.final.row);
-					}
-				}
-				if(_bound.initial.column < _bound.final.column) {
-					for(int y = _bound.initial.row; y <= _bound.final.row; y++) {
-						glVertex2f(_bound.initial.column, y);
-						glVertex2f(_bound.final.column, y);
-					}
-				}
-			glEnd();
-		glPopAttrib();*/
 	}
 
 	void View::draw_border() {
-		// { drawing border
-		//glLineWidth(5);
 		glPushAttrib(GL_CURRENT_BIT);
 			if(border_color != NULL) {
 				border_color->use();
@@ -145,7 +111,6 @@ namespace engine {
 				glVertex2f(0         , size.height);
 			glEnd();
 		glPopAttrib();
-		// drawing border }
 	}
 
 	void View::draw_cells(const Bound & bound) {
@@ -215,12 +180,9 @@ namespace engine {
 
 	}
 
-
 	std::ostream & operator << (std::ostream & _ostream, const View & _view) {
 		_view.print(_ostream);
 		return _ostream;
 	}
 
 } // namespace engine
-
-#endif

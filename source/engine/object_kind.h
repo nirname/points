@@ -1,5 +1,4 @@
-#ifndef OBJECT_KIND_H
-#define OBJECT_KIND_H 1
+#pragma once
 
 namespace engine {
 
@@ -47,5 +46,3 @@ namespace engine {
 	int ObjectKind::count = 0;
 
 }
-
-#endif

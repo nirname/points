@@ -12,16 +12,27 @@ LIBRARIES_PATH = libraries/ubuntu
 #-lopengl32 -lfreeglut -lglu32
 LIBS = -lglut -lGLU -lyaml-cpp
 
-PROJECT=points
-EXECUTABLE=upoints.exe
+PROJECT = points
+EXECUTABLE = upoints.exe
 RM = rm -rf
 
 SOURCES = main.cpp include/easy-bmp/EasyBMP.cpp
+OBJECTS = $(SOURCES:%.cpp=%.o)
 
-all: $(PROJECT)
+#$(PROJECT):
+#	$(COMPILER) $(SOURCES) -o $(EXECUTABLE) -I $(INCLUDE_PATH) -L $(LIBRARIES_PATH) $(LIBS) $(OPTIONS)
 
-$(PROJECT): $(SOURCES)
-	$(COMPILER) $(SOURCES) -o $(EXECUTABLE) -I $(INCLUDE_PATH) -L $(LIBRARIES_PATH) $(LIBS) $(OPTIONS)
+$(PROJECT): $(OBJECTS)
+	$(COMPILER) $^ -o $(EXECUTABLE) -L $(LIBRARIES_PATH) $(LIBS)
+#$(OPTIONS)
+
+main.o: main.cpp
+	$(COMPILER) -c main.cpp -I $(INCLUDE_PATH)
+
+EasyBMP.o: include/easy-bmp/EasyBMP.cpp
+	$(COMPILER) -c include/easy-bmp/EasyBMP.cpp
 
 clean:
-	${RM} $(EXECUTABLE)
+	${RM} `find . -name "*.o"`
+
+.PHONY: $(PROJECT) clean
