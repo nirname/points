@@ -16,7 +16,7 @@ PROJECT=points
 EXECUTABLE=upoints.exe
 RM = rm -rf
 
-SOURCES = main.cpp
+SOURCES = main.cpp include/easy-bmp/EasyBMP.cpp
 
 all: $(PROJECT)
 

@@ -13,6 +13,4 @@ const float DEG2RAD = 3.14159 / 180;
 #include "graphics/animation.h"
 #include "graphics/shape.h"
 
-#include "bitmap.h"
-
 #endif

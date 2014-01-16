@@ -7,7 +7,7 @@ engine::Program program;
 
 Menu menu("Main Menu");
 
-BitmapImage opening;
+//BitmapImage opening;
 
 int graphics::sleep = 50;
 
@@ -90,7 +90,7 @@ int main(int argc, char * argv[])
 	//glutTimerFunc(graphics::sleep, image::redisplay, 0);
 
 	//glutTimerFunc(graphics::sleep, image::animate, 0);
-	//glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
+	glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);

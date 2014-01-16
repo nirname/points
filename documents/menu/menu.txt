@@ -4,13 +4,14 @@ Main menu
   Extras
 
 Options
-  Grid type ( SQUARE | EDGE BASED HEXAGON | CORNER BASED HEXAGON )
   (play and save after once changed)
-  Animation ( NO | FADE | SCALE | SLIDE | RANDOM )
-  Selection ( COLOR 1 | COLOR 2 | RANDOM )
-  Defaults
+  Grid type ( SQUARE | EDGE BASED HEXAGON | CORNER BASED HEXAGON )
+  Shape ( RECTANGLE | CIRCLE )
+  Animation ( NO | FADE | SCALE | SLIDE | RANDOM ) (<Enter> to replay)
+  Color ( COLOR 1 | COLOR 2 | ... | RANDOM ) (selection color) (<Enter> to open pallete)
+  Defaults (<Enter> reset to defaults)
 
-Continue options
+Continue options (???)
   Game
   Level
   Grid type

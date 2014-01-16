@@ -7,28 +7,6 @@ namespace image {
 	void reshape(int, int);
 	void idle();
 
-	/*void glEnter2D(void) {
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		gluOrtho2D(0, screen.width, 0, screen.height);
-
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-		glLoadIdentity();
-
-		glDisable(GL_DEPTH_TEST);
-	}
-
-	void glLeave2D(void) {
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
-
-		glEnable(GL_DEPTH_TEST);
-	}*/
-
 	void glWrite(char text[256], int kls) {
 		glRasterPos2f(screen.width / 10, screen.height / 10);
 		for (int i = 0; i < kls; i++) {
@@ -48,13 +26,25 @@ namespace image {
 
 		if(program.mode == TITRES_MODE) {
 
-			//display_bmp(opening);
 			// TODO: skip if there is nothing to show
-			opening.display();
-			//load_bmp();
-			//readBMP();
+			//opening.display();
+			glWrite((char*)"Titres", 6);
+			BMP Input;
+			Input.ReadFromFile("fonts/ru.bmp");
 
-			//glWrite((char*)"Titres", 6);
+			for( int y = 0 ; y < Input.TellHeight() ; y++) {
+				for( int x = 0 ; x < Input.TellWidth() ; x++) {
+					glPushAttrib(GL_CURRENT_BIT);
+						//glColor3ub(red, green, blue);
+						glColor3ub(Input(x, y)->Red, Input(x, y)->Green, Input(x, y)->Blue);
+						glPushMatrix();
+							glTranslatef(x, Input.TellHeight() - 1 - y, 0);
+							graphics::square();
+						glPopMatrix();
+					glPopAttrib();
+				}
+			}
+
 		} else if(program.mode == MENU_MODE) {
 			menu.display();
 		} else if(program.mode == SCREENSAVER_MODE) {
@@ -102,19 +92,9 @@ namespace image {
 			(GLsizei)(side * screen.height)
 		);
 
-		//glMatrixMode(BASE_MATRIX_MODE);
-		//glLoadIdentity();
-		//glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
+	} // reshape
 
-		//glViewport(0, 0, 1, 1);
-	}
-
-	void idle()
-	{
-	//	glClear(GL_COLOR_BUFFER_BIT);
-	//	glutSwapBuffers();
-
-//		Draw();
+	void idle() {
 	} // idle
 
 
