@@ -1,5 +1,4 @@
-#ifndef LEVEL_H
-#define LEVEL_H 1
+#pragma once
 
 namespace engine {
 
@@ -11,5 +10,3 @@ namespace engine {
 	};
 
 }
-
-#endif

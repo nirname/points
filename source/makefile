@@ -16,21 +16,21 @@ PROJECT = points
 EXECUTABLE = upoints.exe
 RM = rm -rf
 
-SOURCES = main.cpp include/easy-bmp/EasyBMP.cpp
+SOURCES = $(shell find . -name "*.cpp")
+#SOURCES = main.cpp include/easy-bmp/EasyBMP.cpp
 OBJECTS = $(SOURCES:%.cpp=%.o)
 
-#$(PROJECT):
-#	$(COMPILER) $(SOURCES) -o $(EXECUTABLE) -I $(INCLUDE_PATH) -L $(LIBRARIES_PATH) $(LIBS) $(OPTIONS)
+$(PROJECT):
+	$(COMPILER) $(SOURCES) -o $(EXECUTABLE) -I $(INCLUDE_PATH) -L $(LIBRARIES_PATH) $(LIBS) $(OPTIONS)
 
-$(PROJECT): $(OBJECTS)
-	$(COMPILER) $^ -o $(EXECUTABLE) -L $(LIBRARIES_PATH) $(LIBS)
-#$(OPTIONS)
+#$(PROJECT): $(OBJECTS)
+#	$(COMPILER) $^ -o $(EXECUTABLE) -L $(LIBRARIES_PATH) $(LIBS)
 
-main.o: main.cpp
-	$(COMPILER) -c main.cpp -I $(INCLUDE_PATH)
+#main.o: main.cpp
+#	$(COMPILER) -c main.cpp -I $(INCLUDE_PATH)
 
-EasyBMP.o: include/easy-bmp/EasyBMP.cpp
-	$(COMPILER) -c include/easy-bmp/EasyBMP.cpp
+#EasyBMP.o: include/easy-bmp/EasyBMP.cpp
+#	$(COMPILER) -c include/easy-bmp/EasyBMP.cpp
 
 clean:
 	${RM} `find . -name "*.o"`
