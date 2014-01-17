@@ -18,11 +18,11 @@ namespace engine {
 		ObjectMapping     objects;
 		ControlsMapping   controls;
 		graphics::AnimationMapping animations;
+		LevelList levels;
 
 		InteractionMap interactions;
 
-		LevelList levels;
-		//LevelListIterator current_level;
+		LevelListIterator current_level;
 		//LevelMapping levels;
 
 		Game():
@@ -115,11 +115,11 @@ namespace engine {
 		}
 		std::cout << std::endl;
 		std::cout << "Objects:\n" << objects << std::endl;
-		std::cout << "Fields:\n" << fields << std::endl;
+		/*std::cout << "Fields:\n" << fields << std::endl;
 		std::cout << "Views:\n" << views << std::endl;
 		std::cout << "Colors:\n" << colors << std::endl;
 		std::cout << "Shapes:\n" << shapes << std::endl;
-		std::cout << "Animations:\n" << animations << std::endl;
+		std::cout << "Animations:\n" << animations << std::endl;*/
 		std::cout << "Controls:\n" << controls << std::endl;
 	}
 

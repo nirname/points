@@ -15,6 +15,7 @@ namespace engine {
 		PointInformation points; // points with information about objects
 
 		Data() {}
+
 		~Data() {
 			clear();
 		}

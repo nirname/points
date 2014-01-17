@@ -27,9 +27,9 @@ namespace engine {
 	}
 
 	void Screen::set(float _width, float _height) {
-		std::cout << "Screen switch" << std::endl;
 		width = _width;
 		height = _height;
+		std::cout << "Screen switched to " << width << ":" << height << std::endl;
 		load();
 	}
 

@@ -33,7 +33,7 @@ namespace graphics {
 			// TODO: skip if there is nothing to show
 			//opening.display();
 			gl_write((char*)"Titres", 6);
-			BMP Input;
+			/*BMP Input;
 			Input.ReadFromFile("fonts/ru.bmp");
 
 			for( int y = 0 ; y < Input.TellHeight() ; y++) {
@@ -47,7 +47,7 @@ namespace graphics {
 						glPopMatrix();
 					glPopAttrib();
 				}
-			}
+			}*/
 
 		} else if(program.mode == MENU_MODE) {
 			menu.display();

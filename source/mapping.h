@@ -27,9 +27,6 @@ template<typename Type> class Mapping {
 
 		~Mapping() {
 			clear();
-			/*for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
-				delete i->second;
-			}*/
 		}
 
 	private:
@@ -134,7 +131,7 @@ template<typename Type> class Mapping {
 		void print(std::ostream & _ostream = std::cout) {
 			if(!container.empty()) {
 				for(Iterator iterator = container.begin(); iterator != container.end(); ++iterator) {
-					_ostream << iterator->first << ": " << *iterator->second << std::endl;
+					_ostream << iterator->first << " (" << iterator->second << "): " << *iterator->second << std::endl;
 				}
 			} else {
 				_ostream << "is empty" << std::endl;

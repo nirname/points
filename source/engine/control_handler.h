@@ -8,8 +8,10 @@ namespace engine {
 	};
 
 	struct ControlHandler {
+
 		/*Mapping<ActionOptions> actions; // actions with it's options
 		std::list<EntityIdentifier> entities;*/
+
 		engine::ObjectPointer object;
 		ACTION_NAME action;
 		engine::Point option;
@@ -20,17 +22,21 @@ namespace engine {
 			option = engine::Point(0, 0);
 		}
 
-		void evaluate();
-
-		void print(std::ostream & _ostream) const {
-			_ostream << "ControlHandler#" << this << " ("
-				<< "object: " << object << ", "
-				<< "action: " << action << ", "
-				<< "option: " << option
-			<< ")";
+		~ControlHandler() {
 		}
 
+		void evaluate();
+		void print(std::ostream &) const;
+
 	};
+
+	void ControlHandler::print(std::ostream & _ostream) const {
+		_ostream << "ControlHandler#" << this << " ("
+			<< "object: " << object << ", "
+			<< "action: " << action << ", "
+			<< "option: " << option
+		<< ")";
+	}
 
 	std::ostream & operator << (std::ostream & _ostream, const ControlHandler & _handler) {
 		_handler.print(_ostream);

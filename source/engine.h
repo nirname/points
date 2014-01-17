@@ -5,6 +5,7 @@
 #include "engine/cell.h"
 #include "engine/object_kind.h"
 #include "engine/object.h"
+#include "engine/interaction.h"
 #include "engine/data.h"
 #include "engine/field.h"
 #include "engine/view.h"
@@ -106,12 +107,16 @@ namespace engine {
 		return false;
 	}
 
+	// TODO: replace it
 	void ControlHandler::evaluate() {
 		std::cout << ": eval\n";
-		for(FieldMapping::Iterator iterator = game.fields.begin(); iterator != game.fields.end(); ++iterator) {
+		// TODO: this part does not work properly;
+		// TODO: use current view or first view or something like that
+		//
+		/*for(FieldMapping::Iterator iterator = game.fields.begin(); iterator != game.fields.end(); ++iterator) {
 			std::cout << iterator->second << std::endl;
 			object->move(iterator->second, option);
-		}
+		}*/
 	}
 
 } // engine

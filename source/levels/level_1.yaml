@@ -51,8 +51,3 @@ controls:
     object: s
     action: move
     option: [1, 0]
-  ö: &up
-  ô: &left
-  û: &down
-  â: &right
-
