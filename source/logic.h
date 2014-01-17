@@ -1,8 +1,6 @@
-#ifndef LOGIC_H
-#define LOGIC_H 1
+#pragma once
 
-// game logic
-// TODO: remove logic file at all?
+// Game logic
 namespace logic {
 
 	enum GAME_KIND {
@@ -25,10 +23,12 @@ namespace logic {
 		MOWER,
 		MASYU,
 		RINGS,
+		BOMBERMAN,
+		PACMAN,
 
 		// Multiplayer
 
-		REVERSI = 0x20,
+		REVERSI,
 		GOMOKU,
 		FOUR_IN_A_ROW,
 		TRHONE,
@@ -40,7 +40,7 @@ namespace logic {
 
 		// Screensavers
 
-		LIVE = 0x40,
+		LIVE,
 		QUEENS,
 		GEOGRAPHIC_EARTH_MAP,
 		DAY_NIGHT_EARTH_MAP,
@@ -52,5 +52,3 @@ namespace logic {
 	};
 
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H 1
+#pragma once
 
 #define EMPTY_SIZE 0.6f
 #define FIGURE_SIZE 0.8f
@@ -12,5 +11,3 @@ const float DEG2RAD = 3.14159 / 180;
 #include "graphics/drawing.h"
 #include "graphics/animation.h"
 #include "graphics/shape.h"
-
-#endif

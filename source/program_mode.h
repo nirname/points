@@ -1,5 +1,4 @@
-#ifndef PROGRAM_MODE_H
-#define PROGRAM_MODE_H 1
+#pragma once
 
 enum PROGRAM_MODE {
 	DISABLED_MODE,    // Nothing to do
@@ -10,5 +9,3 @@ enum PROGRAM_MODE {
 	GAMEPLAY_MODE,    // Gameplay itself, Countdown?
 	INFORMATION_MODE  // Pause, Completion, Looser, Winner // TODO: remove it?
 };
-
-#endif

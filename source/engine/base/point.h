@@ -3,6 +3,7 @@
 namespace engine {
 
 	struct Point {
+
 		int row;
 		int column;
 

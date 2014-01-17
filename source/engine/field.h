@@ -33,26 +33,32 @@ namespace engine {
 			number = count++;
 		}
 
-		~Field() {}
-
-		INFINITY_TYPE infinity_type() {
-			return INFINITY_TYPE(
-				(size.height == 0 ? VERTICAL_INFINITY : FINITE) |
-				(size.width == 0 ? HORIZONTAL_INFINITY : FINITE)
-			);
+		~Field() {
+			data.clear();
 		}
 
-		Bound bound() {
-			return Bound(Point(size.width, size.height) - Point(1, 1)); //shift
-		}
-
-		void print(std::ostream & _ostream) const {
-			_ostream << "Field#" << this;
-		}
+		INFINITY_TYPE infinity_type();
+		Bound bound();
+		void print(std::ostream &) const;
 
 	}; // Field
 
 	int Field::count = 0;
+
+	Bound Field::bound() {
+		return Bound(Point(size.width, size.height) - Point(1, 1));
+	}
+
+	INFINITY_TYPE Field::infinity_type() {
+		return INFINITY_TYPE(
+			(size.height == 0 ? VERTICAL_INFINITY : FINITE) |
+			(size.width == 0 ? HORIZONTAL_INFINITY : FINITE)
+		);
+	}
+
+	void Field::print(std::ostream & _ostream) const {
+		_ostream << "Field#" << this;
+	}
 
 	std::ostream & operator << (std::ostream & _ostream, const Field & _field) {
 		_field.print(_ostream);

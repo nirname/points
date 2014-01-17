@@ -23,7 +23,7 @@ namespace engine {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		image::reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		graphics::reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	}
 
 	void Screen::set(float _width, float _height) {

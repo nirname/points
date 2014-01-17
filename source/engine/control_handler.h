@@ -1,5 +1,3 @@
-// TODO move it from here
-
 #pragma once
 
 namespace engine {

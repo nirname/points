@@ -22,6 +22,8 @@ int main(int argc, char * argv[])
 	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Classical games" << std::endl;
 
+	Directory::read("levels");
+
 	// initialize glut
 	glutInit(&argc, argv);
 
@@ -82,13 +84,13 @@ int main(int argc, char * argv[])
 	//screen.switch_to(100, 100);
 
 	// drawing
-	glutDisplayFunc(image::display);
-	glutReshapeFunc(image::reshape);
+	glutDisplayFunc(graphics::display);
+	glutReshapeFunc(graphics::reshape);
 
-	glutIdleFunc(image::idle);
-	//glutTimerFunc(graphics::sleep, image::redisplay, 0);
+	glutIdleFunc(graphics::idle);
+	//glutTimerFunc(graphics::sleep, graphics::redisplay, 0);
 
-	//glutTimerFunc(graphics::sleep, image::animate, 0);
+	//glutTimerFunc(graphics::sleep, graphics::animate, 0);
 	glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
 
 	// commands

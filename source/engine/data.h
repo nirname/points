@@ -2,6 +2,7 @@
 
 namespace engine {
 
+	// TODO: refactor this class
 	struct Data {
 
 		enum EFFECT_OF_ADDING {
@@ -13,6 +14,11 @@ namespace engine {
 		ObjectInformation objects; // object with points
 		PointInformation points; // points with information about objects
 
+		Data() {}
+		~Data() {
+			clear();
+		}
+
 		EFFECT_OF_ADDING add(Object * _object, Point _point) {
 			if( !contains(_object) ) {
 				if( !contains(_point) ) {
@@ -23,6 +29,11 @@ namespace engine {
 				return OBJECTS_CONFLICT;
 			}
 			return OBJECT_IS_REPEATED;
+		}
+
+		void clear() {
+			objects.clear();
+			points.clear();
 		}
 
 		void remove(Object * _object) {

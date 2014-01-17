@@ -1,12 +1,12 @@
-#ifndef ENGINE_H
-#define ENGINE_H 1
+#pragma once
 
 #include "engine/base.h"
+
+#include "engine/cell.h"
 #include "engine/object_kind.h"
 #include "engine/object.h"
 #include "engine/data.h"
 #include "engine/field.h"
-#include "engine/cell.h"
 #include "engine/view.h"
 #include "engine/screen.h"
 #include "engine/level.h"
@@ -115,5 +115,3 @@ namespace engine {
 	}
 
 } // engine
-
-#endif

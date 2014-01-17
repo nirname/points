@@ -1,5 +1,4 @@
-#ifndef PARSER_H
-#define PARSER_H 1
+#pragma once
 
 namespace engine {
 
@@ -16,5 +15,3 @@ namespace engine {
 namespace engine {
 	#include "parser/controls/control_handler_parser.h"
 }
-
-#endif

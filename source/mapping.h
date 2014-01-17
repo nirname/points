@@ -1,5 +1,4 @@
-#ifndef MAPPING_H
-#define MAPPING_H 1
+#pragma once
 
 template<typename Type> class Mapping {
 
@@ -19,14 +18,15 @@ template<typename Type> class Mapping {
 
 		Mapping() {}
 
-		void clean() {
+		void clear() {
 			for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
 				delete i->second;
 			}
+			container.clear();
 		}
 
 		~Mapping() {
-			clean();
+			clear();
 			/*for(typename Container::iterator i = container.begin(); i != container.end(); ++i) {
 				delete i->second;
 			}*/
@@ -112,23 +112,16 @@ template<typename Type> class Mapping {
 
 		// Does the same as 'get' does
 		TypePointer operator[] (const KeyType & _name) {
-			return this->get(_name);
+			return get(_name);
 		}
 
-		// TODO: write something here
+		// Erases element by name
 		void remove(const KeyType & _name) {
-			if(this->has(_name)) {
-				delete this->fetch();
+			if(has(_name)) {
+				delete fetch(_name);
 				container.erase(_name);
 			}
 		}
-
-		// Does the same action for each element
-		/*void each(void (* handler)(TypePointer)) {
-			for(Iterator object = container.begin(); object != container.end(); ++object) {
-				handler(object->second);
-			}
-		}*/
 
 		Iterator begin() {
 			return container.begin();
@@ -155,7 +148,7 @@ template<typename Type> std::ostream & operator << (std::ostream & _ostream, Map
 	return _ostream;
 }
 
-template<typename T> void operator >> (const YAML::const_iterator & iterator, Mapping<T> & mapping) {
+template<typename Type> void operator >> (const YAML::const_iterator & iterator, Mapping<Type> & mapping) {
 	try {
 		mapping.add(iterator->first.as<std::string>(), iterator->second);
 	}
@@ -163,5 +156,3 @@ template<typename T> void operator >> (const YAML::const_iterator & iterator, Ma
 		std::cout << "Can't upload entity" << std::endl;
 	}
 }
-
-#endif

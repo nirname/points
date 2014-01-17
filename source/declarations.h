@@ -1,16 +1,13 @@
-#ifndef DECLARATIONS_H
-#define DECLARATIONS_H 1
+#pragma once
 
 template<typename Type> class Mapping;
-
-namespace image {
-	void redisplay(int);
-	void reshape(int, int);
-}
 
 namespace graphics {
 
 	extern int sleep;
+
+	void redisplay(int);
+	void reshape(int, int);
 
 	void square();
 	void ngon(int, int);
@@ -51,6 +48,7 @@ namespace engine {
 	struct ObjectKind;
 	struct ControlHandler;
 
+	typedef Level  * LevelPointer;
 	typedef Field  * FieldPointer;
 	typedef View   * ViewPointer;
 	typedef Object * ObjectPointer;
@@ -105,8 +103,8 @@ namespace engine {
 	typedef InteractionMap::iterator InteractionMapIterator;
 
 	typedef std::list <Level> LevelList;
-	typedef Mapping<Level> LevelMapping;
-
+	typedef LevelList::iterator LevelListIterator;
+	//typedef Mapping<Level> LevelMapping;
 
 	void operator >> (const YAML::Node & options, ObjectKind &);
 
@@ -139,6 +137,3 @@ extern Menu menu;
 extern Menu common_menu;
 //extern std::stack<Menu *> menus;
 //extern BitmapImage opening; // TODO: remove namespace image and name it properly
-
-
-#endif

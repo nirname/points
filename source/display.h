@@ -1,13 +1,17 @@
-#ifndef IMAGE_H
-#define IMAGE_H 1
+#pragma once
 
-namespace image {
+namespace graphics {
 
+	void gl_write();
 	void display();
 	void reshape(int, int);
 	void idle();
 
-	void glWrite(char text[256], int kls) {
+}
+
+namespace graphics {
+
+	void gl_write(char text[256], int kls) {
 		glRasterPos2f(screen.width / 10, screen.height / 10);
 		for (int i = 0; i < kls; i++) {
 			glutBitmapCharacter((int*)GLUT_BITMAP_8_BY_13, (int)text[i]);
@@ -28,7 +32,7 @@ namespace image {
 
 			// TODO: skip if there is nothing to show
 			//opening.display();
-			glWrite((char*)"Titres", 6);
+			gl_write((char*)"Titres", 6);
 			BMP Input;
 			Input.ReadFromFile("fonts/ru.bmp");
 
@@ -48,10 +52,10 @@ namespace image {
 		} else if(program.mode == MENU_MODE) {
 			menu.display();
 		} else if(program.mode == SCREENSAVER_MODE) {
-			glWrite((char*)"Screensaver", 11);
+			gl_write((char*)"Screensaver", 11);
 		} else if(program.mode == GAMEPLAY_MODE) {
 			game.display();
-			glWrite((char*)"Gameplay", 4);
+			gl_write((char*)"Gameplay", 4);
 		}
 
 		glFlush();
@@ -99,5 +103,3 @@ namespace image {
 
 
 }
-
-#endif

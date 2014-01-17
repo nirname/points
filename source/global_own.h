@@ -28,7 +28,7 @@
 
 #include "program.h"
 #include "controls.h"
-#include "image.h"
 #include "variables.h"
+#include "display.h"
 
 #include "params.h"

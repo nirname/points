@@ -1,5 +1,4 @@
-#ifndef CONTROLS_H
-#define CONTROLS_H 1
+#pragma once
 
 /*#if defined(_WIN32) && defined(__GNUC__)
 	#define ESCAPE_KEY VK_ESCAPE
@@ -48,5 +47,3 @@ namespace controls {
 	{
 	}
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef PARAMS_H
-#define PARAMS_H 1
+#pragma once
 
 namespace params
 {
@@ -37,5 +36,3 @@ namespace params
 	}
 
 }
-
-#endif
