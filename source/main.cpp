@@ -18,6 +18,15 @@ void hello() {
 int main(int argc, char * argv[])
 {
 
+	//engine::ObjectKind k;
+	engine::Object o;
+	test::Data d;
+	d.add(&o, engine::Point(1, 1));
+	std::cout << d.get(engine::Point(1,1)) << std::endl;
+	std::cout << d.get(&o) << std::endl;
+	//std::list<engine::Point> l;
+	//d.objects[&o] = l;
+
 	std::cout << std::endl;
 	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Classical games" << std::endl;

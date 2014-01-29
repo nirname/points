@@ -37,7 +37,8 @@ namespace engine {
 			// nothing to do
 		if(_mode == LOADING_MODE) {
 		} else if(_mode == TITRES_MODE) {
-			screen.set(89, 90); // TODO: set to uploaded image size
+			screen.set(200, 150);
+			// TODO: set to uploaded image size and set background to white
 			//opening.open("../images/patterns/ornament/test.bmp");
 			//opening.open("fonts/ru.bmp");
 		} else if(_mode == MENU_MODE) {

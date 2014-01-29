@@ -85,7 +85,13 @@ template<typename Type> class Mapping {
 				return NULL;
 			} else {
 				// TODO catch exceptions here
-				TypePointer instance = build();
+				TypePointer instance = NULL;
+				try {
+					instance = build();
+				} catch (...) {
+					std::cout << "Can not allocate memory for new entity" << std::endl;
+					return NULL;
+				}
 				try {
 					options >> *instance;
 				} catch(const EXCEPTION & exception) {
@@ -93,7 +99,7 @@ template<typename Type> class Mapping {
 					delete instance;
 					return NULL;
 				} catch(...) {
-					std::cout << "An a error occured creating entity" << std::endl;
+					std::cout << "An a error occured while creating entity" << std::endl;
 					delete instance;
 					return NULL;
 				}

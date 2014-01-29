@@ -170,6 +170,7 @@ namespace engine {
 				column++)
 			{
 				Point placement(column, row);
+				// TODO: move this part to field itself, then to data
 				if(field->data.points.find(placement) != field->data.points.end()){
 					//std::cout << placement << std::endl;
 					field->data.points[placement]->display(placement);
