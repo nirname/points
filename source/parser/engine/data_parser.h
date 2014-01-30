@@ -1,5 +1,4 @@
-#ifndef DATA_PARSER_H
-#define DATA_PARSER_H 1
+#pragma once
 
 void operator >> (const YAML::const_iterator & iterator, Data & data) {
 	ObjectPointer object = game.objects[iterator->first.as<std::string>()];
@@ -12,5 +11,3 @@ void operator >> (const YAML::const_iterator & iterator, Data & data) {
 		}
 	}
 }
-
-#endif

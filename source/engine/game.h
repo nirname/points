@@ -16,6 +16,7 @@ namespace engine {
 		ShapeMapping      shapes;
 		ObjectKindMapping object_kinds;
 		ObjectMapping     objects;
+		//Entities          entities; // TODO: Unnamed objects
 		ControlsMapping   controls;
 		graphics::AnimationMapping animations;
 		LevelList levels;

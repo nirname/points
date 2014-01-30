@@ -4,10 +4,9 @@ namespace test {
 
 	using namespace engine;
 
-	typedef std::set<Point> ObjectPoints; // TODO: use unordered_set
+	typedef std::set<Point> ObjectPoints;
 
 	class Data {
-	//struct Data {
 
 	private:
 
@@ -38,7 +37,7 @@ namespace test {
 		ObjectPoints * get(Object *); // Gets all object's points
 		Object * get(Point); // Gets an object which specified point belongs to
 
-		void print(); // Log all information
+		void print(std::ostream &) const; // Log all information
 
 	};
 
@@ -52,7 +51,7 @@ namespace test {
 
 	void Data::add(Object * _object, Point _point) {
 		if(contains(_point)) {
-			// TODO: resolve conflicts here
+			// TODO: resolve conflicts and interactions here
 		} else {
 			points[_point] = _object;
 			if(contains(_object)) {
@@ -66,14 +65,34 @@ namespace test {
 		}
 	}
 
-	//void Data::add(Point _point, Object * _object) {
-	//	add(_object, _point);
-	//}
+	/*void Data::add(Point _point, Object * _object) {
+		add(_object, _point);
+	}*/
 
 	void Data::remove(Point _point) {
+		if(contains(_point)) {
+			Object * _object = points[_point];
+			points.erase(_point);
+			ObjectPoints * object_points = &objects[_object];
+			object_points->erase(_point);
+			if(object_points->empty()) {
+				objects.erase(_object);
+			}
+		}
 	}
 
 	void Data::remove(Object * _object) {
+		if(contains(_object)) {
+			ObjectPoints * object_points = &objects[_object];
+			for( ObjectPoints::iterator
+				i = object_points->begin();
+				i != object_points->end();
+				++i )
+			{
+				points.erase(*i);
+			}
+			objects.erase(_object);
+		}
 	}
 
 	void Data::clear() {
@@ -89,7 +108,37 @@ namespace test {
 		return (contains(_point))? points[_point] : NULL;
 	}
 
-	void Data::print() {
+	void Data::print(std::ostream & _ostream) const {
+		_ostream << "Data " << this << ":" << std::endl;
+		_ostream << "  Objects:" << std::endl;
+		for ( ObjectsInformation::const_iterator
+			i = objects.begin();
+			i != objects.end();
+			++i
+		) {
+			_ostream << "    " <<  *i->first << std::endl;
+			for ( ObjectPoints::const_iterator
+				j = i->second.begin();
+				j != i->second.end();
+				++j
+			) {
+				_ostream << "      " << *j << std::endl;
+			}
+		}
+		_ostream << "  Points:" << std::endl;
+		for ( PointsInformation::const_iterator
+			i = points.begin();
+			i != points.end();
+			++i
+		) {
+			_ostream << "    " << i->first << ": " << *i->second << std::endl;
+		}
+
+	}
+
+	std::ostream & operator << (std::ostream & _ostream, const Data & _data) {
+		_data.print(_ostream);
+		return _ostream;
 	}
 
 }

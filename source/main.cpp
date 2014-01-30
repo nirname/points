@@ -18,20 +18,33 @@ void hello() {
 int main(int argc, char * argv[])
 {
 
-	//engine::ObjectKind k;
-	engine::Object o;
-	test::Data d;
-	d.add(&o, engine::Point(1, 1));
-	std::cout << d.get(engine::Point(1,1)) << std::endl;
-	std::cout << d.get(&o) << std::endl;
-	//std::list<engine::Point> l;
-	//d.objects[&o] = l;
-
 	std::cout << std::endl;
 	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Classical games" << std::endl;
 
-	Directory::read("levels");
+	std::cout << std::endl;
+	//engine::ObjectKind k;
+	engine::Object o0, o1, o2, o3, o4;
+	test::Data d;
+	d.add(&o0, engine::Point(1, 1));
+	d.add(&o1, engine::Point(0, 3));
+	d.add(&o1, engine::Point(4, 4));
+	d.add(&o2, engine::Point(7, 5));
+	d.add(&o3, engine::Point(1, 3));
+	d.remove(&o1);
+	d.add(&o4, engine::Point(4, 4));
+	d.add(&o4, engine::Point(8, 9));
+	d.add(&o2, engine::Point(0, 3));
+	std::cout << d << std::endl;
+	//std::cout << d.get(engine::Point(1,1)) << std::endl;
+	//std::cout << d.get(&o) << std::endl;
+
+	//std::cout << d << std::endl;
+	//std::list<engine::Point> l;
+	//d.objects[&o] = l;
+
+
+	/*Directory::read("levels");
 
 	// initialize glut
 	glutInit(&argc, argv);
@@ -42,9 +55,9 @@ int main(int argc, char * argv[])
 
 	params::load();
 
-	/*std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
-	std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
-	std::cout << "blue: "  << glutGetColor(12, GLUT_BLUE)  << std::endl;*/
+	//std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
+	//std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
+	//std::cout << "blue: "  << glutGetColor(12, GLUT_BLUE)  << std::endl;
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 	//glEnable(GL_MULTISAMPLE_ARB);
@@ -75,14 +88,14 @@ int main(int argc, char * argv[])
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_SMOOTH);
 
-	/*glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_POLYGON_SMOOTH);
+	//glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+	//glEnable(GL_POLYGON_SMOOTH);
 
-	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_POINT_SMOOTH);
+	//glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+	//glEnable(GL_POINT_SMOOTH);
 
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_LINE_SMOOTH);*/
+	//glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	//glEnable(GL_LINE_SMOOTH);
 
 	//glEnable(GL_MULTISAMPLE);
 
@@ -133,7 +146,7 @@ int main(int argc, char * argv[])
 	);
 
 	// main loop
-	glutMainLoop();
+	glutMainLoop();*/
 
 	return EXIT_SUCCESS;
 }

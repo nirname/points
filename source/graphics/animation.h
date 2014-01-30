@@ -54,6 +54,7 @@ namespace graphics {
 		void start() {
 			if(state == READY || state == PAUSED) state = WORKING;
 		}
+
 		void stop() {
 			if(state == WORKING) state = PAUSED;
 		}

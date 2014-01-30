@@ -11,15 +11,9 @@ namespace engine {
 		/*typedef std::list<graphics::Animation *> AnimationList;
 		AnimationList animations;*/
 
-		/*Object(const Object & _object) {
-			type = _object.type;
-			shape = _object.shape;
-			color = _object.color;
-			number = count++;
-		}*/
-
 		Object() {
 			number = count++;
+			kind = NULL;
 		}
 
 		Object(ObjectKindPointer _kind) : kind(_kind) {
@@ -31,27 +25,13 @@ namespace engine {
 			//--count;
 		}
 
-		//void place(Field *, Point _position);
-		// returns true if moving was successed
 		//bool move(Field *, Point _step, graphics::Animation * _animation);
+		bool move(Field *, Point _step);
 		void go_to(Field * _field, Point _position);
 
-		bool move(Field *, Point _step);
 		//void rotate(Field * _field) {}
 		//void symmetric(Field * _field) {}
 		//transformation();
-
-		/*struct Descendant
-		{
-			Point offset;
-			Object * object;
-			~Descendant() {
-				delete object;
-			}
-		};*/
-
-		//std::list<Object> descendants;
-		//std::list<Points> mask;
 
 		// make this one private
 		void draw_shape() {

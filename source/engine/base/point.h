@@ -4,8 +4,8 @@ namespace engine {
 
 	struct Point {
 
-		int row;
 		int column;
+		int row;
 
 		Point(const Point & x):
 			column(x.column), row(x.row)
