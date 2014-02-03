@@ -12,7 +12,9 @@
 // headers
 #include "directory.h"
 
+// TODO: unite this as own libraries
 #include "mapping.h"
+#include "manager.h"
 #include "library.h"
 
 #include "letter.h"

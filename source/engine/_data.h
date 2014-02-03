@@ -28,16 +28,15 @@ namespace test {
 		bool contains(Point) const;
 
 		void add(Object *, Point); // Adds point and object
-		//void add(Point, Object *); // Does the same as previous one
 
-		void remove(Point); // Removes point, and object, if it's last point for it
+		void remove(Point);    // Removes point, and object, if it's last point for it
 		void remove(Object *); // Removes all object and it's points
-		void clear(); // Clears all
+		void clear();          // Clears all
 
 		ObjectPoints * get(Object *); // Gets all object's points
-		Object * get(Point); // Gets an object which specified point belongs to
+		Object *       get(Point);    // Gets an object which specified point belongs to
 
-		void print(std::ostream &) const; // Log all information
+		void print(std::ostream &) const; // Puts all information to stream
 
 	};
 
@@ -57,17 +56,12 @@ namespace test {
 			if(contains(_object)) {
 				objects[_object].insert(_point);
 			} else {
-				// TODO: do it with pointer to avoid extra copying?
 				ObjectPoints buffer;
 				buffer.insert(_point);
 				objects[_object] = buffer;
 			}
 		}
 	}
-
-	/*void Data::add(Point _point, Object * _object) {
-		add(_object, _point);
-	}*/
 
 	void Data::remove(Point _point) {
 		if(contains(_point)) {

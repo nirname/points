@@ -23,26 +23,8 @@ int main(int argc, char * argv[])
 	std::cout << "Arcades, Puzzles & Classical games" << std::endl;
 
 	std::cout << std::endl;
-	//engine::ObjectKind k;
-	engine::Object o0, o1, o2, o3, o4;
-	test::Data d;
-	d.add(&o0, engine::Point(1, 1));
-	d.add(&o1, engine::Point(0, 3));
-	d.add(&o1, engine::Point(4, 4));
-	d.add(&o2, engine::Point(7, 5));
-	d.add(&o3, engine::Point(1, 3));
-	d.remove(&o1);
-	d.add(&o4, engine::Point(4, 4));
-	d.add(&o4, engine::Point(8, 9));
-	d.add(&o2, engine::Point(0, 3));
-	std::cout << d << std::endl;
-	//std::cout << d.get(engine::Point(1,1)) << std::endl;
-	//std::cout << d.get(&o) << std::endl;
 
-	//std::cout << d << std::endl;
-	//std::list<engine::Point> l;
-	//d.objects[&o] = l;
-
+	Manager<int, std::string> m;
 
 	/*Directory::read("levels");
 

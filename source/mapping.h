@@ -59,13 +59,14 @@ template<typename Type> class Mapping {
 			return container.find(_name) != container.end();
 		}
 
-		// Get object without creatinga an extra object
+		// Get object without creating an extra object
 		TypePointer get(const KeyType & _name) {
 			return (has(_name))? fetch(_name) : NULL;
 		}
 
 		// Returns pointer if successed
 		// Otherwise returns NULL
+
 		TypePointer add(const KeyType & _name) {
 			return (has(_name))? NULL : set(_name);
 		}
