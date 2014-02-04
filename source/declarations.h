@@ -69,12 +69,15 @@ namespace engine {
 	typedef ObjectInformation::iterator ObjectInformationIterator;
 	typedef PointInformation::iterator PointInformationIterator;
 
+	// TODO: move it from here
 	enum INTERACTION_TYPE {
 		NO_INTERACTION,
 		PUSH_INTERACTION,
 		PULL_INTERACTION,
+		JOIN_INTERACTION,
+		SLAP_INTERACTION,
 		DESTROY_INTERACTION,
-		CREATE_INTERACTION
+		DIE_INTERACTION
 	};
 
 	typedef std::pair< ObjectKindPointer, ObjectKindPointer > PairOfKinds;

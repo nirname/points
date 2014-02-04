@@ -26,7 +26,7 @@ int main(int argc, char * argv[])
 
 	Manager<int, std::string> m;
 
-	/*Directory::read("levels");
+	//Directory::read("levels");
 
 	// initialize glut
 	glutInit(&argc, argv);
@@ -65,7 +65,7 @@ int main(int argc, char * argv[])
 	glClearColor(BLACK, 0.5f);
 	glClearDepth(1.0f);
 
-	/*glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glShadeModel(GL_SMOOTH);
@@ -104,7 +104,7 @@ int main(int argc, char * argv[])
 
 	lib::stage("LOADING");
 
-	screen.set(200, 150);
+	//screen.set(200, 150);
 	// TODO: write text "LOADING"
 
 	// TODO: move these code to program class
@@ -128,7 +128,7 @@ int main(int argc, char * argv[])
 	);
 
 	// main loop
-	glutMainLoop();*/
+	glutMainLoop();
 
 	return EXIT_SUCCESS;
 }

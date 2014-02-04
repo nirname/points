@@ -27,6 +27,7 @@
 #include "parser.h"
 
 #include "menu.h"
+#include "_menu.h"
 
 #include "program.h"
 #include "controls.h"

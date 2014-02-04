@@ -24,6 +24,12 @@ namespace test {
 			clear();
 		}
 
+		enum EFFECT_OF_ADDING {
+			OBJECT_ADDING,
+			POINT_ADDING,
+			ADDING_CONFLICT
+		};
+
 		bool contains(Object *) const;
 		bool contains(Point) const;
 
@@ -35,6 +41,10 @@ namespace test {
 
 		ObjectPoints * get(Object *); // Gets all object's points
 		Object *       get(Point);    // Gets an object which specified point belongs to
+
+		// Aliases for `get`
+		ObjectPoints * operator [] (Object *);
+		Object *       operator [] (Point);
 
 		void print(std::ostream &) const; // Puts all information to stream
 
@@ -55,6 +65,7 @@ namespace test {
 			points[_point] = _object;
 			if(contains(_object)) {
 				objects[_object].insert(_point);
+				// TODO: do something here _object->mask ?
 			} else {
 				ObjectPoints buffer;
 				buffer.insert(_point);
@@ -102,6 +113,14 @@ namespace test {
 		return (contains(_point))? points[_point] : NULL;
 	}
 
+	ObjectPoints * Data::operator [] (Object * _object) {
+		get(_object);
+	};
+
+	Object * Data::operator [] (Point _point) {
+		get(_point);
+	}
+
 	void Data::print(std::ostream & _ostream) const {
 		_ostream << "Data " << this << ":" << std::endl;
 		_ostream << "  Objects:" << std::endl;
@@ -129,6 +148,9 @@ namespace test {
 		}
 
 	}
+
+	// TODO: make >> operator for YAML
+	// TODO: make >> operator for binary files
 
 	std::ostream & operator << (std::ostream & _ostream, const Data & _data) {
 		_data.print(_ostream);

@@ -2,7 +2,8 @@
 
 // Loads one property via mapping manager
 //
-template<typename Type> void Game::load_attribute(Type & attribute, const YAML::Node & level, const char * key) {
+template<typename Type>
+void Game::load_attribute(Type & attribute, const YAML::Node & level, const char * key) {
 	if(level[key]) {
 		const YAML::Node & node = level[key];
 		if(node.IsMap()) {

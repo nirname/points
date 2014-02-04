@@ -1,7 +1,7 @@
-#ifndef MENU_H
-#define MENU_H 1
+#pragma once
 
 // TODO: refactor this file
+// TODO: watch freeglut menu
 
 void draw_string(std::string & string) {
 	for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
@@ -221,6 +221,3 @@ struct MenuManager {
 	}
 
 };
-
-
-#endif
