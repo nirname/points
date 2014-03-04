@@ -7,10 +7,10 @@ COMPILER = $(CPP)
 OPTIONS = #-std=gnu++11
 
 INCLUDE_PATH = include
-LIBRARIES_PATH = libraries/ubuntu
+LIBRARIES_PATH = libraries/ubuntu13
 
 #-lopengl32 -lfreeglut -lglu32
-LIBS = -lglut -lGLU -lyaml-cpp
+LIBS = -lglut -lGL -lGLU -lyaml-cpp
 
 PROJECT = points
 EXECUTABLE = upoints.exe

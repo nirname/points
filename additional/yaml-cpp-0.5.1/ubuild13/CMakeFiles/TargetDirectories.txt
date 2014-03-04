@@ -1,0 +1,7 @@
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/CMakeFiles/debuggable.dir
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/util/CMakeFiles/parse.dir
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/util/CMakeFiles/read.dir
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/CMakeFiles/releasable.dir
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/test/CMakeFiles/run-tests.dir
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/util/CMakeFiles/sandbox.dir
+/home/patty/Projects/My/Points/additional/yaml-cpp-0.5.1/ubuild13/CMakeFiles/yaml-cpp.dir
