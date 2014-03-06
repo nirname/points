@@ -26,7 +26,7 @@ namespace controls {
 	void keyboard(unsigned char key, int x, int y)
 	{
 		glutPostRedisplay(); // TODO: for dubug, remove it
-		program.process(key);
+		application.process(key);
 	}
 
 	/* Callbacks for special keys, such as:

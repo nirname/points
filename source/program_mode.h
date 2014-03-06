@@ -1,8 +1,8 @@
 #pragma once
 
-enum PROGRAM_MODE {
+enum APPLICATION_MODE {
 	DISABLED_MODE,    // Nothing to do
-	LOADING_MODE,     // Game is being loaded now
+	LOADING_MODE,     // Something is being loaded now
 	TITRES_MODE,      // Introduction, Finale
 	MENU_MODE,        // Main menu, Game menu, Level menu
 	SCREENSAVER_MODE, // Any screensaver

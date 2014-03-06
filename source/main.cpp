@@ -1,10 +1,9 @@
 #include "global.h"
 
-// TODO: move all to params
+// TODO: move all to params all variables
 engine::Screen screen;
 engine::Game game; // TODO(!): use pointer here
-engine::Program program;
-
+engine::Application application;
 Menu menu("Main Menu");
 
 //BitmapImage opening;
@@ -95,7 +94,7 @@ int main(int argc, char * argv[])
 	//glutTimerFunc(graphics::sleep, graphics::redisplay, 0);
 
 	//glutTimerFunc(graphics::sleep, graphics::animate, 0);
-	glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
+	//glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
 
 	// commands
 	glutKeyboardFunc(controls::keyboard);
@@ -104,8 +103,7 @@ int main(int argc, char * argv[])
 
 	lib::stage("LOADING");
 
-	//screen.set(200, 150);
-	// TODO: write text "LOADING"
+	application.set(LOADING_MODE);
 
 	// TODO: move these code to program class
 	Menu game1 = Menu("Game 1");
@@ -119,7 +117,7 @@ int main(int argc, char * argv[])
 	menu.add(&extras_menu);
 	menu.add(&exit_menu);
 
-	program.set(TITRES_MODE);
+	application.set(TITRES_MODE);
 
 	lib::stage(
 		"STARTING GAME\n"

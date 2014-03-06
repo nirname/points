@@ -28,12 +28,12 @@ namespace graphics {
 		glPopAttrib();
 		glColor3ub(BLACK);
 
-		if(program.mode == TITRES_MODE) {
+		if(application.mode == TITRES_MODE) {
 
 			// TODO: skip if there is nothing to show
 			//opening.display();
-			gl_write((char*)"Titres", 6);
-			/*BMP Input;
+			gl_write((char *)"Titres", 6);
+			BMP Input;
 			Input.ReadFromFile("fonts/ru.bmp");
 
 			for( int y = 0 ; y < Input.TellHeight() ; y++) {
@@ -47,15 +47,17 @@ namespace graphics {
 						glPopMatrix();
 					glPopAttrib();
 				}
-			}*/
+			}
 
-		} else if(program.mode == MENU_MODE) {
+		} else if(application.mode == LOADING_MODE) {
+			gl_write((char *)"Loading", 7);
+		} else if(application.mode == MENU_MODE) {
 			menu.display();
-		} else if(program.mode == SCREENSAVER_MODE) {
-			gl_write((char*)"Screensaver", 11);
-		} else if(program.mode == GAMEPLAY_MODE) {
+		} else if(application.mode == SCREENSAVER_MODE) {
+			gl_write((char *)"Screensaver", 11);
+		} else if(application.mode == GAMEPLAY_MODE) {
 			game.display();
-			gl_write((char*)"Gameplay", 4);
+			gl_write((char *)"Gameplay", 4);
 		}
 
 		glFlush();

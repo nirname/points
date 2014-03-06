@@ -29,7 +29,7 @@
 #include "menu.h"
 #include "_menu.h"
 
-#include "program.h"
+#include "application.h"
 #include "controls.h"
 #include "variables.h"
 #include "display.h"

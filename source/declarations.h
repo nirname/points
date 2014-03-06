@@ -36,7 +36,7 @@ namespace engine {
 	struct Size;
 	struct Bound;
 
-	struct Program;
+	struct Application;
 
 	struct Screen;
 	struct Level;
@@ -114,7 +114,7 @@ struct Menu;
 
 extern engine::Screen screen;
 extern engine::Game game;
-extern engine::Program program;
+extern engine::Application application;
 extern Menu menu;
 extern Menu common_menu;
 //extern std::stack<Menu *> menus;

@@ -92,6 +92,8 @@ bool Game::load(LevelPointer _level) {
 			load_attribute(views, level, "views");
 			load_attribute(controls, level, "controls");
 
+			screen.set(10, 10); // TODO: load it from level file
+
 			loaded = true;
 
 			lib::stage("GAME IS LOADED\n");
@@ -105,8 +107,6 @@ bool Game::load(LevelPointer _level) {
 	} catch (YAML::BadFile) {
 		std::cout << "There is no level" << std::endl;
 	}
-
-	screen.set(10, 10); // TODO: load it from level file
 
 	if(!loaded) {
 		std::cout << "Reverting..." << std::endl;

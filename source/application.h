@@ -5,16 +5,16 @@ namespace engine {
 	void screensaver_autoload(int);
 	void menu_autoload(int);
 
-	struct Program {
+	struct Application {
 
-		PROGRAM_MODE mode;
+		APPLICATION_MODE mode;
 
-		Program() {
+		Application() {
 			mode == LOADING_MODE;
 		}
 
 		void reset_last_activity_time();
-		void set(PROGRAM_MODE _mode);
+		void set(APPLICATION_MODE _mode);
 
 		void process(unsigned char);
 
@@ -27,20 +27,21 @@ namespace engine {
 
 	// TODO: move to menu
 	// Reset menu activity value on user actions
-	void Program::reset_last_activity_time() {
+	void Application::reset_last_activity_time() {
 		params::last_menu_activity_time = time(NULL);
 	}
 
-	void Program::set(PROGRAM_MODE _mode) {
+	void Application::set(APPLICATION_MODE _mode) {
 		glutPostRedisplay();
 		reset_last_activity_time(); // TODO: move to menu
-			// nothing to do
-		if(_mode == LOADING_MODE) {
-		} else if(_mode == TITRES_MODE) {
+		APPLICATION_MODE previous_mode = mode;
+		mode = LOADING_MODE;
+		if(_mode == TITRES_MODE) {
 			screen.set(200, 150);
 			// TODO: set to uploaded image size and set background to white
 			//opening.open("../images/patterns/ornament/test.bmp");
 			//opening.open("fonts/ru.bmp");
+			glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
 		} else if(_mode == MENU_MODE) {
 			screen.set(200, 150); // TODO: set to what you want
 			glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
@@ -49,6 +50,7 @@ namespace engine {
 			}
 		} else if(_mode == GAMEPLAY_MODE) {
 			if(!game.load(NULL)) { // TODO: set level here
+				mode = previous_mode;
 				return;
 			}
 		} else if(_mode == INFORMATION_MODE) {
@@ -59,12 +61,12 @@ namespace engine {
 		mode = _mode;
 	}
 
-	void Program::titres_process(unsigned char key) {
+	void Application::titres_process(unsigned char key) {
 		std::cout << ": skip";
 		set(MENU_MODE);
 	}
 
-	void Program::menu_process(unsigned char key) {
+	void Application::menu_process(unsigned char key) {
 
 		// Reset menu activity value on user actions
 		//params::last_menu_activity_time = time(NULL);
@@ -91,7 +93,7 @@ namespace engine {
 
 	}
 
-	void Program::game_process(unsigned char key) {
+	void Application::game_process(unsigned char key) {
 		if(key == ESCAPE_KEY) {
 			std::cout << ": info";
 			//set(INFORMATION_MODE);
@@ -102,13 +104,13 @@ namespace engine {
 		}
 	}
 
-	void Program::screensaver_process(unsigned char key) {
+	void Application::screensaver_process(unsigned char key) {
 		std::cout << ": skip";
 		set(MENU_MODE);
 	}
 
 	// TODO: void process(int key, int special) {
-	void Program::process(unsigned char key) {
+	void Application::process(unsigned char key) {
 
 		printf("%i", key);
 
@@ -131,19 +133,18 @@ namespace engine {
 
 	}
 
-
 	void menu_autoload(int timer) {
-		if(program.mode == TITRES_MODE) {
+		if(application.mode == TITRES_MODE) {
 			std::cout << "auto: menu autoload" << std::endl;
-			program.set(MENU_MODE);
+			application.set(MENU_MODE);
 		}
 	}
 
 	void screensaver_autoload(int timer) {
-		if(program.mode == MENU_MODE) {
+		if(application.mode == MENU_MODE) {
 			if((time(NULL) - params::last_menu_activity_time) >= params::menu_timeout) {
 				std::cout << "auto: screensaver autoload" << std::endl;
-				program.set(SCREENSAVER_MODE);
+				application.set(SCREENSAVER_MODE);
 			} else {
 				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
 			}
