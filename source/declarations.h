@@ -84,7 +84,7 @@ namespace engine {
 	typedef std::map< PairOfKinds, INTERACTION_TYPE > InteractionMap;
 	typedef InteractionMap::iterator InteractionMapIterator;
 
-	typedef std::list <Level> LevelList;
+	typedef std::list<Level> LevelList;
 	typedef LevelList::iterator LevelListIterator;
 	//typedef Mapping<Level> LevelMapping;
 

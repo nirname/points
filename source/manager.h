@@ -17,7 +17,7 @@ template<typename Entity, typename Key> class Manager {
 		Manager() {}
 
 		~Manager() {
-			//clear();
+			clear();
 		}
 
 		bool contain(const Key & _name) {
@@ -46,19 +46,16 @@ template<typename Entity, typename Key> class Manager {
 		}
 		void remove(Entity * _entity) {
 			if(contain(_entity)) {
-				//delete entities[]
+				Key _name = names[_entity];
+				names.erase(_name);
+				entities.erase(_entity);
+				delete _entity;
 			}
 		}
 
-		void clear() {
-			for(typename EntitiesInfo::iterator
-			i = entities.begin();
-			i != entities.end();
-			++i) {
-				delete (i->first);
-			}
-		};
-		void print();
+		void clear() {}
+		
+		void print() {}
 
 };
 

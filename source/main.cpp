@@ -23,6 +23,10 @@ int main(int argc, char * argv[])
 
 	std::cout << std::endl;
 
+	for(int i = 32; i < 127; i++) {
+		printf("%c", (char)i);
+	}
+
 	Manager<int, std::string> m;
 
 	//Directory::read("levels");
@@ -105,6 +109,12 @@ int main(int argc, char * argv[])
 
 	application.set(LOADING_MODE);
 
+	// loading fonts
+	
+	
+	
+	// loading menu
+	
 	// TODO: move these code to program class
 	Menu game1 = Menu("Game 1");
 	Menu game2 = Menu("Game 2");
