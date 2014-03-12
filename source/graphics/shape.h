@@ -6,10 +6,8 @@ namespace graphics {
 
 	// Any shape
 	struct Shape {
-		//float figure_size; // use persent or real size?
+		float size;
 
-
-		// add size (radius, or something like that)
 		virtual void display() = 0;
 
 		void print(std::ostream & _ostream) const {
@@ -42,11 +40,11 @@ namespace graphics {
 		}
 	};
 
-	struct EmptyStar : Star {
+	/*struct EmptyStar : Star {
 		void display() {
 			//emptiness(Star::display);
 		}
-	};
+	};*/
 
 	struct EmptySquare : Shape {
 		void display() {

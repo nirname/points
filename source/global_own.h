@@ -20,8 +20,11 @@
 #include "letter.h"
 
 #include "graphics.h"
-#include "logic.h"
+//#include "logic.h"
+#include "game_kind.h"
+#include "screensaver_kind.h"
 #include "engine.h"
+#include "grid_type.h"
 #include "grid.h"
 
 #include "parser.h"

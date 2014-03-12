@@ -9,6 +9,9 @@ Options
   Shape ( RECTANGLE | CIRCLE )
   Animation ( NO | FADE | SCALE | SLIDE | RANDOM ) (<Enter> to replay)
   Color ( COLOR 1 | COLOR 2 | ... | RANDOM ) (selection color) (<Enter> to open pallete)
+  Screensaver ( ON | OFF )
+  Greeting ( ON | OFF )
+  Credits ( ON | OFF )
   Defaults (<Enter> reset to defaults)
 
 Continue options (???)
@@ -17,7 +20,7 @@ Continue options (???)
   Grid type
 
 Extras
-  Authors
+  Credits
   Media
     Splash screens
     Images
@@ -43,9 +46,9 @@ Controls
   <Enter> Select
 
   <Ctrl-Q> Rescue
-  <F1> Show hints
+  <F1> Show hints (while pressed)
   <Pause>, <P> Pause / Resume / Show timer immidiately
   (options shortcuts)
   <Ctrl-Space> Change grid
   <Ctrl-A> Change animation
-  <Ctrl-S> Change selection
+  <Ctrl-C> Change color

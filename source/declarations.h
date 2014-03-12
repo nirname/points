@@ -99,6 +99,7 @@ namespace graphics {
 namespace params {
 	extern time_t last_menu_activity_time;
 	extern int menu_timeout;
+	extern int titres_timeout;
 }
 
 namespace lib {

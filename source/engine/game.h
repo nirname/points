@@ -6,7 +6,7 @@ namespace engine {
 	//
 	struct Game {
 
-		//logic::GAME_KIND game_kind;
+		//GAME_KIND game_kind;
 		bool paused;
 		bool loaded;
 

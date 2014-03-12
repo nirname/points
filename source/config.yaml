@@ -1,4 +1,9 @@
-screensaver: 60 # ( on | timeout )
-greeting: on # (on | off)
-format: 4x3 # ( 4x3 | 16x9 )
-
+full_screen: off
+grid_type: square
+shape: rectangle
+animation: fade
+color: blue
+screensaver: on
+greeting: on
+credits: on
+format: 4x3

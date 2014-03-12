@@ -1,0 +1,7 @@
+#pragma once
+
+enum GRID_TYPE {
+	SQUARE_GRID, 
+	EDGE_BASED_HEXAGON_GRID,
+	CORNER_BASED_HEXAGON
+};

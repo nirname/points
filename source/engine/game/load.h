@@ -71,7 +71,7 @@ bool Game::load(LevelPointer _level) {
 	load_default_shapes();
 
 	try {
-		YAML::Node level = YAML::LoadFile("levels/level_1.yaml");
+		YAML::Node level = YAML::LoadFile("./levels/sokoban/level_1.yaml");
 		//YAML::Node level = YAML::LoadFile("levels/adasdfdas");
 		if(level.IsMap()) {
 
@@ -92,7 +92,7 @@ bool Game::load(LevelPointer _level) {
 			load_attribute(views, level, "views");
 			load_attribute(controls, level, "controls");
 
-			screen.set(10, 10); // TODO: load it from level file
+			//screen.set(10, 10); // TODO: load it from level file
 
 			loaded = true;
 
@@ -100,7 +100,7 @@ bool Game::load(LevelPointer _level) {
 			print();
 
 		} else {
-			std::cout << "Configuration file should contain mapping" << std::endl;
+			std::cout << "Level file should contain mapping" << std::endl;
 		}
 	} catch (YAML::ParserException & exception) {
 		std::cout << "I can not load level" << std::endl;

@@ -11,7 +11,10 @@ namespace engine {
 	enum SCREEN_FORMAT {
 		SCREEN_FORMAT_OWN,
 		SCREEN_FORMAT_4x3,
-		SCREEN_FORMAT_16x9
+		SCREEN_FORMAT_3x2,
+		SCREEN_FORMAT_16x9,
+		SCREEN_FORMAT_1_85,
+		SCREEN_FORMAT_1_39
 	};
 
 	struct Screen {
@@ -23,7 +26,7 @@ namespace engine {
 		
 		void load();
 		void set(float, float);
-		void set(SCREEN_FORMAT) {};
+		//void set(SCREEN_FORMAT);
 		
 		Bound bound();
 

@@ -108,10 +108,9 @@ int main(int argc, char * argv[])
 	glutSpecialFunc(controls::special);
 	glutMouseFunc(controls::mouse);
 
-	screen.load();
-
 	lib::stage("LOADING");
 
+	screen.load();
 	application.set(LOADING_MODE);
 
 	// loading fonts

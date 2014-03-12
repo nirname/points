@@ -39,9 +39,7 @@ namespace engine {
 		if(_mode == TITRES_MODE) {
 			//screen.set(160, 90);
 			// TODO: set to uploaded image size and set background to white
-			//opening.open("../images/patterns/ornament/test.bmp");
-			//opening.open("fonts/ru.bmp");
-			//glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
+			glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
 		} else if(_mode == MENU_MODE) {
 			//screen.set(320, 240); // TODO: set to what you want
 			glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
