@@ -59,7 +59,16 @@ namespace graphics {
 		} else if(application.mode == LOADING_MODE) {
 			gl_write((char *)"Loading", 7);
 		} else if(application.mode == MENU_MODE) {
+			
 			menu.display();
+
+			glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(GRAY);
+				grid(screen.bound());
+				glColor3ub(BLACK);
+				grid(screen.bound(), 6);
+			glPopAttrib();
+
 		} else if(application.mode == SCREENSAVER_MODE) {
 			gl_write((char *)"Screensaver", 11);
 		} else if(application.mode == GAMEPLAY_MODE) {
@@ -79,10 +88,10 @@ namespace graphics {
 			glutPostRedisplay();
 			time = clock() - time;
 			//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
-			glutTimerFunc(graphics::sleep, redisplay, 0);
+			//glutTimerFunc(graphics::sleep, redisplay, 0);
 		//}
 		//glutPostRedisplay();
-		glutTimerFunc(graphics::sleep, redisplay, 0);
+		//glutTimerFunc(graphics::sleep, redisplay, 0);
 	}
 
 	void reshape(int width, int length)
@@ -94,13 +103,24 @@ namespace graphics {
 		//float margin = 50.0;
 		//float padding = 10.0;
 
-		float x_ort = width / screen.width;
+		/*float x_ort = width / screen.width;
 		float y_ort = length / screen.height;
 		float side = (x_ort < y_ort) ? x_ort : y_ort;
-
+		
 		glViewport(
 			(GLint)((width - side * screen.width) / 2.0),
 			(GLint)((length - side * screen.height) / 2.0),
+			(GLsizei)(side * screen.width),
+			(GLsizei)(side * screen.height)
+		);*/
+		
+		int x_ort = width / screen.width;
+		int y_ort = length / screen.height;
+		int side = (x_ort < y_ort) ? x_ort : y_ort;
+
+		glViewport(
+			(GLint)((width - side * screen.width) / 2),
+			(GLint)((length - side * screen.height) / 2),
 			(GLsizei)(side * screen.width),
 			(GLsizei)(side * screen.height)
 		);

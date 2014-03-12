@@ -3,6 +3,12 @@
 namespace params
 {
 
+	extern int titres_timeout;
+	extern int menu_timeout; // screensaver_timeout
+	extern int window_width;
+	extern int window_height;
+	extern bool full_screen;
+
 	// TODO: convert titres timeout to seconds or menu timeout to msec
 	int titres_timeout = 5;
 	time_t last_menu_activity_time = clock();
@@ -22,6 +28,8 @@ namespace params
 	void load()
 	{
 
+		// TODO load config.yaml here
+
 		switch(window_size)
 		{
 			case TINY:   window_width = 640,  window_height = 480;  mode_string = "640x480:32";   break;
@@ -30,8 +38,6 @@ namespace params
 			case LARGE:  window_width = 1280, window_height = 1024; mode_string = "1280x1024:32"; break;
 			default:     window_width = 1280, window_height = 1024; mode_string = "1280x1024:32"; break;
 		}
-
-		// TODO load config.yaml here
 
 	}
 

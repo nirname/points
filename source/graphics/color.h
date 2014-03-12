@@ -65,7 +65,6 @@ namespace graphics {
 
 	struct Color
 	{
-		//cell;
 		positive red, green, blue;
 
 		Color(positive _red, positive _green, positive _blue):

@@ -94,7 +94,12 @@ namespace engine {
 	}
 
 	void View::draw_grid(const Bound & _bound) {
-		graphics::grid(_bound, grid_color);
+		if(grid_color != NULL) {
+			grid_color->use();
+		} else {
+			glColor3ub(BLACK);
+		}
+		graphics::grid(_bound);
 	}
 
 	void View::draw_border() {

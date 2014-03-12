@@ -44,7 +44,8 @@ int main(int argc, char * argv[])
 	//std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
 	//std::cout << "blue: "  << glutGetColor(12, GLUT_BLUE)  << std::endl;
 
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+	//glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 	//glEnable(GL_MULTISAMPLE_ARB);
 	//glutInitDisplayMode(GLUT_RGBA | GLUT_MULTISAMPLE);
 
@@ -87,6 +88,8 @@ int main(int argc, char * argv[])
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
 
+	//glEnable(GL_LINE_STIPPLE);
+
 	//screen.switch_to(200, 150);
 	//screen.switch_to(100, 100);
 
@@ -104,6 +107,8 @@ int main(int argc, char * argv[])
 	glutKeyboardFunc(controls::keyboard);
 	glutSpecialFunc(controls::special);
 	glutMouseFunc(controls::mouse);
+
+	screen.load();
 
 	lib::stage("LOADING");
 

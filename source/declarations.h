@@ -93,7 +93,7 @@ namespace engine {
 }
 
 namespace graphics {
-	void grid(const engine::Bound &, Color *);
+	void grid(const engine::Bound & _bound, int _step = 1);
 }
 
 namespace params {
