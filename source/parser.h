@@ -11,7 +11,9 @@ namespace engine {
 
 }
 
-// (TODO) make another namespace
 namespace engine {
 	#include "parser/controls/control_handler_parser.h"
 }
+
+#include "parser/params/bool_parser.h"
+#include "parser/params/screensaver_kind_parser.h"

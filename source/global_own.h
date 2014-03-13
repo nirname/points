@@ -3,8 +3,13 @@
 // constants
 #include "constants.h"
 #include "types.h"
+
 #include "exception.h"
 #include "program_mode.h"
+#include "game_kind.h"
+#include "screensaver_kind.h"
+#include "interaction_type.h"
+#include "grid_type.h"
 
 // declarations
 #include "declarations.h"
@@ -21,10 +26,7 @@
 
 #include "graphics.h"
 //#include "logic.h"
-#include "game_kind.h"
-#include "screensaver_kind.h"
 #include "engine.h"
-#include "grid_type.h"
 #include "grid.h"
 
 #include "parser.h"

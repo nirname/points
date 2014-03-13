@@ -1,3 +1,5 @@
+// TODO: refactor this file
+
 #pragma once
 
 template<typename Type> class Mapping;
@@ -69,17 +71,6 @@ namespace engine {
 	typedef ObjectInformation::iterator ObjectInformationIterator;
 	typedef PointInformation::iterator PointInformationIterator;
 
-	// TODO: move it from here
-	enum INTERACTION_TYPE {
-		NO_INTERACTION,
-		PUSH_INTERACTION,
-		PULL_INTERACTION,
-		JOIN_INTERACTION,
-		SLAP_INTERACTION,
-		DESTROY_INTERACTION,
-		DIE_INTERACTION
-	};
-
 	typedef std::pair< ObjectKindPointer, ObjectKindPointer > PairOfKinds;
 	typedef std::map< PairOfKinds, INTERACTION_TYPE > InteractionMap;
 	typedef InteractionMap::iterator InteractionMapIterator;
@@ -96,11 +87,7 @@ namespace graphics {
 	void grid(const engine::Bound & _bound, int _step = 1);
 }
 
-namespace params {
-	extern time_t last_menu_activity_time;
-	extern int menu_timeout;
-	extern int titres_timeout;
-}
+#include "declarations/_params.h"
 
 namespace lib {
 

@@ -2,25 +2,10 @@
 
 namespace engine {
 
-// 72x54  4:3
-// 81x54  3:2
-// 96x54  16:9
-// 100x54 1.85:1
-// 129x54 2.39:1
-
-	enum SCREEN_FORMAT {
-		SCREEN_FORMAT_OWN,
-		SCREEN_FORMAT_4x3,
-		SCREEN_FORMAT_3x2,
-		SCREEN_FORMAT_16x9,
-		SCREEN_FORMAT_1_85,
-		SCREEN_FORMAT_1_39
-	};
-
 	struct Screen {
 
 		float width, height, margin;
-		Screen(float _width = 72.0, float _height = 54.0, float _margin = 0.0):
+		Screen(float _width = 96.0, float _height = 54.0, float _margin = 0.0):
 			width(_width), height(_height), margin(_margin)
 		{}
 		

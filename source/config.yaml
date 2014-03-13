@@ -1,9 +1,11 @@
-full_screen: off
+full_screen: on
 grid_type: square
 shape: rectangle
 animation: fade
 color: blue
-screensaver: on
+screensaver: queens
 greeting: on
 credits: on
 format: 4x3
+height: 40
+change_resolution: off

@@ -39,6 +39,7 @@ int main(int argc, char * argv[])
 	lib::stage("INITIALIZING");
 
 	params::load();
+	params::print();
 
 	//std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
 	//std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
