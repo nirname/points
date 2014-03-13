@@ -1,0 +1,48 @@
+digraph Workflow {
+
+	node[shape = box, style = filled]
+	
+	subgraph System { label = "System"
+		node[fillcolor = white]
+		system[label = "System"]
+	}
+	
+	subgraph Titres {
+		node[color = cyan]
+		introduction[label = "Introduction"]
+	}
+	
+	subgraph Menu {
+		node[color = lightgreen]
+		menu[label = "Menu"]
+	}
+	
+	/*subgraph Pause {
+		node[color = pink]
+		pause[label = "Pause"]
+	}*/
+	
+	subgraph Screensaver {
+		node[color = violet]
+		screensaver[label = "Screensaver"]
+	}
+	
+	subgraph Gameplay {
+		node[color = yellow]
+		game[label = "Game"]
+	}
+	
+	system -> { introduction -> menu [label = "skip"] } [label = "start"]
+	
+	menu -> menu[label = "open,\nback"]
+	menu -> screensaver [label = "wait,\nstart"]
+	screensaver -> menu [label = "skip"]
+	
+	menu -> game [label = "start,\nresume,\ncontinue"]
+	game -> menu [label = "pause,\nexit"]
+	/*game -> pause [label = "pause"]
+	pause -> menu [label = "exit"]
+	pause -> game [label = "resume"]*/
+	//{ menu game } -> system [label = "quit"]
+
+}
