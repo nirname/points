@@ -19,5 +19,17 @@ namespace lib {
 	void stage(const char * information) {
 		std::cout << "\n\n" << information << std::endl;
 	}
+	
+	std::string application_path() {
+		char buff[1024];
+		ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff)-1);
+		if (len != -1) {
+			buff[len] = '\0';
+			return std::string(buff);
+		} else {
+			
+			/* handle error condition */
+		}
+}
 
 }

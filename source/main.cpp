@@ -23,16 +23,17 @@ int main(int argc, char * argv[])
 
 	std::cout << std::endl;
 
-	for(int i = 32; i < 127; i++) {
-		printf("%c", (char)i);
-	}
+	//for(int i = 32; i < 127; i++) {
+	//	printf("%c", (char)i);
+	//}
+	
+	//std::cout << argv[0] << std::endl;
 
-	Manager<int, std::string> m;
+	std::cout << lib::application_path() << std::endl;
+
+	//Manager<int, std::string> m;
 
 	//Directory::read("levels");
-
-	// initialize glut
-	glutInit(&argc, argv);
 
 	//graphics::load_palette();
 
@@ -44,6 +45,9 @@ int main(int argc, char * argv[])
 	//std::cout << "red: "   << glutGetColor(12, GLUT_RED)   << std::endl;
 	//std::cout << "green: " << glutGetColor(12, GLUT_GREEN) << std::endl;
 	//std::cout << "blue: "  << glutGetColor(12, GLUT_BLUE)  << std::endl;
+
+	// initialize glut
+	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	//glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
