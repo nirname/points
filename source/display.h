@@ -2,7 +2,7 @@
 
 namespace graphics {
 
-	void gl_write();
+	void write();
 	void display();
 	void reshape(int, int);
 	void idle();
@@ -11,10 +11,10 @@ namespace graphics {
 
 namespace graphics {
 
-	void gl_write(char text[256], int kls) {
+	void write(std::string string, void * font = GLUT_BITMAP_8_BY_13) {
 		glRasterPos2f(screen.width / 10, screen.height / 10);
-		for (int i = 0; i < kls; i++) {
-			glutBitmapCharacter((int*)GLUT_BITMAP_8_BY_13, (int)text[i]);
+		for(std::string::iterator i = string.begin(); i != string.end(); ++i) {
+			glutBitmapCharacter(font, *i);
 		}
 	}
 
@@ -28,28 +28,18 @@ namespace graphics {
 		glPopAttrib();
 		glColor3ub(BLACK);
 
-		
+		// grid at screen
+		/*glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(GRAY);
+			grid(screen.bound());
+			glColor3ub(BLACK);
+			grid(screen.bound(), 6);
+		glPopAttrib();*/
 
-		if(application.mode == FOREWORD_MODE) {
-
-			// TODO: skip if there is nothing to show
-			//opening.display();
-			gl_write((char *)"Titres", 6);
-		} else if(application.mode == LOADING_MODE) {
-			gl_write((char *)"Loading", 7);
-		} else if(application.mode == MENU_MODE) {
-			menu.display();
-			glPushAttrib(GL_CURRENT_BIT);
-				glColor3ub(GRAY);
-				grid(screen.bound());
-				glColor3ub(BLACK);
-				grid(screen.bound(), 6);
-			glPopAttrib();
-		} else if(application.mode == SCREENSAVER_MODE) {
-			gl_write((char *)"Screensaver", 11);
-		} else if(application.mode == GAMEPLAY_MODE) {
-			game.display();
-			gl_write((char *)"Gameplay", 4);
+		switch(application.mode) {
+			case MENU_MODE: menu.display(); break;
+			case GAMEPLAY_MODE: game.display(); break;
+			default: write(lib::to_string(application.mode));
 		}
 
 		glFlush();
