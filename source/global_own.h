@@ -5,7 +5,7 @@
 #include "types.h"
 
 #include "exception.h"
-#include "program_mode.h"
+#include "application_mode.h"
 #include "game_kind.h"
 #include "screensaver_kind.h"
 #include "interaction_type.h"
@@ -17,15 +17,13 @@
 // headers
 #include "directory.h"
 
-// TODO: unite this as own libraries
 #include "mapping.h"
 #include "manager.h"
 #include "library.h"
 
-#include "letter.h"
+#include "glyph.h"
 
 #include "graphics.h"
-//#include "logic.h"
 #include "engine.h"
 #include "grid.h"
 

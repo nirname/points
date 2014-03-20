@@ -9,7 +9,7 @@ namespace engine {
 			width(_width), height(_height), margin(_margin)
 		{}
 		
-		void load();
+		void initialize();
 		void set(float, float);
 		//void set(SCREEN_FORMAT);
 		
@@ -17,7 +17,7 @@ namespace engine {
 
 	};
 
-	void Screen::load() {
+	void Screen::initialize() {
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -33,7 +33,7 @@ namespace engine {
 		width = _width;
 		height = _height;
 		std::cout << "Screen switched to " << width << ":" << height << std::endl;
-		load();
+		initialize();
 	}
 	
 	Bound Screen::bound() {

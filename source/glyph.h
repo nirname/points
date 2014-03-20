@@ -1,14 +1,37 @@
 #pragma once
 
-struct Letter {
+struct Glyph {
 
 	unsigned short int width, height, baseline;
 	bool bitmap[8][8];
 
-	Letter() {
+	Glyph() {
 	}
 
 };
+
+
+/*BMP input;
+RGBApixel * pixel;
+if(input.ReadFromFile("fonts/en.bmp")) {
+	// i - count of letters
+	// j - width of each letter
+	for(int x = 0, i = 0; x < input.TellWidth(); x++, i++) {
+		for(int j = 0; j < 5; j++, x++) {
+			for(int y = 0; y < input.TellHeight(); y++) {
+				glPushAttrib(GL_CURRENT_BIT);
+				pixel = input(x, y);
+				glColor3ub(pixel->Red, pixel->Green, pixel->Blue);
+				glPushMatrix();
+					glTranslatef(x - i, input.TellHeight() - 1 - y, 0);
+					graphics::square();
+				glPopMatrix();
+				glPopAttrib();
+			}
+		}
+	}
+}*/
+
 
 /*
 	glPushAttrib(GL_CURRENT_BIT);

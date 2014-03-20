@@ -115,12 +115,12 @@ int main(int argc, char * argv[])
 
 	lib::stage("LOADING");
 
-	screen.load();
+	screen.initialize();
+
 	application.set(LOADING_MODE);
 
 	// loading fonts
-	
-	
+
 	
 	// loading menu
 	
@@ -136,7 +136,7 @@ int main(int argc, char * argv[])
 	menu.add(&extras_menu);
 	menu.add(&exit_menu);
 
-	application.set(TITRES_MODE);
+	application.set(FOREWORD_MODE);
 
 	lib::stage(
 		"STARTING GAME\n"
