@@ -1,4 +1,4 @@
-full_screen: on
+full_screen: off
 grid_type: square
 shape: rectangle
 animation: fade

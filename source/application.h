@@ -16,11 +16,11 @@ namespace engine {
 		void set(APPLICATION_MODE _mode);
 		void reset_last_activity_time();
 
-		void process(unsigned char);
+		void handle(unsigned char, int);
 
 		void loading_process(unsigned char);
 		void foreword_process(unsigned char);
-		void menu_process(unsigned char);
+		void menu_process(unsigned char, int);
 		void screensaver_process(unsigned char);
 		void countdown_process(unsigned char);
 		void gameplay_process(unsigned char);
@@ -57,10 +57,11 @@ namespace engine {
 		mode = _mode;
 	}
 
-	// TODO: void process(int key, int special) {
-	void Application::process(unsigned char key) {
+	void Application::handle(unsigned char key, int special_key) {
 
+		std::cout << "key: ";
 		printf("%i", key);
+		std::cout << "; special key: " << special_key << std::endl;
 
 		if(key == CTRL_Q_KEY) {
 			std::cout << ": quit";
@@ -71,7 +72,7 @@ namespace engine {
 		switch(mode) {
 			//case LOADING_MODE:         loading_process(key); break;
 			case FOREWORD_MODE:       foreword_process(key); break;
-			case MENU_MODE:               menu_process(key); break;
+			case MENU_MODE:               menu_process(key, special_key); break;
 			case SCREENSAVER_MODE: screensaver_process(key); break;
 			//case COUNTDOWN_MODE:     countdown_process(key); break;
 			case GAMEPLAY_MODE:       gameplay_process(key); break;
@@ -79,58 +80,28 @@ namespace engine {
 			//case AFTERWORD_MODE:     afterword_process(key); break;
 		}
 
-		std::cout << std::endl;
-
 	}
 
 	void Application::foreword_process(unsigned char key) {
-		std::cout << ": skip";
 		set(MENU_MODE);
 	}
 
-	void Application::menu_process(unsigned char key) {
-
-		// Reset menu activity value on user actions
-		//params::last_menu_activity_time = time(NULL);
+	void Application::menu_process(unsigned char key, int special_key) {
 		reset_last_activity_time();
-
-		// TODO: handle all actions to menu
-		if(key == ESCAPE_KEY) {
-			std::cout << ": quit";
-			std::cout << std::endl;
-			exit(EXIT_SUCCESS);
-		} else if(key == ENTER_KEY) {
-			//std::cout << ": start";
-			//TODO: menu.process(key);
-			set(GAMEPLAY_MODE);
-		} else if(key == 115 || key == 100) {
-			std::cout << ": next item";
-			++menu.current_item;
-		} else if(key == 119 || key == 97) {
-			std::cout << ": previous item";
-			--menu.current_item;
-		} else {
-			std::cout << ": free";
-		}
-
+		interface.handle(key, special_key);
 	}
 
 	void Application::gameplay_process(unsigned char key) {
 		if(key == ESCAPE_KEY) {
-			std::cout << ": info";
-			//set(INFORMATION_MODE);
 			set(MENU_MODE);
 		} else {
 			game.process(key);
-			//std::cout << ": free";
 		}
 	}
 
 	void Application::screensaver_process(unsigned char key) {
-		std::cout << ": skip";
 		set(MENU_MODE);
 	}
-
 
 	// TODO: move to menu
 	// Reset menu activity value on user actions

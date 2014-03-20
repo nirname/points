@@ -3,6 +3,26 @@
 
 namespace graphics {
 
+	void write(std::string string, void * font = GLUT_BITMAP_8_BY_13) {
+		glRasterPos2f(5, 5);
+		for(std::string::iterator i = string.begin(); i != string.end(); ++i) {
+			glutBitmapCharacter(font, *i);
+		}
+	}
+	
+	/*void draw_string(std::string & string) {
+		for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, *i);
+		}
+	}
+	float stroke_length(std::string & string) {
+		float length = 0;
+		for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
+			length += glutStrokeWidth(GLUT_STROKE_ROMAN, *i);
+		}
+		return length;
+	}*/
+
 	void square() {
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);

@@ -2,7 +2,6 @@
 
 namespace graphics {
 
-	void write();
 	void display();
 	void reshape(int, int);
 	void idle();
@@ -10,13 +9,6 @@ namespace graphics {
 }
 
 namespace graphics {
-
-	void write(std::string string, void * font = GLUT_BITMAP_8_BY_13) {
-		glRasterPos2f(screen.width / 10, screen.height / 10);
-		for(std::string::iterator i = string.begin(); i != string.end(); ++i) {
-			glutBitmapCharacter(font, *i);
-		}
-	}
 
 	void display()
 	{
@@ -37,7 +29,7 @@ namespace graphics {
 		glPopAttrib();*/
 
 		switch(application.mode) {
-			case MENU_MODE: menu.display(); break;
+			case MENU_MODE: interface.display(); break;
 			case GAMEPLAY_MODE: game.display(); break;
 			default: write(lib::to_string(application.mode));
 		}

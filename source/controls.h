@@ -23,10 +23,9 @@
 
 namespace controls {
 
-	void keyboard(unsigned char key, int x, int y)
-	{
+	void keyboard(unsigned char key, int x, int y) {
 		glutPostRedisplay(); // TODO: for dubug, remove it
-		application.process(key);
+		application.handle(key, 0);
 	}
 
 	/* Callbacks for special keys, such as:
@@ -38,12 +37,12 @@ namespace controls {
 
 	engine::Point step;
 
-	void special(int key, int x, int y)
-	{
-		//program.process(key);
+	void special(int special_key, int x, int y) {
+		glutPostRedisplay();
+		application.handle(0, special_key);
 	}
 
-	void mouse(int button, int state, int width, int height)
-	{
+	void mouse(int button, int state, int width, int height) {
 	}
+
 }

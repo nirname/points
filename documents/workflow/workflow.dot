@@ -8,8 +8,10 @@ digraph Workflow {
 	}
 	
 	subgraph Titres {
-		node[color = cyan]
-		introduction[label = "Introduction"]
+		node[color = cornflowerblue]
+		rank = same
+		foreword[label = "Foreword"]
+		afterword[label = "Afterword"]
 	}
 	
 	subgraph Menu {
@@ -17,29 +19,38 @@ digraph Workflow {
 		menu[label = "Menu"]
 	}
 	
-	/*subgraph Pause {
-		node[color = pink]
-		pause[label = "Pause"]
-	}*/
-	
 	subgraph Screensaver {
 		node[color = violet]
 		screensaver[label = "Screensaver"]
 	}
 	
-	subgraph Gameplay {
+	subgraph Countdown {
 		node[color = yellow]
+		countdown[label = "Countdown"]
+	}
+	
+	subgraph Gameplay {
+		node[color = salmon]
 		game[label = "Game"]
 	}
 	
-	system -> { introduction -> menu [label = "skip"] } [label = "start"]
+	subgraph Information {
+		node [color = orange]
+		result[label = "Result"]
+	}
 	
+	system -> { foreword -> menu [label = "wait,\nskip"] } [label = "start"]
 	menu -> menu[label = "open,\nback"]
 	menu -> screensaver [label = "wait,\nstart"]
 	screensaver -> menu [label = "skip"]
+	screensaver -> screensaver [label = "wait"]
 	
-	menu -> game [label = "start,\nresume,\ncontinue"]
+	menu -> countdown [label = "start,\nresume,\ncontinue"]
+	countdown -> game [label = "wait"]
 	game -> menu [label = "pause,\nexit"]
+	game -> result [label = "finish"]
+	
+	menu -> { afterword -> system [label = "wait,\nskip"] } [label = "exit"]
 	/*game -> pause [label = "pause"]
 	pause -> menu [label = "exit"]
 	pause -> game [label = "resume"]*/

@@ -98,12 +98,12 @@ namespace lib {
 }
 
 struct Menu;
+struct MenuItem;
+struct Interface;
 //class BitmapImage;
 
 extern engine::Screen screen;
 extern engine::Game game;
 extern engine::Application application;
-extern Menu menu;
-extern Menu common_menu;
-//extern std::stack<Menu *> menus;
-//extern BitmapImage opening; // TODO: remove namespace image and name it properly
+extern Interface interface;
+

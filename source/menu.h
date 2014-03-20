@@ -1,21 +1,5 @@
 #pragma once
 
-// TODO: refactor this file
-// TODO: watch freeglut menu
-
-void draw_string(std::string & string) {
-	for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
-		glutStrokeCharacter(GLUT_STROKE_ROMAN, *i);
-	}
-}
-
-float stroke_length(std::string & string) {
-	float length = 0;
-	for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
-		length += glutStrokeWidth(GLUT_STROKE_ROMAN, *i);
-	}
-	return length;
-}
 
 // TODO: refactor this class
 //struct Menu;

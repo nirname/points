@@ -1,5 +1,5 @@
 digraph Game {
-	dpi=300
+	//dpi=300
 	node[shape = box, style = filled]
 
 	subgraph System { label = "System"
@@ -21,7 +21,7 @@ digraph Game {
 	}
 	
 	subgraph Menu { label = "Menu"
-		node[color = green]
+		node[color = lightgreen]
 		menu_mode[label = "Menu mode"]
 		menu[label = "Main menu"]
 		game[label = "Game menu"]

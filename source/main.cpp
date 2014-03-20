@@ -4,7 +4,8 @@
 engine::Screen screen;
 engine::Game game; // TODO(!): use pointer here
 engine::Application application;
-Menu menu("Main Menu");
+
+Interface interface;
 
 //BitmapImage opening;
 
@@ -121,20 +122,8 @@ int main(int argc, char * argv[])
 
 	// loading fonts
 
-	
-	// loading menu
-	
-	// TODO: move these code to program class
-	Menu game1 = Menu("Game 1");
-	Menu game2 = Menu("Game 2");
-
-	Menu extras_menu = Menu("Extras");
-	Menu game_menu   = Menu("Start");
-	Menu exit_menu   = Menu("Exit");
-
-	menu.add(&game_menu);
-	menu.add(&extras_menu);
-	menu.add(&exit_menu);
+	// loading interface
+	interface.load();
 
 	application.set(FOREWORD_MODE);
 
