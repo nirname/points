@@ -31,7 +31,7 @@ namespace graphics {
 		switch(application.mode) {
 			case MENU_MODE: interface.display(); break;
 			case GAMEPLAY_MODE: game.display(); break;
-			default: write(lib::to_string(application.mode));
+			default: write(lib::to_string(application.mode)); break;
 		}
 
 		glFlush();
@@ -44,9 +44,9 @@ namespace graphics {
 		//if(!game.paused) {
 			clock_t time = clock();
 			glutPostRedisplay();
-			time = clock() - time;
+			//time = clock() - time;
 			//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
-			//glutTimerFunc(graphics::sleep, redisplay, 0);
+			glutTimerFunc(graphics::sleep, redisplay, 0);
 		//}
 		//glutPostRedisplay();
 		//glutTimerFunc(graphics::sleep, redisplay, 0);
@@ -74,13 +74,16 @@ namespace graphics {
 		
 		int x_ort = width / screen.width;
 		int y_ort = length / screen.height;
-		int side = (x_ort < y_ort) ? x_ort : y_ort;
+		params::ort = (x_ort < y_ort) ? x_ort : y_ort;
+		
+		params::window_width = params::ort * screen.width;
+		params::window_height = params::ort * screen.height;
 
 		glViewport(
-			(GLint)((width - side * screen.width) / 2),
-			(GLint)((length - side * screen.height) / 2),
-			(GLsizei)(side * screen.width),
-			(GLsizei)(side * screen.height)
+			(GLint)((width - params::window_width) / 2),
+			(GLint)((length - params::window_height) / 2),
+			(GLsizei)(params::window_width),
+			(GLsizei)(params::window_height)
 		);
 
 	} // reshape

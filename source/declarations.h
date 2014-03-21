@@ -17,6 +17,8 @@ namespace graphics {
 	void star();
 	void david();
 
+	struct Screen;
+
 	struct Color;
 	struct Shape;
 
@@ -40,7 +42,6 @@ namespace engine {
 
 	struct Application;
 
-	struct Screen;
 	struct Level;
 	struct Game;
 	struct Field;
@@ -102,7 +103,7 @@ struct MenuItem;
 struct Interface;
 //class BitmapImage;
 
-extern engine::Screen screen;
+extern graphics::Screen screen;
 extern engine::Game game;
 extern engine::Application application;
 extern Interface interface;

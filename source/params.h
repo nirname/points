@@ -9,7 +9,7 @@ namespace params {
 	bool greeting = true;
 	bool full_screen = false;
 
-
+	int ort;
 	int titres_timeout = 5;
 	time_t last_menu_activity_time = clock();
 

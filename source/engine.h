@@ -10,8 +10,6 @@
 #include "engine/_data.h"
 #include "engine/field.h"
 #include "engine/view.h"
-#include "engine/screen.h"
-#include "engine/screen_format.h"
 #include "engine/level.h"
 #include "engine/control_handler.h"
 

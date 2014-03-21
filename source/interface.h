@@ -10,7 +10,13 @@ typedef std::list<Menu> Menus;
 struct MenuItem {
 
 	std::string title;
-	MenuItem(std::string _title = "") : title(_title) {
+
+	MenuItem(std::string _title = "") : title(_title) {}
+
+	void handle(unsigned char key, int special_key) {}
+
+	void display(int position) {
+		graphics::write("* " + title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
 	}
 
 };
@@ -22,33 +28,45 @@ struct Menu {
 	MenuItems::iterator current_item;
 
 	Menu(std::string _title = "") : title(_title) {
-		current_item = items.begin();
 	}
 
-	void next_item() {
-		if(!items.empty()) {
-			//++current_item;
-		}
+	MenuItems::iterator add_item(std::string item_title) {
+		return items.insert(items.end(), MenuItem(item_title));
 	}
-	
-	void previous_item() {
-		if(!items.empty()) {
-			//--current_item;
-		}
+
+	void set_current_item(MenuItems::iterator item) {
+		current_item = item;
 	}
 
 	void handle(unsigned char key, int special_key) {
 		if(key == ESCAPE_KEY) {
+			std::cout << " ~ quit";
+			std::cout << std::endl;
 			exit(EXIT_SUCCESS);
 		} else if(special_key == GLUT_KEY_DOWN || special_key == GLUT_KEY_RIGHT) {
-			next_item();
+			current_item++;
 		} else if(special_key == GLUT_KEY_UP || special_key == GLUT_KEY_LEFT) {
-			previous_item();
+			current_item--;
+		} else if(current_item != items.end()) {
+			current_item->handle(key, special_key);
 		}
 	}
 	
 	void display() {
-		graphics::write("Menu");
+		
+		graphics::write(title);
+		
+		int position = 2;
+		for(MenuItems::iterator item = items.begin(); item != items.end(); ++item, position += 1) {
+			if(item == current_item) {
+				glPushAttrib(GL_CURRENT_BIT);
+					glColor3ub(BLUE);
+					item->display(position);
+				glPopAttrib();
+			} else {
+				item->display(position);
+			}
+		}
 	}
 
 };
@@ -59,48 +77,47 @@ struct Interface {
 	Menus menus;
 	Menus::iterator current_menu;
 
-	Interface() {
-		current_menu = menus.begin();
+	Interface() {}
+
+	Menus::iterator add_menu(std::string menu_title) {
+		return menus.insert(menus.end(), Menu(menu_title));
 	}
 
-	void load() {};
-	
-	void display() {
-		if(current_menu != menus.end())
-			current_menu->display();
+	void set_current_menu(Menus::iterator menu) {
+		current_menu = menu;
+		menu->set_current_item(menu->items.begin());
 	}
 
 	void handle(unsigned char key, int special_key) {
-		if(current_menu != menus.end())
+		if(current_menu != menus.end()) {
 			current_menu->handle(key, special_key);
-
-		/*if(key == ESCAPE_KEY) {
-			std::cout << ": quit";
-			std::cout << std::endl;
-			exit(EXIT_SUCCESS);
-		} else if(key == ENTER_KEY) {
-		}// else {
-		//	std::cout << ": free";
-		//}
-		// TODO: handle all actions to menu
-		/*if(key == ESCAPE_KEY) {
-			std::cout << ": quit";
-			std::cout << std::endl;
-			exit(EXIT_SUCCESS);
-		} else if(key == ENTER_KEY) {
-			//std::cout << ": start";
-			//TODO: menu.process(key);
-			set(GAMEPLAY_MODE);
-		} else if(key == 115 || key == 100) {
-			std::cout << ": next item";
-			++menu.current_item;
-		} else if(key == 119 || key == 97) {
-			std::cout << ": previous item";
-			--menu.current_item;
-		} else {
-			std::cout << ": free";
-		}*/
-	
+		}
 	}
+
+	void display() {
+		if(current_menu != menus.end()) {
+			current_menu->display();
+		}
+	}
+
+	void load() {
+
+		Menus::iterator menu;
+		MenuItems::iterator item;
+
+		menu = add_menu("Main menu");
+		menu->add_item("Start");
+		item = menu->add_item("Extras");
+		menu->add_item("Exit");
+
+		menu = add_menu("Select game");
+
+		menu = add_menu("Extras");
+		menu->add_item("Screensavers");
+		menu->add_item("Images");
+		
+		set_current_menu(menus.begin());
+
+	};
 
 };

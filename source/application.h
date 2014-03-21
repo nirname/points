@@ -61,10 +61,10 @@ namespace engine {
 
 		std::cout << "key: ";
 		printf("%i", key);
-		std::cout << "; special key: " << special_key << std::endl;
+		std::cout << ", special key: " << special_key;
 
 		if(key == CTRL_Q_KEY) {
-			std::cout << ": quit";
+			std::cout << " ~ quit";
 			std::cout << std::endl;
 			exit(EXIT_SUCCESS);
 		}
@@ -79,6 +79,8 @@ namespace engine {
 			//case INFORMATION_MODE: information_process(key); break;
 			//case AFTERWORD_MODE:     afterword_process(key); break;
 		}
+
+		std::cout << std::endl;
 
 	}
 

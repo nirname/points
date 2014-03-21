@@ -11,3 +11,4 @@
 #include "include/yaml-cpp/yaml.h"
 //#include "include/bitmap/bitmap_image.hpp"
 #include "include/easy-bmp/EasyBMP.h"
+#include "include/window_pos.h"

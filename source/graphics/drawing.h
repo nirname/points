@@ -3,11 +3,25 @@
 
 namespace graphics {
 
-	void write(std::string string, void * font = GLUT_BITMAP_8_BY_13) {
-		glRasterPos2f(5, 5);
+	// Fonts:
+	//
+	// GLUT_BITMAP_8_BY_13
+	// GLUT_BITMAP_9_BY_15
+	// GLUT_BITMAP_TIMES_ROMAN_10
+	// GLUT_BITMAP_TIMES_ROMAN_24
+	// GLUT_BITMAP_HELVETICA_10
+	// GLUT_BITMAP_HELVETICA_12
+	// GLUT_BITMAP_HELVETICA_18
+	//
+	void write(std::string string, int x = 0, int y = 0, void * font = GLUT_BITMAP_9_BY_15) {
+		graphics::coordinates(0, params::window_width, 0, params::window_height);
+		glRasterPos2f(x, params::window_height - y - glutBitmapHeight(font));
+		//glRasterPos2f(x, y);
+		//glWindowPos2f(x, y - glutBitmapHeight(font));
 		for(std::string::iterator i = string.begin(); i != string.end(); ++i) {
 			glutBitmapCharacter(font, *i);
 		}
+		graphics::coordinates(0, screen.width, 0, screen.height);
 	}
 	
 	/*void draw_string(std::string & string) {

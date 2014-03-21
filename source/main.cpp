@@ -1,7 +1,7 @@
 #include "global.h"
 
 // TODO: move all to params all variables
-engine::Screen screen;
+graphics::Screen screen(SCREEN_FORMAT_16x9);
 engine::Game game; // TODO(!): use pointer here
 engine::Application application;
 
@@ -104,7 +104,7 @@ int main(int argc, char * argv[])
 	glutReshapeFunc(graphics::reshape);
 
 	glutIdleFunc(graphics::idle);
-	//glutTimerFunc(graphics::sleep, graphics::redisplay, 0);
+	glutTimerFunc(graphics::sleep, graphics::redisplay, 0);
 
 	//glutTimerFunc(graphics::sleep, graphics::animate, 0);
 	//glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0);
