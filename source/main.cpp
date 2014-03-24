@@ -2,12 +2,11 @@
 
 // TODO: move all to params all variables
 graphics::Screen screen(SCREEN_FORMAT_16x9);
-engine::Game game; // TODO(!): use pointer here
+engine::Game game;
 engine::Application application;
 
 Interface interface(&application);
 
-//BitmapImage opening;
 
 int graphics::sleep = 50;
 

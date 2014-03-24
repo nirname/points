@@ -17,3 +17,4 @@ namespace engine {
 
 #include "parser/params/bool_parser.h"
 #include "parser/params/screensaver_kind_parser.h"
+#include "parser/params/screensaver_parser.h"

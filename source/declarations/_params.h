@@ -9,7 +9,7 @@ namespace params {
 	//extern SCREEN_FORMAT format;
 	extern GRID_TYPE grid_type;
 	//extern graphics::Color color;
-	extern SCREENSAVER_KIND screensaver;
+	extern Screensaver screensaver;
 	extern bool greeting;
 	extern bool goodbuy;
 	extern bool full_screen;

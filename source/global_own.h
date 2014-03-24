@@ -26,12 +26,13 @@
 #include "graphics.h"
 
 #include "engine.h"
+#include "screensaver.h"
 #include "grid.h"
 
 #include "parser.h"
 
 #include "_application.h"
-#include "interface.h"
+#include "gui.h"
 #include "application.h"
 
 #include "controls.h"

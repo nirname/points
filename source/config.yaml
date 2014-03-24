@@ -1,9 +1,9 @@
 full_screen: on
+screensaver: [Life, Queens]
 grid_type: square
 shape: rectangle
 animation: fade
 color: blue
-screensaver: queens
 greeting: on
 credits: on
 format: 4x3

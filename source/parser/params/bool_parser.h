@@ -1,10 +1,13 @@
 #pragma once
 
-void operator >> (std::string & value, bool & parameter) {
-	if(value == std::string("on")) {
-		parameter = true;
-	} else if(value == std::string("off")) {
-		parameter = false;
+void operator >> (const YAML::Node & option, bool & parameter) {
+	if(option.IsScalar()) {
+		std::string value = option.as<std::string>();
+		if(value == std::string("on")) {
+			parameter = true;
+		} else {
+			parameter = false;
+		}
 	}
 }
 

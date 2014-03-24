@@ -34,6 +34,8 @@ namespace graphics {
 
 typedef graphics::Color Color;
 
+struct Screensaver;
+
 namespace engine {
 
 	struct Point;

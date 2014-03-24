@@ -1,5 +1,4 @@
-#ifndef FEILD_PARSER_H
-#define FIELD_PARSER_H 1
+#pragma once
 
 void operator >> (const YAML::Node & options, Field & field) {
 	if(options.IsMap()) {
@@ -23,4 +22,3 @@ void operator >> (const YAML::Node & options, Field & field) {
 	}
 }
 
-#endif

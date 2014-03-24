@@ -5,7 +5,7 @@
 namespace params {
 
 	GRID_TYPE grid_type = SQUARE_GRID;
-	SCREENSAVER_KIND screensaver = BLANK_SCREEN_SCREENSAVER;
+	Screensaver screensaver;
 	bool greeting = true;
 	bool full_screen = false;
 
@@ -36,24 +36,15 @@ namespace params {
 		return false;
 	}
 
-	// Loads scalar value
-	//
-	std::string load_value(const YAML::Node & config, const char * key) {
-		if(config[key]) {
-			const YAML::Node & option = config[key];
-			if(option.IsScalar()) {
-				return option.as<std::string>();
-			}
-		}
-		return std::string("");
-	}
-
 	// Loads a parameter depending on it's type
 	//
 	template<typename Type>
 	void load_parameter(Type & parameter, const YAML::Node & config, const char * key) {
-		std::string value = load_value(config, key);
-		value >> parameter;
+		if(config[key]) {
+			//std::cout << "loading " << key << " ..." << std::endl;
+			const YAML::Node & option = config[key];
+			option >> parameter;
+		}
 	}
 
 	bool load_config() {
@@ -64,7 +55,7 @@ namespace params {
 			if(config.IsMap()) {
 				load_parameter(full_screen, config, "full_screen");
 				load_parameter(screensaver, config, "screensaver");
-				load_parameter(greeting, config, "screensaver");
+				load_parameter(greeting,    config, "greeting");
 
 				//load_parameter(config, "grid_type");
 				std::cout << "Yes\n" << std::endl;

@@ -1,5 +1,4 @@
-#ifndef SIZE_PARSER_H
-#define SIZE_PARSER_H 1
+#pragma once
 
 void operator >> (const YAML::Node & options, Size & size) {
 	try {
@@ -37,4 +36,3 @@ void operator >> (const YAML::Node & options, Size & size) {
 	}
 }
 
-#endif

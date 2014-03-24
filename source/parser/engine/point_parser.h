@@ -1,5 +1,4 @@
-#ifndef POINT_PARSER_H
-#define POINT_PARSER_H 1
+#pragma once
 
 void operator >> (const YAML::Node & options, Point & point) {
 	try {
@@ -27,4 +26,3 @@ void operator >> (const YAML::Node & options, Point & point) {
 	}
 }
 
-#endif

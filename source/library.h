@@ -37,6 +37,6 @@ namespace lib {
 //
 template<typename Type> Type & operator++(Type & _link, int) {
 	const int i = static_cast<int>(_link);
-	_link = static_cast<Type>(i+1);
+	_link = static_cast<Type>(i + 1);
 	return _link;
 }

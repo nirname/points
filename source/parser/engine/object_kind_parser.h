@@ -1,5 +1,4 @@
-#ifndef OBJECT_KIND_PARSER_H
-#define OBJECT_KIND_PARSER_H 1
+#pragma once
 
 void operator >> (const YAML::Node & options, ObjectKind & object_kind) {
 	if(options["color"]) {
@@ -16,4 +15,3 @@ void operator >> (const YAML::Node & options, ObjectKind & object_kind) {
 	}
 }
 
-#endif
