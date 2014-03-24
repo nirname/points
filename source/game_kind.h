@@ -4,7 +4,7 @@ enum GAME_KIND {
 
 	// Single player
 
-	SNAKE = 0x00,
+	SNAKE,
 	SOKOBAN,
 	ATOMIX,
 	RUSH_HOUR,
@@ -72,7 +72,4 @@ std::ostream & operator << (std::ostream & _ostream, const GAME_KIND _game_kind)
 	}
 	return _ostream;
 }
-
-
-
 

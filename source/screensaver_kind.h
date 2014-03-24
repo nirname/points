@@ -1,6 +1,18 @@
 #pragma once
 
 enum SCREENSAVER_KIND {
+	BLANK_SCREEN_SCREENSAVER,
+	LIFE_SCREENSAVER,
+	QUEENS_SCREENSAVER,
+	GEOGRAPHIC_EARTH_MAP_SCREENSAVER,
+	DAY_NIGHT_EARTH_MAP_SCREENSAVER,
+	POLITICAL_EARTH_MAP_SCREENSAVER,
+	TURTLE_SCREENSAVER,
+	EQUALIZER_SCREENSAVER,
+	TIMER_SCREENSAVER
+};
+
+/*enum SCREENSAVER_KIND {
 	BLANK_SCREEN_SCREENSAVER = 0x00,
 	LIFE_SCREENSAVER = 0x01,
 	QUEENS_SCREENSAVER = 0x02,
@@ -13,7 +25,7 @@ enum SCREENSAVER_KIND {
 	EQUALIZER_SCREENSAVER = 0x40,
 	TIMER_SCREENSAVER = 0x80,
 	RANDOM_SCREENSAVER = 0xAA
-};
+};*/
 
 std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND _screensaver) {
 	switch(_screensaver) {
@@ -26,7 +38,7 @@ std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND _scr
 		case TURTLE_SCREENSAVER:               _ostream << "Turtle";         break;
 		case EQUALIZER_SCREENSAVER:            _ostream << "Equalizer";      break;
 		case TIMER_SCREENSAVER:                _ostream << "Timer";          break;
-		case RANDOM_SCREENSAVER:               _ostream << "Random";         break;
+		//case RANDOM_SCREENSAVER:               _ostream << "Random";         break;
 	}
 	return _ostream;
 }

@@ -30,9 +30,10 @@
 
 #include "parser.h"
 
+#include "_application.h"
 #include "interface.h"
-
 #include "application.h"
+
 #include "controls.h"
 #include "variables.h"
 #include "display.h"

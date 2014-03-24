@@ -42,7 +42,7 @@ template<typename Type> class Mapping {
 
 		// Creates new object by name
 		inline TypePointer set(const KeyType & _name) {
-			TypePointer result = new Type();
+			TypePointer result = build();
 			container[_name] = result;
 			return result;
 		}
@@ -85,7 +85,6 @@ template<typename Type> class Mapping {
 			if(has(_name)) {
 				return NULL;
 			} else {
-				// TODO catch exceptions here
 				TypePointer instance = NULL;
 				try {
 					instance = build();
