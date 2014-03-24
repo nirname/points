@@ -7,8 +7,10 @@ struct Interface {
 	Menus menus;
 	Menus::iterator current_menu;
 
-	Interface(engine::Application * _application = NULL):
-		application(_application)
+	void (* loader)(Interface *);
+
+	Interface(engine::Application * _application, void (* _loader)(Interface *) = NULL):
+		application(_application), loader(_loader)
 	{}
 
 	bool valid();

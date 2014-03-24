@@ -62,7 +62,6 @@ void Menu::handle(unsigned char key, int special_key) {
 			current_item->handle(key, special_key, interface, this);
 		}
 	}
-	
 }
 
 void Menu::display(std::string _title) {
