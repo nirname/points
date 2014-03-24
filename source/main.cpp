@@ -5,7 +5,7 @@ graphics::Screen screen(SCREEN_FORMAT_16x9);
 engine::Game game; // TODO(!): use pointer here
 engine::Application application;
 
-Interface interface;
+Interface interface(&application);
 
 //BitmapImage opening;
 

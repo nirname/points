@@ -6,7 +6,7 @@ namespace engine {
 	void menu_autoload(int);
 
 	void Application::set(APPLICATION_MODE _mode) {
-		glutPostRedisplay();
+		//glutPostRedisplay();
 		reset_last_activity_time(); // TODO: move to menu
 		APPLICATION_MODE previous_mode = mode;
 		mode = LOADING_MODE;
@@ -40,9 +40,6 @@ namespace engine {
 		std::cout << ", special key: " << special_key;
 
 		if(key == CTRL_Q_KEY) {
-			/*std::cout << " ~ quit";
-			std::cout << std::endl;
-			exit(EXIT_SUCCESS);*/
 			quit();
 		}
 
