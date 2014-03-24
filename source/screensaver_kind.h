@@ -1,8 +1,8 @@
 #pragma once
 
 enum SCREENSAVER_KIND {
-	NO_SCREENSAVER = 0x00,
-	LIVE_SCREENSAVER = 0x01,
+	BLANK_SCREEN_SCREENSAVER = 0x00,
+	LIFE_SCREENSAVER = 0x01,
 	QUEENS_SCREENSAVER = 0x02,
 	// TODO: unite them? slowly swap them
 	GEOGRAPHIC_EARTH_MAP_SCREENSAVER = 0x04,
@@ -17,16 +17,16 @@ enum SCREENSAVER_KIND {
 
 std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND _screensaver) {
 	switch(_screensaver) {
-		case NO_SCREENSAVER:     _ostream << "no screensaver";               break;
-		case LIVE_SCREENSAVER:   _ostream << "live";                         break;
-		case QUEENS_SCREENSAVER: _ostream << "queens";                       break;
-		case GEOGRAPHIC_EARTH_MAP_SCREENSAVER: _ostream << "geographic map"; break;
-		case DAY_NIGHT_EARTH_MAP_SCREENSAVER:  _ostream << "day nigth map";  break;
-		case POLITICAL_EARTH_MAP_SCREENSAVER:  _ostream << "political map";  break;
-		case TURTLE_SCREENSAVER:    _ostream << "turtle";                    break;
-		case EQUALIZER_SCREENSAVER: _ostream << "equalizer";                 break;
-		case TIMER_SCREENSAVER:     _ostream << "timer";                     break;
-		case RANDOM_SCREENSAVER:    _ostream << "no screensaver";            break;
+		case BLANK_SCREEN_SCREENSAVER:         _ostream << "Blank screen";   break;
+		case LIFE_SCREENSAVER:                 _ostream << "Live";           break;
+		case QUEENS_SCREENSAVER:               _ostream << "Queens";         break;
+		case GEOGRAPHIC_EARTH_MAP_SCREENSAVER: _ostream << "Deographic map"; break;
+		case DAY_NIGHT_EARTH_MAP_SCREENSAVER:  _ostream << "Day nigth map";  break;
+		case POLITICAL_EARTH_MAP_SCREENSAVER:  _ostream << "Political map";  break;
+		case TURTLE_SCREENSAVER:               _ostream << "Turtle";         break;
+		case EQUALIZER_SCREENSAVER:            _ostream << "Equalizer";      break;
+		case TIMER_SCREENSAVER:                _ostream << "Timer";          break;
+		case RANDOM_SCREENSAVER:               _ostream << "Random";         break;
 	}
 	return _ostream;
 }

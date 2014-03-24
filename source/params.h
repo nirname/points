@@ -5,7 +5,7 @@
 namespace params {
 
 	GRID_TYPE grid_type = SQUARE_GRID;
-	SCREENSAVER_KIND screensaver = NO_SCREENSAVER;
+	SCREENSAVER_KIND screensaver = BLANK_SCREEN_SCREENSAVER;
 	bool greeting = true;
 	bool full_screen = false;
 
