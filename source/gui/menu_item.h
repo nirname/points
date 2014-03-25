@@ -8,8 +8,6 @@ void MenuItem::handle(unsigned char key, int special_key, Interface * interface,
 		}
 		if(handler != NULL) {
 			handler();
-		} else {
-			interface->application->set(next_mode);
 		}
 	}
 }

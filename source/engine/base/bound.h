@@ -18,10 +18,8 @@ namespace engine {
 		{}
 
 		bool contains(Point x) const {
-			//return initial <= x && x <= final;
 			return initial.row <= x.row && x.row <= final.row &&
 			initial.column <= x.column && x.column <= final.column;
-			//return false;
 		}
 
 		Bound & operator += (const Point & x) {

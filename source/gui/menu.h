@@ -26,12 +26,6 @@ MenuItems::iterator Menu::add_item(std::string _title, void(*_handler)()) {
 	return item;
 }
 
-MenuItems::iterator Menu::add_item(std::string _title, APPLICATION_MODE _application_mode) {
-	MenuItems::iterator item = add_item(_title);
-	item->next_mode = _application_mode;
-	return item;
-}
-
 void Menu::add_indent() {
 	items.back().indent += 1;
 }

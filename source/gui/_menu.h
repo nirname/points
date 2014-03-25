@@ -16,7 +16,7 @@ struct Menu {
 	MenuItems::iterator add_item(std::string item_title);
 	MenuItems::iterator add_item(std::string item_title, Menus::iterator menu);
 	MenuItems::iterator add_item(std::string item_title, void(*_handler)());
-	MenuItems::iterator add_item(std::string _title, APPLICATION_MODE _application_mode);
+	//MenuItems::iterator add_item(std::string _title, APPLICATION_MODE _application_mode);
 
 	void add_indent();
 
