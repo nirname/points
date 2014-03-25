@@ -15,7 +15,7 @@ void start_game(MenuItem * _menu_item) {
 }
 
 void start_screensaver(MenuItem * _menu_item) {
-	//screensaver.kind = ;
+	_menu_item->title >> screensaver.kind;
 	application.set(SCREENSAVER_MODE);
 }
 
@@ -50,7 +50,7 @@ namespace gui {
 
 		for(SCREENSAVER_KIND screensaver_kind = LIFE_SCREENSAVER; screensaver_kind <= TIMER_SCREENSAVER; screensaver_kind++) {
 			item = interface->menus["Screensavers"].add_item(lib::to_string(screensaver_kind), start_screensaver);
-			item->custom_display = display_option;
+			item->displayer = display_option;
 		}
 		interface->menus["Screensavers"].add_indent();
 		interface->menus["Screensavers"].add_item("Back", interface->menus.find("Main menu"));

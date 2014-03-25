@@ -1,16 +1,6 @@
 #pragma once
 
-// Parameters
-
-graphics::Screen screen(SCREEN_FORMAT_16x9);
-engine::Game game;
-engine::Application application;
-Interface interface(&application, gui::loader);
-Screensaver screensaver;
-
-int graphics::sleep = 50;
-
-namespace params {
+namespace options {
 
 	GRID_TYPE grid_type = SQUARE_GRID;
 
@@ -23,7 +13,7 @@ namespace params {
 
 }
 
-namespace params {
+namespace options {
 
 	int ort;
 	int titres_timeout = 5;
@@ -41,9 +31,7 @@ namespace params {
 
 }
 
-// Functions
-
-namespace params {
+namespace options {
 
 	// Saves config with current values
 	//
@@ -71,6 +59,8 @@ namespace params {
 		load_option(full_screen, config, "full_screen");
 		load_option(foreword, config, "greeting");
 		load_option(afterword, config, "afterword");
+		load_option(window_width, config, "window_width");
+		load_option(window_height, config, "window_height");
 	}
 
 	// Parses config file
@@ -97,15 +87,15 @@ namespace params {
 
 	void load() {
 
+		window_width = 960;
+		window_height = 540;
+		mode_string = "800x600:32";
 		std::cout << "\nLoading params\n" << std::endl;
 		if(!load_config()) {
 			save_config();
 		}
 
-		window_width = 800;
-		window_height = 600;
-		mode_string = "800x600:32";
-
+		print();
 		/*switch(window_size) {
 			case TINY:   window_width = 640,  window_height = 480;  mode_string = "640x480:32";   break;
 			case SMALL:  window_width = 800,  window_height = 600;  mode_string = "800x600:32";   break;
@@ -118,12 +108,12 @@ namespace params {
 	
 	void print() {
 
-	std::cout << "grid_type: "   << grid_type        << std::endl;
-	std::cout << "screensaver: " << screensaver_kind << std::endl;
-	std::cout << "foreword: "    << foreword         << std::endl;
-	std::cout << "afterword: "   << afterword        << std::endl;
-	std::cout << "full_screen: " << full_screen      << std::endl;
-	std::cout << "game_mode: "   << game_mode        << std::endl;
+		std::cout << "grid_type: "   << grid_type        << std::endl;
+		std::cout << "screensaver: " << screensaver_kind << std::endl;
+		std::cout << "foreword: "    << foreword         << std::endl;
+		std::cout << "afterword: "   << afterword        << std::endl;
+		std::cout << "full_screen: " << full_screen      << std::endl;
+		std::cout << "game_mode: "   << game_mode        << std::endl;
 
 	}
 

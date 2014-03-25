@@ -75,16 +75,16 @@ namespace graphics {
 		
 		int x_ort = width / screen.width;
 		int y_ort = length / screen.height;
-		params::ort = (x_ort < y_ort) ? x_ort : y_ort;
+		options::ort = (x_ort < y_ort) ? x_ort : y_ort;
 		
-		params::window_width = params::ort * screen.width;
-		params::window_height = params::ort * screen.height;
+		options::window_width = options::ort * screen.width;
+		options::window_height = options::ort * screen.height;
 
 		glViewport(
-			(GLint)((width - params::window_width) / 2),
-			(GLint)((length - params::window_height) / 2),
-			(GLsizei)(params::window_width),
-			(GLsizei)(params::window_height)
+			(GLint)((width - options::window_width) / 2),
+			(GLint)((length - options::window_height) / 2),
+			(GLsizei)(options::window_width),
+			(GLsizei)(options::window_height)
 		);
 
 	} // reshape

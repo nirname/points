@@ -6,7 +6,7 @@ namespace engine {
 	//
 	struct Game {
 
-		//GAME_KIND game_kind;
+		GAME_KIND kind;
 		bool paused;
 		bool loaded;
 
@@ -27,7 +27,7 @@ namespace engine {
 		//LevelMapping levels;
 
 		Game():
-			paused(false), loaded(false)
+			kind(NO_GAME), paused(false), loaded(false)
 		{}
 
 		template<typename Type> void load_attribute(Type & attribute, const YAML::Node & level, const char * key);
@@ -128,6 +128,7 @@ namespace engine {
 		/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 			i->second->next();
 		}*/
+		graphics::write(lib::to_string(kind));
 		glPushMatrix();
 			for(ViewMapping::Iterator view = views.begin(); view != views.end(); ++view) {
 				view->second->display();

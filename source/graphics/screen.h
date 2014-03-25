@@ -6,7 +6,7 @@ namespace graphics {
 	struct Screen {
 
 		float width, height; //, margin
-		Screen(float _width, float _height = SMALL_ASPECT):
+		Screen(float _width, float _height):
 			width(_width), height(_height)
 		{}
 

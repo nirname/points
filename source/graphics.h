@@ -6,6 +6,7 @@ const float FIGURE_OFFSET = (1.0 - FIGURE_SIZE) / 2.0;
 //const float FIGURE_BORDER = FIGURE_SIZE + FIGURE_OFFSET;
 
 const float DEG2RAD = 3.14159 / 180;
+int graphics::sleep = 50;
 
 #include "graphics/functions.h"
 

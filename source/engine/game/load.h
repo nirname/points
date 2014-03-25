@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 // Loads one property via mapping manager
 //

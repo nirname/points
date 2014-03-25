@@ -1,11 +1,6 @@
-#ifndef GLOBAL_H
-#define GLOBAL_H 1
+#pragma once
 
-// std headers
-#include "global_std.h"
-// external headers
-#include "global_ext.h"
-// own headers
-#include "global_own.h"
+#include "global_std.h" // std headers
+#include "global_ext.h" // external headers
+#include "global_own.h" // own headers
 
-#endif

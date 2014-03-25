@@ -16,7 +16,7 @@ namespace engine {
 		if(_mode == FOREWORD_MODE) {
 			//screen.set(160, 90);
 			// TODO: set to uploaded image size and set background to white
-			glutTimerFunc(params::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
+			glutTimerFunc(options::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
 		} else if(_mode == MENU_MODE) {
 			//screen.set(320, 240); // TODO: set to what you want
 			glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
@@ -98,9 +98,9 @@ namespace engine {
 
 	void screensaver_autoload(int timer) {
 		if(application.mode == MENU_MODE) {
-			if((time(NULL) - params::last_menu_activity_time) >= params::menu_timeout) {
+			if((time(NULL) - options::last_menu_activity_time) >= options::menu_timeout) {
 				std::cout << "auto: screensaver autoload" << std::endl;
-				screensaver.kind = params::screensaver_kind;
+				screensaver.kind = options::screensaver_kind;
 				application.set(SCREENSAVER_MODE);
 			} else {
 				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
@@ -109,7 +109,7 @@ namespace engine {
 	}
 	
 	void reset_last_activity_time() {
-		params::last_menu_activity_time = time(NULL);
+		options::last_menu_activity_time = time(NULL);
 	}
 
 }

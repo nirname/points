@@ -13,8 +13,8 @@ void MenuItem::handle(unsigned char key, int special_key, Interface * interface,
 }
 
 void MenuItem::display(int position) {
-	if(custom_display != NULL) {
-		custom_display(position, this);
+	if(displayer != NULL) {
+		displayer(position, this);
 	} else {
 		graphics::write(" * " + title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
 	}

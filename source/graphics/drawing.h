@@ -1,5 +1,4 @@
-#ifndef DRAWING_H
-#define DRAWING_H 1
+#pragma once
 
 namespace graphics {
 
@@ -14,8 +13,8 @@ namespace graphics {
 	// GLUT_BITMAP_HELVETICA_18
 	//
 	void write(std::string string, int x = 0, int y = 0, void * font = GLUT_BITMAP_9_BY_15) {
-		graphics::coordinates(0, params::window_width, 0, params::window_height);
-		glRasterPos2f(x, params::window_height - y - glutBitmapHeight(font));
+		graphics::coordinates(0, options::window_width, 0, options::window_height);
+		glRasterPos2f(x, options::window_height - y - glutBitmapHeight(font));
 		//glRasterPos2f(x, y);
 		//glWindowPos2f(x, y - glutBitmapHeight(font));
 		for(std::string::iterator i = string.begin(); i != string.end(); ++i) {
@@ -90,5 +89,3 @@ namespace graphics {
 	}
 
 }
-
-#endif

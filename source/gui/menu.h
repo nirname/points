@@ -26,6 +26,7 @@ MenuItems::iterator Menu::add_item(std::string _title, MenuItemHandler _handler)
 	return item;
 }
 
+// TODO: remove it
 void Menu::add_indent() {
 	items.back().indent += 1;
 }
@@ -52,6 +53,8 @@ void Menu::handle(unsigned char key, int special_key) {
 			current_item = --items.end();
 		} else if(special_key == GLUT_KEY_HOME) {
 			current_item = items.begin();
+		} else if(key == ESCAPE_KEY) {
+			(--items.end())->handle(ENTER_KEY, special_key, interface, this);
 		} else {
 			current_item->handle(key, special_key, interface, this);
 		}

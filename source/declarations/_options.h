@@ -1,14 +1,6 @@
 #pragma once
 
-extern graphics::Screen screen;
-extern engine::Game game;
-extern engine::Application application;
-extern Interface interface;
-extern Screensaver screensaver;
-
-// Public options that are available in 'config.yaml' file
-//
-namespace params {
+namespace options {
 
 	//extern Shape shape;
 	//extern Animation animation;
@@ -24,14 +16,10 @@ namespace params {
 
 }
 
-namespace params {
+namespace options {
 	extern time_t last_menu_activity_time;
 	extern int menu_timeout;
 	extern int titres_timeout;
-}
-
-// TODO: refactor it
-namespace params {
 
 	extern int greeting_timeout; // how long greeting is shown
 	extern int menu_timeout; // how long we watch the menu till screensaver starts
@@ -42,4 +30,17 @@ namespace params {
 	extern int window_height;
 
 	extern int ort;
+}
+
+namespace options {
+
+	bool save_config();
+	bool load_config();
+
+	template<typename Type> void load_option(Type &, const YAML::Node &, const char * key);
+	void load_options(const YAML::Node & config);
+	void load();
+
+	void print();
+
 }

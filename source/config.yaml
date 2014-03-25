@@ -1,7 +1,6 @@
-grid_type:
-full_screen: on
-game_mode: off
+full_screen: off
 screensaver: [Life, Queens]
+game_mode: off
 grid_type: square
 shape: rectangle
 animation: fade

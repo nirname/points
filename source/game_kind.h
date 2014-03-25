@@ -2,6 +2,8 @@
 
 enum GAME_KIND {
 
+	NO_GAME,
+
 	// Single player
 
 	SNAKE,
@@ -40,6 +42,7 @@ enum GAME_KIND {
 
 std::ostream & operator << (std::ostream & _ostream, const GAME_KIND _game_kind) {
 	switch(_game_kind) {
+		case NO_GAME: _ostream << "No game"; break;
 		case SNAKE: _ostream << "Snake"; break;
 		case SOKOBAN: _ostream << "Sokoban"; break;
 		case ATOMIX: _ostream << "Atomix"; break;
