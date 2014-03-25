@@ -4,7 +4,10 @@ namespace engine {
 
 	void screensaver_autoload(int);
 	void menu_autoload(int);
+	void reset_last_activity_time();
 
+	// TODO: refactor it
+	// Split it into functions
 	void Application::set(APPLICATION_MODE _mode) {
 		//glutPostRedisplay();
 		reset_last_activity_time(); // TODO: move to menu
@@ -40,25 +43,30 @@ namespace engine {
 		std::cout << ", special key: " << special_key;
 
 		if(key == CTRL_Q_KEY) {
-			quit();
+			std::cout << " -> quit" << std::endl;
+			exit(EXIT_SUCCESS);
 		}
 
 		switch(mode) {
-			//case LOADING_MODE:         loading_process(key); break;
-			case FOREWORD_MODE:       foreword_process(key); break;
+			case LOADING_MODE:         loading_process(key, special_key); break;
+			case FOREWORD_MODE:       foreword_process(key, special_key); break;
 			case MENU_MODE:               menu_process(key, special_key); break;
-			case SCREENSAVER_MODE: screensaver_process(key); break;
-			//case COUNTDOWN_MODE:     countdown_process(key); break;
-			case GAMEPLAY_MODE:       gameplay_process(key); break;
-			//case INFORMATION_MODE: information_process(key); break;
-			//case AFTERWORD_MODE:     afterword_process(key); break;
+			case SCREENSAVER_MODE: screensaver_process(key, special_key); break;
+			//case COUNTDOWN_MODE:     countdown_process(key, special_key); break;
+			case GAMEPLAY_MODE:       gameplay_process(key, special_key); break;
+			//case INFORMATION_MODE: information_process(key, special_key); break;
+			//case AFTERWORD_MODE:     afterword_process(key, special_key); break;
 		}
 
 		std::cout << std::endl;
 
 	}
 
-	void Application::foreword_process(unsigned char key) {
+	void Application::loading_process(unsigned char key, int special_key) {
+		// TODO: show a joke or something else
+	}
+
+	void Application::foreword_process(unsigned char key, int special_key) {
 		set(MENU_MODE);
 	}
 
@@ -67,7 +75,7 @@ namespace engine {
 		interface.handle(key, special_key);
 	}
 
-	void Application::gameplay_process(unsigned char key) {
+	void Application::gameplay_process(unsigned char key, int special_key) {
 		if(key == ESCAPE_KEY) {
 			set(MENU_MODE);
 		} else {
@@ -75,16 +83,11 @@ namespace engine {
 		}
 	}
 
-	void Application::screensaver_process(unsigned char key) {
+	void Application::screensaver_process(unsigned char key, int special_key) {
 		set(MENU_MODE);
 	}
 
-	// TODO: move to menu
-	// Reset menu activity value on user actions
-	void Application::reset_last_activity_time() {
-		params::last_menu_activity_time = time(NULL);
-	}
-
+	// Automatic functions
 
 	void menu_autoload(int timer) {
 		if(application.mode == FOREWORD_MODE) {
@@ -97,11 +100,16 @@ namespace engine {
 		if(application.mode == MENU_MODE) {
 			if((time(NULL) - params::last_menu_activity_time) >= params::menu_timeout) {
 				std::cout << "auto: screensaver autoload" << std::endl;
+				screensaver.kind = params::screensaver_kind;
 				application.set(SCREENSAVER_MODE);
 			} else {
 				glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
 			}
 		}
+	}
+	
+	void reset_last_activity_time() {
+		params::last_menu_activity_time = time(NULL);
 	}
 
 }

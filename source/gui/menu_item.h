@@ -7,7 +7,7 @@ void MenuItem::handle(unsigned char key, int special_key, Interface * interface,
 			interface->set_current_menu(next_menu);
 		}
 		if(handler != NULL) {
-			handler();
+			handler(this);
 		}
 	}
 }

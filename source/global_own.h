@@ -1,6 +1,7 @@
 #pragma once
 
 // constants
+
 #include "constants.h"
 #include "types.h"
 
@@ -12,9 +13,11 @@
 #include "grid_type.h"
 
 // declarations
+
 #include "declarations.h"
 
 // headers
+
 #include "directory.h"
 
 #include "mapping.h"
@@ -36,7 +39,9 @@
 #include "application.h"
 
 #include "controls.h"
-#include "variables.h"
 #include "display.h"
 
-#include "params.h"
+// global
+
+#include "options.h"
+

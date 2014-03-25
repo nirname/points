@@ -11,7 +11,6 @@ void operator >> (std::string value, SCREENSAVER_KIND & _screensaver_kind) {
 }
 
 void operator >> (const YAML::Node & option, SCREENSAVER_KIND & _screensaver_kind) {
-	std::cout << "QQQ";
 	if(option.IsScalar()) {
 		option.as<std::string>() >> _screensaver_kind;
 	} else if(option.IsSequence()) {

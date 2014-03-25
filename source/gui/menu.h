@@ -20,7 +20,7 @@ MenuItems::iterator Menu::add_item(std::string _title, Menus::iterator _next_men
 	return item;
 }
 
-MenuItems::iterator Menu::add_item(std::string _title, void(*_handler)()) {
+MenuItems::iterator Menu::add_item(std::string _title, MenuItemHandler _handler) {
 	MenuItems::iterator item = add_item(_title);
 	item->handler = _handler;
 	return item;
@@ -62,7 +62,11 @@ void Menu::display(std::string _title) {
 	graphics::write(_title);
 	if(valid()) {
 		int position = 2;
-		for(MenuItems::iterator item = items.begin(); item != items.end(); position += item->indent, ++item) {
+		for(
+			MenuItems::iterator item = items.begin();
+			item != items.end();
+			position += item->indent, ++item
+		) {
 			if(item == current_item) {
 				glPushAttrib(GL_CURRENT_BIT);
 					glColor3ub(BLUE);

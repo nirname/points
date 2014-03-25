@@ -1,16 +1,7 @@
 #pragma once
 
-struct MenuItem;
-struct Menu;
-struct Interface;
-
-typedef std::pair<std::string, Menu> MenuWithTitle;
-
-typedef std::list<MenuItem> MenuItems;
-typedef std::map<std::string, Menu> Menus;
-
-void quit();
-void display_option(int position, MenuItem * _menu_item);
+#include "gui/_classes.h"
+#include "gui/_functions.h"
 
 #include "gui/_menu_item.h"
 #include "gui/_menu.h"

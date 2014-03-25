@@ -6,7 +6,7 @@ struct MenuItem {
 	std::string title;
 	Menus::iterator next_menu;
 	APPLICATION_MODE next_mode;
-	void (*handler)();
+	MenuItemHandler handler;
 	void (*custom_display)(int, MenuItem *);
 
 	MenuItem(std::string _title = "", int _indent = 1) :

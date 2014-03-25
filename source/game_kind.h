@@ -38,7 +38,6 @@ enum GAME_KIND {
 
 };
 
-
 std::ostream & operator << (std::ostream & _ostream, const GAME_KIND _game_kind) {
 	switch(_game_kind) {
 		case SNAKE: _ostream << "Snake"; break;
@@ -72,4 +71,3 @@ std::ostream & operator << (std::ostream & _ostream, const GAME_KIND _game_kind)
 	}
 	return _ostream;
 }
-

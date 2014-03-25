@@ -106,9 +106,9 @@ namespace graphics {
 			color.green = options[1].as<positive>();
 			color.blue = options[2].as<positive>();
 		} else if (options.IsMap()) {
-			if(options["red"]) color.red = options["red"].as<positive>();
-			if(options["green"]) color.green = options["green"].as<positive>();
-			if(options["blue"]) color.blue = options["blue"].as<positive>();
+			if(options["red"]) { color.red = options["red"].as<positive>(); }
+			if(options["green"]) { color.green = options["green"].as<positive>(); }
+			if(options["blue"]) { color.blue = options["blue"].as<positive>(); }
 		} else {
 			throw WRONG_YAML_TYPE;
 		}

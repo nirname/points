@@ -2,27 +2,29 @@
 
 namespace Directory {
 
-	bool read(std::string directory, int type, std::list<std::string> * list) {
+	// `dirent` structure:
+	//
+	// d_type: DT_DIR - directory, DT_REG - regular file
+	// d_name: name of a directory or a file
+	// d_info
+	// d_reclen
+
+	// Reads directories or a files in `path`
+	// and fills in the specified list by names of the entries
+	//
+	bool read(std::string path, int type, std::list<std::string> * list) {
 		DIR * dir;
 		struct dirent * entry;
-		if((dir = opendir(directory.c_str())) != NULL) {
+		if((dir = opendir(path.c_str())) != NULL) {
 			while ((entry = readdir(dir)) != NULL) {
 				if (entry->d_type == type) {
-					list->push_back(std::string("hello"));
+					list->push_back(std::string(entry->d_name));
 				}
-				// DT_DIR - directory, DT_REG - regular file
-				/*if (entry->d_type == DT_REG && has_extension(entry->d_name, ".yaml")) {
-					std::cout << "File: " << std::ends;
-					printf("%s\n", entry->d_name);
-					//printf("%zu - %s [%d] %d\n", entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen );
-				}*/
 			}
 			closedir(dir);
 			return true;
 		} else {
-			/*std::cerr << "Could not open directory" << directory << std::endl;
-			perror("");*/
-			//return EXIT_FAILURE;
+			std::cerr << "Could not open '" << path << "'" << std::endl;
 			return false;
 		}
 	}
@@ -31,6 +33,8 @@ namespace Directory {
 
 namespace File {
 
+	// Checkes whether file has an extension or not
+	//
 	bool has_extension(const char * name, const char * extension)
 	{
 		size_t name_length = lib::strlen(name);
@@ -41,6 +45,10 @@ namespace File {
 				name + (name_length - extension_length) * sizeof(char),
 				extension
 			) == 0;
+	}
+	
+	bool has_extension(std::string name, std::string extension){
+		return has_extension(name.c_str(), extension.c_str());
 	}
 
 }

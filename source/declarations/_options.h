@@ -1,5 +1,11 @@
 #pragma once
 
+extern graphics::Screen screen;
+extern engine::Game game;
+extern engine::Application application;
+extern Interface interface;
+extern Screensaver screensaver;
+
 // Public options that are available in 'config.yaml' file
 //
 namespace params {
@@ -7,12 +13,14 @@ namespace params {
 	//extern Shape shape;
 	//extern Animation animation;
 	//extern SCREEN_FORMAT format;
-	extern GRID_TYPE grid_type;
 	//extern graphics::Color color;
-	extern Screensaver screensaver;
+
+	extern GRID_TYPE grid_type;
+	extern SCREENSAVER_KIND screensaver_kind;
 	extern bool greeting;
 	extern bool goodbuy;
 	extern bool full_screen;
+	extern bool game_mode;
 
 }
 

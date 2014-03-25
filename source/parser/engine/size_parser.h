@@ -35,4 +35,3 @@ void operator >> (const YAML::Node & options, Size & size) {
 		std::cout << "Any size dimension should be greater than 0" << std::endl;
 	}
 }
-

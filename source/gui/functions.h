@@ -1,8 +1,7 @@
 #pragma once
 
-void quit() {
-	std::cout << " -> quit";
-	std::cout << std::endl;
+void quit(MenuItem * menu_item) {
+	std::cout << " -> quit" << std::endl;
 	exit(EXIT_SUCCESS);
 }
 
@@ -10,12 +9,14 @@ void display_option(int position, MenuItem * _menu_item) {
 	graphics::write(" (option) * " + _menu_item->title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
 }
 
-void start_game() {
+void start_game(MenuItem * _menu_item) {
 	//interface->menus["Games"].add_item(lib::to_string(game_kind), GAMEPLAY_MODE);
+	//application.set(GAMEPLAY_MODE);
 }
 
-void start_screensaver() {
-	//item = interface->menus["Screensavers"].add_item(lib::to_string(screensaver_kind), SCREENSAVER_MODE);
+void start_screensaver(MenuItem * _menu_item) {
+	//screensaver.kind = ;
+	application.set(SCREENSAVER_MODE);
 }
 
 namespace gui {

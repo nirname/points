@@ -25,4 +25,3 @@ void operator >> (const YAML::Node & options, Point & point) {
 		std::cout << "Point dimension should be an integer " << std::endl;
 	}
 }
-

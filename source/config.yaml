@@ -1,11 +1,12 @@
+grid_type:
 full_screen: on
+game_mode: off
 screensaver: [Life, Queens]
 grid_type: square
 shape: rectangle
 animation: fade
 color: blue
-greeting: on
-credits: on
+foreword: on
+afterword: on
 format: 4x3
 height: 40
-change_resolution: off
