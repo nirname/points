@@ -4,7 +4,7 @@ bool Menu::valid() {
 	return !items.empty() && current_item != items.end();
 }
 
-MenuItems::iterator Menu::add_item(std::string _title) {
+MenuItems::iterator Menu::add_item(const std::string & _title) {
 	bool first = items.empty();
 	MenuItems::iterator item = items.insert(items.end(), MenuItem(_title));
 	if(first) {
@@ -14,21 +14,16 @@ MenuItems::iterator Menu::add_item(std::string _title) {
 	return item;
 }
 
-MenuItems::iterator Menu::add_item(std::string _title, Menus::iterator _next_menu) {
+MenuItems::iterator Menu::add_item(const std::string & _title, Menus::iterator _next_menu) {
 	MenuItems::iterator item = add_item(_title);
 	item->next_menu = _next_menu;
 	return item;
 }
 
-MenuItems::iterator Menu::add_item(std::string _title, MenuItemHandler _handler) {
+MenuItems::iterator Menu::add_item(const std::string & _title, MenuItemHandler _handler) {
 	MenuItems::iterator item = add_item(_title);
 	item->handler = _handler;
 	return item;
-}
-
-// TODO: remove it
-void Menu::add_indent() {
-	items.back().indent += 1;
 }
 
 void Menu::set_current_item(MenuItems::iterator item) {
@@ -42,7 +37,7 @@ void Menu::handle(unsigned char key, int special_key) {
 		if(special_key == GLUT_KEY_DOWN) {
 			current_item++;
 			if(current_item == items.end()) {
-				current_item = items.begin(); // current_item ++
+				current_item++;
 			}
 		} else if(special_key == GLUT_KEY_UP) {
 			current_item--;
@@ -65,10 +60,11 @@ void Menu::display(std::string _title) {
 	graphics::write(_title);
 	if(valid()) {
 		int position = 2;
+		MenuItems::iterator last = --items.end();
 		for(
 			MenuItems::iterator item = items.begin();
-			item != items.end();
-			position += item->indent, ++item
+			item != last;
+			++position, ++item
 		) {
 			if(item == current_item) {
 				glPushAttrib(GL_CURRENT_BIT);
@@ -78,6 +74,15 @@ void Menu::display(std::string _title) {
 			} else {
 				item->display(position);
 			}
+		}
+		++position;
+		if(last == current_item) {
+		glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(BLUE);
+			last->display(position);
+		glPopAttrib();
+		} else {
+			last->display(position);
 		}
 	}
 }

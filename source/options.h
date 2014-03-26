@@ -54,9 +54,10 @@ namespace options {
 	// Loads all options
 	//
 	void load_options(const YAML::Node & config) {
-		//load_option(grid_type, config, "grid_type");
+		load_option(grid_type, config, "grid_type");
 		load_option(screensaver_kind, config, "screensaver");
 		load_option(full_screen, config, "full_screen");
+		load_option(game_mode, config, "game_mode");
 		load_option(foreword, config, "greeting");
 		load_option(afterword, config, "afterword");
 		load_option(window_width, config, "window_width");

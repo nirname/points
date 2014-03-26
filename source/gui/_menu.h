@@ -13,9 +13,9 @@ struct Menu {
 
 	bool valid();
 
-	MenuItems::iterator add_item(std::string item_title);
-	MenuItems::iterator add_item(std::string item_title, Menus::iterator menu);
-	MenuItems::iterator add_item(std::string item_title, MenuItemHandler handler);
+	MenuItems::iterator add_item(const std::string & _title);
+	MenuItems::iterator add_item(const std::string & _title, Menus::iterator _next_menu);
+	MenuItems::iterator add_item(const std::string & _title, MenuItemHandler _handler);
 	//MenuItems::iterator add_item(std::string _title, APPLICATION_MODE _application_mode);
 
 	void add_indent();

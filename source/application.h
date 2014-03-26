@@ -10,7 +10,6 @@ namespace engine {
 	// Split it into functions
 	void Application::set(APPLICATION_MODE _mode) {
 		//glutPostRedisplay();
-		reset_last_activity_time(); // TODO: move to menu
 		APPLICATION_MODE previous_mode = mode;
 		mode = LOADING_MODE;
 		if(_mode == FOREWORD_MODE) {
@@ -19,6 +18,7 @@ namespace engine {
 			glutTimerFunc(options::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
 		} else if(_mode == MENU_MODE) {
 			//screen.set(320, 240); // TODO: set to what you want
+			reset_last_activity_time(); // TODO: move to menu
 			glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
 			if(game.loaded) {
 				game.pause(); // TODO: delete game here

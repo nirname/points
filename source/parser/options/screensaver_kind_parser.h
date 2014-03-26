@@ -1,10 +1,12 @@
 #pragma once
 
+// TODO: remove this one?
 void operator >> (std::string value, SCREENSAVER_KIND & _screensaver_kind) {
 	SCREENSAVER_KIND result = NO_SCREENSAVER;
-	for(SCREENSAVER_KIND k = NO_SCREENSAVER; k <= TIMER_SCREENSAVER; k++) {
-		if(value == lib::to_string(k)) {
-			result = k; break;
+	for(SCREENSAVER_KIND iterator = NO_SCREENSAVER; iterator <= TIMER_SCREENSAVER; iterator++) {
+		if(value == lib::to_string(iterator)) {
+			result = iterator;
+			break;
 		}
 	}
 	_screensaver_kind = SCREENSAVER_KIND(_screensaver_kind | result);
