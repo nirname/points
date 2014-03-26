@@ -1,6 +1,13 @@
 
 namespace engine {
 
+	void screensaver_autoload(int);
+	void menu_autoload(int);
+	void auto_exit(int);
+
+	void reset_last_activity_time();
+	int menu_time_left();
+
 	struct Application {
 
 		APPLICATION_MODE mode;

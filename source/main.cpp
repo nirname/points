@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 
 	lib::stage(
 		"STARTING\n"
-		"press `ctrl-q` to quit immediatly\n"
+		"press `ctrl-q` to quit immediatly"
 	);
 
 	// main loop

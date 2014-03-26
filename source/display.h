@@ -29,10 +29,22 @@ namespace graphics {
 		glPopAttrib();*/
 
 		switch(application.mode) {
-			case MENU_MODE: interface.display(); break;
-			case GAMEPLAY_MODE: game.display(); break;
-			case SCREENSAVER_MODE: screensaver.display(); break;
-			default: write(lib::to_string(application.mode)); break;
+			case MENU_MODE: {
+				interface.display();
+				break;
+			}
+			case GAMEPLAY_MODE: {
+				game.display();
+				break;
+			}
+			case SCREENSAVER_MODE: { 
+				screensaver.display();
+				break;
+			}
+			default: {
+				write(lib::to_string(application.mode));
+				break;
+			}
 		}
 
 		glFlush();

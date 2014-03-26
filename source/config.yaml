@@ -13,6 +13,6 @@ color: blue
 shape: rectangle
 
 foreword_timeout: 5
-menu_timeout: 60
-screensaver_timeout: 20
+menu_timeout: 30
+screensaver_timeout: 30
 afterword_timeout: 5

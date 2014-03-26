@@ -18,7 +18,9 @@ Menus::iterator Interface::add_menu(std::string menu_title) {
 void Interface::set_current_menu(Menus::iterator menu) {
 	if(menu != menus.end()) {
 		current_menu = menu;
-		current_menu->second.set_current_item(current_menu->second.items.begin());
+		if(current_menu->second.current_item == --(current_menu->second.items.end())) {
+			current_menu->second.set_current_item(current_menu->second.items.begin());
+		}
 	}
 }
 
@@ -32,11 +34,14 @@ void Interface::display() {
 	if(valid()) {
 		current_menu->second.display(current_menu->first);
 	}
+	graphics::write(lib::to_string(engine::menu_time_left()), 200, 0);
 }
 
 void Interface::load() {
+	std::cout << "Loading interface: " << std::ends;
 	if(loader != NULL) {
 		loader(this);
 	}
+	std::cout << "Yes" << std::endl;
 }
 
