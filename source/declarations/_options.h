@@ -23,7 +23,8 @@ namespace options {
 	//extern SCREEN_FORMAT format;
 	//extern Shape shape;
 	//extern Animation animation;
-	//extern graphics::Color color;
+	extern graphics::Color selection_color;
+	extern graphics::Color clear_color;
 
 }
 

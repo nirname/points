@@ -80,7 +80,7 @@ namespace engine {
 		/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 			i->second->next();
 		}*/
-		graphics::write(lib::to_string(kind));
+		//graphics::write(lib::to_string(kind));
 		glPushMatrix();
 			for(ViewMapping::Iterator view = views.begin(); view != views.end(); ++view) {
 				view->second->display();

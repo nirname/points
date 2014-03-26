@@ -2,12 +2,7 @@
 
 void quit(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
-		if(options::afterword) {
-			application.set(AFTERWORD_MODE);
-		} else {
-			std::cout << " -> quit" << std::endl;
-			exit(EXIT_SUCCESS);
-		}
+		application.quit();
 	}
 }
 
@@ -31,6 +26,13 @@ void display_screensaver_option(int position, MenuItem * _menu_item) {
 
 	graphics::write(title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
 
+}
+
+void quick_start(unsigned char key, int special_key, MenuItem * _menu_item) {
+	std::cout << " -> quick start";
+	if(key == ENTER_KEY) {
+		application.set(GAMEPLAY_MODE);
+	}
 }
 
 void start_game(unsigned char key, int special_key, MenuItem * _menu_item) {
@@ -85,6 +87,7 @@ void loader(Interface * interface) {
 	//interface->add_menu("Extras");
 	interface->add_menu("Screensavers");
 
+	interface->menus["Main menu"].add_item("Play", quick_start);
 	interface->menus["Main menu"].add_item("Start", interface->menus.find("Games"));
 	//interface->menus["Main menu"].add_item("Extras", interface->menus.find("Extras"));
 	interface->menus["Main menu"].add_item("Screensavers", interface->menus.find("Screensavers"));

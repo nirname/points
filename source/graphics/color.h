@@ -3,8 +3,8 @@
 
 // simple colors
 #define WHITE 255, 255, 255
-#define BLACK 0, 0, 0
 #define GRAY 127, 127, 127
+#define BLACK 0, 0, 0
 
 #define BLUE 0, 0, 255
 #define YELLOW 255, 255, 0
@@ -32,36 +32,6 @@
 //void glutSetColor(int cell, GLfloat red, GLfloat green, GLfloat blue);
 
 namespace graphics {
-
-	/*enum COLOR {
-		BLACK_COLOR = 10,
-		RED_COLOR,
-		GREEN_COLOR,
-		BLUE_COLOR,
-		YELLOW_COLOR,
-		MAGENTA_COLOR,
-		CYAN_COLOR,
-		WHITE_COLOR
-	};*/
-
-	/*void load_palette() {
-		glutSetColor((int)BLACK_COLOR,   0.0, 0.0, 0.0);
-		glutSetColor((int)RED_COLOR,     1.0, 0.0, 0.0);
-		glutSetColor(12,   0.0, 1.0, 0.0);
-		glutSetColor((int)BLUE_COLOR,    0.0, 0.0, 1.0);
-		glutSetColor((int)YELLOW_COLOR,  1.0, 1.0, 0.0);
-		glutSetColor((int)MAGENTA_COLOR, 1.0, 0.0, 1.0);
-		glutSetColor((int)CYAN_COLOR,    0.0, 1.0, 1.0);
-		glutSetColor((int)WHITE_COLOR,   1.0, 1.0, 1.0);
-	}*/
-
-	/*void use_color(COLOR color) {
-		glColor3f(
-			glutGetColor((int)color, GLUT_RED),
-			glutGetColor((int)color, GLUT_GREEN),
-			glutGetColor((int)color, GLUT_BLUE)
-		);
-	}*/
 
 	struct Color
 	{
@@ -109,8 +79,26 @@ namespace graphics {
 			if(options["red"]) { color.red = options["red"].as<positive>(); }
 			if(options["green"]) { color.green = options["green"].as<positive>(); }
 			if(options["blue"]) { color.blue = options["blue"].as<positive>(); }
-		} else {
-			throw WRONG_YAML_TYPE;
+		} else if (options.IsScalar()) {
+			std::string color_name = options.as<std::string>();
+			if ( color_name == "BLACK" ) color.set( BLACK );
+			else if ( color_name == "WHITE" ) color.set( WHITE );
+			else if ( color_name == "GRAY" ) color.set( GRAY );
+			else if ( color_name == "BLUE" ) color.set( BLUE );
+			else if ( color_name == "YELLOW" ) color.set( YELLOW );
+			else if ( color_name == "GREEN" ) color.set( GREEN );
+			else if ( color_name == "RED" ) color.set( RED );
+			else if ( color_name == "VIOLET" ) color.set( VIOLET );
+			else if ( color_name == "AZURE" ) color.set( AZURE );
+			else if ( color_name == "ORANGE" ) color.set( ORANGE );
+			else if ( color_name == "SOFT_BLUE" ) color.set( SOFT_BLUE );
+			else if ( color_name == "SOFT_YELLOW" ) color.set( SOFT_YELLOW );
+			else if ( color_name == "SOFT_GREEN" ) color.set( SOFT_GREEN );
+			else if ( color_name == "SOFT_RED" ) color.set( SOFT_RED );
+			else if ( color_name == "SOFT_VIOLET" ) color.set( SOFT_VIOLET );
+			else if ( color_name == "LIGHT_GRAY" ) color.set( LIGHT_GRAY );
+			else if ( color_name == "DARK_VIOLET" ) color.set( DARK_VIOLET );
+			else if ( color_name == "DARK_GRAY" ) color.set( DARK_GRAY );
 		}
 	}
 

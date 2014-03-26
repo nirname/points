@@ -1,5 +1,6 @@
 #pragma once
 
+// TODO: move this file
 namespace graphics {
 
 	void line(int x1, int y1, int x2, int y2) {
@@ -24,6 +25,16 @@ namespace graphics {
 				line(_bound.initial.column, y, _bound.final.column, y);
 			}
 		}
+	}
+	
+	// TODO: remove
+	void border(const engine::Size & _size) {
+		glBegin(GL_LINE_LOOP);
+			glVertex2f(0          , 0          );
+			glVertex2f(_size.width, 0          );
+			glVertex2f(_size.width, _size.height);
+			glVertex2f(0          , _size.height);
+		glEnd();
 	}
 
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+// TODO: refactor this
 template<typename Type> class Mapping {
 
 	public:

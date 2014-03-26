@@ -25,7 +25,13 @@ namespace graphics {
 		// creating game
 		// testing inside display function
 
-		glClearColor(BLACK, 0.5f);
+		/*glClearColor(
+			options::clear_color.red,
+			options::clear_color.green,
+			options::clear_color.blue,
+			0.5f
+		);*/
+		glClearColor(WHITE, 0.5f);
 		glClearDepth(1.0f);
 
 		glEnable(GL_BLEND);

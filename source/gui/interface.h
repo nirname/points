@@ -34,7 +34,9 @@ void Interface::display() {
 	if(valid()) {
 		current_menu->second.display(current_menu->first);
 	}
-	graphics::write(lib::to_string(engine::menu_time_left()), 200, 0);
+	if(options::screensaver_kind != NO_SCREENSAVER) {
+		graphics::write(lib::to_string(engine::menu_time_left()), 200, 0);
+	}
 }
 
 void Interface::load() {

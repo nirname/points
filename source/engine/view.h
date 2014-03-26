@@ -45,6 +45,8 @@ namespace engine {
 
 		void display();
 
+		//void draw_optional();
+
 		void draw_background(const Bound &);
 		void draw_cells(const Bound &);
 		void draw_grid(const Bound &);
@@ -82,12 +84,12 @@ namespace engine {
 				glTranslatef(position.column, position.row, 0);
 				draw_background(view_bound);
 				draw_cells(display_bound);
-				draw_border();
 				glPushMatrix();
 					glTranslatef(shift.column, shift.row, 0);
 					draw_objects(real_bound);
 				glPopMatrix();
 				draw_grid(display_bound);
+				draw_border();
 			glPopMatrix();
 
 		}
@@ -95,27 +97,20 @@ namespace engine {
 
 	void View::draw_grid(const Bound & _bound) {
 		if(grid_color != NULL) {
-			grid_color->use();
-		} else {
-			glColor3ub(BLACK);
+			glPushAttrib(GL_CURRENT_BIT);
+				grid_color->use();
+				graphics::grid(_bound);
+			glPopAttrib();
 		}
-		graphics::grid(_bound);
 	}
 
 	void View::draw_border() {
-		glPushAttrib(GL_CURRENT_BIT);
-			if(border_color != NULL) {
+		if(border_color != NULL) {
+			glPushAttrib(GL_CURRENT_BIT);
 				border_color->use();
-			} else {
-				glColor3ub(VIOLET);
-			}
-			glBegin(GL_LINE_LOOP);
-				glVertex2f(0         , 0          );
-				glVertex2f(size.width, 0          );
-				glVertex2f(size.width, size.height);
-				glVertex2f(0         , size.height);
-			glEnd();
-		glPopAttrib();
+				graphics::border(size);
+			glPopAttrib();
+		}
 	}
 
 	void View::draw_cells(const Bound & bound) {

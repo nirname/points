@@ -16,11 +16,13 @@ void operator >> (std::string value, SCREENSAVER_KIND & _screensaver_kind) {
 }
 
 void operator >> (const YAML::Node & option, SCREENSAVER_KIND & _screensaver_kind) {
+	SCREENSAVER_KIND loaded_value = NO_SCREENSAVER;
 	if(option.IsScalar()) {
-		option.as<std::string>() >> _screensaver_kind;
+		option.as<std::string>() >> loaded_value;
 	} else if(option.IsSequence()) {
 		for(YAML::const_iterator iterator = option.begin(); iterator != option.end(); ++iterator) {
-			(iterator->as<std::string>()) >> _screensaver_kind;
+			(iterator->as<std::string>()) >> loaded_value;
 		}
 	}
+	_screensaver_kind = loaded_value;
 }

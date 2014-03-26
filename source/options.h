@@ -19,6 +19,9 @@ namespace options {
 	int screensaver_timeout = 30;
 	int afterword_timeout = 5;
 
+	graphics::Color selection_color = Color(BLUE);
+	//graphics::Color clear_color = Color(BLACK);
+
 }
 
 namespace options {
@@ -54,22 +57,25 @@ namespace options {
 	void load_options(const YAML::Node & config) {
 
 		load_option(grid_type, config, "grid_type");
-		
+
 		load_option(screensaver_kind, config, "screensaver");
 		
-		load_option(foreword, config, "greeting");
+		load_option(foreword, config, "foreword");
 		load_option(afterword, config, "afterword");
 		load_option(full_screen, config, "full_screen");
 		load_option(game_mode, config, "game_mode");
-		
+
 		load_option(window_width, config, "window_width");
 		load_option(window_height, config, "window_height");
-		
+
 		load_option(foreword_timeout, config, "foreword_timeout");
 		load_option(menu_timeout, config, "menu_timeout");
 		load_option(screensaver_timeout, config, "screensaver_timeout");
 		load_option(afterword_timeout, config, "afterword_timeout");
-		
+
+		load_option(selection_color, config, "selection_color");
+		//load_option(clear_color, config, "clear_color");
+
 	}
 
 	// Parses config file

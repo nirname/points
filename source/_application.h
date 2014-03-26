@@ -18,6 +18,9 @@ namespace engine {
 
 		void set(APPLICATION_MODE _mode);
 
+		void start();
+		void quit();
+
 		void handle(unsigned char, int);
 
 		void     loading_process(unsigned char, int);

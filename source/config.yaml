@@ -1,18 +1,21 @@
 grid_type: Square
-screensaver: Random
+screensaver: No
 full_screen: on
 game_mode: off
-foreword: on
-afterword: on
+
+foreword: off
+afterword: off
 window_width: 960
 window_height: 540
 
 shape: rectangle
 animation: fade
 color: blue
+selection_color: SOFT_BLUE
 shape: rectangle
 
 foreword_timeout: 5
-menu_timeout: 30
-screensaver_timeout: 30
+menu_timeout: 3
+screensaver_timeout: 3
 afterword_timeout: 5
+

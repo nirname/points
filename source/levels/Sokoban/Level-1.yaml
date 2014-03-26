@@ -2,10 +2,6 @@ game:
   kind: sokoban
   screen: [10, 10]
 
-colors:
-  sky: [0, 156, 255]
-  viol: [219, 103, 217]
-
 fields:
   field:
     size: [10, 10]
@@ -15,16 +11,22 @@ fields:
       2: [6, 7]
       3: [5, 3]
 
+colors:
+  dark_blue: [32, 74, 735]
+  sky: [50, 180, 255]
+
 views:
   view:
     field: field
+    background_color: sky
+    cells_color: soft_blue
 
 object_kinds:
   sokoban:
-    color: sky
-    shape: star
+    color: dark_blue
+    shape: diamond
   box:
-    color: viol
+    color: dark_blue
 
 interactions:
   sokoban:

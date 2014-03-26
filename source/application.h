@@ -5,7 +5,7 @@ namespace engine {
 	void Application::set(APPLICATION_MODE _mode) {
 		APPLICATION_MODE previous_mode = mode;
 		mode = LOADING_MODE;
-		
+		screen.set(SCREEN_FORMAT_16x9); // TODO: remove
 		switch(_mode) {
 			case FOREWORD_MODE: {
 				glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
@@ -20,14 +20,15 @@ namespace engine {
 				break;
 			}
 			case GAMEPLAY_MODE: {
+				screen.set(10, 10);
 				if(game.loaded) {
 					game.resume();
 				} else {
 					if(!game.load(NULL)) {
-						mode = previous_mode;
+						_mode = previous_mode;
 					}
 				}
-				return;
+				break;
 			}
 			case INFORMATION_MODE: {
 				if(!game.paused) {
@@ -99,6 +100,23 @@ namespace engine {
 		exit(EXIT_SUCCESS);
 	}
 
+	void Application::start() {
+		if(options::foreword) {
+			set(FOREWORD_MODE);
+		} else {
+			set(MENU_MODE);
+		}
+	}
+	
+	void Application::quit() {
+		if(options::afterword) {
+			set(AFTERWORD_MODE);
+		} else {
+			std::cout << " -> quit" << std::endl;
+			exit(EXIT_SUCCESS);
+		}
+	}
+
 	// Automatic functions
 
 	void menu_autoload(int timer) {
@@ -118,13 +136,12 @@ namespace engine {
 
 	void screensaver_autoload(int timer) {
 		if(application.mode == MENU_MODE) {
-			if(menu_time_left() == 0) {
+			if(menu_time_left() <= 0) {
 				std::cout << "auto: screensaver autoload" << std::endl;
 				screensaver.kind = options::screensaver_kind;
 				application.set(SCREENSAVER_MODE);
-			} else {
-				glutTimerFunc(options::menu_timeout * 1000, screensaver_autoload, 0);
 			}
+			glutTimerFunc(options::menu_timeout * 1000, screensaver_autoload, 0);
 		}
 	}
 	

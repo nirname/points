@@ -39,7 +39,7 @@ namespace graphics {
 	void square() {
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);
-			//glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
+			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
 			glRectf(-0.5, -0.5, 0.5, 0.5);
 		glPopMatrix();
 	}
@@ -58,7 +58,7 @@ namespace graphics {
 		}
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);
-			//glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
+			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
 			glRotatef(90, 0, 0, 1);
 			for(int j = 0; j < loops_count; j++) {
 				if(use_splitter) {

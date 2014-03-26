@@ -68,7 +68,7 @@ void Menu::display(std::string _title) {
 		) {
 			if(item == current_item) {
 				glPushAttrib(GL_CURRENT_BIT);
-					glColor3ub(BLUE);
+					options::selection_color.use();
 					item->display(position);
 				glPopAttrib();
 			} else {
@@ -78,7 +78,7 @@ void Menu::display(std::string _title) {
 		++position;
 		if(last == current_item) {
 		glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(BLUE);
+			options::selection_color.use();
 			last->display(position);
 		glPopAttrib();
 		} else {

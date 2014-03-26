@@ -17,10 +17,9 @@ int main(int argc, char * argv[])
 	lib::stage("LOADING");
 
 	application.set(LOADING_MODE);
-	// Loading fonts
-	interface.load(); // Loading interface
-
-	application.set(FOREWORD_MODE);
+	// TODO: loading fonts here
+	interface.load();
+	application.start();
 
 	lib::stage(
 		"STARTING\n"
