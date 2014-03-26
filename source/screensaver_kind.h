@@ -10,7 +10,7 @@ enum SCREENSAVER_KIND {
 	TURTLE_SCREENSAVER               = 0x20,
 	EQUALIZER_SCREENSAVER            = 0x40,
 	TIMER_SCREENSAVER                = 0x80,
-	RANDOM_SCREENSAVER               = 0xAA
+	RANDOM_SCREENSAVER               = 0xFF
 };
 
 SCREENSAVER_KIND & operator++(SCREENSAVER_KIND & _link, int) {
@@ -32,15 +32,16 @@ std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND & _s
 		case TIMER_SCREENSAVER:                _ostream << "Timer";          break;
 		case RANDOM_SCREENSAVER:               _ostream << "Random";         break;
 		default: {
-			_ostream << "Custom";
-			/*_ostream << "Custom(";
+			//_ostream << "Custom";
+			_ostream << "Custom(";
 				//YAML::Node node;
 				for(SCREENSAVER_KIND k = LIFE_SCREENSAVER; k <= TIMER_SCREENSAVER; k++) {
 					if(_screensaver_kind & k) {
+						_ostream << " " << k << " ";
 						//node.push_back << lib::to_string(k);
 					}
 				}
-			_ostream << ")";*/
+			_ostream << ")";
 			break;
 		}
 	}

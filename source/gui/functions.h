@@ -1,22 +1,44 @@
 #pragma once
 
-void quit(MenuItem * menu_item) {
+void quit(unsigned char key, int special_key, MenuItem * menu_item) {
 	std::cout << " -> quit" << std::endl;
 	exit(EXIT_SUCCESS);
 }
 
-void display_option(int position, MenuItem * _menu_item) {
-	graphics::write(" * " + _menu_item->title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
+void display_screensaver_option(int position, MenuItem * _menu_item) {
+
+	SCREENSAVER_KIND _screensaver_kind = NO_SCREENSAVER;
+	_menu_item->title >> _screensaver_kind;
+
+	std::string title = std::string(" * ") + _menu_item->title;
+	title.resize(25, ' ');
+
+	if(_screensaver_kind & options::screensaver_kind) {
+		title += "[   ][ON]";
+	} else {
+		title += "[OFF][  ]";
+	}
+
+	graphics::write(title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
+
 }
 
-void start_game(MenuItem * _menu_item) {
+void start_game(unsigned char key, int special_key, MenuItem * _menu_item) {
 	//interface->menus["Games"].add_item(lib::to_string(game_kind), GAMEPLAY_MODE);
 	//application.set(GAMEPLAY_MODE);
 }
 
-void start_screensaver(MenuItem * _menu_item) {
-	_menu_item->title >> screensaver.kind;
-	application.set(SCREENSAVER_MODE);
+void start_screensaver(unsigned char key, int special_key, MenuItem * _menu_item) {
+	SCREENSAVER_KIND _screensaver_kind = NO_SCREENSAVER;
+	_menu_item->title >> _screensaver_kind;
+	if(key == ENTER_KEY) {
+		screensaver.kind = _screensaver_kind;
+		application.set(SCREENSAVER_MODE);
+	} else if(special_key == GLUT_KEY_LEFT) {
+		options::screensaver_kind = SCREENSAVER_KIND(options::screensaver_kind & ~_screensaver_kind);
+	} else if(special_key == GLUT_KEY_RIGHT) {
+		options::screensaver_kind = SCREENSAVER_KIND(options::screensaver_kind | _screensaver_kind);
+	}
 }
 
 void loader(Interface * interface) {
@@ -45,7 +67,7 @@ void loader(Interface * interface) {
 
 	for(SCREENSAVER_KIND screensaver_kind = LIFE_SCREENSAVER; screensaver_kind <= TIMER_SCREENSAVER; screensaver_kind++) {
 		item = interface->menus["Screensavers"].add_item(lib::to_string(screensaver_kind), start_screensaver);
-		item->displayer = display_option;
+		item->displayer = display_screensaver_option;
 	}
 	interface->menus["Screensavers"].add_item("Back", interface->menus.find("Main menu"));
 

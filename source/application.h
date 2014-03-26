@@ -15,7 +15,7 @@ namespace engine {
 		if(_mode == FOREWORD_MODE) {
 			//screen.set(160, 90);
 			// TODO: set to uploaded image size and set background to white
-			glutTimerFunc(options::titres_timeout * 1000, engine::menu_autoload, 0); // TODO: move it to opening
+			glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
 		} else if(_mode == MENU_MODE) {
 			//screen.set(320, 240); // TODO: set to what you want
 			reset_last_activity_time(); // TODO: move to menu

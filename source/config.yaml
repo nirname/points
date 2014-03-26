@@ -1,11 +1,18 @@
-full_screen: off
-screensaver: [Life, Queens]
+grid_type: Square
+screensaver: [Random]
+full_screen: on
 game_mode: off
-grid_type: square
+foreword: on
+afterword: on
+window_width: 960
+window_height: 540
+
 shape: rectangle
 animation: fade
 color: blue
-foreword: on
-afterword: on
-format: 4x3
-height: 40
+shape: rectangle
+
+foreword_timeout: 5
+menu_timeout: 5
+screensaver_timeout: 5
+afterword_timeout: 5

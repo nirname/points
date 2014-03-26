@@ -17,7 +17,7 @@ namespace lib {
 	}
 
 	void stage(const char * information) {
-		std::cout << "\n\n" << information << std::endl;
+		std::cout << "\n" << information << "\n" << std::endl;
 	}
 	
 	std::string application_path() {

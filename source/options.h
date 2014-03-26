@@ -4,30 +4,28 @@ namespace options {
 
 	GRID_TYPE grid_type = SQUARE_GRID;
 
-	SCREENSAVER_KIND screensaver_kind;
+	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
 
 	bool foreword = true;
 	bool afterword = true;
 	bool full_screen = false;
 	bool game_mode = false;
+	
+	int window_width = 960;
+	int window_height = 540;
+
+	int foreword_timeout = 5;
+	int menu_timeout = 30;
+	int screensaver_timeout = 30;
+	int afterword_timeout = 5;
 
 }
 
 namespace options {
 
 	int ort;
-	int titres_timeout = 5;
 	time_t last_menu_activity_time = clock();
-
-	// Screensaver starts after the specified time at seconds
-	int menu_timeout = 30;
-
-	int window_width = 0;
-	int window_height = 0;
-	const char * mode_string;
-
-	//enum WINDOW_SIZE { TINY, SMALL, MIDDLE, LARGE };
-	//WINDOW_SIZE window_size = SMALL;
+	const char * mode_string = "800x600:32";
 
 }
 
@@ -54,14 +52,24 @@ namespace options {
 	// Loads all options
 	//
 	void load_options(const YAML::Node & config) {
+
 		load_option(grid_type, config, "grid_type");
+		
 		load_option(screensaver_kind, config, "screensaver");
-		load_option(full_screen, config, "full_screen");
-		load_option(game_mode, config, "game_mode");
+		
 		load_option(foreword, config, "greeting");
 		load_option(afterword, config, "afterword");
+		load_option(full_screen, config, "full_screen");
+		load_option(game_mode, config, "game_mode");
+		
 		load_option(window_width, config, "window_width");
 		load_option(window_height, config, "window_height");
+		
+		load_option(foreword_timeout, config, "foreword_timeout");
+		load_option(menu_timeout, config, "menu_timeout");
+		load_option(screensaver_timeout, config, "screensaver_timeout");
+		load_option(afterword_timeout, config, "afterword_timeout");
+		
 	}
 
 	// Parses config file
@@ -72,7 +80,7 @@ namespace options {
 			YAML::Node config = YAML::LoadFile("config.yaml");
 			if(config.IsMap()) {
 				load_options(config); // Loading itself
-				std::cout << "Yes\n" << std::endl;
+				std::cout << "Yes" << std::endl;
 				return true;
 			} else {
 				std::cout << "Config should contain 'key: value' pairs" << std::endl;
@@ -87,24 +95,10 @@ namespace options {
 	}
 
 	void load() {
-
-		window_width = 960;
-		window_height = 540;
-		mode_string = "800x600:32";
-		std::cout << "\nLoading params\n" << std::endl;
 		if(!load_config()) {
 			save_config();
 		}
-
 		print();
-		/*switch(window_size) {
-			case TINY:   window_width = 640,  window_height = 480;  mode_string = "640x480:32";   break;
-			case SMALL:  window_width = 800,  window_height = 600;  mode_string = "800x600:32";   break;
-			case MIDDLE: window_width = 1024, window_height = 768;  mode_string = "1024x768:32";  break;
-			case LARGE:  window_width = 1280, window_height = 1024; mode_string = "1280x1024:32"; break;
-			default:     window_width = 1280, window_height = 1024; mode_string = "1280x1024:32"; break;
-		}*/
-
 	}
 	
 	void print() {

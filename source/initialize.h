@@ -60,7 +60,6 @@ namespace graphics {
 		glutTimerFunc(graphics::sleep, graphics::redisplay, 0);
 
 		//glutTimerFunc(graphics::sleep, graphics::animate, 0);
-		//glutTimerFunc(options::titres_timeout * 1000, engine::menu_autoload, 0);
 
 		// commands
 		glutKeyboardFunc(controls::keyboard);

@@ -11,12 +11,10 @@ int main(int argc, char * argv[])
 	lib::stage("INITIALIZING");
 
 	options::load();
-
 	graphics::initialize(argc, argv);
+	screen.initialize();
 
 	lib::stage("LOADING");
-
-	screen.initialize();
 
 	application.set(LOADING_MODE);
 	// Loading fonts

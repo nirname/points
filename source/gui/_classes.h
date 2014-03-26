@@ -1,7 +1,7 @@
 #pragma once
 
 struct MenuItem;
-typedef void (* MenuItemHandler)(MenuItem *);
+typedef void (* MenuItemHandler)(unsigned char, int, MenuItem *);
 typedef std::list<MenuItem> MenuItems;
 
 struct Menu;
