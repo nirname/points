@@ -24,6 +24,25 @@ void display_screensaver_option(int position, MenuItem * _menu_item) {
 }
 
 void start_game(unsigned char key, int special_key, MenuItem * _menu_item) {
+	
+}
+
+void select_game(unsigned char key, int special_key, MenuItem * _menu_item) {
+	/*GAME_KIND _game_kind = NO_GAME;
+	_menu_item->title >> _game_kind;*/
+	std::cout << " -> ";
+	_menu_item->next_menu->second.items.clear();
+	lines levels;
+	std::string path = std::string("levels/") + _menu_item->title;
+	if(Directory::read(path, DT_REG, levels)) {
+		std::cout << "Levels:";
+		for(lines::iterator level = levels.begin(); level != levels.end(); level++) {
+			std::cout << "\n" << *level << std::ends;
+			_menu_item->next_menu->second.add_item(*level, start_game);
+		}
+	}
+	// TODO: remove 'interface' variable from here
+	_menu_item->next_menu->second.add_item("Back", interface.menus.find("Games"));
 	//interface->menus["Games"].add_item(lib::to_string(game_kind), GAMEPLAY_MODE);
 	//application.set(GAMEPLAY_MODE);
 }
@@ -48,6 +67,7 @@ void loader(Interface * interface) {
 
 	interface->add_menu("Main menu");
 	interface->add_menu("Games");
+	interface->add_menu("Levels");
 	//interface->add_menu("Extras");
 	interface->add_menu("Screensavers");
 
@@ -57,7 +77,8 @@ void loader(Interface * interface) {
 	interface->menus["Main menu"].add_item("Exit", quit);
 
 	for(GAME_KIND game_kind = SNAKE; game_kind <= CORNERS; game_kind++) {
-		interface->menus["Games"].add_item(lib::to_string(game_kind), start_game);
+		item = interface->menus["Games"].add_item(lib::to_string(game_kind), select_game);
+		item->next_menu = interface->menus.find("Levels");
 	}
 	interface->menus["Games"].add_item("Back", interface->menus.find("Main menu"));
 

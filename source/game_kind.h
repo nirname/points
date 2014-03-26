@@ -74,3 +74,4 @@ std::ostream & operator << (std::ostream & _ostream, const GAME_KIND _game_kind)
 	}
 	return _ostream;
 }
+

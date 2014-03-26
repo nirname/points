@@ -84,6 +84,9 @@ namespace engine {
 
 }
 
+namespace Directory {
+}
+
 namespace graphics {
 	void grid(const engine::Bound & _bound, int _step = 1);
 }

@@ -12,19 +12,19 @@ namespace Directory {
 	// Reads directories or a files in `path`
 	// and fills in the specified list by names of the entries
 	//
-	bool read(std::string path, int type, std::list<std::string> * list) {
+	bool read(const std::string & path, int type, lines & list) {
 		DIR * dir;
 		struct dirent * entry;
 		if((dir = opendir(path.c_str())) != NULL) {
 			while ((entry = readdir(dir)) != NULL) {
 				if (entry->d_type == type) {
-					list->push_back(std::string(entry->d_name));
+					list.push_back(std::string(entry->d_name));
 				}
 			}
 			closedir(dir);
 			return true;
 		} else {
-			std::cerr << "Could not open '" << path << "'" << std::endl;
+			std::cout << "Could not open '" << path << "'" << std::ends;
 			return false;
 		}
 	}

@@ -6,31 +6,38 @@ namespace engine {
 	void menu_autoload(int);
 	void reset_last_activity_time();
 
-	// TODO: refactor it
-	// Split it into functions
 	void Application::set(APPLICATION_MODE _mode) {
-		//glutPostRedisplay();
 		APPLICATION_MODE previous_mode = mode;
 		mode = LOADING_MODE;
-		if(_mode == FOREWORD_MODE) {
-			//screen.set(160, 90);
-			// TODO: set to uploaded image size and set background to white
-			glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
-		} else if(_mode == MENU_MODE) {
-			//screen.set(320, 240); // TODO: set to what you want
-			reset_last_activity_time(); // TODO: move to menu
-			glutTimerFunc(1000, screensaver_autoload, 0); // TODO: move this one to menu.load() function
-			if(game.loaded) {
-				game.pause(); // TODO: delete game here
+		
+		switch(_mode) {
+			case FOREWORD_MODE: {
+				glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
+				break;
 			}
-		} else if(_mode == GAMEPLAY_MODE) {
-			if(!game.load(NULL)) { // TODO: set level here
-				mode = previous_mode;
+			case MENU_MODE: {
+				reset_last_activity_time();
+				glutTimerFunc(1000, screensaver_autoload, 0);
+				if(game.loaded) {
+					game.pause();
+				}
+				break;
+			}
+			case GAMEPLAY_MODE: {
+				if(game.loaded) {
+					game.resume();
+				} else {
+					if(!game.load(NULL)) {
+						mode = previous_mode;
+					}
+				}
 				return;
 			}
-		} else if(_mode == INFORMATION_MODE) {
-			if(game.paused) {
-				game.resume();
+			case INFORMATION_MODE: {
+				if(!game.paused) {
+					game.pause();
+				}
+				break;
 			}
 		}
 		mode = _mode;
@@ -79,7 +86,7 @@ namespace engine {
 		if(key == ESCAPE_KEY) {
 			set(MENU_MODE);
 		} else {
-			game.process(key);
+			game.process(key, special_key);
 		}
 	}
 

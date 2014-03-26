@@ -1,6 +1,5 @@
 #pragma once
 
-// TODO: remove this one?
 void operator >> (std::string value, SCREENSAVER_KIND & _screensaver_kind) {
 	SCREENSAVER_KIND result = NO_SCREENSAVER;
 	if(value == lib::to_string(RANDOM_SCREENSAVER)) {
@@ -25,4 +24,3 @@ void operator >> (const YAML::Node & option, SCREENSAVER_KIND & _screensaver_kin
 		}
 	}
 }
-
