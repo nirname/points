@@ -139,7 +139,8 @@ namespace engine {
 		glPushAttrib(GL_CURRENT_BIT);
 			if(background_color != NULL) {
 				background_color->use();
-				glRectf(0, 0, size.width, size.height);
+				float outline = (1.0 - FIGURE_SIZE) / 2;
+				glRectf(0 - outline, 0 - outline, size.width + outline, size.height + outline);
 			}/* else {
 				glColor3ub(BLACK);
 			}*/

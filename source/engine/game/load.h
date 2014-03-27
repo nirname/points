@@ -49,6 +49,7 @@ void Game::load_default_shapes() {
 	shapes.add(std::string("ring"),   new graphics::Ring());
 	shapes.add(std::string("retro"),  new graphics::Retro());
 	shapes.add(std::string("diamond"), new graphics::NGon(4, 1));
+	shapes.add(std::string("octagon"), new graphics::NGon(8, 2));
 }
 
 bool Game::unload() {

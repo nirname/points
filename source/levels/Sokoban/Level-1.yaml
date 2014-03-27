@@ -25,7 +25,7 @@ views:
 object_kinds:
   sokoban:
     color: dark_blue
-    shape: diamond
+    shape: octagon
   box:
     color: dark_blue
 
