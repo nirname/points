@@ -2,6 +2,10 @@
 
 namespace options {
 
+	extern bool proportional;
+	extern bool smooth_zooming;
+	extern bool multisample;
+
 	extern GRID_TYPE grid_type;
 	
 	extern SCREENSAVER_KIND screensaver_kind;
@@ -31,8 +35,8 @@ namespace options {
 namespace options {
 
 	extern time_t last_menu_activity_time;
-	extern int ort;
 	extern const char * mode_string;
+
 }
 
 namespace options {

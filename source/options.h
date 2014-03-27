@@ -2,6 +2,10 @@
 
 namespace options {
 
+	bool proportional = true;
+	bool smooth_zooming = true;
+	bool multisample = false;
+
 	GRID_TYPE grid_type = SQUARE_GRID;
 
 	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
@@ -26,7 +30,6 @@ namespace options {
 
 namespace options {
 
-	int ort;
 	time_t last_menu_activity_time = clock();
 	const char * mode_string = "800x600:32";
 
@@ -55,6 +58,10 @@ namespace options {
 	// Loads all options
 	//
 	void load_options(const YAML::Node & config) {
+
+		load_option(proportional, config, "proportional");
+		load_option(smooth_zooming, config, "smooth_zooming");
+		load_option(multisample, config, "multisample");
 
 		load_option(grid_type, config, "grid_type");
 

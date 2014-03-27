@@ -54,50 +54,42 @@ namespace graphics {
 
 	void redisplay(int timer)
 	{
-		//if(!game.paused) {
-			clock_t time = clock();
-			glutPostRedisplay();
-			//time = clock() - time;
-			//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
-			glutTimerFunc(graphics::sleep, redisplay, 0);
-		//}
-		//glutPostRedisplay();
-		//glutTimerFunc(graphics::sleep, redisplay, 0);
+		clock_t time = clock();
+		glutPostRedisplay();
+		//time = clock() - time;
+		//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
+		glutTimerFunc(graphics::sleep, redisplay, 0);
 	}
 
 	void reshape(int width, int length)
 	{
 		//glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
-
 		//glViewport(0,0,(GLsizei)width, (GLsizei)length);
-		//float side = (width < length) ? width : length;
-		//float margin = 50.0;
-		//float padding = 10.0;
 
-		/*float x_ort = width / screen.width;
+		float x_ort = width / screen.width;
 		float y_ort = length / screen.height;
-		float side = (x_ort < y_ort) ? x_ort : y_ort;
 		
-		glViewport(
-			(GLint)((width - side * screen.width) / 2.0),
-			(GLint)((length - side * screen.height) / 2.0),
-			(GLsizei)(side * screen.width),
-			(GLsizei)(side * screen.height)
-		);*/
+		if(options::smooth_zooming == false) {
+			x_ort = floor(x_ort);
+			y_ort = floor(y_ort);
+		}
+
+		if(options::proportional == true) {
+			float ort = (x_ort < y_ort) ? x_ort : y_ort;
+			x_ort = ort;
+			y_ort = ort;
+		}
 		
-		int x_ort = width / screen.width;
-		int y_ort = length / screen.height;
-		options::ort = (x_ort < y_ort) ? x_ort : y_ort;
-		
-		options::window_width = options::ort * screen.width;
-		options::window_height = options::ort * screen.height;
+		options::window_width = x_ort * screen.width;
+		options::window_height = y_ort * screen.height;
 
 		glViewport(
-			(GLint)((width - options::window_width) / 2),
-			(GLint)((length - options::window_height) / 2),
+			(GLint)((width - options::window_width) / 2.0),
+			(GLint)((length - options::window_height) / 2.0),
 			(GLsizei)(options::window_width),
 			(GLsizei)(options::window_height)
 		);
+
 
 	} // reshape
 

@@ -15,9 +15,16 @@ namespace engine {
 			}
 			case MENU_MODE: {
 				reset_last_activity_time();
-				glutTimerFunc(options::menu_timeout * 1000, screensaver_autoload, 0);
+				//glutTimerFunc(options::menu_timeout * 1000, screensaver_autoload, 0);
 				if(game.loaded) {
 					game.pause();
+				}
+				break;
+			}
+			case SCREENSAVER_MODE: {
+				if(options::screensaver_kind != NO_SCREENSAVER) {
+				} else {
+					_mode = previous_mode;
 				}
 				break;
 			}
@@ -136,6 +143,7 @@ namespace engine {
 		return options::menu_timeout - time_passed(options::last_menu_activity_time);
 	}
 
+	// TODO: works wrong
 	void screensaver_autoload(int timer) {
 		if(application.mode == MENU_MODE) {
 			if(menu_time_left() <= 0) {

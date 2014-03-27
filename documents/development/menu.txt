@@ -1,3 +1,11 @@
+Lines for menu
+
+height = 7
+count  = 5
+margin = 5
+(height + 1) * count + (count - 1) + margin * 2
+
+
 Main menu
   Start
   Continue

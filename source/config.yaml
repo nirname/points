@@ -1,3 +1,7 @@
+proportional: on
+smooth_zooming: on
+multisample: off
+
 grid_type: Square
 screensaver: No
 full_screen: on
@@ -10,7 +14,6 @@ window_height: 540
 
 shape: rectangle
 animation: fade
-color: blue
 selection_color: SOFT_BLUE
 shape: rectangle
 

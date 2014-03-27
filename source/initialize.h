@@ -5,8 +5,12 @@ namespace graphics {
 		// Initializing glut
 		glutInit(&argc, argv);
 
-		glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE); // GLUT_MULTISAMPLE
-		//glEnable(GL_MULTISAMPLE_ARB);
+		if(options::multisample) {
+			glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+			glEnable(GL_MULTISAMPLE_ARB);
+		} else {
+			glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+		}
 
 		// Setting window parameters
 		glutInitWindowSize(options::window_width, options::window_height);
