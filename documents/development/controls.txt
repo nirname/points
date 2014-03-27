@@ -1,0 +1,55 @@
+CONTROLS
+
+I. Mouse
+
+LeftButton
+RightButton
+MiddleButton
+
+ScrollDown
+ScrollUp
+
+II. Keyboard
+
+Left
+Up
+Right
+Down
+
+BackSpace
+Tab
+Enter
+Shift
+Control
+Alt
+Pause
+CapsLock
+Escape
+Space
+
+Insert
+Delete
+PageUp
+PageDown
+Home
+End
+
+PrintScreen
+
+NumLock
+ScrollLock
+LeftShift
+RightShift
+LeftControl
+RightControl
+LeftMenu
+RigthMenu
+
+
+0 1 2 3 4 5 6 7 8 9
+NumPad0 NumPad1 NumPad2 NumPad3 NumPad4 NumPad5 NumPad6 NumPad7 NumPad8 NumPad9
+
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12
+

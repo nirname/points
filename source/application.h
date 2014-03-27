@@ -48,9 +48,7 @@ namespace engine {
 
 	void Application::handle(unsigned char key, int special_key) {
 
-		std::cout << "key: ";
-		printf("%i", key);
-		std::cout << ", special key: " << special_key;
+		std::cout << "key: " << (unsigned int)key << ", special key: " << special_key;
 
 		if(key == CTRL_Q_KEY) {
 			std::cout << " -> quit" << std::endl;
@@ -77,6 +75,7 @@ namespace engine {
 	}
 
 	void Application::foreword_process(unsigned char key, int special_key) {
+		std::cout << " -> skip";
 		set(MENU_MODE);
 	}
 
@@ -94,6 +93,7 @@ namespace engine {
 	}
 
 	void Application::screensaver_process(unsigned char key, int special_key) {
+		std::cout << " -> skip ";
 		set(MENU_MODE);
 	}
 	

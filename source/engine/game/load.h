@@ -71,22 +71,23 @@ bool Game::unload() {
 //
 bool Game::load(LevelPointer _level) {
 
+	std::cout << std::endl;
+	
 	if(loaded) { // TODO: make reload instead
-		lib::stage("UNLOADING\n");
+		lib::stage("UNLOADING");
 		unload();
 	}
 
-	lib::stage("GAME LOADING\n");
+	lib::stage("GAME LOADING");
 
 	load_default_colors();
 	load_default_shapes();
 
 	try {
 		YAML::Node level = YAML::LoadFile("./levels/Sokoban/Level-1.yaml");
-		//YAML::Node level = YAML::LoadFile("levels/adasdfdas");
 		if(level.IsMap()) {
 
-			std::cout << "\nLoading level data\n" << std::endl;
+			std::cout << "Loading level data" << std::endl;
 			for(YAML::const_iterator block = level.begin(); block != level.end(); ++block) {
 				std::cout << block->first.as<std::string>() << std::endl;
 			}
@@ -101,7 +102,7 @@ bool Game::load(LevelPointer _level) {
 
 			load_attribute(fields, level, "fields");
 			load_attribute(views, level, "views");
-			load_attribute(controls, level, "controls");
+			//load_attribute(controls, level, "controls");
 
 			load_game_options(level);
 

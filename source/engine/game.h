@@ -31,7 +31,7 @@ namespace engine {
 			if(controls.has(string_key)) {
 				controls[string_key]->evaluate();
 			} else {
-				std::cout << ": free";
+				std::cout << " ~ free";
 			}
 			//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
 			//glutPostRedisplay();
