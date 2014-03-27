@@ -16,6 +16,6 @@ shape: rectangle
 
 foreword_timeout: 5
 menu_timeout: 3
-screensaver_timeout: 3
+screensaver_timeout: 30
 afterword_timeout: 5
 

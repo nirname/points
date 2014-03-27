@@ -71,7 +71,7 @@ bool Game::unload() {
 //
 bool Game::load(LevelPointer _level) {
 
-	if(loaded) {
+	if(loaded) { // TODO: make reload instead
 		lib::stage("UNLOADING\n");
 		unload();
 	}
@@ -103,7 +103,7 @@ bool Game::load(LevelPointer _level) {
 			load_attribute(views, level, "views");
 			load_attribute(controls, level, "controls");
 
-			//screen.set(10, 10); // TODO: load it from level file
+			load_game_options(level);
 
 			loaded = true;
 
@@ -242,6 +242,15 @@ void Game::load_objects(const YAML::Node & level) {
 			}
 		} else {
 			std::cout << "Objects node should be a map" << std::endl;
+		}
+	}
+}
+
+void Game::load_game_options(const YAML::Node & level) {
+	if(level["game"]) {
+		const YAML::Node & game_options = level["game"];
+		if(game_options["screen"]) {
+			game_options["screen"] >> screen_size;
 		}
 	}
 }

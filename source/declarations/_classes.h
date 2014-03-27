@@ -80,6 +80,7 @@ namespace engine {
 	typedef LevelList::iterator LevelListIterator;
 	//typedef Mapping<Level> LevelMapping;
 
+	void operator >> (const YAML::Node & options, Size &);
 	void operator >> (const YAML::Node & options, ObjectKind &);
 
 }

@@ -24,6 +24,8 @@ struct Game {
 	LevelListIterator current_level;
 	//LevelMapping levels;
 
+	Size screen_size;
+
 	Game():
 		kind(NO_GAME), paused(false), loaded(false)
 	{}
@@ -34,6 +36,8 @@ struct Game {
 	void load_objects(const YAML::Node &);
 	void load_default_colors();
 	void load_default_shapes();
+
+	void load_game_options(const YAML::Node &);
 
 	bool load(LevelPointer);
 	bool unload();

@@ -5,7 +5,9 @@ namespace engine {
 	void Application::set(APPLICATION_MODE _mode) {
 		APPLICATION_MODE previous_mode = mode;
 		mode = LOADING_MODE;
-		screen.set(SCREEN_FORMAT_16x9); // TODO: remove
+		if(_mode != GAMEPLAY_MODE) {
+			screen.set(SCREEN_FORMAT_16x9); // TODO: remove
+		}
 		switch(_mode) {
 			case FOREWORD_MODE: {
 				glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
@@ -20,13 +22,13 @@ namespace engine {
 				break;
 			}
 			case GAMEPLAY_MODE: {
-				screen.set(10, 10);
-				if(game.loaded) {
-					game.resume();
-				} else {
-					if(!game.load(NULL)) {
-						_mode = previous_mode;
+				if(game.loaded || game.load(NULL)) {
+					if(game.paused) {
+						game.resume();
 					}
+					screen.set(game.screen_size.width, game.screen_size.height);
+				} else {
+					_mode = previous_mode;
 				}
 				break;
 			}

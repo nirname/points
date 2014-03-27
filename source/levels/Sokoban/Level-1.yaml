@@ -1,6 +1,6 @@
 game:
   kind: sokoban
-  screen: [10, 10]
+  screen: [12, 12]
 
 fields:
   field:
@@ -12,7 +12,7 @@ fields:
       3: [5, 3]
 
 colors:
-  dark_blue: [32, 74, 735]
+  dark_blue: [0, 52, 92]
   sky: [50, 180, 255]
 
 views:
@@ -20,6 +20,7 @@ views:
     field: field
     background_color: sky
     cells_color: soft_blue
+    position: [1, 1]
 
 object_kinds:
   sokoban:
