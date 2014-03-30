@@ -28,7 +28,7 @@ namespace engine {
 				break;
 			}
 			case GAMEPLAY_MODE: {
-				if(game.loaded || game.load(NULL)) {
+				if(game.loaded) {
 					if(game.paused) {
 						game.resume();
 					}

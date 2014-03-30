@@ -70,7 +70,7 @@ bool Game::unload() {
 
 // Loads all properties
 //
-bool Game::load(LevelPointer _level) {
+bool Game::load(std::string _level) {
 
 	std::cout << std::endl;
 	
@@ -85,7 +85,7 @@ bool Game::load(LevelPointer _level) {
 	load_default_shapes();
 
 	try {
-		YAML::Node level = YAML::LoadFile("./levels/Sokoban/Level-1.yaml");
+		YAML::Node level = YAML::LoadFile(_level.c_str());
 		if(level.IsMap()) {
 
 			std::cout << "Loading level data" << std::endl;
@@ -221,7 +221,7 @@ void Game::load_objects(const YAML::Node & level) {
 						if(object != NULL) {
 							object->kind = object_kind;
 						}
-						// use >> operator here
+						//TODO: use >> operator here
 					}
 					if(object_names_node.IsSequence()) {
 						for(

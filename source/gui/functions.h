@@ -36,13 +36,12 @@ void quick_start(unsigned char key, int special_key, MenuItem * _menu_item) {
 }
 
 void start_game(unsigned char key, int special_key, MenuItem * _menu_item) {
-	
+	game.load("levels/" + lib::to_string(game.kind) + "/" + _menu_item->title);
+	application.set(GAMEPLAY_MODE);
 }
 
 void select_game(unsigned char key, int special_key, MenuItem * _menu_item) {
 	if(key == ENTER_KEY) {
-		//GAME_KIND _game_kind = NO_GAME;
-		//_menu_item->title >> _game_kind;
 		std::cout << " -> ";
 		_menu_item->next_menu->second.items.clear();
 		lines levels;
@@ -50,9 +49,14 @@ void select_game(unsigned char key, int special_key, MenuItem * _menu_item) {
 		if(Directory::read(path, DT_REG, levels)) {
 			std::cout << "Levels";
 			levels.sort();
-			for(lines::iterator level = levels.begin(); level != levels.end(); level++) {
-				//std::cout << "\n" << *level << std::ends;
-				_menu_item->next_menu->second.add_item(*level, start_game);
+			if(!levels.empty()) {
+				_menu_item->title >> game.kind;
+				for(lines::iterator level = levels.begin(); level != levels.end(); level++) {
+					//std::cout << "\n" << *level << std::ends;
+					_menu_item->next_menu->second.add_item(*level, start_game);
+				}
+				//GAME_KIND _game_kind = NO_GAME;
+				//_menu_item->title >> _game_kind;
 			}
 		}
 		// TODO: remove 'interface' variable from here

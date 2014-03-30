@@ -84,6 +84,16 @@ namespace graphics {
 		ngon(360);
 	}
 
+	/*void circle() {
+		const float radius = 0.5;
+		glBegin(GL_POLYGON);
+			for(int i = 0; i < 360; i++) {
+				float deg_in_rad = i * DEG2RAD;
+				glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
+			}
+		glEnd();
+	}*/
+
 	void star() {
 		ngon(5, 2);
 	}

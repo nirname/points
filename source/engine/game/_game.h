@@ -17,11 +17,11 @@ struct Game {
 	//Entities          entities; // TODO: Unnamed objects
 	ControlsMapping   controls;
 	graphics::AnimationMapping animations;
-	LevelList levels;
+	//LevelList levels;
 
 	InteractionMap interactions;
 
-	LevelListIterator current_level;
+	//LevelListIterator current_level;
 	//LevelMapping levels;
 
 	Size screen_size;
@@ -39,7 +39,7 @@ struct Game {
 
 	void load_game_options(const YAML::Node &);
 
-	bool load(LevelPointer);
+	bool load(std::string);
 	bool unload();
 
 	void pause();
