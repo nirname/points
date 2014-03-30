@@ -37,7 +37,7 @@ namespace graphics {
 	}*/
 
 	void default_shape() {
-		square();
+		circle();
 	}
 
 	void square() {

@@ -36,8 +36,10 @@ void quick_start(unsigned char key, int special_key, MenuItem * _menu_item) {
 }
 
 void start_game(unsigned char key, int special_key, MenuItem * _menu_item) {
-	game.load("levels/" + lib::to_string(game.kind) + "/" + _menu_item->title);
-	application.set(GAMEPLAY_MODE);
+	if(key == ENTER_KEY) {
+		game.load("levels/" + lib::to_string(game.kind) + "/" + _menu_item->title);
+		application.set(GAMEPLAY_MODE);
+	}
 }
 
 void select_game(unsigned char key, int special_key, MenuItem * _menu_item) {

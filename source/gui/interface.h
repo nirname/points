@@ -37,7 +37,7 @@ void Interface::display() {
 	if(options::screensaver_kind != NO_SCREENSAVER) {
 		graphics::write(lib::to_string(engine::menu_time_left()), 200, 0);
 	}
-	graphics::square();
+	graphics::default_shape();
 }
 
 void Interface::load() {

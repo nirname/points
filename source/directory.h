@@ -12,13 +12,15 @@ namespace Directory {
 	// Reads directories or a files in `path`
 	// and fills in the specified list by names of the entries
 	//
-	bool read(const std::string & path, int type, lines & list) {
+	bool read(const std::string & path, int type, lines & list, bool (*filter)(dirent *) = NULL) {
 		DIR * dir;
-		struct dirent * entry;
+		dirent * entry;
 		if((dir = opendir(path.c_str())) != NULL) {
 			while ((entry = readdir(dir)) != NULL) {
 				if (entry->d_type == type) {
-					list.push_back(std::string(entry->d_name));
+					if(filter == NULL || filter(entry)) {
+						list.push_back(std::string(entry->d_name));
+					}
 				}
 			}
 			closedir(dir);

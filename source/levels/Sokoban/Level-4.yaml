@@ -1,7 +1,7 @@
 # example of colors, figures and interactions
 game:
   kind: sokoban
-  screen: [20, 20]
+  screen: [14, 14]
   figure_size: 1
 
 object_kinds:
@@ -70,9 +70,8 @@ views:
     offset:
       column: -1
       row: -1
-    position:
-      column: 5
-      row: 5
+    position: [1, 1]
+    grid_color: black
 
 controls:
   w:

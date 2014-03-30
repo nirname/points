@@ -30,6 +30,7 @@
 
 #include "engine.h"
 #include "screensaver.h"
+#include "foreword.h"
 #include "grid.h"
 
 #include "parser.h"

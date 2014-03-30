@@ -29,6 +29,10 @@ namespace graphics {
 		glPopAttrib();*/
 
 		switch(application.mode) {
+			case FOREWORD_MODE: {
+				Foreword::display();
+				break;
+			}
 			case MENU_MODE: {
 				interface.display();
 				break;

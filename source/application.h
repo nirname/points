@@ -10,6 +10,9 @@ namespace engine {
 		}
 		switch(_mode) {
 			case FOREWORD_MODE: {
+				if(Foreword::load()) {
+					screen.set(Foreword::input.TellWidth(), Foreword::input.TellHeight());
+				}
 				glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
 				break;
 			}
@@ -81,8 +84,10 @@ namespace engine {
 	}
 
 	void Application::foreword_process(unsigned char key, int special_key) {
-		std::cout << " -> skip";
-		set(MENU_MODE);
+		if(key != 0) {
+			std::cout << " -> skip";
+			set(MENU_MODE);
+		}
 	}
 
 	void Application::menu_process(unsigned char key, int special_key) {
