@@ -87,7 +87,7 @@ void loader(Interface * interface) {
 	//interface->add_menu("Extras");
 	interface->add_menu("Screensavers");
 
-	interface->menus["Main menu"].add_item("Play", quick_start);
+	interface->menus["Main menu"].add_item("Play!", quick_start);
 	interface->menus["Main menu"].add_item("Start", interface->menus.find("Games"));
 	//interface->menus["Main menu"].add_item("Extras", interface->menus.find("Extras"));
 	interface->menus["Main menu"].add_item("Screensavers", interface->menus.find("Screensavers"));

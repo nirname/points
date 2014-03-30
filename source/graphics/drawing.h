@@ -36,6 +36,10 @@ namespace graphics {
 		return length;
 	}*/
 
+	void default_shape() {
+		square();
+	}
+
 	void square() {
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);

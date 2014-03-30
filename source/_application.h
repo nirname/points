@@ -31,6 +31,10 @@ namespace engine {
 		void    gameplay_process(unsigned char, int);
 		void information_process(unsigned char, int);
 		void   afterword_process(unsigned char, int);
+		
+		//void start_game();
+		//void show_menu();
+		
 
 	};
 

@@ -68,7 +68,8 @@ namespace graphics {
 
 		glutIdleFunc(graphics::idle);
 		glutTimerFunc(graphics::sleep, graphics::redisplay, 0);
-
+		
+		glutTimerFunc(options::menu_timeout * 1000, engine::screensaver_autoload, 0);
 		//glutTimerFunc(graphics::sleep, graphics::animate, 0);
 
 		// commands

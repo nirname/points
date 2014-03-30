@@ -38,7 +38,7 @@ namespace engine {
 			if(kind != NULL) {
 				kind->draw_shape();
 			} else {
-				graphics::square();
+				graphics::default_shape();
 			}
 		}
 

@@ -27,7 +27,7 @@ namespace engine {
 		if(shape != NULL) {
 			shape->display();
 		} else {
-			graphics::square();
+			graphics::default_shape();
 		}
 	}
 
