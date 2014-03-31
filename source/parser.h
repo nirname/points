@@ -14,7 +14,9 @@ namespace engine {
 
 #include "parser/options/bool_parser.h"
 #include "parser/options/int_parser.h"
+#include "parser/options/float_parser.h"
 #include "parser/options/enum_parser.h"
 #include "parser/options/screensaver_kind_parser.h"
 #include "parser/options/grid_type_parser.h"
 #include "parser/options/game_kind_parser.h"
+#include "parser/options/default_shape_parser.h"

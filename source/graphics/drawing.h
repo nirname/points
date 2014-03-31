@@ -2,6 +2,8 @@
 
 namespace graphics {
 
+	void (*default_shape)() = square;
+
 	// Fonts:
 	//
 	// GLUT_BITMAP_8_BY_13
@@ -36,14 +38,10 @@ namespace graphics {
 		return length;
 	}*/
 
-	void default_shape() {
-		circle();
-	}
-
 	void square() {
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);
-			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
+			glScalef(options::figure_size, options::figure_size, 0);
 			glRectf(-0.5, -0.5, 0.5, 0.5);
 		glPopMatrix();
 	}
@@ -62,7 +60,7 @@ namespace graphics {
 		}
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);
-			glScalef(FIGURE_SIZE, FIGURE_SIZE, 0);
+			glScalef(options::figure_size, options::figure_size, 0);
 			glRotatef(90, 0, 0, 1);
 			for(int j = 0; j < loops_count; j++) {
 				if(use_splitter) {
@@ -72,27 +70,31 @@ namespace graphics {
 					glBegin(GL_POLYGON);
 				}
 				for(int i = 0; i <= loop_length; i++) {
-					float deg_in_rad = (j * angle + i * step) * DEG2RAD;
-					glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
+					float rad = (j * angle + i * step) * DEG2RAD;
+					glVertex2f(cos(rad) * radius, sin(rad) * radius);
 				}
 				glEnd();
 			}
 		glPopMatrix();
 	}
 
-	void circle() {
-		ngon(360);
-	}
-
 	/*void circle() {
-		const float radius = 0.5;
-		glBegin(GL_POLYGON);
-			for(int i = 0; i < 360; i++) {
-				float deg_in_rad = i * DEG2RAD;
-				glVertex2f(cos(deg_in_rad) * radius, sin(deg_in_rad) * radius);
-			}
-		glEnd();
+		ngon(360);
 	}*/
+
+	void circle() {
+		const float radius = 0.5;
+		glPushMatrix();
+			glTranslatef(0.5, 0.5, 0);
+			glScalef(options::figure_size, options::figure_size, 0);
+			glBegin(GL_POLYGON);
+				float radian = 0.0f;
+				for(int i = 0; i < 360; i++, radian += DEG2RAD) {
+					glVertex2f(cos(radian) * radius, sin(radian) * radius);
+				}
+			glEnd();
+		glPopMatrix();
+	}
 
 	void star() {
 		ngon(5, 2);

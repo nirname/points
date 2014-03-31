@@ -14,6 +14,7 @@
 #define AZURE 61, 222, 235
 #define ORANGE 245, 121, 0
 
+
 // soft colors
 #define SOFT_BLUE 17, 154, 255
 #define SOFT_YELLOW 255, 232, 17
@@ -71,34 +72,39 @@ namespace graphics {
 	}
 
 	void operator >> (const YAML::Node & options, Color & color) {
-		if(options.IsSequence()) {
-			color.red = options[0].as<positive>();
-			color.green = options[1].as<positive>();
-			color.blue = options[2].as<positive>();
-		} else if (options.IsMap()) {
-			if(options["red"]) { color.red = options["red"].as<positive>(); }
-			if(options["green"]) { color.green = options["green"].as<positive>(); }
-			if(options["blue"]) { color.blue = options["blue"].as<positive>(); }
-		} else if (options.IsScalar()) {
-			std::string color_name = options.as<std::string>();
-			if ( color_name == "BLACK" ) color.set( BLACK );
-			else if ( color_name == "WHITE" ) color.set( WHITE );
-			else if ( color_name == "GRAY" ) color.set( GRAY );
-			else if ( color_name == "BLUE" ) color.set( BLUE );
-			else if ( color_name == "YELLOW" ) color.set( YELLOW );
-			else if ( color_name == "GREEN" ) color.set( GREEN );
-			else if ( color_name == "RED" ) color.set( RED );
-			else if ( color_name == "VIOLET" ) color.set( VIOLET );
-			else if ( color_name == "AZURE" ) color.set( AZURE );
-			else if ( color_name == "ORANGE" ) color.set( ORANGE );
-			else if ( color_name == "SOFT_BLUE" ) color.set( SOFT_BLUE );
-			else if ( color_name == "SOFT_YELLOW" ) color.set( SOFT_YELLOW );
-			else if ( color_name == "SOFT_GREEN" ) color.set( SOFT_GREEN );
-			else if ( color_name == "SOFT_RED" ) color.set( SOFT_RED );
-			else if ( color_name == "SOFT_VIOLET" ) color.set( SOFT_VIOLET );
-			else if ( color_name == "LIGHT_GRAY" ) color.set( LIGHT_GRAY );
-			else if ( color_name == "DARK_VIOLET" ) color.set( DARK_VIOLET );
-			else if ( color_name == "DARK_GRAY" ) color.set( DARK_GRAY );
+		try {
+			Color buffer;
+			if(options.IsSequence()) {
+				buffer.red = options[0].as<positive>();
+				buffer.green = options[1].as<positive>();
+				buffer.blue = options[2].as<positive>();
+			} else if (options.IsMap()) {
+				if(options["red"]) { buffer.red = options["red"].as<positive>(); }
+				if(options["green"]) { buffer.green = options["green"].as<positive>(); }
+				if(options["blue"]) { buffer.blue = options["blue"].as<positive>(); }
+			} else if (options.IsScalar()) {
+				std::string color_name = options.as<std::string>();
+				if ( color_name == "BLACK" ) color.set( BLACK );
+				else if ( color_name == "WHITE" ) color.set( WHITE );
+				else if ( color_name == "GRAY" ) color.set( GRAY );
+				else if ( color_name == "BLUE" ) color.set( BLUE );
+				else if ( color_name == "YELLOW" ) color.set( YELLOW );
+				else if ( color_name == "GREEN" ) color.set( GREEN );
+				else if ( color_name == "RED" ) color.set( RED );
+				else if ( color_name == "VIOLET" ) color.set( VIOLET );
+				else if ( color_name == "AZURE" ) color.set( AZURE );
+				else if ( color_name == "ORANGE" ) color.set( ORANGE );
+				else if ( color_name == "SOFT_BLUE" ) color.set( SOFT_BLUE );
+				else if ( color_name == "SOFT_YELLOW" ) color.set( SOFT_YELLOW );
+				else if ( color_name == "SOFT_GREEN" ) color.set( SOFT_GREEN );
+				else if ( color_name == "SOFT_RED" ) color.set( SOFT_RED );
+				else if ( color_name == "SOFT_VIOLET" ) color.set( SOFT_VIOLET );
+				else if ( color_name == "LIGHT_GRAY" ) color.set( LIGHT_GRAY );
+				else if ( color_name == "DARK_VIOLET" ) color.set( DARK_VIOLET );
+				else if ( color_name == "DARK_GRAY" ) color.set( DARK_GRAY );
+			}
+			color = buffer;
+		} catch(...) {
 		}
 	}
 

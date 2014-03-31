@@ -108,9 +108,10 @@ bool Game::load(std::string _level) {
 			load_game_options(level);
 
 			loaded = true;
-
-			lib::stage("GAME IS LOADED\n");
-			print();
+			
+			std::cout << "Game is loaded" << std::endl;
+			lib::stage("PLAYING");
+			//print();
 
 		} else {
 			std::cout << "Level file should contain mapping" << std::endl;

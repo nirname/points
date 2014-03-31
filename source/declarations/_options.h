@@ -2,6 +2,9 @@
 
 namespace options {
 
+	extern float padding;
+	extern float figure_size;
+
 	extern bool proportional;
 	extern bool smooth_zooming;
 	extern bool multisample;

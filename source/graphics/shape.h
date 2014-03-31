@@ -110,7 +110,7 @@ namespace graphics {
 				glPushMatrix();
 					glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
 					glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
-						square();
+					square();
 				glPopMatrix();
 			glPopMatrix();
 		}

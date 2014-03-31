@@ -2,6 +2,9 @@
 
 namespace options {
 
+	float padding = 0.0;
+	float figure_size = 1.0;
+
 	bool proportional = true;
 	bool smooth_zooming = true;
 	bool multisample = false;
@@ -59,9 +62,15 @@ namespace options {
 	//
 	void load_options(const YAML::Node & config) {
 
+		load_option(padding, config, "padding");
+		padding = std::min( std::max(padding, 0.0f), 0.25f );
+		figure_size = 1.0f - padding * 2;
+
 		load_option(proportional, config, "proportional");
 		load_option(smooth_zooming, config, "smooth_zooming");
 		load_option(multisample, config, "multisample");
+
+		load_option(graphics::default_shape, config, "shape");
 
 		load_option(grid_type, config, "grid_type");
 

@@ -11,14 +11,8 @@ namespace engine {
 		/*typedef std::list<graphics::Animation *> AnimationList;
 		AnimationList animations;*/
 
-		Object() {
-			number = count++;
-			kind = NULL;
-		}
-
-		Object(ObjectKindPointer _kind) : kind(_kind) {
-			number = count++;
-		}
+		Object();
+		Object(ObjectKindPointer);
 
 		~Object() {
 			// TODO: remove its points
@@ -49,14 +43,24 @@ namespace engine {
 		}
 
 		void display(const Point & _position);
-
-		void print(std::ostream & _ostream) const {
-			_ostream << "Object#" << number << " ("
-				<< "kind: " << lib::to_string(kind)
-			<< ")";
-		}
+		void print(std::ostream & _ostream) const;
 
 	}; // class Object
+
+	Object::Object() {
+		number = count++;
+		kind = NULL;
+	}
+	
+	Object::Object(ObjectKindPointer _kind) : kind(_kind) {
+		number = count++;
+	}
+	
+	void Object::print(std::ostream & _ostream) const {
+		_ostream << "Object#" << number << " ("
+			<< "kind: " << lib::to_string(kind)
+		<< ")";
+	}
 
 	std::ostream & operator << (std::ostream & _ostream, const Object & _object) {
 		_object.print(_ostream);
