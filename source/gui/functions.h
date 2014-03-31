@@ -82,7 +82,17 @@ void start_screensaver(unsigned char key, int special_key, MenuItem * _menu_item
 	}
 }
 
-void loader(Interface * interface) {
+void display_interface(Interface * interface) {
+	if(interface->valid()) {
+		interface->current_menu->second.display(interface->current_menu->first);
+	}
+	if(options::screensaver_kind != NO_SCREENSAVER) {
+		graphics::write(lib::to_string(engine::menu_time_left()), 200, 0);
+	}
+	graphics::default_shape();
+}
+
+void load_interface(Interface * interface) {
 
 	//Menus::iterator menu;
 	MenuItems::iterator item;

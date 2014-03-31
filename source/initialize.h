@@ -1,3 +1,6 @@
+//void initialize() {
+//}
+
 namespace graphics {
 
 	void initialize(int argc, char * argv[]) {

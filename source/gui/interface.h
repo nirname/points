@@ -25,19 +25,18 @@ void Interface::set_current_menu(Menus::iterator menu) {
 }
 
 void Interface::handle(unsigned char key, int special_key) {
+	/*if(handler != NULL) {
+		handler(key, special_key, this);
+	}*/
 	if(valid()) {
 		current_menu->second.handle(key, special_key);
 	}
 }
 
 void Interface::display() {
-	if(valid()) {
-		current_menu->second.display(current_menu->first);
+	if(displayer != NULL) {
+		displayer(this);
 	}
-	if(options::screensaver_kind != NO_SCREENSAVER) {
-		graphics::write(lib::to_string(engine::menu_time_left()), 200, 0);
-	}
-	graphics::default_shape();
 }
 
 void Interface::load() {

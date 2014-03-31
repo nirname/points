@@ -2,8 +2,11 @@
 
 struct MenuItem {
 
+	Menu * menu;
 	std::string title;
+
 	Menus::iterator next_menu;
+
 	MenuItemHandler handler;
 	void (*displayer)(int, MenuItem *);
 

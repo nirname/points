@@ -109,8 +109,10 @@ namespace engine {
 	}
 	
 	void Application::afterword_process(unsigned char key, int special_key) {
-		std::cout << " -> quit" << std::endl;
-		exit(EXIT_SUCCESS);
+		if(key != 0) {
+			std::cout << " -> quit" << std::endl;
+			exit(EXIT_SUCCESS);
+		}
 	}
 
 	void Application::start() {

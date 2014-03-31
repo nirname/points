@@ -8,9 +8,20 @@ struct Interface {
 	Menus::iterator current_menu;
 
 	void (* loader)(Interface *);
+	void (* displayer)(Interface *);
 
-	Interface(engine::Application * _application, void (* _loader)(Interface *) = NULL):
-		application(_application), loader(_loader)
+	Interface() {
+		loader = NULL;
+		displayer = NULL;
+	}
+	Interface(
+		engine::Application * _application,
+		void (* _loader)(Interface *) = NULL,
+		void (* _displayer)(Interface *) = NULL
+	):
+		application(_application),
+		loader(_loader),
+		displayer(_displayer)
 	{}
 
 	bool valid();

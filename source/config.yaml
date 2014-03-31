@@ -4,7 +4,7 @@ multisample: off
 
 grid_type: Square
 screensaver: No
-full_screen: on
+full_screen: off
 game_mode: off
 
 foreword: on
@@ -14,7 +14,7 @@ window_height: 540
 
 shape: rectangle
 animation: fade
-selection_color: SOFT_RED
+selection_color: VIOLET
 shape: rectangle
 
 foreword_timeout: 5
