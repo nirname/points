@@ -19,27 +19,6 @@
 // TODO: move it from here
 namespace engine {
 
-	void Object::display(const Point & _position = Point()) { //, const Animation & = NULL
-		glPushAttrib(GL_CURRENT_BIT);
-			//graphics::use_color(color);
-			use_color();
-			glPushMatrix();
-				glTranslatef(_position.column, _position.row, 0);
-					glPushMatrix(); // animation goes here
-					/*for(AnimationList::iterator a = animations.begin(); a != animations.end(); ++a) {
-						(*a)->apply();
-					}*/
-					//game.animations["Scale"]->apply();
-					/*glTranslatef(0.5, 0.5, 0);
-					glScalef(scale, scale, 0);
-					glTranslatef(-0.5, -0.5, 0);*/
-					draw_shape();
-					//graphics::square();
-				glPopMatrix();
-			glPopMatrix();
-		glPopAttrib();
-	}
-
 	/*bool Object::move(Field * _field, Point _step, graphics::Animation * _animation) {
 	}*/
 

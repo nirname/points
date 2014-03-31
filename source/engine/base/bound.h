@@ -3,45 +3,55 @@
 namespace engine {
 
 	struct Bound {
+
 		Point initial, final;
 
-		Bound(const Point & _final):
-			final(_final)
-		{}
+		Bound(const Point & _final);
+		Bound(Point _initial, Point _final);
+		Bound(const Bound & _bound);
 
-		Bound(Point _initial, Point _final):
-			initial(_initial), final(_final)
-		{ /* do not normilize here*/ }
+		bool contains(Point x) const;
 
-		Bound(const Bound & _bound):
-			initial(_bound.initial), final(_bound.final)
-		{}
-
-		bool contains(Point x) const {
-			return initial.row <= x.row && x.row <= final.row &&
-			initial.column <= x.column && x.column <= final.column;
-		}
-
-		Bound & operator += (const Point & x) {
-			initial += x;
-			final   += x;
-			return * this;
-		}
-
-		Bound & operator -= (const Point & x) {
-			initial -= x;
-			final   -= x;
-			return * this;
-		}
-
-		// intersection
-		Bound & operator &= (const Bound & x) {
-			initial = max(initial, x.initial);
-			final   = min(final,   x.final);
-			return * this;
-		}
+		Bound & operator += (const Point & x);
+		Bound & operator -= (const Point & x);
+		Bound & operator &= (const Bound & x);
 
 	};
+
+	Bound::Bound(const Point & _final):
+		initial(Point(0, 0)), final(_final)
+	{}
+
+	Bound::Bound(Point _initial, Point _final):
+		initial(_initial), final(_final)
+	{ /* do not normilize here*/ }
+
+	Bound::Bound(const Bound & _bound):
+		initial(_bound.initial), final(_bound.final)
+	{}
+
+	bool Bound::contains(Point x) const {
+		return initial.row <= x.row && x.row <= final.row &&
+		initial.column <= x.column && x.column <= final.column;
+	}
+
+	Bound & Bound::operator += (const Point & x) {
+		initial += x;
+		final   += x;
+		return * this;
+	}
+
+	Bound & Bound::operator -= (const Point & x) {
+		initial -= x;
+		final   -= x;
+		return * this;
+	}
+
+	Bound & Bound::operator &= (const Bound & x) {
+		initial = max(initial, x.initial);
+		final   = min(final,   x.final);
+		return * this;
+	}
 
 	Bound operator + (const Bound & _bound, const Point & _point) {
 		Bound result(_bound);

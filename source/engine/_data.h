@@ -18,17 +18,8 @@ namespace test {
 
 	public:
 
-		Data() {}
-
-		~Data() {
-			clear();
-		}
-
-		enum EFFECT_OF_ADDING {
-			OBJECT_ADDING,
-			POINT_ADDING,
-			ADDING_CONFLICT
-		};
+		Data();
+		~Data();
 
 		bool contains(Object *) const;
 		bool contains(Point) const;
@@ -49,6 +40,13 @@ namespace test {
 		void print(std::ostream &) const; // Puts all information to stream
 
 	};
+
+
+	Data::Data() {}
+
+	Data::~Data() {
+		clear();
+	}
 
 	bool Data::contains(Object * _object) const {
 		return objects.find(_object) != objects.end();

@@ -42,7 +42,11 @@
 #include "controls.h"
 #include "display.h"
 
-// global
+// global variables
 
 #include "options.h"
 #include "variables.h"
+
+// initializing
+
+#include "initialize.h"

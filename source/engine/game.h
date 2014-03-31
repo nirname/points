@@ -5,6 +5,10 @@ namespace engine {
 	#include "game/_game.h"
 	#include "game/load.h"
 
+	Game::Game():
+		kind(NO_GAME), paused(false), loaded(false)
+	{}
+
 	void Game::pause() {
 		paused = true;
 	}
@@ -14,16 +18,6 @@ namespace engine {
 	}
 
 	void Game::process(unsigned char key, int special_key) {
-		/*if(key == 'p') {
-			paused = !paused;
-			if(paused) {
-				std::cout << ": game is paused; press `p` to resume";
-			}
-			else {
-				std::cout << ": game is resumed; press `p` to pause again";
-				glutTimerFunc(0, image::redisplay, 0);
-			}
-		}*/
 		if(!paused) {
 			engine::Point position;
 			engine::Point offset;

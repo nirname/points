@@ -16,36 +16,22 @@ namespace engine {
 		Point direction; // offset direction
 		Point position;  // position at screen
 
-		graphics::ColorPointer background_color, cells_color, grid_color, border_color;
+		graphics::ColorPointer
+			background_color,
+			cells_color,
+			grid_color,
+			border_color;
 
-		View() {
-			field = NULL;
-			direction = BACKWARD_DIRECTION;
-			background_color = NULL;
-			cells_color      = NULL;
-			grid_color       = NULL;
-			border_color     = NULL;
-		}
+		View();
+		View(Field * _field);
 
+		void initialize();
 		void adjust_size();
 
-		View(Field * _field) {
-			field = _field;
-			adjust_size();
-			direction = BACKWARD_DIRECTION;
-		}
-
-		Bound bound() {
-			return Bound(Point(size.width, size.height) - Point(1, 1));
-		}
-
-		Bound border() {
-			return Bound(Point(size.width, size.height));
-		}
+		Bound bound();
+		Bound border();
 
 		void display();
-
-		//void draw_optional();
 
 		void draw_background(const Bound &);
 		void draw_cells(const Bound &);
@@ -58,14 +44,35 @@ namespace engine {
 
 	}; // View
 
+	View::View() {
+		initialize();
+	}
+
+	View::View(Field * _field) {
+		initialize();
+		field = _field;
+		adjust_size();
+	}
+
+	void View::initialize() {
+		field = NULL;
+		direction = BACKWARD_DIRECTION;
+		background_color = NULL;
+		cells_color      = NULL;
+		grid_color       = NULL;
+		border_color     = NULL;
+	}
+
 	void View::adjust_size() {
 		size = field->size;
 	}
 
-	void View::print(std::ostream & _ostream) const {
-		_ostream << "View#" << this << " ("
-			<< "field: " << field
-		<< ")";
+	Bound View::bound() {
+		return Bound(Point(size.width, size.height) - Point(1, 1));
+	}
+
+	Bound View::border() {
+		return Bound(Point(size.width, size.height));
 	}
 
 	void View::display()
@@ -180,6 +187,12 @@ namespace engine {
 		}
 		// drawing points }
 
+	}
+
+	void View::print(std::ostream & _ostream) const {
+		_ostream << "View#" << this << " ("
+			<< "field: " << field
+		<< ")";
 	}
 
 	std::ostream & operator << (std::ostream & _ostream, const View & _view) {

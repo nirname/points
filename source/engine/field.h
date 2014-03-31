@@ -3,8 +3,7 @@
 namespace engine {
 
 	// Make this types splitted by dimensions
-	enum CLOSURE_TYPE
-	{
+	enum CLOSURE_TYPE {
 		NO_CLOSURE,
 		VERTICAL_CLOSURE,
 		HORIZONTAL_CLOSURE,
@@ -12,30 +11,23 @@ namespace engine {
 	};
 
 	// Make this types splitted by dimensions
-	enum INFINITY_TYPE
-	{
+	enum INFINITY_TYPE {
 		FINITE,
 		VERTICAL_INFINITY,
 		HORIZONTAL_INFINITY,
 		FULL_INFINITY
 	};
 
-	struct Field
-	{
+	struct Field {
+
 		static int count;
 		int number;
 		Size size;
 		CLOSURE_TYPE closure;
 		Data data;
 
-		Field(int _width = 1, int _height = 1) {
-			size = Size(_width, _height);
-			number = count++;
-		}
-
-		~Field() {
-			data.clear();
-		}
+		Field(int _width = 1, int _height = 1);
+		~Field();
 
 		INFINITY_TYPE infinity_type();
 		Bound bound();
@@ -44,6 +36,15 @@ namespace engine {
 	}; // Field
 
 	int Field::count = 0;
+
+	Field::Field(int _width, int _height) {
+		size = Size(_width, _height);
+		number = count++;
+	}
+
+	Field::~Field() {
+		data.clear();
+	}
 
 	Bound Field::bound() {
 		return Bound(Point(size.width, size.height) - Point(1, 1));
@@ -65,4 +66,4 @@ namespace engine {
 		return _ostream;
 	}
 
-} // namespace engine
+}

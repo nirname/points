@@ -7,37 +7,46 @@ namespace engine {
 		int column;
 		int row;
 
-		Point(const Point & x):
-			column(x.column), row(x.row)
-		{}
+		Point(int _column = 0, int _row = 0);
+		Point(const Point & x);
 
-		Point(int _column = 0, int _row = 0):
-			column(_column), row(_row)
-		{}
+		Point & operator += (const Point & x);
+		Point & operator -= (const Point & x);
+		Point & operator *= (const Point & x);
 
-		Point & operator += (const Point & x) {
-			row    += x.row;
-			column += x.column;
-			return * this;
-		}
-
-		Point & operator -= (const Point & x) {
-			row    -= x.row;
-			column -= x.column;
-			return * this;
-		}
-
-		Point & operator *= (const Point & x) {
-			row    *= x.row;
-			column *= x.column;
-			return * this;
-		}
-
-		bool operator < (const Point & x) const {
-			return row < x.row || (row == x.row && column < x.column);
-		}
+		bool operator < (const Point & x) const;
 
 	};
+
+	Point::Point(int _column, int _row):
+		column(_column), row(_row)
+	{}
+	
+	Point::Point(const Point & x):
+		column(x.column), row(x.row)
+	{}
+
+	Point & Point::operator += (const Point & x) {
+		row    += x.row;
+		column += x.column;
+		return * this;
+	}
+
+	Point & Point::operator -= (const Point & x) {
+		row    -= x.row;
+		column -= x.column;
+		return * this;
+	}
+
+	Point & Point::operator *= (const Point & x) {
+		row    *= x.row;
+		column *= x.column;
+		return * this;
+	}
+
+	bool Point::operator < (const Point & x) const {
+		return row < x.row || (row == x.row && column < x.column);
+	}
 
 	std::ostream & operator << (std::ostream & _ostream, const Point & _point) {
 		_ostream << "Point(" << _point.column << ", " << _point.row << ")";

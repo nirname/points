@@ -26,9 +26,7 @@ struct Game {
 
 	Size screen_size;
 
-	Game():
-		kind(NO_GAME), paused(false), loaded(false)
-	{}
+	Game();
 
 	template<typename Type> void load_attribute(Type & attribute, const YAML::Node & level, const char * key);
 
