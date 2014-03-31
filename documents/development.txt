@@ -234,3 +234,4 @@
 * (+) Cделать загрузку default shape
 * Сделать загрузку из yaml cогласно tutorial
 * Cделать фигуры singleton классами?
+* Перенести mask в ObjectKind

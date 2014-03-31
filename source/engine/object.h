@@ -7,29 +7,22 @@ namespace engine {
 		static int count;
 
 		int number;
-		
+
 		ObjectKindPointer kind;
-		ObjectPoints mask;
-		/*typedef std::list<graphics::Animation *> AnimationList;
-		AnimationList animations;*/
+		ObjectPoints mask; // TODO: move mask to object kind
 
 		Object();
 		Object(ObjectKindPointer);
 
 		~Object();
 
-		//bool move(Field *, Point _step, graphics::Animation * _animation);
-		bool move(Field *, Point _step);
-		void go_to(Field * _field, Point _position);
-
-		//void rotate(Field * _field) {}
-		//void symmetric(Field * _field) {}
-		//transformation();
+		void initialize();
 
 		void draw_shape();
 		void use_color();
 
-		void display(const Point & _position);
+		void display(const ObjectPoints & _points);
+		void display(const Point & _point);
 		void print(std::ostream & _ostream) const;
 
 	}; // class Object
@@ -37,12 +30,20 @@ namespace engine {
 	int Object::count = 0;
 
 	Object::Object() {
+		initialize();
 		number = count++;
 		kind = NULL;
 	}
 
 	Object::Object(ObjectKindPointer _kind) : kind(_kind) {
+		initialize();
 		number = count++;
+	}
+	
+	Object::~Object() { }
+	
+	void Object::initialize() {
+		mask.insert(Point(0, 0));
 	}
 	
 	void Object::draw_shape() {
@@ -59,29 +60,31 @@ namespace engine {
 		}
 	}
 
-	Object::~Object() {
-		// TODO: remove its points
-		//--count;
+	void Object::display(const ObjectPoints & _points) {
+		glPushAttrib(GL_CURRENT_BIT);
+			use_color();
+			for ( ObjectPoints::const_iterator
+				i = _points.begin();
+				i != _points.end();
+				i++ )
+			{
+				glPushMatrix();
+					glTranslatef(i->column, i->row, 0);
+					draw_shape();
+				glPopMatrix();
+			}
+		glPopAttrib();
 	}
 
-	void Object::display(const Point & _position = Point()) {
-		//, const Animation & = NULL
+	// Displays only one point with
+	// Animation, color and shape
+	//
+	void Object::display(const Point & _point) {
 		glPushAttrib(GL_CURRENT_BIT);
-			//graphics::use_color(color);
 			use_color();
 			glPushMatrix();
-				glTranslatef(_position.column, _position.row, 0);
-					glPushMatrix(); // animation goes here
-					/*for(AnimationList::iterator a = animations.begin(); a != animations.end(); ++a) {
-						(*a)->apply();
-					}*/
-					//game.animations["Scale"]->apply();
-					/*glTranslatef(0.5, 0.5, 0);
-					glScalef(scale, scale, 0);
-					glTranslatef(-0.5, -0.5, 0);*/
-					draw_shape();
-					//graphics::square();
-				glPopMatrix();
+				glTranslatef(_point.column, _point.row, 0);
+				draw_shape();
 			glPopMatrix();
 		glPopAttrib();
 	}

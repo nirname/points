@@ -61,4 +61,7 @@ namespace engine {
 
 	};
 
+	// TODO: make >> operator for YAML
+	// TODO: make >> operator for binary files
+
 }
