@@ -62,7 +62,10 @@ void select_game(unsigned char key, int special_key, MenuItem * _menu_item) {
 			}
 		}
 		// TODO: remove 'interface' variable from here
-		MenuItems::iterator item = _menu_item->next_menu->second.add_item("Back", interface.menus.find("Games"));
+		MenuItems::iterator item = _menu_item->next_menu->second.add_item(
+			"Back",
+			interface.menus.find("Games")
+		);
 		item->displayer = display_back_option;
 		//interface->menus["Games"].add_item(lib::to_string(game_kind), GAMEPLAY_MODE);
 		//application.set(GAMEPLAY_MODE);
@@ -76,9 +79,13 @@ void start_screensaver(unsigned char key, int special_key, MenuItem * _menu_item
 		screensaver.kind = _screensaver_kind;
 		application.set(SCREENSAVER_MODE);
 	} else if(special_key == GLUT_KEY_LEFT) {
-		options::screensaver_kind = SCREENSAVER_KIND(options::screensaver_kind & ~_screensaver_kind);
+		options::screensaver_kind = SCREENSAVER_KIND (
+			options::screensaver_kind & ~_screensaver_kind
+		);
 	} else if(special_key == GLUT_KEY_RIGHT) {
-		options::screensaver_kind = SCREENSAVER_KIND(options::screensaver_kind | _screensaver_kind);
+		options::screensaver_kind = SCREENSAVER_KIND (
+			options::screensaver_kind | _screensaver_kind
+		);
 	}
 }
 
@@ -121,12 +128,18 @@ void load_interface(Interface * interface) {
 	menus["Extras"].add_item("Credits", menus.end());
 	menus["Extras"].add_item("Back", menus.find("Main menu"));*/
 
-	for(SCREENSAVER_KIND screensaver_kind = LIFE_SCREENSAVER; screensaver_kind <= TIMER_SCREENSAVER; screensaver_kind++) {
-		item = interface->menus["Screensavers"].add_item(lib::to_string(screensaver_kind), start_screensaver);
+	for ( SCREENSAVER_KIND
+		screensaver_kind = LIFE_SCREENSAVER;
+		screensaver_kind <= TIMER_SCREENSAVER;
+		screensaver_kind++
+	) {
+		item = interface->menus["Screensavers"].add_item(
+			lib::to_string(screensaver_kind),
+			start_screensaver
+		);
 		item->displayer = display_screensaver_option;
 	}
 	item = interface->menus["Screensavers"].add_item("Back", interface->menus.find("Main menu"));
 	item->displayer = display_back_option;
 
 }
-

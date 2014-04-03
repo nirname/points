@@ -1,2 +1,2 @@
 #!/bin/sh
-find -name "*.h" -not -path "./include/*" | vera++ > .report
+find -name "*.h" -not -path "./include/*" | vera++ > vera_report.txt

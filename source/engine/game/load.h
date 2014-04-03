@@ -20,24 +20,24 @@ void Game::load_attribute(Type & attribute, const YAML::Node & level, const char
 }
 
 void Game::load_default_colors() {
-	colors.add( std::string( "black" )       , new graphics::Color( BLACK ) );
-	colors.add( std::string( "white" )       , new graphics::Color( WHITE ) );
-	colors.add( std::string( "gray" )        , new graphics::Color( GRAY ) );
-	colors.add( std::string( "blue" )        , new graphics::Color( BLUE ) );
-	colors.add( std::string( "yellow" )      , new graphics::Color( YELLOW ) );
-	colors.add( std::string( "green" )       , new graphics::Color( GREEN ) );
-	colors.add( std::string( "red" )         , new graphics::Color( RED ) );
-	colors.add( std::string( "violet" )      , new graphics::Color( VIOLET ) );
-	colors.add( std::string( "azure" )       , new graphics::Color( AZURE ) );
-	colors.add( std::string( "orange" )      , new graphics::Color( ORANGE ) );
-	colors.add( std::string( "soft_blue" )   , new graphics::Color( SOFT_BLUE ) );
-	colors.add( std::string( "soft_yellow" ) , new graphics::Color( SOFT_YELLOW ) );
-	colors.add( std::string( "soft_green" )  , new graphics::Color( SOFT_GREEN ) );
-	colors.add( std::string( "soft_red" )    , new graphics::Color( SOFT_RED ) );
-	colors.add( std::string( "soft_violet" ) , new graphics::Color( SOFT_VIOLET ) );
-	colors.add( std::string( "light_gray" )  , new graphics::Color( LIGHT_GRAY ) );
-	colors.add( std::string( "dark_violet" ) , new graphics::Color( DARK_VIOLET ) );
-	colors.add( std::string( "dark_gray" )   , new graphics::Color( DARK_GRAY ) );
+	colors.add( std::string( "black" ),       new graphics::Color( BLACK ) );
+	colors.add( std::string( "white" ),       new graphics::Color( WHITE ) );
+	colors.add( std::string( "gray" ),        new graphics::Color( GRAY ) );
+	colors.add( std::string( "blue" ),        new graphics::Color( BLUE ) );
+	colors.add( std::string( "yellow" ),      new graphics::Color( YELLOW ) );
+	colors.add( std::string( "green" ),       new graphics::Color( GREEN ) );
+	colors.add( std::string( "red" ),         new graphics::Color( RED ) );
+	colors.add( std::string( "violet" ),      new graphics::Color( VIOLET ) );
+	colors.add( std::string( "azure" ),       new graphics::Color( AZURE ) );
+	colors.add( std::string( "orange" ),      new graphics::Color( ORANGE ) );
+	colors.add( std::string( "soft_blue" ),   new graphics::Color( SOFT_BLUE ) );
+	colors.add( std::string( "soft_yellow" ), new graphics::Color( SOFT_YELLOW ) );
+	colors.add( std::string( "soft_green" ),  new graphics::Color( SOFT_GREEN ) );
+	colors.add( std::string( "soft_red" ),    new graphics::Color( SOFT_RED ) );
+	colors.add( std::string( "soft_violet" ), new graphics::Color( SOFT_VIOLET ) );
+	colors.add( std::string( "light_gray" ),  new graphics::Color( LIGHT_GRAY ) );
+	colors.add( std::string( "dark_violet" ), new graphics::Color( DARK_VIOLET ) );
+	colors.add( std::string( "dark_gray" ),   new graphics::Color( DARK_GRAY ) );
 
 }
 
@@ -73,7 +73,7 @@ bool Game::unload() {
 bool Game::load(std::string _level) {
 
 	std::cout << std::endl;
-	
+
 	if(loaded) { // TODO: make reload instead
 		lib::stage("UNLOADING");
 		unload();
@@ -108,7 +108,7 @@ bool Game::load(std::string _level) {
 			load_game_options(level);
 
 			loaded = true;
-			
+
 			std::cout << "Game is loaded" << std::endl;
 			lib::stage("PLAYING");
 			//print();

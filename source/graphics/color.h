@@ -84,24 +84,24 @@ namespace graphics {
 				if(options["blue"]) { buffer.blue = options["blue"].as<positive>(); }
 			} else if (options.IsScalar()) {
 				std::string color_name = options.as<std::string>();
-				if ( color_name == "BLACK" ) color.set( BLACK );
-				else if ( color_name == "WHITE" ) color.set( WHITE );
-				else if ( color_name == "GRAY" ) color.set( GRAY );
-				else if ( color_name == "BLUE" ) color.set( BLUE );
-				else if ( color_name == "YELLOW" ) color.set( YELLOW );
-				else if ( color_name == "GREEN" ) color.set( GREEN );
-				else if ( color_name == "RED" ) color.set( RED );
-				else if ( color_name == "VIOLET" ) color.set( VIOLET );
-				else if ( color_name == "AZURE" ) color.set( AZURE );
-				else if ( color_name == "ORANGE" ) color.set( ORANGE );
-				else if ( color_name == "SOFT_BLUE" ) color.set( SOFT_BLUE );
-				else if ( color_name == "SOFT_YELLOW" ) color.set( SOFT_YELLOW );
-				else if ( color_name == "SOFT_GREEN" ) color.set( SOFT_GREEN );
-				else if ( color_name == "SOFT_RED" ) color.set( SOFT_RED );
-				else if ( color_name == "SOFT_VIOLET" ) color.set( SOFT_VIOLET );
-				else if ( color_name == "LIGHT_GRAY" ) color.set( LIGHT_GRAY );
-				else if ( color_name == "DARK_VIOLET" ) color.set( DARK_VIOLET );
-				else if ( color_name == "DARK_GRAY" ) color.set( DARK_GRAY );
+				if ( color_name == "BLACK" ) { color.set( BLACK ); }
+				else if ( color_name == "WHITE" ) { color.set( WHITE ); }
+				else if ( color_name == "GRAY" ) { color.set( GRAY ); }
+				else if ( color_name == "BLUE" ) { color.set( BLUE ); }
+				else if ( color_name == "YELLOW" ) { color.set( YELLOW ); }
+				else if ( color_name == "GREEN" ) { color.set( GREEN ); }
+				else if ( color_name == "RED" ) { color.set( RED ); }
+				else if ( color_name == "VIOLET" ) { color.set( VIOLET ); }
+				else if ( color_name == "AZURE" ) { color.set( AZURE ); }
+				else if ( color_name == "ORANGE" ) { color.set( ORANGE ); }
+				else if ( color_name == "SOFT_BLUE" ) { color.set( SOFT_BLUE ); }
+				else if ( color_name == "SOFT_YELLOW" ) { color.set( SOFT_YELLOW ); }
+				else if ( color_name == "SOFT_GREEN" ) { color.set( SOFT_GREEN ); }
+				else if ( color_name == "SOFT_RED" ) { color.set( SOFT_RED ); }
+				else if ( color_name == "SOFT_VIOLET" ) { color.set( SOFT_VIOLET ); }
+				else if ( color_name == "LIGHT_GRAY" ) { color.set( LIGHT_GRAY ); }
+				else if ( color_name == "DARK_VIOLET" ) { color.set( DARK_VIOLET ); }
+				else if ( color_name == "DARK_GRAY" ) { color.set( DARK_GRAY ); }
 			}
 			color = buffer;
 		} catch(...) {

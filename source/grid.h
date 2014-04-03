@@ -26,14 +26,14 @@ namespace graphics {
 			}
 		}
 	}
-	
+
 	// TODO: remove
 	void border(const engine::Size & _size) {
 		glBegin(GL_LINE_LOOP);
-			glVertex2f(0          , 0          );
+			glVertex2f(0,           0          );
 			glVertex2f(_size.width, 0          );
 			glVertex2f(_size.width, _size.height);
-			glVertex2f(0          , _size.height);
+			glVertex2f(0,           _size.height);
 		glEnd();
 	}
 

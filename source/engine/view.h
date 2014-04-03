@@ -134,7 +134,7 @@ namespace engine {
 					{
 						glPushMatrix();
 							glTranslatef(column, row, 0);
-							graphics::square();
+							graphics::default_shape();
 						glPopMatrix();
 					}
 				}

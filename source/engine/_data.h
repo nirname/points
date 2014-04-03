@@ -24,6 +24,9 @@ namespace test {
 		bool contains(Object *) const;
 		bool contains(Point) const;
 
+		bool add(Object *, const ObjectPoints &, const Point & = Point(0, 0));
+
+		bool add_point(Object *, Point);
 		bool add_object(Object *, Point); // Adds object to position
 
 		void remove_point(Point);     // Removes point, and object if necessary
@@ -54,6 +57,19 @@ namespace test {
 
 	bool Data::contains(Point _point) const {
 		return points.find(_point) != points.end();
+	}
+
+	bool Data::add(Object * _object, const ObjectPoints & _mask, const Point & _position) {
+		//TODO: write code here
+	}
+
+	bool Data::add_point(Object * _object, Point _point) {
+		if(!contains(_object) || contains(_point)) {
+			return false;
+		} else {
+			objects[_object].insert(_point);
+			points[_point] = _object;
+		}
 	}
 
 	// Adds an object by it's mask to specified position
