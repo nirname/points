@@ -8,7 +8,8 @@ void operator >> (const YAML::Node & option, void (* & parameter)()) {
 		} else if (value == std::string("circle")) {
 			parameter = graphics::circle;
 			//parameter = false;
+		} else if (value == std::string("point")) {
+			parameter = graphics::point;
 		}
 	}
 }
-

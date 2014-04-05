@@ -38,15 +38,25 @@ namespace graphics {
 		return length;
 	}*/
 
-	void point() {
-		glVertex2f(0, 0)
-	}
-
 	void square() {
 		glPushMatrix();
 			glTranslatef(0.5, 0.5, 0);
 			glScalef(options::figure_size, options::figure_size, 0);
 			glRectf(-0.5, -0.5, 0.5, 0.5);
+		glPopMatrix();
+	}
+
+	void point() {
+		glPushMatrix();
+			glTranslatef(0.5, 0.5, 0);
+			glScalef(options::figure_size * 0.25, options::figure_size * 0.25, 0);
+			glRectf(-0.5, -0.5, 0.5, 0.5);
+			/*glBegin(GL_POINTS);
+			glTranslatef(0.5, 0.5, 0);
+				glPointSize(10);
+				glVertex2f(0, 0);
+				glPointSize(1);
+			glEnd();*/
 		glPopMatrix();
 	}
 

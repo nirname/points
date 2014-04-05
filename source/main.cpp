@@ -4,9 +4,9 @@
 int main(int argc, char * argv[])
 {
 
-	data_test();
+	//data_test();
 
-	/*lib::stage("POINTS");
+	lib::stage("POINTS");
 	std::cout << "Independent Logic Games" << std::endl;
 	std::cout << "Arcades, Puzzles & Classical games" << std::endl;
 
