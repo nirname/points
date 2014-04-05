@@ -24,17 +24,16 @@ namespace test {
 		bool contains(Object *) const;
 		bool contains(Point) const;
 
+		inline bool add(Object *, const Point & = Point(0, 0));
 		bool add(Object *, const ObjectPoints &, const Point & = Point(0, 0));
 
-		bool add_point(Object *, Point);
-		bool add_object(Object *, Point); // Adds object to position
+		void remove(Point);
+		void remove(Object *);
 
-		void remove_point(Point);     // Removes point, and object if necessary
-		void remove_object(Object *); // Removes all object and it's points
-		void clear();                 // Clears all
+		void clear();          // Clears all
 
-		ObjectPoints * get_points(Object *); // Gets all object's points
-		Object *       get_object(Point); // Gets an object by point
+		ObjectPoints * get(Object *); // Gets all object's points
+		Object *       get(Point); // Gets an object by point
 
 		// Aliases for `get`
 		ObjectPoints * operator [] (Object *);
@@ -51,62 +50,65 @@ namespace test {
 		clear();
 	}
 
+	// Check if data contains an object
+	//
 	bool Data::contains(Object * _object) const {
 		return objects.find(_object) != objects.end();
 	}
 
+	// Check if data contains a point
+	//
 	bool Data::contains(Point _point) const {
 		return points.find(_point) != points.end();
 	}
 
-	bool Data::add(Object * _object, const ObjectPoints & _mask, const Point & _position) {
-		//TODO: write code here
-	}
-
-	bool Data::add_point(Object * _object, Point _point) {
-		if(!contains(_object) || contains(_point)) {
-			return false;
-		} else {
-			objects[_object].insert(_point);
-			points[_point] = _object;
-		}
-	}
-
-	// Adds an object by it's mask to specified position
+	// Adds object by it's mask to specified position
 	//
-	bool Data::add_object(Object * _object, Point _position) {
-		if(contains(_object)) {
-			return false;
-		} else {
-			ObjectPoints _points; // buffer
-			for ( ObjectPoints::iterator
-				i = _object->mask.begin();
-				i != _object->mask.end();
-				i ++ )
-			{
-				Point _point = *i + _position; // calculate new point
-				if(!contains(_point)) {
-					_points.insert(_point);
-				} else {
-					_points.clear();
-					return false;
-				}
-			}
-			objects[_object] = _points;
-			for ( ObjectPoints::iterator
-				i = _points.begin();
-				i != _points.end();
-				i++ )
-			{
-				points[*i] = _object;
+	inline bool Data::add(Object * _object, const Point & _position) {
+		return add(_object, _object->mask, _position);
+	}
+
+	// Adds an object if necessary
+	// Adds points to object
+	// Translate points to specified position
+	//
+	bool Data::add(Object * _object, const ObjectPoints & _points, const Point & _position) {
+		// Calculate new points' values and check them
+		ObjectPoints points_buffer;
+		for ( ObjectPoints::iterator
+			i = _points.begin();
+			i != _points.end();
+			i ++ )
+		{
+			Point _point = *i + _position;
+			if(!contains(_point)) {
+				points_buffer.insert(_point);
+			} else {
+				points_buffer.clear();
+				return false;
 			}
 		}
+		// Add new object;
+		if(!contains(_object)) {
+			objects[_object] = ObjectPoints();
+		}
+		// Copy points to object points and data points
+		ObjectPoints & object_points = objects[_object];
+		for ( ObjectPoints::iterator
+			i = points_buffer.begin();
+			i != points_buffer.end();
+			i++ )
+		{
+			object_points.insert(*i);
+			points[*i] = _object;
+		}
+		return true;
 	}
 
 	// Removes only one point from an object
 	// If the object contans no more points it will be removed too
 	//
-	void Data::remove_point(Point _point) {
+	void Data::remove(Point _point) {
 		if(contains(_point)) {
 			Object * _object = points[_point];
 			points.erase(_point);
@@ -121,7 +123,7 @@ namespace test {
 	// Removes whole ojbect with its points
 	// 'points' also will be cleared
 	//
-	void Data::remove_object(Object * _object) {
+	void Data::remove(Object * _object) {
 		if(contains(_object)) {
 			ObjectPoints & object_points = objects[_object];
 			for( ObjectPoints::iterator
@@ -135,27 +137,39 @@ namespace test {
 		}
 	}
 
+	// Erases all object and points
+	//
 	void Data::clear() {
 		objects.clear();
 		points.clear();
 	}
 
-	ObjectPoints * Data::get_points(Object * _object) {
+	// Gets all object points
+	//
+	ObjectPoints * Data::get(Object * _object) {
 		return (contains(_object))? &objects[_object] : NULL;
 	}
 
-	Object * Data::get_object(Point _point) {
+	// Gets an object by point
+	//
+	Object * Data::get(Point _point) {
 		return (contains(_point))? points[_point] : NULL;
 	}
 
+	// Alias for getting object
+	//
 	ObjectPoints * Data::operator [] (Object * _object) {
-		get_points(_object);
+		get(_object);
 	};
 
+	// Alias for getting points
+	//
 	Object * Data::operator [] (Point _point) {
-		get_object(_point);
+		get(_point);
 	}
 
+	// Prints this to stream
+	//
 	void Data::print(std::ostream & _ostream) const {
 		_ostream << "Data " << this << ":" << std::endl;
 		_ostream << "  Objects:" << std::endl;
@@ -184,6 +198,8 @@ namespace test {
 
 	}
 
+	// Alias for print
+	//
 	std::ostream & operator << (std::ostream & _ostream, const Data & _data) {
 		_data.print(_ostream);
 		return _ostream;
