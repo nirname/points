@@ -24,7 +24,7 @@ namespace graphics {
 		}
 		graphics::coordinates(0, screen.width, 0, screen.height);
 	}
-	
+
 	/*void draw_string(std::string & string) {
 		for (std::string::iterator i = string.begin(); i != string.end(); ++i) {
 			glutStrokeCharacter(GLUT_STROKE_ROMAN, *i);
@@ -37,6 +37,10 @@ namespace graphics {
 		}
 		return length;
 	}*/
+
+	void point() {
+		glVertex2f(0, 0)
+	}
 
 	void square() {
 		glPushMatrix();
