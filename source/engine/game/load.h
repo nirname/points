@@ -97,7 +97,7 @@ bool Game::load(std::string _level) {
 			load_attribute(colors, level, "colors");
 			//load_attribute(shapes, level, "shapes");
 			load_attribute(object_kinds, level, "object_kinds");
-			load_interactions(level);
+			//load_interactions(level);
 			//load_attribute(interactions, level, "interactions");
 			load_objects(level);
 
@@ -132,7 +132,7 @@ bool Game::load(std::string _level) {
 } // load()
 
 // TODO: refactor it
-void Game::load_interactions(const YAML::Node & level) {
+/*void Game::load_interactions(const YAML::Node & level) {
 	const YAML::Node & interactions_node = level["interactions"];
 	if(interactions_node) {
 		if(interactions_node.IsMap()) {
@@ -198,7 +198,7 @@ void Game::load_interactions(const YAML::Node & level) {
 			std::cout << "Interaction should be a map" << std::endl;
 		}
 	}
-}
+}*/
 
 // TODO: use specialization for mapping operator >> and put this code there
 // drop this function and use load_attribute instead

@@ -39,13 +39,13 @@ namespace engine {
 		initialize();
 		number = count++;
 	}
-	
+
 	Object::~Object() { }
-	
+
 	void Object::initialize() {
 		mask.insert(Point(0, 0));
 	}
-	
+
 	void Object::draw_shape() {
 		if(kind != NULL) {
 			kind->draw_shape();
@@ -53,7 +53,7 @@ namespace engine {
 			graphics::default_shape();
 		}
 	}
-	
+
 	void Object::use_color() {
 		if(kind != NULL) {
 			kind->use_color();

@@ -31,7 +31,7 @@ struct Game {
 
 	template<typename Type> void load_attribute(Type & attribute, const YAML::Node & level, const char * key);
 
-	void load_interactions(const YAML::Node &);
+	//void load_interactions(const YAML::Node &);
 	void load_objects(const YAML::Node &);
 	void load_default_colors();
 	void load_default_shapes();
