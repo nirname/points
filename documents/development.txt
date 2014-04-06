@@ -255,3 +255,4 @@
 		make >> operator for binary files
 	(+) Добавить фигуру "Точка"
 	Написать итератор для Bound
+	Cделать папку refactored

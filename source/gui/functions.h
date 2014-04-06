@@ -29,8 +29,9 @@ void display_screensaver_option(int position, MenuItem * _menu_item) {
 }
 
 void quick_start(unsigned char key, int special_key, MenuItem * _menu_item) {
-	std::cout << " -> quick start";
 	if(key == ENTER_KEY) {
+		game.kind = SOKOBAN;
+		game.load("levels/Sokoban/Level-1.yaml");
 		application.set(GAMEPLAY_MODE);
 	}
 }

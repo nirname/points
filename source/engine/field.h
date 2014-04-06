@@ -3,14 +3,6 @@
 namespace engine {
 
 	// Make this types splitted by dimensions
-	enum CLOSURE_TYPE {
-		NO_CLOSURE,
-		VERTICAL_CLOSURE,
-		HORIZONTAL_CLOSURE,
-		FULL_CLOSURE
-	};
-
-	// Make this types splitted by dimensions
 	enum INFINITY_TYPE {
 		FINITE,
 		VERTICAL_INFINITY,

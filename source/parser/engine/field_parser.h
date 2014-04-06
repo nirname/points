@@ -6,6 +6,7 @@ void operator >> (const YAML::Node & options, Field & field) {
 			options["size"] >> field.size;
 		}
 		if(options["closure"]) {
+			options["closure"] >> field.closure;
 		}
 		if(options["data"]) {
 			const YAML::Node & data_node = options["data"];
@@ -21,4 +22,3 @@ void operator >> (const YAML::Node & options, Field & field) {
 		std::cout << "Options for field should be a mapping" << std::endl;
 	}
 }
-
