@@ -17,5 +17,17 @@
 #    option: [1, 0]
 
 first_player:
-  up:
-  down:
+  up: Up
+  down: Down
+  left: Left
+  right: Right
+second_player:
+  up: NumPad8
+  down: NumPad5
+  left: NumPad4
+  right: NumPad6
+third_player:
+  w: [move, [0, 1]]
+  a: [move, [-1, 0]]
+  s: [move, [0, -1]]
+  d: [move, [1, 0]]

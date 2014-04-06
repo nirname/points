@@ -15,8 +15,9 @@ struct Game {
 	ObjectKindMapping object_kinds;
 	ObjectMapping     objects;
 	//Entities          entities; // TODO: Unnamed objects
-	ControlsMapping   controls;
-	graphics::AnimationMapping animations;
+	//ControlsMapping   controls;
+
+	//graphics::AnimationMapping animations;
 	//LevelList levels;
 
 	InteractionMap interactions;

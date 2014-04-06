@@ -33,13 +33,15 @@
 #include "foreword.h"
 #include "grid.h"
 
+#include "controls.h"
+
 #include "parser.h"
 
 #include "_application.h"
 #include "gui.h"
 #include "application.h"
+#include "controls/functions.h"
 
-#include "controls.h"
 #include "display.h"
 
 // global variables

@@ -60,8 +60,8 @@ bool Game::unload() {
 	shapes.clear();
 	object_kinds.clear();
 	objects.clear();
-	animations.clear();
-	controls.clear();
+	//animations.clear();
+	//controls.clear();
 
 	interactions.clear();
 

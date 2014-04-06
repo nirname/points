@@ -1,11 +1,11 @@
 #pragma once
 
 // TODO: refactor this
-template<typename Type> class Mapping {
+template<typename Type, typename KeyType> class Mapping {
 
 	public:
 
-		typedef std::string KeyType;
+		//typedef std::string KeyType;
 		typedef Type * TypePointer;
 
 		typedef std::map<KeyType, TypePointer> Container;

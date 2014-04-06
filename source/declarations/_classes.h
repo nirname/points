@@ -1,6 +1,6 @@
 #pragma once
 
-template<typename Type> class Mapping;
+template<typename Type, typename KeyType = std::string> class Mapping;
 
 namespace graphics {
 
@@ -49,7 +49,6 @@ namespace engine {
 	struct Object;
 
 	struct ObjectKind;
-	struct ControlHandler;
 	struct Cell;
 
 	typedef Level  * LevelPointer;
@@ -66,7 +65,6 @@ namespace engine {
 	typedef Mapping< Object          >     ObjectMapping;
 	typedef Mapping< graphics::Color >      ColorMapping;
 	typedef Mapping< graphics::Shape >      ShapeMapping;
-	typedef Mapping< ControlHandler  >   ControlsMapping;
 
 	typedef std::map< Object *, Point > ObjectInformation;
 	typedef std::map< Point, Object * > PointInformation;
@@ -87,6 +85,11 @@ namespace engine {
 	void operator >> (const YAML::Node & options, Size &);
 	void operator >> (const YAML::Node & options, ObjectKind &);
 
+}
+
+namespace controls {
+	struct ControlHandler;
+	typedef Mapping< ControlHandler  >   ControlsMapping;
 }
 
 namespace Directory {

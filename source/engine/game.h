@@ -22,11 +22,12 @@ namespace engine {
 			engine::Point position;
 			engine::Point offset;
 			std::string string_key = lib::to_string(key);
-			if(controls.has(string_key)) {
+			/*if(controls.has(string_key)) {
 				controls[string_key]->evaluate();
 			} else {
 				std::cout << " ~ free";
-			}
+			}*/
+
 			//graphics::ANIMATION_TYPE animation_type = graphics::NO_ANIMATION;
 			//glutPostRedisplay();
 		}

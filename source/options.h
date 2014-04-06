@@ -17,7 +17,7 @@ namespace options {
 	bool afterword = true;
 	bool full_screen = false;
 	bool game_mode = false;
-	
+
 	int window_width = 960;
 	int window_height = 540;
 
@@ -28,6 +28,8 @@ namespace options {
 
 	graphics::Color selection_color = Color(BLUE);
 	//graphics::Color clear_color = Color(BLACK);
+
+	//engine::ControlsMapping controls;
 
 }
 
@@ -75,7 +77,7 @@ namespace options {
 		load_option(grid_type, config, "grid_type");
 
 		load_option(screensaver_kind, config, "screensaver");
-		
+
 		load_option(foreword, config, "foreword");
 		load_option(afterword, config, "afterword");
 		load_option(full_screen, config, "full_screen");
@@ -122,7 +124,7 @@ namespace options {
 		}
 		print();
 	}
-	
+
 	void print() {
 
 		std::cout << "grid_type: "   << grid_type        << std::endl;
