@@ -1,5 +1,4 @@
-#ifndef VIEW_PARSER_H
-#define VIEW_PARSER_H 1
+#pragma once
 
 void operator >> (const YAML::Node & options, View & view) {
 
@@ -48,5 +47,3 @@ void operator >> (const YAML::Node & options, View & view) {
 	}
 
 }
-
-#endif

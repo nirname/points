@@ -8,6 +8,16 @@ void operator >> (const YAML::Node & options, Field & field) {
 		if(options["closure"]) {
 			options["closure"] >> field.closure;
 		}
+		if(options["cells"]) {
+			const YAML::Node & cells_node = options["cells"];
+			if(options["cells"].IsSequence()) {
+				for(YAML::const_iterator i = cells_node.begin(); i != cells_node.end(); ++i) {
+					Point point;
+					*i >> point;
+					field.cells.insert(point);
+				}
+			}
+		}
 		if(options["data"]) {
 			const YAML::Node & data_node = options["data"];
 			if(data_node.IsMap()) {

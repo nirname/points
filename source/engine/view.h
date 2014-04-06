@@ -159,13 +159,14 @@ namespace engine {
 						column++)
 					{
 						Point cell(column, row);
-						// TODO: move this part to field itself, then to data
 						if(field->cells.find(cell) != field->cells.end()){
-							graphics::default_shape();
+							glPushMatrix();
+								glTranslatef(column, row, 0);
+								graphics::default_shape();
+							glPopMatrix();
 						}
 					}
 				}
-				// drawing points }
 			glPopAttrib();
 		}
 	}

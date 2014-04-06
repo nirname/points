@@ -51,7 +51,10 @@ namespace engine {
 	}
 
 	void Field::print(std::ostream & _ostream) const {
-		_ostream << "Field#" << this;
+		_ostream << "Field#" << number << std::endl;
+		for(std::set<Point>::const_iterator i = cells.begin(); i != cells.end(); ++i) {
+			_ostream << *i << "; ";
+		}
 	}
 
 	std::ostream & operator << (std::ostream & _ostream, const Field & _field) {

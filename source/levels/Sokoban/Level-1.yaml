@@ -10,6 +10,7 @@ fields:
       1: [1, 5]
       2: [6, 7]
       3: [5, 3]
+    cells: [[5, 5], [6, 5], [7, 5]]
 
 colors:
   dark_blue: [0, 52, 92]
@@ -20,16 +21,13 @@ views:
     field: field
     background_color: sky
     field_color: soft_blue
-    cells_color: white
+    cells_color: blue
     position: [1, 1]
-
-cells:
-  place: [[5, 5], [6, 5], [7, 5]]
 
 object_kinds:
   sokoban:
     color: dark_blue
-    shape: circle
+    shape: david
   box:
     color: dark_blue
 
