@@ -1,4 +1,21 @@
+#controls:
+#  w: &up
+#    object: s
+#    action: move
+#    option: [0, 1]
+#  a: &left
+#    object: s
+#    action: move
+#    option: [-1, 0]
+#  s: &down
+#    object: s
+#    action: move
+#    option: [0, -1]
+#  d: &right
+#    object: s
+#    action: move
+#    option: [1, 0]
+
 first_player:
   up:
   down:
-  

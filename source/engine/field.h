@@ -25,6 +25,7 @@ namespace engine {
 		Size size;
 		CLOSURE_TYPE closure;
 		Data data;
+		std::set<Point> cells;
 
 		Field(int _width = 1, int _height = 1);
 		~Field();

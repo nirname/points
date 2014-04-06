@@ -50,6 +50,7 @@ namespace engine {
 
 	struct ObjectKind;
 	struct ControlHandler;
+	struct Cell;
 
 	typedef Level  * LevelPointer;
 	typedef Field  * FieldPointer;
@@ -58,6 +59,7 @@ namespace engine {
 	typedef Point  * PointPointer;
 	typedef ObjectKind * ObjectKindPointer;
 
+	typedef Mapping< Cell >                  CellMapping;
 	typedef Mapping< Field           >      FieldMapping;
 	typedef Mapping< View            >       ViewMapping;
 	typedef Mapping< ObjectKind      > ObjectKindMapping;

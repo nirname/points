@@ -2,8 +2,8 @@
 
 namespace engine {
 
-	struct Cell {
+	/*struct Cell {
 		graphics::Color * color;
-	};
+	};*/
 
 }

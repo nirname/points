@@ -19,19 +19,19 @@ views:
   view:
     field: field
     background_color: sky
-    cells_color: soft_blue
+    field_color: soft_blue
+    cells_color: white
     position: [1, 1]
+
+cells:
+  place: [[5, 5], [6, 5], [7, 5]]
 
 object_kinds:
   sokoban:
     color: dark_blue
-    shape: octagon
+    shape: circle
   box:
     color: dark_blue
-
-interactions:
-  sokoban:
-    push: box
 
 objects:
   sokoban: s
@@ -39,21 +39,3 @@ objects:
 
 controls:
   first_player: s
-
-#controls:
-#  w: &up
-#    object: s
-#    action: move
-#    option: [0, 1]
-#  a: &left
-#    object: s
-#    action: move
-#    option: [-1, 0]
-#  s: &down
-#    object: s
-#    action: move
-#    option: [0, -1]
-#  d: &right
-#    object: s
-#    action: move
-#    option: [1, 0]

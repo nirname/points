@@ -18,6 +18,7 @@ namespace engine {
 
 		graphics::ColorPointer
 			background_color,
+			field_color,
 			cells_color,
 			grid_color,
 			border_color;
@@ -35,6 +36,7 @@ namespace engine {
 
 		void draw_background(const Bound &);
 		void draw_cells(const Bound &);
+		void draw_field(const Bound &);
 		void draw_grid(const Bound &);
 		void draw_border();
 
@@ -58,6 +60,7 @@ namespace engine {
 		field = NULL;
 		direction = BACKWARD_DIRECTION;
 		background_color = NULL;
+		field_color      = NULL;
 		cells_color      = NULL;
 		grid_color       = NULL;
 		border_color     = NULL;
@@ -86,13 +89,14 @@ namespace engine {
 			Bound real_bound = display_bound - shift;
 			display_bound.final += Point(1, 1);
 
-			// positioning
+			// Positioning
 			glPushMatrix();
 				glTranslatef(position.column, position.row, 0);
 				draw_background(view_bound);
-				draw_cells(display_bound);
+				draw_field(display_bound);
 				glPushMatrix();
 					glTranslatef(shift.column, shift.row, 0);
+					draw_cells(real_bound);
 					draw_objects(real_bound);
 				glPopMatrix();
 				draw_grid(display_bound);
@@ -120,10 +124,10 @@ namespace engine {
 		}
 	}
 
-	void View::draw_cells(const Bound & bound) {
-		if(cells_color != NULL) {
+	void View::draw_field(const Bound & bound) {
+		if(field_color != NULL) {
 			glPushAttrib(GL_CURRENT_BIT);
-				cells_color->use();
+				field_color->use();
 				for (int row = bound.initial.row;
 				row < bound.final.row;
 				row++)
@@ -142,16 +146,38 @@ namespace engine {
 		}
 	}
 
+	void View::draw_cells(const Bound & _bound) {
+		if(cells_color != NULL) {
+			glPushAttrib(GL_CURRENT_BIT);
+				cells_color->use();
+				for (int row = _bound.initial.row;
+					row <= _bound.final.row;
+					row++)
+				{
+					for (int column = _bound.initial.column;
+						column <= _bound.final.column;
+						column++)
+					{
+						Point cell(column, row);
+						// TODO: move this part to field itself, then to data
+						if(field->cells.find(cell) != field->cells.end()){
+							graphics::default_shape();
+						}
+					}
+				}
+				// drawing points }
+			glPopAttrib();
+		}
+	}
+
 	void View::draw_background(const Bound & bound) {
-		glPushAttrib(GL_CURRENT_BIT);
-			if(background_color != NULL) {
+		if(background_color != NULL) {
+			glPushAttrib(GL_CURRENT_BIT);
 				background_color->use();
 				float outline = options::padding;
 				glRectf(0 - outline, 0 - outline, size.width + outline, size.height + outline);
-			}/* else {
-				glColor3ub(BLACK);
-			}*/
-		glPopAttrib();
+			glPopAttrib();
+		}
 	}
 
 	void View::draw_objects(const Bound & real_bound) {

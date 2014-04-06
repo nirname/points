@@ -14,7 +14,7 @@ afterword: on
 window_width: 960
 window_height: 540
 
-shape: point
+shape: square
 animation: fade
 selection_color: [9, 215, 196]
 shape: rectangle
