@@ -2,16 +2,18 @@
 
 namespace Directory {
 
-	// `dirent` structure:
+	/// Reads directories or a files in `path`
+	/// and fills in the specified list by names of the entries.
 	//
-	// d_type: DT_DIR - directory, DT_REG - regular file
-	// d_name: name of a directory or a file
-	// d_info
-	// d_reclen
-
-	// Reads directories or a files in `path`
-	// and fills in the specified list by names of the entries
-	//
+	/// 'dirent' header is used.
+	///
+	/// `dirent` structure:
+	///
+	/// d_type: DT_DIR - directory, DT_REG - regular file
+	/// d_name: name of a directory or a file
+	/// d_info
+	/// d_reclen
+	///
 	bool read(const std::string & path, int type, lines & list, bool (*filter)(dirent *) = NULL) {
 		DIR * dir;
 		dirent * entry;
@@ -35,7 +37,8 @@ namespace Directory {
 
 namespace File {
 
-	// Checkes whether file has an extension or not
+	/// Checks whether file has an extension or not.
+	/// Works for 'c' strings
 	//
 	bool has_extension(const char * name, const char * extension)
 	{
@@ -48,7 +51,10 @@ namespace File {
 				extension
 			) == 0;
 	}
-	
+
+	/// Checks whether file has an extension or not.
+	/// Works for 'c++' strings
+	//
 	bool has_extension(std::string name, std::string extension){
 		return has_extension(name.c_str(), extension.c_str());
 	}

@@ -6,6 +6,8 @@ namespace test {
 
 	typedef std::set<Point> ObjectPoints;
 
+	/// Contains objects and points for the field
+	//
 	class Data {
 
 	private:
@@ -30,7 +32,7 @@ namespace test {
 		void remove(Point);
 		void remove(Object *);
 
-		void clear();          // Clears all
+		void clear(); // Clears all
 
 		ObjectPoints * get(Object *); // Gets all object's points
 		Object *       get(Point); // Gets an object by point
@@ -50,27 +52,27 @@ namespace test {
 		clear();
 	}
 
-	// Check if data contains an object
+	/// Check if data contains an object
 	//
 	bool Data::contains(Object * _object) const {
 		return objects.find(_object) != objects.end();
 	}
 
-	// Check if data contains a point
+	/// Check if data contains a point
 	//
 	bool Data::contains(Point _point) const {
 		return points.find(_point) != points.end();
 	}
 
-	// Adds object by it's mask to specified position
+	/// Adds object by it's mask to specified position
 	//
 	inline bool Data::add(Object * _object, const Point & _position) {
 		return add(_object, _object->mask, _position);
 	}
 
-	// Adds an object if necessary
-	// Adds points to object
-	// Translate points to specified position
+	/// Adds an object if necessary
+	/// Adds points to object
+	/// Translate points to specified position
 	//
 	bool Data::add(Object * _object, const ObjectPoints & _points, const Point & _position) {
 		// Calculate new points' values and check them
@@ -105,8 +107,8 @@ namespace test {
 		return true;
 	}
 
-	// Removes only one point from an object
-	// If the object contans no more points it will be removed too
+	/// Removes only one point from an object
+	/// If the object contans no more points it will be removed too
 	//
 	void Data::remove(Point _point) {
 		if(contains(_point)) {
@@ -120,8 +122,8 @@ namespace test {
 		}
 	}
 
-	// Removes whole ojbect with its points
-	// 'points' also will be cleared
+	/// Removes whole ojbect with its points
+	/// 'points' also will be cleared
 	//
 	void Data::remove(Object * _object) {
 		if(contains(_object)) {
@@ -137,38 +139,38 @@ namespace test {
 		}
 	}
 
-	// Erases all object and points
+	/// Erases all object and points
 	//
 	void Data::clear() {
 		objects.clear();
 		points.clear();
 	}
 
-	// Gets all object points
+	/// Gets all object points
 	//
 	ObjectPoints * Data::get(Object * _object) {
 		return (contains(_object))? &objects[_object] : NULL;
 	}
 
-	// Gets an object by point
+	/// Gets an object by point
 	//
 	Object * Data::get(Point _point) {
 		return (contains(_point))? points[_point] : NULL;
 	}
 
-	// Alias for getting object
+	/// Alias for getting object
 	//
 	ObjectPoints * Data::operator [] (Object * _object) {
 		get(_object);
 	};
 
-	// Alias for getting points
+	/// Alias for getting points
 	//
 	Object * Data::operator [] (Point _point) {
 		get(_point);
 	}
 
-	// Prints this to stream
+	/// Prints this to stream
 	//
 	void Data::print(std::ostream & _ostream) const {
 		_ostream << "Data " << this << ":" << std::endl;
@@ -198,7 +200,7 @@ namespace test {
 
 	}
 
-	// Alias for print
+	/// Alias for print
 	//
 	std::ostream & operator << (std::ostream & _ostream, const Data & _data) {
 		_data.print(_ostream);

@@ -9,6 +9,7 @@
 #include "engine/data.h"
 #include "engine/_data.h"
 #include "engine/closure_type.h"
+#include "engine/infinity_type.h"
 #include "engine/field.h"
 #include "engine/view.h"
 

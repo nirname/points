@@ -2,6 +2,8 @@
 
 namespace engine {
 
+	/// Describes a bound with initial and final points
+	//
 	struct Bound {
 
 		/// Left bottom point
@@ -64,16 +66,19 @@ namespace engine {
 		return * this;
 	}
 
+	// Get another shifted bound
 	Bound operator + (const Bound & _bound, const Point & _point) {
 		Bound result(_bound);
 		return result += _point;
 	}
 
+	// Get another shifted bound
 	Bound operator - (const Bound & _bound, const Point & _point) {
 		Bound result(_bound);
 		return result -= _point;
 	}
 
+	// Get intersection of bounds
 	Bound operator & (const Bound & _a, const Bound & _b) {
 		Bound result(_a);
 		return result &= _b;

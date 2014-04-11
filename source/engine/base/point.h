@@ -2,6 +2,8 @@
 
 namespace engine {
 
+	/// Describes position by specifying coordinates for each dimension
+	//
 	struct Point {
 
 		int column;
@@ -21,7 +23,7 @@ namespace engine {
 	Point::Point(int _column, int _row):
 		column(_column), row(_row)
 	{}
-	
+
 	Point::Point(const Point & x):
 		column(x.column), row(x.row)
 	{}

@@ -2,14 +2,6 @@
 
 namespace engine {
 
-	// Make this types splitted by dimensions
-	enum INFINITY_TYPE {
-		FINITE,
-		VERTICAL_INFINITY,
-		HORIZONTAL_INFINITY,
-		FULL_INFINITY
-	};
-
 	struct Field {
 
 		static int count;
