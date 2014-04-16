@@ -1,8 +1,17 @@
 #include "global.h"
 #include "tests/_data_test.h"
 
+#include <AL/al.h>
+#include <AL/alc.h>
+//#include <AL/alut.h>
+
 int main(int argc, char * argv[])
 {
+
+	ALCdevice *device;
+
+	device = alcOpenDevice(NULL);
+	if (!device) {}
 
 	//data_test();
 

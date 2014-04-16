@@ -10,7 +10,7 @@ INCLUDE_PATH = include
 LIBRARIES_PATH = libraries/ubuntu13
 
 #-lopengl32 -lfreeglut -lglu32
-LIBS = -lglut -lGL -lGLU -lyaml-cpp
+LIBS = -lglut -lGL -lGLU -lopenal -lalut -lyaml-cpp
 
 PROJECT = points
 EXECUTABLE = upoints.exe
