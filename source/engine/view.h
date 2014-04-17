@@ -5,8 +5,8 @@ namespace engine {
 	const Point FORWARD_DIRECTION(1, 1);
 	const Point BACKWARD_DIRECTION(-1, -1);
 
-	// Displays part of specified field
-	// at specified position at screen
+	/// Displays part of specified field
+	/// at specified position at screen
 	//
 	struct View {
 
@@ -44,7 +44,7 @@ namespace engine {
 
 		void print(std::ostream & _ostream) const;
 
-	}; // View
+	};
 
 	View::View() {
 		initialize();
@@ -182,20 +182,6 @@ namespace engine {
 	}
 
 	void View::draw_objects(const Bound & real_bound) {
-		// { drawing points
-		/*std::cout << "View" << std::endl;
-		std::cout << "----------" << std::endl;
-		std::cout << "Position: "      << position << std::endl;
-		std::cout << "Shift: "         << shift << std::endl;
-		std::cout << "Real bound: "    << real_bound << std::endl;
-		std::cout << "Display bound: " << display_bound << std::endl;
-		/**/
-		//std::cout << "Objects" << std::endl;
-		//std::cout << "----------" << std::endl;
-		//std::cout << shift << std::endl;
-		/*for(PointsInformation::iterator i = field->data.points.begin(); i != field->data.points.end(); ++i) {
-			std::cout << *i->second << std::endl;
-		}*/
 		for (int row = real_bound.initial.row;
 			row <= real_bound.final.row;
 			row++)
@@ -207,13 +193,10 @@ namespace engine {
 				Point placement(column, row);
 				// TODO: move this part to field itself, then to data
 				if(field->data.points.find(placement) != field->data.points.end()){
-					//std::cout << placement << std::endl;
 					field->data.points[placement]->display(placement);
 				}
 			}
 		}
-		// drawing points }
-
 	}
 
 	void View::print(std::ostream & _ostream) const {
@@ -227,4 +210,4 @@ namespace engine {
 		return _ostream;
 	}
 
-} // namespace engine
+}

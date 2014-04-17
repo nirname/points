@@ -92,8 +92,13 @@ namespace controls {
 	typedef Mapping< ControlHandler  >   ControlsMapping;
 }
 
-namespace Directory {
-}
+/// You can use it as a class name in such a way: `Directory`
+namespace directory {}
+namespace Directory = directory;
+/// You can use it as a class name in such a way: `File`
+namespace file {}
+namespace File = file;
+
 
 namespace graphics {
 	void grid(const engine::Bound & _bound, int _step = 1);

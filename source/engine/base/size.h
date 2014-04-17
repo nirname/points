@@ -2,7 +2,7 @@
 
 namespace engine {
 
-	/// Describes Size by specifying length for each dimension
+	/// Describes size by specifying length for each dimension
 	//
 	struct Size {
 
