@@ -1,6 +1,3 @@
-# Project: points
-# Makefile created manually
-
 CPP = g++
 CC  = gcc
 COMPILER = $(CPP)
