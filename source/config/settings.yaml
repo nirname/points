@@ -1,0 +1,25 @@
+padding: 0.1
+
+proportional: on
+smooth_zooming: off
+multisample: off
+
+grid_type: square
+screensaver: no
+full_screen: off
+game_mode: off
+
+foreword: on
+afterword: on
+window_width: 960
+window_height: 540
+
+shape: square
+animation: fade
+selection_color: [9, 215, 196]
+shape: rectangle
+
+foreword_timeout: 5
+menu_timeout: 30
+screensaver_timeout: 30
+afterword_timeout: 3

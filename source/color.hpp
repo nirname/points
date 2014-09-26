@@ -27,16 +27,14 @@
 #define DARK_VIOLET 48, 14, 57
 #define DARK_GRAY 63, 63, 63
 
-#include "types.hpp"
-
 struct Color {
 
-	positive red, green, blue;
+	unsigned int red, green, blue;
 
-	Color(positive _red, positive _green, positive _blue);
 	Color();
+	Color(unsigned int _red, unsigned int _green, unsigned int _blue);
 
 	void use();
-	void set(positive _red, positive _green, positive _blue);
+	void set(unsigned int _red, unsigned int _green, unsigned int _blue);
 
 };

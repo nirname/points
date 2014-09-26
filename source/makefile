@@ -21,9 +21,6 @@ $(BINDIR):
 %.o : %.c %.h
 	$(CXX) -c -o $@ $<
 
-color.o: types.hpp
-application.o: application_mode.hpp
-
 .PHONY: clean
 
 clean:
