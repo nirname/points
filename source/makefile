@@ -1,25 +1,27 @@
+BINDIR = .
+OBJDIR = objects
+INCLUDE_PATH = include
+
 EXECUTABLE = lpoints
 SOURCES = $(shell find . -name "*.cpp")
 OBJECTS = $(SOURCES:%.cpp=%.o)
 RM = rm -rf
 CXXFLAGS = -Wall
 
-BINDIR = ../game
-OBJDIR = ../objs
-
 #all: $(SOURCES) $(EXECUTABLE)
 
-$(BINDIR)/$(EXECUTABLE): $(OBJECTS) | $(BINDIR)
-	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$(EXECUTABLE) $(OBJECTS)
+$(BINDIR)/$(EXECUTABLE): $(OBJECTS) | $(BINDIR) $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$(EXECUTABLE) $(OBJECTS) -I $(INCLUDE_PATH)
 
-$(BINDIR):
-	mkdir $(BINDIR)
+#$(BINDIR)
+$(OBJDIR):
+	mkdir $@ # each target
 
 %.o: %.cpp %.hpp
-	$(CXX) -c $(CXXFLAGS) -o $@ $<
+	$(CXX) -c $(CXXFLAGS) -o $@ $< -I $(INCLUDE_PATH)
 
-%.o : %.c %.h
-	$(CXX) -c -o $@ $<
+#%.o : %.c %.h
+#	$(CXX) -c -o $@ $< -I $(INCLUDE_PATH)
 
 .PHONY: clean
 

@@ -6,7 +6,6 @@ namespace Foreword {
 	bool loaded = false;
 	std::string qq;
 
-
 	bool filter(dirent * entry) {
 		return File::has_extension(entry->d_name, "bmp");
 	}
