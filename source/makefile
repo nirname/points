@@ -6,22 +6,29 @@ EXECUTABLE = lpoints
 SOURCES = $(shell find . -name "*.cpp")
 OBJECTS = $(SOURCES:%.cpp=%.o)
 RM = rm -rf
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -I $(INCLUDE_PATH)
+CFLAGS = $(CXXFLAGS)
 
-#all: $(SOURCES) $(EXECUTABLE)
+# Основное правило
+$(BINDIR)/$(EXECUTABLE): $(OBJECTS) | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$(EXECUTABLE) $(OBJECTS)
 
-$(BINDIR)/$(EXECUTABLE): $(OBJECTS) | $(BINDIR) $(OBJDIR)
-	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$(EXECUTABLE) $(OBJECTS) -I $(INCLUDE_PATH)
+# Очищаем правила по умолчанию
+%.o: %.cpp
+%.o: %.c
+#	$(CC) -c $(CFLAGS) -o $@ $<
 
-#$(BINDIR)
+# Добавляем в зависимости заголовочные файлы
+%.o: %.cpp %.hpp
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
+
+# Добавляем правила на случай, если заголовочных файлов нет
+%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
+
+# Правила для автоматического создания директорий #$(BINDIR)
 $(OBJDIR):
 	mkdir $@ # each target
-
-%.o: %.cpp %.hpp
-	$(CXX) -c $(CXXFLAGS) -o $@ $< -I $(INCLUDE_PATH)
-
-#%.o : %.c %.h
-#	$(CXX) -c -o $@ $< -I $(INCLUDE_PATH)
 
 .PHONY: clean
 
