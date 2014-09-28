@@ -10,3 +10,15 @@ enum APPLICATION_MODE {
 	INFORMATION_MODE,
 	AFTERWORD_MODE,
 };
+
+struct Application {
+
+	APPLICATION_MODE mode;
+
+	Application() {
+		mode = LOADING_MODE;
+	}
+
+	void handle(unsigned char, int);
+
+};
