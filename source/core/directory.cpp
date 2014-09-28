@@ -21,4 +21,8 @@ namespace directory {
 		}
 	}
 
+	/*bool check(const std::string & path, DIR ** dir) {
+		return ((*dir) = opendir(path.c_str())) != NULL)
+	}*/
+
 }

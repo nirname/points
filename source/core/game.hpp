@@ -1,7 +1,5 @@
 #pragma once
 
-#include "yaml-cpp/yaml.h"
-
 enum GAME_KIND {
 
 	NO_GAME,
@@ -41,6 +39,9 @@ enum GAME_KIND {
 	CORNERS
 
 };
+
+#include "yaml-cpp/yaml.h"
+#include "size.hpp"
 
 /// Describes current game
 //
