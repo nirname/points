@@ -4,6 +4,7 @@
 #include <map>
 #include <list>
 #include <deque>
+#include <ctime>
 
 struct Interface;
 struct Menu;
@@ -26,6 +27,8 @@ typedef void (* MenuItemDisplayer)(int position, MenuItem *);
 typedef void (* MenuItemHandler)(unsigned char key, int special, MenuItem *);
 
 struct Interface {
+
+	//time_t last_activity_time;
 
 	Menus menus;
 	std::deque< Menus::iterator > menus_stack;

@@ -1,4 +1,5 @@
 #include "color.hpp"
+#include "opengl.hpp"
 
 Color::Color():
 	red(0), green(0), blue(0)
@@ -9,7 +10,7 @@ Color::Color(unsigned int _red, unsigned int _green, unsigned int _blue):
 {}
 
 void Color::use() {
-	//glColor3ub(red, green, blue);
+	glColor3ub(red, green, blue);
 }
 
 void Color::set(unsigned int _red, unsigned int _green, unsigned int _blue) {

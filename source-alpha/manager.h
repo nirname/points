@@ -4,8 +4,6 @@ template<typename Entity, typename Key> class Manager {
 
 	private:
 
-		// TODO: make container type a template parameter
-
 		typedef std::map<Key, Entity *> NamesInfo;
 		typedef std::map<Entity *, Key> EntitiesInfo;
 
@@ -54,7 +52,7 @@ template<typename Entity, typename Key> class Manager {
 		}
 
 		void clear() {}
-		
+
 		void print() {}
 
 };

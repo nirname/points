@@ -21,3 +21,5 @@ void Screensaver::display() {
 		case RANDOM_SCREENSAVER:               break;
 	}
 }
+
+void Screensaver::skip() {}

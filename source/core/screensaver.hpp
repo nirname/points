@@ -16,6 +16,12 @@ enum SCREENSAVER_KIND {
 SCREENSAVER_KIND & operator ++ (SCREENSAVER_KIND & _link, int);
 
 struct Screensaver {
+
 	SCREENSAVER_KIND kind;
+	int width;
+	int height;
+
 	void display();
+	void skip();
+
 };

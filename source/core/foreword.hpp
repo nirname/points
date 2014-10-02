@@ -1,12 +1,7 @@
 #pragma once
 
-#if defined(_WIN32) && defined(__GNUC__)
-	#include "dirent/windows/dirent.h"
-#elif defined(__linux__) && defined(__GNUC__)
-	#include "dirent/linux/dirent.h"
-#endif
-
 #include "easy-bmp/EasyBMP.h"
+#include "dirent.hpp"
 
 struct Foreword {
 
@@ -22,5 +17,7 @@ struct Foreword {
 	bool load();
 	void draw_image();
 	void display();
+
+	void skip();
 
 };

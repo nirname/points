@@ -9,6 +9,7 @@ Interface::Interface() {
 Interface::Interface(InterfaceLoader _loader) : loader(_loader) {
 	displayer = NULL;
 	handler = NULL;
+	//reset_last_activity_time();
 }
 
 void Interface::load() {

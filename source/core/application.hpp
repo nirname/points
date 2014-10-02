@@ -15,9 +15,12 @@ struct Application {
 
 	APPLICATION_MODE mode;
 
-	Application() {
-		mode = LOADING_MODE;
-	}
+	Application();
+
+	void start();
+	void quit();
+
+	void set(APPLICATION_MODE _mode);
 
 	void handle(unsigned char, int);
 

@@ -6,6 +6,7 @@
 
 #include "directory.hpp"
 #include "file.hpp"
+#include "opengl.hpp"
 
 Foreword::Foreword() {
 	loaded = false;
@@ -42,18 +43,20 @@ bool Foreword::load() {
 	return loaded;
 }
 
+// Draw different colors separately
+//
 void Foreword::draw_image() {
-	//RGBApixel * pixel;
+	RGBApixel * pixel;
 	for(int x = 0; x < input.TellWidth(); x++) {
 		for(int y = 0; y < input.TellHeight(); y++) {
-			/*glPushAttrib(GL_CURRENT_BIT);
+			glPushAttrib(GL_CURRENT_BIT);
 				pixel = input(x, y);
 				glColor3ub(pixel->Red, pixel->Green, pixel->Blue);
 				glPushMatrix();
 					glTranslatef(x, input.TellHeight() - 1 - y, 0);
-					graphics::default_shape();
+					//graphics::default_shape();
 				glPopMatrix();
-			glPopAttrib();*/
+			glPopAttrib();
 		}
 	}
 }
@@ -65,3 +68,6 @@ void Foreword::display() {
 		//graphics::write(qq);
 	}
 }
+
+// show all colors immidiately
+void Foreword::skip() {}
