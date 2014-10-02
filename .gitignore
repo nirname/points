@@ -2,3 +2,4 @@ documents/*.log
 documents/*.aux
 source/vera_report.txt
 source/dox
+*.o
