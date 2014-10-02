@@ -3,13 +3,14 @@
 #include <cstddef> // NULL pointer
 #include <map>
 
-template<typename Key, typename Entity> struct Manager {
+template<typename Key, typename Entity> class Manager {
+
+	public:
 
 		typedef std::map<Key, Entity *> Entities;
 		Entities entities;
 
-		Manager() {
-		}
+		Manager() {}
 
 		~Manager() {
 			clear();
@@ -24,45 +25,43 @@ template<typename Key, typename Entity> struct Manager {
 
 		/// Creates new instance of Entity
 		//
-		Entity * build() {
+		inline Entity * build() {
 			return new Entity();
-		}
-
-		/// Retrive an entry from container or create an empty record
-		//
-		Entity * fetch(const Key & _key) {
-			return entities[_key];
 		}
 
 		/// Checks whether manager contains an entity or not
 		//
-		bool contain(const Key & _key) {
+		inline bool contain(const Key & _key) {
 			return entities.find(_key) != entities.end();
 		}
 
 		/// Checks whether manager contains an entity or not
 		//
-		bool contain(const Key & _key, typename Entities::iterator & entity_iterator) {
+		inline bool contain(const Key & _key, typename Entities::iterator & entity_iterator) {
 			entity_iterator = entities.find(_key);
 			return entity_iterator != entities.end();
 		}
 
 		/// Emplace a new instance of an entity
 		//
-		Entity * set(const Key & _key) {
+		inline Entity * create(const Key & _key) {
 			return entities[_key] = build();
 		}
 
 		/// Emplace an existing instance of an entity
 		//
-		Entity * set(const Key & _key, Entity * _entity) {
+		inline Entity * set(const Key & _key, Entity * _entity) {
 			return entities[_key] = _entity;
 		}
 
 		/// Creates new object by name
 		//
 		Entity * add(const Key & _key) {
-			return (contain(_key))? NULL : set(_key);
+			return (contain(_key))? NULL : create(_key);
+		}
+
+		Entity * insert(const Key & _key, Entity * _entity) {
+			return (contain(_key))? NULL : set(_key, _entity);
 		}
 
 		/// Get object without creating an extra object
@@ -72,7 +71,8 @@ template<typename Key, typename Entity> struct Manager {
 			return (contain(_key, entity_iterator))? entity_iterator->second : NULL;
 		}
 
-		// Does the same as 'get' does
+		/// Does the same as 'get' does
+		//
 		Entity * operator[] (const Key & _key) {
 			return get(_key);
 		}

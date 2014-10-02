@@ -1,5 +1,6 @@
 #include "screen.hpp"
 #include "graphics.hpp"
+#include "display.hpp"
 
 Screen::Screen(float _width, float _height):
 	width(_width), height(_height)
