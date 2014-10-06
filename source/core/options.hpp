@@ -35,4 +35,6 @@ namespace options {
 
 	extern const char * mode_string;
 
+	void load();
+
 }

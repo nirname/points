@@ -41,7 +41,19 @@ enum GAME_KIND {
 };
 
 #include "yaml-cpp/yaml.h"
+
 #include "size.hpp"
+
+#include <string>
+#include "manager.hpp"
+
+#include "color.hpp"
+#include "shape.hpp"
+#include "object_kind.hpp"
+
+typedef Manager<std::string, Color> ColorManager;
+typedef Manager<std::string, Shape> ShapeManager;
+typedef Manager<std::string, ObjectKind> ObjectKindManager;
 
 /// Describes current game
 //
@@ -51,10 +63,12 @@ struct Game {
 	bool paused;
 	bool loaded;
 
+	ColorManager colors;
+	ShapeManager shapes;
+	ObjectKindManager object_kinds;
+
 	/*FieldMapping      fields;
 	ViewMapping       views;
-	ColorMapping      colors;
-	ShapeMapping      shapes;
 	ObjectKindMapping object_kinds;
 	ObjectMapping     objects;*/
 	//Entities          entities; // TODO: Unnamed objects
@@ -87,7 +101,7 @@ struct Game {
 	void pause();
 	void resume();
 
-	void process(unsigned char key, int special_key);
+	void handle(unsigned char key, int special_key);
 
 	void print();
 

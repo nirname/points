@@ -5,7 +5,8 @@
 
 #include "bound.hpp"
 
-const float DEG2RAD = 3.1415926 / 180;
+const float DEG2RAD = 3.141592653589 / 180;
+//const float EMPTY_SIZE = 0.6f;
 
 void write(std::string string, int x = 0, int y = 0, void * font = GLUT_BITMAP_9_BY_15);
 

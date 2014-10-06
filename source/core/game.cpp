@@ -15,7 +15,7 @@ void Game::resume() {
 	paused = false;
 }
 
-void Game::process(unsigned char key, int special_key) {
+void Game::handle(unsigned char key, int special_key) {
 	if(!paused) {
 		Point position;
 		Point offset;

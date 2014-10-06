@@ -33,4 +33,6 @@ namespace options {
 
 	const char * mode_string = "800x600:32";
 
+	void load() {}
+
 }

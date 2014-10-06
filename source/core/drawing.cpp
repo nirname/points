@@ -128,3 +128,15 @@ void grid(const Bound & _bound, int _step) {
 		}
 	}
 }
+
+/*void emptiness(void (*draw)()){
+	draw();
+	glPushMatrix();
+		glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
+		glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
+		glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(WHITE);
+			draw();
+		glPopAttrib();
+	glPopMatrix();
+}*/
