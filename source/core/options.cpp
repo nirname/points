@@ -26,6 +26,9 @@ namespace options {
 	int screensaver_timeout = 30;
 	int afterword_timeout = 5;
 
+	int min_fps = 20;
+	int max_fps = 50;
+
 	//graphics::Color selection_color = Color(BLUE);
 	//graphics::Color clear_color = Color(BLACK);
 

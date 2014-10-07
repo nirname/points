@@ -28,7 +28,7 @@ typedef void (* MenuItemHandler)(unsigned char key, int special, MenuItem *);
 
 struct Interface {
 
-	//time_t last_activity_time;
+	time_t last_activity_time;
 
 	Menus menus;
 	std::deque< Menus::iterator > menus_stack;
@@ -51,6 +51,8 @@ struct Interface {
 	void reset();
 
 	Menus::iterator current_menu();
+
+	void reset_last_activity_time();
 
 };
 

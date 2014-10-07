@@ -40,13 +40,16 @@ void display() {
 
 }
 
-void redisplay(int timer)
-{
+void redisplay(int timer) {
 	//clock_t time = clock();
-	//glutPostRedisplay();
+	glutPostRedisplay();
 	//time = clock() - time;
+	//int frame_duration = ((float)time)/CLOCKS_PER_SEC;
+	//max(1000.0 / min_fps, frame_duration);
+	// ((float)time)/CLOCKS_PER_SEC
 	//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
-	//glutTimerFunc(graphics::sleep, redisplay, 0);
+	//glutTimerFunc(frame_duration, redisplay, 0);
+	glutTimerFunc(50, redisplay, 0);
 }
 
 void reshape(int width, int length) {

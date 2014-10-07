@@ -25,11 +25,10 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case MENU_MODE: {
-			//interface.reset_last_activity_time();
-			//reset_last_activity_time();
-			//if(game.loaded) {
-			//	game.pause();
-			//}
+			interface.reset_last_activity_time();
+			if(game.loaded) {
+				game.pause();
+			}
 			break;
 		}
 		case SCREENSAVER_MODE: {
@@ -44,14 +43,14 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case GAMEPLAY_MODE: {
-			//if(game.loaded) {
-			//	if(game.paused) {
-			//		game.resume();
-			//	}
-			//	screen.set(game.screen_size.width, game.screen_size.height);
-			//} else {
+			if(game.loaded) {
+				screen.set(game.screen_size.width, game.screen_size.height);
+				if(game.paused) {
+					game.resume();
+				}
+			} else {
 				_mode = previous_mode;
-			//}
+			}
 			break;
 		}
 		case INFORMATION_MODE: {
@@ -80,16 +79,14 @@ void Application::quit() {
 	if(options::afterword) {
 		set(AFTERWORD_MODE);
 	} else {
-		std::cout << " -> quit" << std::endl;
 		glutLeaveMainLoop();
-		//exit(EXIT_SUCCESS);
 	}
 }
 
 void Application::handle(unsigned char key, int special_key) {
 
 	if(key == CTRL_Q_KEY) {
-		exit(EXIT_SUCCESS);
+		glutLeaveMainLoop();
 	}
 
 	switch(mode) {
@@ -97,7 +94,7 @@ void Application::handle(unsigned char key, int special_key) {
 			/*TODO: show a joke or something else */ break;
 		}
 		case FOREWORD_MODE: {
-			foreword.skip(); // skip
+			foreword.skip();
 			set(MENU_MODE);
 			break;
 		}
@@ -107,7 +104,7 @@ void Application::handle(unsigned char key, int special_key) {
 		}
 		case SCREENSAVER_MODE: {
 			screensaver.skip();
-			set(MENU_MODE); // skip
+			set(MENU_MODE);
 			break;
 		}
 		case COUNTDOWN_MODE: {
@@ -117,7 +114,7 @@ void Application::handle(unsigned char key, int special_key) {
 			if(key == ESCAPE_KEY) {
 				set(MENU_MODE);
 			} else {
-				//game.handle(key, special_key);
+				game.handle(key, special_key);
 			}
 			break;
 		}
@@ -126,45 +123,12 @@ void Application::handle(unsigned char key, int special_key) {
 			break;
 		}
 		case AFTERWORD_MODE: {
-			/*if(key != 0) {
-				std::cout << " -> quit" << std::endl;
-				exit(EXIT_SUCCESS);
-			}*/
+			if(key != 0) {
+				//afterword.skip(); // && exit;
+				glutLeaveMainLoop();
+			}
 			break;
 		}
 	}
 
 }
-
-/*	void Application::foreword_process(unsigned char key, int special_key) {
-		if(key != 0) {
-			std::cout << " -> skip";
-			set(MENU_MODE);
-		}
-	}
-
-	void Application::menu_process(unsigned char key, int special_key) {
-		reset_last_activity_time();
-		interface.handle(key, special_key);
-	}
-
-	void Application::gameplay_process(unsigned char key, int special_key) {
-		if(key == ESCAPE_KEY) {
-			set(MENU_MODE);
-		} else {
-			game.process(key, special_key);
-		}
-	}
-
-	void Application::screensaver_process(unsigned char key, int special_key) {
-		std::cout << " -> skip ";
-		set(MENU_MODE);
-	}
-
-	void Application::afterword_process(unsigned char key, int special_key) {
-		if(key != 0) {
-			std::cout << " -> quit" << std::endl;
-			exit(EXIT_SUCCESS);
-		}
-	}
-*/

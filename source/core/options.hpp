@@ -28,6 +28,9 @@ namespace options {
 	extern int screensaver_timeout;
 	extern int afterword_timeout;
 
+	extern int min_fps;
+	extern int max_fps;
+
 	extern Color selection_color;
 	extern Color clear_color;
 

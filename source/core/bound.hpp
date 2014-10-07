@@ -1,3 +1,5 @@
+#pragma once
+
 #include "point.hpp"
 
 /// Describes a bound with initial and final points

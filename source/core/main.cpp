@@ -1,13 +1,10 @@
+#include "options.hpp"
+#include "variables.hpp"
+#include "initializers.hpp"
+
 #include "opengl.hpp"
 
-#include "variables.hpp"
-#include "options.hpp"
-
 #include <iostream>
-#include "display.hpp"
-#include "controls.hpp"
-
-#include "initialize.hpp"
 
 int main(int argc, char * argv[]) {
 
@@ -18,18 +15,15 @@ int main(int argc, char * argv[]) {
 		<< "# Inside one pretty pack" << std::endl;
 
 	std::cout << "\nINITIALIZING\n" << std::endl;
-
 	options::load();
 	graphics::initialize(argc, argv);
-	//audio::initialize();
+	audio::initialize(argc, argv);
 	std::cout << "... ok" << std::endl;
 
 	std::cout << "\nLOADING\n" << std::endl;
-
 	screen.initialize();
 	interface.load(); // TODO: loading fonts here
 	application.start();
-
 	std::cout << "... ok" << std::endl;
 
 	std::cout << "\nWELCOME\n" << std::endl;
