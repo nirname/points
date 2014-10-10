@@ -39,8 +39,3 @@ Bound operator - (const Bound & _bound, const Point & _point);
 
 // Get intersection of bounds
 Bound operator & (const Bound & _a, const Bound & _b);
-
-/*std::ostream & operator << (std::ostream & _ostream, const Bound & _bound) {
-	_ostream << "Bound(" << _bound.initial << ", " << _bound.final << ")";
-	return _ostream;
-}*/

@@ -1,6 +1,8 @@
 #include "color.hpp"
 #include "opengl.hpp"
 
+Color default_color(BLACK);
+
 Color::Color():
 	red(0), green(0), blue(0)
 {}

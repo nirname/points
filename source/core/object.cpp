@@ -6,24 +6,24 @@ Object::Object() {
 	kind = NULL;
 }
 
-void Object::draw_shape() {
+void Object::draw_shape() const {
 	if(kind != NULL) {
 		kind->draw_shape();
 	}
 }
 
-void Object::use_color() {
+void Object::use_color() const {
 	if(kind != NULL) {
 		kind->use_color();
 	}
 }
 
-/*void Object::display(const ObjectPoints & _points) {
+void Object::display(const PointSet & point_set) const {
 	glPushAttrib(GL_CURRENT_BIT);
 		use_color();
-		for ( ObjectPoints::const_iterator
-			i = _points.begin();
-			i != _points.end();
+		for ( PointSet::const_iterator
+			i = point_set.begin();
+			i != point_set.end();
 			i++ )
 		{
 			glPushMatrix();
@@ -32,12 +32,12 @@ void Object::use_color() {
 			glPopMatrix();
 		}
 	glPopAttrib();
-}*/
+}
 
 // Displays only one point with
 // Animation, color and shape
 //
-void Object::display(const Point & _point) {
+void Object::display(const Point & _point) const {
 	glPushAttrib(GL_CURRENT_BIT);
 		use_color();
 		glPushMatrix();

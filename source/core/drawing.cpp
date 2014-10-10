@@ -4,8 +4,6 @@
 #include "graphics.hpp"
 #include <string>
 
-//void (*default_shape)() = square;
-
 ///Write string
 //
 /* Fonts:
@@ -49,6 +47,7 @@ void point() {
 
 /// Draw n-gon
 //
+/// ngon(360, 1) will be equal to circle
 void ngon(int angles, int step_over) {
 	const float radius = 0.5;
 	float angle = 360.0 / angles;
@@ -82,7 +81,6 @@ void ngon(int angles, int step_over) {
 
 /// Draw a cricle
 //
-/// It is equal to ngon(360)
 void circle() {
 	const float radius = 0.5;
 	glPushMatrix();

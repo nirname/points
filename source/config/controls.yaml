@@ -8,3 +8,8 @@ second_player:
   down: NumPad5
   left: NumPad4
   right: NumPad6
+third_player:
+  up: w
+  down: s
+  left: a
+  rigth: d

@@ -8,11 +8,15 @@ ObjectKind::ObjectKind() {
 void ObjectKind::draw_shape() {
 	if(shape != NULL) {
 		shape->display();
+	} else {
+		default_shape();
 	}
 }
 
 void ObjectKind::use_color() {
 	if(color != NULL) {
 		color->use();
+	} else {
+		default_color.use();
 	}
 }

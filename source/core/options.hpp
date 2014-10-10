@@ -1,27 +1,28 @@
 #include "screensaver.hpp"
 #include "color.hpp"
 #include "grid_type.hpp"
+#include "drawing.hpp"
 
 namespace options {
-
-	extern float padding;
-	extern float figure_size;
 
 	extern bool proportional;
 	extern bool smooth_zooming;
 	extern bool multisample;
 
-	extern GRID_TYPE grid_type;
-
-	extern SCREENSAVER_KIND screensaver_kind;
-
-	extern bool foreword;
-	extern bool afterword;
+	extern int window_width;
+	extern int window_height;
 	extern bool full_screen;
 	extern bool game_mode;
 
-	extern int window_width;
-	extern int window_height;
+	extern GRID_TYPE grid_type;
+	extern float padding;
+	extern float figure_size;
+	extern Color selection_color;
+	extern Color clear_color;
+
+	extern bool foreword;
+	extern bool afterword;
+	extern SCREENSAVER_KIND screensaver_kind;
 
 	extern int foreword_timeout;
 	extern int menu_timeout;
@@ -30,9 +31,6 @@ namespace options {
 
 	extern int min_fps;
 	extern int max_fps;
-
-	extern Color selection_color;
-	extern Color clear_color;
 
 	//engine::ControlsMapping controls;
 

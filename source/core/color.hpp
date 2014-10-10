@@ -38,3 +38,5 @@ struct Color {
 	void set(unsigned int _red, unsigned int _green, unsigned int _blue);
 
 };
+
+extern Color default_color;

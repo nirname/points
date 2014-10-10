@@ -2,6 +2,8 @@
 
 #include "color.hpp"
 
+extern void (*default_shape)();
+
 struct Shape {
 	virtual ~Shape() = 0;
 	virtual void display() = 0;
@@ -33,18 +35,3 @@ struct Star : Shape {
 	~Star();
 	void display();
 };
-
-/*struct Retro : Shape {
-	~Retro();
-	void display();
-};*/
-
-/*struct Ring : Shape {
-	~Ring();
-	void display();
-};*/
-
-/*struct EmptySquare : Shape {
-	~EmptySquare();
-	void display();
-};*/

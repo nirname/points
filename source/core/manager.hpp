@@ -13,8 +13,8 @@ template<typename Key, typename Entity> class Manager {
 		Manager();
 		~Manager();
 
-		inline bool contain(const Key & _key);
-		inline bool contain(const Key & _key, typename Entities::iterator & entity_iterator);
+		inline bool contain(const Key & _key) const;
+		inline bool contain(const Key & _key, typename Entities::iterator & entity_iterator) const;
 
 		Entity * add(const Key & _key);
 		Entity * insert(const Key & _key, Entity * _entity);
@@ -43,14 +43,14 @@ Manager<Key, Entity>::~Manager() {
 /// Checks whether manager contains an entity or not
 //
 template<typename Key, typename Entity>
-inline bool Manager<Key, Entity>::contain(const Key & _key) {
+inline bool Manager<Key, Entity>::contain(const Key & _key) const {
 	return entities.find(_key) != entities.end();
 }
 
 /// Checks whether manager contains an entity or not
 //
 template<typename Key, typename Entity>
-inline bool Manager<Key, Entity>::contain(const Key & _key, typename Entities::iterator & entity_iterator) {
+inline bool Manager<Key, Entity>::contain(const Key & _key, typename Entities::iterator & entity_iterator) const {
 	entity_iterator = entities.find(_key);
 	return entity_iterator != entities.end();
 }

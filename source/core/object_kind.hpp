@@ -1,14 +1,17 @@
 #pragma once
 
+#include <cstddef>
+
 #include "shape.hpp"
 #include "color.hpp"
-
-#include <cstddef>
+#include "point_set.hpp"
 
 struct ObjectKind {
 
 	Shape * shape;
 	Color * color;
+
+	PointSet mask;
 
 	ObjectKind();
 
