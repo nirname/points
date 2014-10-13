@@ -22,7 +22,7 @@ struct Data {
 	bool contain(const Point & point, typename Objects::iterator & objects_iterator);
 
 	void add(Object * object, const Point & position = Point(0, 0));
-	void add(Object * object, const Point & point, const Point & position = Point(0, 0));
+	void add(Object * object, const Point & _point, const Point & position = Point(0, 0));
 	void add(Object * object, const PointSet & point_set, const Point & position = Point(0, 0));
 
 	void remove(Object * object);
