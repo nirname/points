@@ -34,6 +34,41 @@ namespace options {
 
 	const char * mode_string = "800x600:32";
 
-	void load() {}
+	void load() {
+		if(load_config() == 1) {
+			save_config();
+		}
+	}
+
+	/// Load config file
+	//
+	/// 0 - everything is ok
+	/// 1 - file not found
+	/// 2 - syntax errors inside
+	/// 3 - wrong format / is not a map
+	///
+	int load_config() {
+		try {
+			YAML::Node config = YAML::LoadFile("config.yaml");
+			if(config.IsMap()) {
+				load_options(config);
+			} else {
+				return 3;
+			}
+		} catch (YAML::ParserException & exception) {
+			return 2;
+		} catch (YAML::BadFile) {
+			return 1;
+		}
+		std::cout << std::endl;
+		return 0;
+	}
+
+	int save_config() {
+		return 0;
+	}
+
+	void load_options(const YAML::Node & config) {
+	}
 
 }

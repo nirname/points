@@ -3,6 +3,8 @@
 #include "grid_type.hpp"
 #include "drawing.hpp"
 
+#include "yaml.hpp"
+
 namespace options {
 
 	extern bool proportional;
@@ -36,6 +38,13 @@ namespace options {
 
 	extern const char * mode_string;
 
+}
+
+namespace options {
+
 	void load();
+	int load_config();
+	int save_config();
+	void load_options(const YAML::Node & config);
 
 }
