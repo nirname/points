@@ -25,7 +25,7 @@ void display() {
 	glPopAttrib();*/
 
 	switch(application.mode) {
-		case FOREWORD_MODE: foreword.display(); break;
+		case FOREWORD_MODE: write(std::string("Foreword")); foreword.display(); break;
 		case MENU_MODE: interface.display(); break;
 		case GAMEPLAY_MODE: game.display(); break;
 		case SCREENSAVER_MODE: screensaver.display(); break;

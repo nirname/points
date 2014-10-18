@@ -56,7 +56,7 @@ namespace YAML {
 
 }
 
-template<typename T> void operator >> (const YAML::Node & option, T & parameter) {
+/*template<typename T> void operator >> (const YAML::Node & option, T & parameter) {
 	try {
 		if(option.IsScalar()) {
 			parameter = option.as<T>();
@@ -74,4 +74,4 @@ template<> void operator >> (const YAML::Node & option, bool & parameter) {
 			parameter = false;
 		}
 	}
-}
+}*/

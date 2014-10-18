@@ -6,6 +6,8 @@
 #include "variables.hpp"
 #include "opengl.hpp"
 
+#include <iostream>
+
 Application::Application() {
 	mode = LOADING_MODE;
 }
@@ -86,16 +88,22 @@ void Application::quit() {
 void Application::handle(unsigned char key, int special_key) {
 
 	if(key == CTRL_Q_KEY) {
+		std::cout << "Ctrl+Q" << std::endl;
+		std::cout << "GOODBYE" << std::endl;
 		glutLeaveMainLoop();
 	}
+
+	std::cout << "key: " << (unsigned int)key << ", special key: " << special_key << std::endl;
 
 	switch(mode) {
 		case LOADING_MODE: {
 			/*TODO: show a joke or something else */ break;
 		}
 		case FOREWORD_MODE: {
-			foreword.skip();
-			set(MENU_MODE);
+			if(key != 0) {
+				foreword.skip();
+				set(MENU_MODE);
+			}
 			break;
 		}
 		case MENU_MODE: {
@@ -125,6 +133,7 @@ void Application::handle(unsigned char key, int special_key) {
 		case AFTERWORD_MODE: {
 			if(key != 0) {
 				//afterword.skip(); // && exit;
+				std::cout << "GOODBYE" << std::endl;
 				glutLeaveMainLoop();
 			}
 			break;

@@ -18,20 +18,20 @@ int main(int argc, char * argv[]) {
 	options::load();
 	graphics::initialize(argc, argv);
 	audio::initialize(argc, argv);
-	std::cout << "... ok" << std::endl;
+	std::cout << "Initializing: ok" << std::endl;
 
 	std::cout << "\nLOADING\n" << std::endl;
 	screen.initialize();
 	interface.load(); // TODO: loading fonts here
 	application.start();
-	std::cout << "... ok" << std::endl;
+	std::cout << "Loading: ok" << std::endl;
 
 	std::cout << "\nWELCOME\n" << std::endl;
 	std::cout
 		<< "# check controls.yaml to see all the keys" << std::endl
 		<< "# check settings.yaml to persanalize game" << std::endl
 		<< "#" << std::endl
-		<< "# press `ctrl-q` to quit immediatly" << std::endl;
+		<< "# press `ctrl-q` to quit immediatly\n" << std::endl;
 
 	glutMainLoop();
 

@@ -22,6 +22,8 @@ namespace options {
 	bool afterword = true;
 	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
 
+	std::string foreword_images_directory = "../images/pictures/";
+
 	int foreword_timeout = 5;
 	int menu_timeout = 30;
 	int screensaver_timeout = 30;
