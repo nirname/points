@@ -13,7 +13,7 @@ enum SCREENSAVER_KIND {
 	RANDOM_SCREENSAVER               = 0xFF
 };
 
-SCREENSAVER_KIND & operator ++ (SCREENSAVER_KIND & _link, int);
+SCREENSAVER_KIND & operator ++ (SCREENSAVER_KIND & screensaver_kind, int);
 
 struct Screensaver {
 

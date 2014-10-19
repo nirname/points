@@ -24,8 +24,10 @@ void display() {
 		grid(screen.bound(), 6);
 	glPopAttrib();*/
 
+	//write("Foreword");
+
 	switch(application.mode) {
-		case FOREWORD_MODE: write(std::string("Foreword")); foreword.display(); break;
+		case FOREWORD_MODE: foreword.display(); break;
 		case MENU_MODE: interface.display(); break;
 		case GAMEPLAY_MODE: game.display(); break;
 		case SCREENSAVER_MODE: screensaver.display(); break;
@@ -53,8 +55,8 @@ void redisplay(int timer) {
 }
 
 void reshape(int width, int length) {
-	glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
-	glViewport(0,0,(GLsizei)width, (GLsizei)length);
+	/*glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
+	glViewport(0, 0, (GLsizei)width, (GLsizei)length);*/
 
 	float x_ort = width / screen.width;
 	float y_ort = length / screen.height;

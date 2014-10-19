@@ -22,7 +22,7 @@ bool Foreword::filter(dirent * entry) {
 
 bool Foreword::choose_random_image() {
 	std::list<std::string> images;
-	if(directory::read(options::foreword_images_directory.c_str(), DT_REG, images, filter)) {
+	if(directory::read(options::images_directory.c_str(), DT_REG, images, filter)) {
 		if(!images.empty()) {
 			std::list<std::string>::iterator i = images.begin();
 			int k = rand() % (images.size() - 2);
@@ -30,8 +30,8 @@ bool Foreword::choose_random_image() {
 				i++;
 				k--;
 			}
-			image_name = options::foreword_images_directory + *i;
-			std::cout << "{ image_name: " << image_name << " } " << std::ends;
+			image_name = options::images_directory + *i;
+			std::cout << image_name << std::endl;
 			return true;
 		}
 	}
@@ -39,15 +39,15 @@ bool Foreword::choose_random_image() {
 }
 
 bool Foreword::load() {
-	std::cout << "Foreword loading: " << std::ends;
+	std::cout << "* Foreword: " << std::ends;
 	loaded = false;
 	if(choose_random_image()) {
 		loaded = input.ReadFromFile(image_name.c_str());
 	} else {
-		std::cout << "no" << std::endl;
+		std::cout << "no image found" << std::endl;
 		//graphics::write(std::string("Foreword: no image"));
 	}
-	std::cout << "ok" << std::endl;
+	//std::cout << " - yes" << std::endl;
 	return loaded;
 }
 
@@ -73,7 +73,7 @@ void Foreword::display() {
 	if(loaded) {
 		draw_image();
 	} else {
-		//graphics::write(qq);
+		write(std::string("Foreword"));
 	}
 }
 

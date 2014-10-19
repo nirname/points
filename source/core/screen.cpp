@@ -2,20 +2,20 @@
 #include "graphics.hpp"
 #include "display.hpp"
 
-Screen::Screen(float _width, float _height):
-	width(_width), height(_height)
-{}
+#include <iostream>
 
-void Screen::initialize() {
-	coordinates(0, width, 0, height);
-	reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+Screen::Screen() {}
+
+Screen::Screen(float _width, float _height) {
+	set(_width, _height);
 }
 
 void Screen::set(float _width, float _height) {
 	width = _width;
 	height = _height;
-	initialize();
-	//std::cout << "Screen is switched to " << width << ":" << height << std::endl;
+	coordinates(0, width, 0, height);
+	reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	std::cout << "* Screen is switched to " << width << ":" << height << std::endl;
 }
 
 void Screen::adjust() {

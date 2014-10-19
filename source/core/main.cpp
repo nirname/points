@@ -21,9 +21,7 @@ int main(int argc, char * argv[]) {
 	std::cout << "Initializing: ok" << std::endl;
 
 	std::cout << "\nLOADING\n" << std::endl;
-	screen.initialize();
 	interface.load(); // TODO: loading fonts here
-	application.start();
 	std::cout << "Loading: ok" << std::endl;
 
 	std::cout << "\nWELCOME\n" << std::endl;
@@ -32,6 +30,8 @@ int main(int argc, char * argv[]) {
 		<< "# check settings.yaml to persanalize game" << std::endl
 		<< "#" << std::endl
 		<< "# press `ctrl-q` to quit immediatly\n" << std::endl;
+
+	application.start();
 
 	glutMainLoop();
 

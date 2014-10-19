@@ -13,10 +13,10 @@ struct Screen {
 
 	float width, height;
 
+	Screen();
 	Screen(float _width, float _height);
 
-	void initialize();
-	void set(float, float);
+	void set(float _width, float _height);
 	void adjust();
 
 };

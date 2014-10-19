@@ -4,6 +4,7 @@
 #include "drawing.hpp"
 
 #include "yaml.hpp"
+#include "convert.hpp"
 
 namespace options {
 
@@ -24,9 +25,9 @@ namespace options {
 
 	extern bool foreword;
 	extern bool afterword;
+	extern std::string images_directory;
 	extern SCREENSAVER_KIND screensaver_kind;
-
-	extern std::string foreword_images_directory;
+	extern std::string font_name;
 
 	extern int foreword_timeout;
 	extern int menu_timeout;
@@ -48,5 +49,8 @@ namespace options {
 	int load_config();
 	int save_config();
 	void load_options(const YAML::Node & config);
+
+	template<typename OptionType>
+	void load_option(OptionType & option, const YAML::Node & config, const char * key);
 
 }

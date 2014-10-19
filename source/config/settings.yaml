@@ -1,15 +1,14 @@
 padding: 0.1
-figure_size: 1
 
-proportional: on
-smooth_zooming: off
-multisample: off
+proportional: true
+smooth_zooming: true
+multisample: true
 
 grid_type: square
 screensaver: no
 
-full_screen: off
-game_mode: off
+full_screen: true
+game_mode: false
 
 foreword: on
 afterword: on
@@ -25,3 +24,5 @@ foreword_timeout: 5
 menu_timeout: 30
 screensaver_timeout: 30
 afterword_timeout: 3
+
+images_directory: "../images/pictures/"

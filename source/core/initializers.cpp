@@ -5,6 +5,7 @@
 #include "options.hpp"
 #include "color.hpp"
 #include "display.hpp"
+#include "graphics.hpp"
 
 namespace graphics {
 
@@ -32,9 +33,6 @@ namespace graphics {
 				glutFullScreen();
 			}
 		}
-
-		// creating game
-		// testing inside display function
 
 		/*glClearColor(
 			options::clear_color.red,
@@ -68,6 +66,7 @@ namespace graphics {
 		glutKeyboardFunc(keyboard);
 		glutSpecialFunc(special);
 		glutMouseFunc(mouse);
+		//coordinates(0, glutGet(GLUT_WINDOW_WIDTH), 0, glutGet(GLUT_WINDOW_HEIGHT));
 	}
 
 }

@@ -47,4 +47,3 @@ std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND & _s
 	}
 	return _ostream;
 }
-
