@@ -33,13 +33,12 @@ void Interface::handle(unsigned char key, int special_key) {
 
 Menus::iterator Interface::add_menu(std::string name) {
 	bool is_first = menus.empty();
-	std::pair<Menus::iterator, bool> result = menus.insert(NamedMenu(name, Menu(this)));
-	if(result.second) {
-		if(is_first) {
-			forward(result.first);
-		}
+	Menus::iterator menu = menus.insert(menus.end(), NamedMenu(name, Menu(this)));
+	menu->second.title = name;
+	if(is_first) {
+		forward(menu);
 	}
-	return result.first;
+	return menu;
 }
 
 void Interface::forward(Menus::iterator menu) {
@@ -82,6 +81,17 @@ void Menu::display() {
 	if(displayer != NULL) {
 		displayer(this);
 	}
+}
+
+MenuItems::iterator Menu::add_item(const std::string & name) {
+	bool is_first = items.empty();
+	MenuItems::iterator item = items.insert(items.end(), MenuItem(this));
+	item->title = name;
+	if(is_first) {
+		current_item = item;
+	}
+	//item->next_menu = interface->menus.end();
+	return item;
 }
 
 MenuItem::MenuItem(Menu * _menu) : menu(_menu) {

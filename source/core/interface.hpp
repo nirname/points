@@ -13,8 +13,9 @@ struct MenuItem;
 typedef std::map<std::string, Menu> Menus;
 typedef std::pair<std::string, Menu> NamedMenu;
 
-typedef std::map<std::string, MenuItem> MenuItems;
-typedef std::pair<std::string, MenuItem> NamedMenuItem;
+typedef std::list<MenuItem> MenuItems;
+//typedef std::unordered_map<std::string, MenuItem> MenuItems;
+//typedef std::pair<std::string, MenuItem> NamedMenuItem;
 
 typedef void (* InterfaceLoader)(Interface *);
 typedef void (* InterfaceDisplayer)(Interface *);

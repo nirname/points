@@ -16,6 +16,7 @@ int main(int argc, char * argv[]) {
 
 	std::cout << "\nINITIALIZING\n" << std::endl;
 	options::load();
+	//variables::initialize(argc, argv);
 	graphics::initialize(argc, argv);
 	audio::initialize(argc, argv);
 	std::cout << "Initializing: ok" << std::endl;

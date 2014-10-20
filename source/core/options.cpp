@@ -97,7 +97,7 @@ namespace options {
 		} else {
 			std::cout << "default" << std::ends;
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 		std::cout << " - " << option << std::endl;
 	}
 
