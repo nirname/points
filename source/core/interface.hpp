@@ -18,13 +18,14 @@ typedef std::list<MenuItem> MenuItems;
 //typedef std::pair<std::string, MenuItem> NamedMenuItem;
 
 typedef void (* InterfaceLoader)(Interface *);
+
 typedef void (* InterfaceDisplayer)(Interface *);
 typedef void (* InterfaceHandler)(unsigned char key, int special, Interface *);
 
 typedef void (* MenuDisplayer)(Menu *);
 typedef void (* MenuHandler)(unsigned char key, int special, Menu *);
 
-typedef void (* MenuItemDisplayer)(int position, MenuItem *);
+typedef void (* MenuItemDisplayer)(MenuItem *);
 typedef void (* MenuItemHandler)(unsigned char key, int special, MenuItem *);
 
 struct Interface {
@@ -45,7 +46,8 @@ struct Interface {
 	void display();
 	void handle(unsigned char key, int special_key);
 
-	Menus::iterator add_menu(std::string name);
+	Menus::iterator add_menu(const std::string & name);
+	Menu * find_menu(const std::string & name);
 
 	void forward(Menus::iterator menu);
 	void backward();
@@ -91,7 +93,7 @@ struct MenuItem {
 
 	MenuItem(Menu * _menu);
 
-	void handle(unsigned char key, int special_key, Interface * interface, Menu * menu);
-	void display(int position);
+	void handle(unsigned char key, int special_key);
+	void display();
 
 };

@@ -46,4 +46,3 @@ void Interface::load() {
 	}
 	std::cout << "Yes" << std::endl;
 }
-

@@ -31,7 +31,7 @@ void Interface::handle(unsigned char key, int special_key) {
 	}
 }
 
-Menus::iterator Interface::add_menu(std::string name) {
+Menus::iterator Interface::add_menu(const std::string & name) {
 	bool is_first = menus.empty();
 	Menus::iterator menu = menus.insert(menus.end(), NamedMenu(name, Menu(this)));
 	menu->second.title = name;
@@ -68,6 +68,8 @@ Menus::iterator Interface::current_menu() {
 }
 
 Menu::Menu(Interface * _interface) : interface(_interface) {
+	displayer = NULL;
+	handler = NULL;
 	current_item = items.end();
 }
 
@@ -90,22 +92,23 @@ MenuItems::iterator Menu::add_item(const std::string & name) {
 	if(is_first) {
 		current_item = item;
 	}
-	//item->next_menu = interface->menus.end();
 	return item;
 }
 
 MenuItem::MenuItem(Menu * _menu) : menu(_menu) {
+	displayer = NULL;
+	handler = NULL;
 	next_menu = menu->interface->menus.end();
 }
 
-void MenuItem::handle(unsigned char key, int special_key, Interface * interface, Menu * menu) {
+void MenuItem::handle(unsigned char key, int special_key) {
 	if(handler != NULL) {
 		handler(key, special_key, this);
 	}
 }
 
-void MenuItem::display(int position) {
+void MenuItem::display() {
 	if(displayer != NULL) {
-		displayer(position, this);
+		displayer(this);
 	}
 }
