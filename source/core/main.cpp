@@ -15,7 +15,9 @@ int main(int argc, char * argv[]) {
 		<< "# Inside one pretty pack" << std::endl;
 
 	std::cout << "\nINITIALIZING\n" << std::endl;
+	std::cout << "main default 1st: " << (intptr_t)default_shape << std::endl;
 	options::load();
+	std::cout << "main default 2nd: " << (intptr_t)default_shape << std::endl;
 	//variables::initialize(argc, argv);
 	graphics::initialize(argc, argv);
 	audio::initialize(argc, argv);

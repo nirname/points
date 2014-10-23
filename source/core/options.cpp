@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "emitter.hpp"
+#include "shape.hpp"
+#include "convert.hpp"
 
 namespace options {
 
@@ -15,7 +17,6 @@ namespace options {
 	bool game_mode = false;
 
 	GRID_TYPE grid_type = SQUARE_GRID;
-	void (*default_shape)() = square;
 	float padding = 0.0;
 	float figure_size = 1.0;
 	Color selection_color = Color(BLUE);
@@ -92,7 +93,7 @@ namespace options {
 				option = config[key].as<OptionType>();
 				std::cout << "ok" << std::ends;
 			} catch(YAML::TypedBadConversion<OptionType> & exception) {
-				std::cout << "wrong" << std::ends;
+				std::cout << "wrong value" << std::ends;
 			}
 		} else {
 			std::cout << "default" << std::ends;
@@ -119,8 +120,8 @@ namespace options {
 		padding = std::min( std::max(padding, 0.0f), 0.25f );
 		figure_size = 1.0f - padding * 2;
 		load_option(selection_color, config, "selection_color");
+		load_option(default_shape, config, "shape");
 		load_option(clear_color, config, "clear_color");
-		//load_option(graphics::default_shape, config, "shape");
 
 		load_option(foreword, config, "foreword");
 		load_option(afterword, config, "afterword");

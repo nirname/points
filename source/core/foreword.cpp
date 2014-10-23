@@ -9,6 +9,7 @@
 #include "file.hpp"
 #include "opengl.hpp"
 #include "shape.hpp"
+#include "drawing.hpp"
 
 #include <iostream>
 

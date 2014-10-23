@@ -2,15 +2,14 @@
 
 #include "interface.hpp"
 
+enum UI_TYPES {
+	SIMPLE_UI
+};
+
 struct UI {
 
 	virtual void display_interface(Interface * interface) = 0;
-	virtual void display_menu(Menu * menu) = 0;
-	virtual void display_menu_item(MenuItem * menu_item) = 0;
-
 	virtual void handle_interface(unsigned char key, int special_key, Interface * interface) = 0;
-	virtual void handle_menu(unsigned char key, int special_key, Menu * menu) = 0;
-	virtual void handle_menu_item(unsigned char key, int special_key, MenuItem * menu_item) = 0;
 
 };
 

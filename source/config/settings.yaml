@@ -15,10 +15,9 @@ afterword: on
 window_width: 960
 window_height: 540
 
-default_shape: square
+shape: circle
 animation: fade
 selection_color: soft_blue
-shape: rectangle
 
 foreword_timeout: 5
 menu_timeout: 30

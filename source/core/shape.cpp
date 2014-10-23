@@ -2,7 +2,8 @@
 #include "drawing.hpp"
 
 //const float EMPTY_SIZE = 0.6f;
-void (*default_shape)() = square;
+
+ShapeFunction default_shape = square;
 
 Shape::~Shape() {}
 

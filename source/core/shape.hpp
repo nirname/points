@@ -2,7 +2,9 @@
 
 #include "color.hpp"
 
-extern void (*default_shape)();
+typedef void (*ShapeFunction)();
+
+extern ShapeFunction default_shape;
 
 struct Shape {
 	virtual ~Shape() = 0;

@@ -92,7 +92,7 @@ void View::draw_field(const Bound & bound) {
 				{
 					glPushMatrix();
 						glTranslatef(column, row, 0);
-						//graphics::default_shape();
+						default_shape();
 					glPopMatrix();
 				}
 			}

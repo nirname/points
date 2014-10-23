@@ -1,7 +1,12 @@
-#include "color.hpp"
+#pragma once
+
+#include <string>
+#include <ostream>
 
 #include "yaml.hpp"
-#include <string>
+#include "color.hpp"
+#include "drawing.hpp"
+#include "shape.hpp"
 
 namespace YAML {
 
@@ -57,6 +62,33 @@ namespace YAML {
 		}
 
 	}; // convert<Color>
+
+
+	template<>
+	struct convert<ShapeFunction> {
+		static Node encode(const ShapeFunction & shape_function) {
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node & node, ShapeFunction & shape_function) {
+			if(!node.IsScalar()) {
+				return false;
+			}
+			std::string value = node.as<std::string>();
+			if(value == std::string("square")) {
+				shape_function = square;
+			} else if (value == std::string("point")) {
+				shape_function = point;
+			} else if (value == std::string("circle")) {
+				shape_function = circle;
+			} else {
+				return false;
+			}
+			return true;
+		}
+
+	};
 
 	/*template<>
 	struct convert<SCREENSAVER_KIND> {

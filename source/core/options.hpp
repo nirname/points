@@ -1,10 +1,10 @@
+#pragma once
+
 #include "screensaver.hpp"
 #include "color.hpp"
 #include "grid_type.hpp"
-#include "drawing.hpp"
 
 #include "yaml.hpp"
-#include "convert.hpp"
 
 namespace options {
 

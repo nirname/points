@@ -63,17 +63,17 @@ void SimpleUI::handle_menu(unsigned char key, int special_key, Menu * menu) {
 void SimpleUI::handle_menu_item(unsigned char key, int special_key, MenuItem * menu_item) {
 };
 
-
 void load_interface(Interface * interface) {
 	std::cout << "Interface loading" << std::endl;
+
+	interface->add_menu("Main menu");
+	interface->add_menu("Games");
+	interface->add_menu("Extras");
 
 	/*Menus::iterator menu;
 	MenuItems::iterator item;
 
-	interface->add_menu("Main menu");
-	interface->add_menu("Games");
 	interface->add_menu("Levels");
-	interface->add_menu("Extras");
 	interface->add_menu("Screensavers");
 
 	interface->menus["Main menu"].add_item("Play!", quick_start);
@@ -136,8 +136,6 @@ void load_interface(Interface * interface) {
 	//std::cout << &(interface->current_menu()->second) << std::endl;
 
 }
-
-
 
 /*
 void quit(unsigned char key, int special_key, MenuItem * menu_item) {
