@@ -7,7 +7,7 @@ multisample: true
 grid_type: square
 screensaver: no
 
-full_screen: true
+full_screen: false
 game_mode: false
 
 foreword: on

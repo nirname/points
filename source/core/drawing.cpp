@@ -4,6 +4,10 @@
 #include "graphics.hpp"
 #include <string>
 
+enum DISPLAY_LISTS_IDS {
+	CIRCLE_DISPLAY_LIST = 1
+};
+
 ///Write string
 //
 /* Fonts:
@@ -82,17 +86,23 @@ void ngon(int angles, int step_over) {
 /// Draw a cricle
 //
 void circle() {
+	if(glIsList((GLuint)CIRCLE_DISPLAY_LIST)) {
+		glCallList((GLuint)CIRCLE_DISPLAY_LIST);
+	} else {
+	glNewList((GLuint)CIRCLE_DISPLAY_LIST, GL_COMPILE_AND_EXECUTE);
 	const float radius = 0.5;
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
 		glScalef(options::figure_size, options::figure_size, 0);
 		glBegin(GL_POLYGON);
 			float radian = 0.0f;
-			for(int i = 0; i < 360; i++, radian += DEG2RAD) {
+			for(int i = 0; i < 360; i+=2, radian += DEG2RAD*2) {
 				glVertex2f(cos(radian) * radius, sin(radian) * radius);
 			}
 		glEnd();
 	glPopMatrix();
+	glEndList();
+	}
 }
 
 void star() {

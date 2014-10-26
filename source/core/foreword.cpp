@@ -46,9 +46,10 @@ bool Foreword::load() {
 		loaded = input.ReadFromFile(image_name.c_str());
 	} else {
 		std::cout << "no image found" << std::endl;
-		//graphics::write(std::string("Foreword: no image"));
 	}
-	//std::cout << " - yes" << std::endl;
+	//glNewList(1, GL_COMPILE);
+		//draw_image();
+	//glEndList();
 	return loaded;
 }
 

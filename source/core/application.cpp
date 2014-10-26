@@ -77,8 +77,8 @@ void Application::start() {
 	}
 }
 
-void Application::quit() {
-	if(options::afterword) {
+void Application::quit(bool quit_immidiately = false) {
+	if(!quit_immidiately && options::afterword) {
 		set(AFTERWORD_MODE);
 	} else {
 		glutLeaveMainLoop();
@@ -92,7 +92,7 @@ void Application::handle(unsigned char key, int special_key) {
 	if(key == CTRL_Q_KEY) {
 		std::cout << "Ctrl+Q" << std::endl;
 		std::cout << "\nGOODBYE\n" << std::endl;
-		glutLeaveMainLoop();
+		quit(true);
 	}
 
 	switch(mode) {
@@ -134,7 +134,7 @@ void Application::handle(unsigned char key, int special_key) {
 			if(key != 0) {
 				//afterword.skip(); // && exit;
 				std::cout << "GOODBYE" << std::endl;
-				glutLeaveMainLoop();
+				quit(true);
 			}
 			break;
 		}

@@ -5,9 +5,30 @@
 
 #include "opengl.hpp"
 #include "color.hpp"
+#include "drawing.hpp"
+#include "math.h"
 #include "options.hpp"
 
+float fps() {
+	return 0.0;
+}
+
 void display() {
+
+	// 1. call animations
+	// 2. set camera and so on
+	// 3. draw scene
+
+	int elapsed_time = glutGet(GLUT_ELAPSED_TIME);
+
+	/*float delay = 1000.0 / options::max_fps - elapsed_time;
+	if(delay < 0) {
+		delay = 0;
+	}
+	std::cout << delay << std::endl;
+	glutTimerFunc((int)ceil(delay), redisplay, 0);*/
+
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPushAttrib(GL_CURRENT_BIT);
@@ -37,20 +58,18 @@ void display() {
 		}
 	}
 
+	//write(std::string("FPS"), 0, 0);
+
+	elapsed_time = glutGet(GLUT_ELAPSED_TIME) - elapsed_time;
+	//std::cout << elapsed_time << std::endl;
+
 	glFlush();
 	glutSwapBuffers();
 
 }
 
 void redisplay(int timer) {
-	//clock_t time = clock();
 	glutPostRedisplay();
-	//time = clock() - time;
-	//int frame_duration = ((float)time)/CLOCKS_PER_SEC;
-	//max(1000.0 / min_fps, frame_duration);
-	// ((float)time)/CLOCKS_PER_SEC
-	//std::cout << "time: " << clock() << ", rest: " << graphics::sleep - time << std::endl;
-	//glutTimerFunc(frame_duration, redisplay, 0);
 	glutTimerFunc(50, redisplay, 0);
 }
 
@@ -81,8 +100,8 @@ void reshape(int width, int length) {
 		(GLsizei)(options::window_width),
 		(GLsizei)(options::window_height)
 	);
-
-
 } // reshape
 
-void idle() {} // idle
+void idle() {
+	//glutPostRedisplay();
+} // idle

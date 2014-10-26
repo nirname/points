@@ -63,12 +63,16 @@ void SimpleUI::handle_menu(unsigned char key, int special_key, Menu * menu) {
 void SimpleUI::handle_menu_item(unsigned char key, int special_key, MenuItem * menu_item) {
 };
 
+void display_interface(Interface * interface) {
+	write("Interface", 0, glutBitmapHeight(GLUT_BITMAP_9_BY_15));
+}
+
 void load_interface(Interface * interface) {
 	std::cout << "Interface loading" << std::endl;
 
-	interface->add_menu("Main menu");
+	/*interface->add_menu("Main menu");
 	interface->add_menu("Games");
-	interface->add_menu("Extras");
+	interface->add_menu("Extras");*/
 
 	/*Menus::iterator menu;
 	MenuItems::iterator item;
@@ -130,12 +134,13 @@ void load_interface(Interface * interface) {
 	}*/
 	std::cout << "ok" << std::endl;
 
-	//interface->displayer = display_interface;
+	interface->displayer = display_interface;
 	//interface->handler = handle_interface;
 
 	//std::cout << &(interface->current_menu()->second) << std::endl;
 
 }
+
 
 /*
 void quit(unsigned char key, int special_key, MenuItem * menu_item) {
