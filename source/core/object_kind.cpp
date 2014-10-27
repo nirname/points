@@ -1,5 +1,7 @@
 #include "object_kind.hpp"
 
+#include "drawing.hpp"
+
 ObjectKind::ObjectKind() {
 	shape = NULL;
 	color = NULL;

@@ -15,6 +15,11 @@
 
 Foreword::Foreword() {
 	loaded = false;
+	base = 0;
+}
+
+Foreword::~Foreword() {
+	//glDeleteLists(base, 1);
 }
 
 bool Foreword::filter(dirent * entry) {
@@ -44,12 +49,11 @@ bool Foreword::load() {
 	loaded = false;
 	if(choose_random_image()) {
 		loaded = input.ReadFromFile(image_name.c_str());
-	} else {
-		std::cout << "no image found" << std::endl;
+		//base = glGenLists(1);
+		//glNewList(base, GL_COMPILE);
+		draw_image();
+		//glEndList();
 	}
-	//glNewList(1, GL_COMPILE);
-		//draw_image();
-	//glEndList();
 	return loaded;
 }
 
@@ -74,6 +78,7 @@ void Foreword::draw_image() {
 void Foreword::display() {
 	if(loaded) {
 		draw_image();
+		//glCallList(base);
 	} else {
 		write(std::string("Foreword"));
 	}

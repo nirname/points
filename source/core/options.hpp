@@ -26,8 +26,9 @@ namespace options {
 	extern bool foreword;
 	extern bool afterword;
 	extern std::string images_directory;
-	extern SCREENSAVER_KIND screensaver_kind;
 	extern std::string font_name;
+	extern std::string fonts_directory;
+	extern SCREENSAVER_KIND screensaver_kind;
 
 	extern int foreword_timeout;
 	extern int menu_timeout;

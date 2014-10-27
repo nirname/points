@@ -3,8 +3,6 @@
 
 //const float EMPTY_SIZE = 0.6f;
 
-ShapeFunction default_shape = square;
-
 Shape::~Shape() {}
 
 Square::~Square() {}

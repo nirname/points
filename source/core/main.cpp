@@ -15,17 +15,16 @@ int main(int argc, char * argv[]) {
 		<< "# Inside one pretty pack" << std::endl;
 
 	std::cout << "\nINITIALIZING\n" << std::endl;
-	std::cout << "main default 1st: " << (intptr_t)default_shape << std::endl;
 	options::load();
-	std::cout << "main default 2nd: " << (intptr_t)default_shape << std::endl;
 	//variables::initialize(argc, argv);
 	graphics::initialize(argc, argv);
 	audio::initialize(argc, argv);
-	std::cout << "Initializing: ok" << std::endl;
+	std::cout << "\nInitialising is done" << std::endl;
 
 	std::cout << "\nLOADING\n" << std::endl;
-	interface.load(); // TODO: loading fonts here
-	std::cout << "Loading: ok" << std::endl;
+	font.load(options::fonts_directory, options::font_name);
+	interface.load();
+	std::cout << "\nLoading is done" << std::endl;
 
 	std::cout << "\nWELCOME\n" << std::endl;
 	std::cout

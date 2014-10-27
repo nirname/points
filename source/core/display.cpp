@@ -63,7 +63,7 @@ void display() {
 	elapsed_time = glutGet(GLUT_ELAPSED_TIME) - elapsed_time;
 	//std::cout << elapsed_time << std::endl;
 
-	glFlush();
+	//glFlush();
 	glutSwapBuffers();
 
 }

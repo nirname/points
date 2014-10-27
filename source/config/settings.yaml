@@ -10,12 +10,12 @@ screensaver: no
 full_screen: false
 game_mode: false
 
-foreword: on
-afterword: on
+foreword: true
+afterword: false
 window_width: 960
 window_height: 540
 
-shape: circle
+shape: square
 animation: fade
 selection_color: soft_blue
 
@@ -25,3 +25,5 @@ screensaver_timeout: 30
 afterword_timeout: 3
 
 images_directory: "../images/pictures/"
+#fonts_directory: "fonts/"
+font_name: "mono-55"

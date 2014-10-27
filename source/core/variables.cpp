@@ -8,3 +8,4 @@ Application application;
 Interface interface(load_interface);
 Screensaver screensaver;
 Foreword foreword;
+Font font;

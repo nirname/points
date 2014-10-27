@@ -2,10 +2,6 @@
 
 #include "color.hpp"
 
-typedef void (*ShapeFunction)();
-
-extern ShapeFunction default_shape;
-
 struct Shape {
 	virtual ~Shape() = 0;
 	virtual void display() = 0;

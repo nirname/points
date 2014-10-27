@@ -25,8 +25,9 @@ namespace options {
 	bool foreword = true;
 	bool afterword = true;
 	std::string images_directory = "images/";
-	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
 	std::string font_name = "mono-55";
+	std::string fonts_directory = "fonts/";
+	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
 
 	int foreword_timeout = 5;
 	int menu_timeout = 30;
@@ -126,8 +127,9 @@ namespace options {
 		load_option(foreword, config, "foreword");
 		load_option(afterword, config, "afterword");
 		load_option(images_directory, config, "images_directory");
-		//load_option(screensaver_kind, config, "screensaver_kind");
 		load_option(font_name, config, "font_name");
+		load_option(fonts_directory, config, "fonts_directory");
+		//load_option(screensaver_kind, config, "screensaver_kind");
 
 		load_option(foreword_timeout, config, "foreword_timeout");
 		load_option(menu_timeout, config, "menu_timeout");

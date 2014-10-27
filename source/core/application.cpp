@@ -6,6 +6,8 @@
 #include "variables.hpp"
 #include "opengl.hpp"
 
+//#include "drawing.hpp"
+
 #include <iostream>
 
 Application::Application() {
@@ -27,6 +29,7 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case MENU_MODE: {
+			screen.set(SCREEN_FORMAT_16x9);
 			interface.reset_last_activity_time();
 			if(game.loaded) {
 				game.pause();
@@ -81,6 +84,7 @@ void Application::quit(bool quit_immidiately = false) {
 	if(!quit_immidiately && options::afterword) {
 		set(AFTERWORD_MODE);
 	} else {
+		//glDeleteLists(CIRCLE_DISPLAY_LIST, 1);
 		glutLeaveMainLoop();
 	}
 }

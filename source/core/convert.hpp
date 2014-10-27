@@ -6,7 +6,6 @@
 #include "yaml.hpp"
 #include "color.hpp"
 #include "drawing.hpp"
-#include "shape.hpp"
 
 namespace YAML {
 
@@ -65,13 +64,13 @@ namespace YAML {
 
 
 	template<>
-	struct convert<ShapeFunction> {
-		static Node encode(const ShapeFunction & shape_function) {
+	struct convert<DrawingFunction> {
+		static Node encode(const DrawingFunction & shape_function) {
 			Node node;
 			return node;
 		}
 
-		static bool decode(const Node & node, ShapeFunction & shape_function) {
+		static bool decode(const Node & node, DrawingFunction & shape_function) {
 			if(!node.IsScalar()) {
 				return false;
 			}

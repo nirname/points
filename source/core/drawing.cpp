@@ -2,11 +2,10 @@
 #include "variables.hpp"
 #include "options.hpp"
 #include "graphics.hpp"
+//#include "font.hpp"
 #include <string>
 
-enum DISPLAY_LISTS_IDS {
-	CIRCLE_DISPLAY_LIST = 1
-};
+DrawingFunction default_shape = square;
 
 ///Write string
 //
@@ -27,6 +26,26 @@ void write(std::string string, int x, int y, void * font) {
 		glutBitmapCharacter(font, *i);
 	}
 	coordinates(0, screen.width, 0, screen.height);
+}
+
+void write(std::string text, int x, int y, Font * _font) {
+	GLuint base = _font->base;
+	GLuint offset = 0;
+	GLuint symbol_code;
+	glPushMatrix();
+		glTranslatef(-6, 0, 0);
+		for(std::string::iterator i = text.begin(); i != text.end(); ++i) {
+			glTranslatef(6, 0, 0);
+			symbol_code = (GLuint)(*i);
+			// TODO: calculate offest from charset
+			if((GLuint)'A' <= symbol_code && symbol_code <= (GLuint)'Z') {
+				offset = (GLuint)'A';
+			} else if((GLuint)'a' <= symbol_code && symbol_code <= (GLuint)'z') {
+				offset = (GLuint)'a';
+			}
+			glCallList(base - offset + symbol_code);
+		}
+	glPopMatrix();
 }
 
 /// Square
@@ -86,9 +105,9 @@ void ngon(int angles, int step_over) {
 /// Draw a cricle
 //
 void circle() {
-	if(glIsList((GLuint)CIRCLE_DISPLAY_LIST)) {
-		glCallList((GLuint)CIRCLE_DISPLAY_LIST);
-	} else {
+	//if(glIsList((GLuint)CIRCLE_DISPLAY_LIST)) {
+	//	glCallList((GLuint)CIRCLE_DISPLAY_LIST);
+	//} else {
 	glNewList((GLuint)CIRCLE_DISPLAY_LIST, GL_COMPILE_AND_EXECUTE);
 	const float radius = 0.5;
 	glPushMatrix();
@@ -102,7 +121,7 @@ void circle() {
 		glEnd();
 	glPopMatrix();
 	glEndList();
-	}
+	//}
 }
 
 void star() {
@@ -124,17 +143,24 @@ void line(int x1, int y1, int x2, int y2) {
 //glLineStipple(1, 0xAAAA);
 //if(x % 10 != 0) glEnable(GL_LINE_STIPPLE);
 //glDisable(GL_LINE_STIPPLE);
-void grid(const Bound & _bound, int _step) {
-	if(_bound.initial.row < _bound.final.row) {
-		for(int x = _bound.initial.column; x <= _bound.final.column; x += _step) {
-			line(x, _bound.initial.row, x, _bound.final.row);
+void grid(const Bound & bound, int _step) {
+	if(bound.initial.row < bound.final.row) {
+		for(int x = bound.initial.column; x <= bound.final.column; x += _step) {
+			line(x, bound.initial.row, x, bound.final.row);
 		}
 	}
-	if(_bound.initial.column < _bound.final.column) {
-		for(int y = _bound.initial.row; y <= _bound.final.row; y += _step) {
-			line(_bound.initial.column, y, _bound.final.column, y);
+	if(bound.initial.column < bound.final.column) {
+		for(int y = bound.initial.row; y <= bound.final.row; y += _step) {
+			line(bound.initial.column, y, bound.final.column, y);
 		}
 	}
+}
+
+void display_at(void (* displayer)(), int x, int y) {
+	glPushMatrix();
+		glTranslatef(x, y, 0);
+		displayer();
+	glPopMatrix();
 }
 
 /*void emptiness(void (*draw)()){
