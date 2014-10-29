@@ -2,7 +2,7 @@
 
 #include "user_interface.hpp"
 
-Screen screen; //(SCREEN_FORMAT_16x9)
+Screen screen;
 Game game;
 Application application;
 Interface interface(load_interface);

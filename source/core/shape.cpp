@@ -1,41 +1,37 @@
 #include "shape.hpp"
 #include "drawing.hpp"
 
-//const float EMPTY_SIZE = 0.6f;
-
-Shape::~Shape() {}
-
-Square::~Square() {}
-
-void Square::display() {
-	square();
+Shape::Shape() {
+	base = glGenLists(1);
 }
 
-Circle::~Circle() {}
-
-void Circle::display() {
-	circle();
+Shape::~Shape() {
+	glDeleteLists(base, 1);
 }
 
-NGon::~NGon() {}
+void Shape::display() {
+	glCallList(base);
+}
+
+Block::Block() {
+	glNewList(base, GL_COMPILE);
+		square();
+	glEndList();
+}
+
+Circle::Circle() {
+	glNewList(base, GL_COMPILE);
+		circle();
+	glEndList();
+}
 
 NGon::NGon(int _angles, int _step_over) {
 	angles = _angles;
 	step_over = _step_over;
+	glNewList(base, GL_COMPILE);
+		ngon(angles, step_over);
+	glEndList();
 }
 
-void NGon::display() {
-	ngon(angles, step_over);
-}
-
-David::~David() {}
-
-void David::display() {
-	david();
-}
-
-Star::~Star() {}
-
-void Star::display() {
-	star();
-}
+Star::Star() : NGon(5, 2) {}
+David::David() : NGon(6, 2) {}

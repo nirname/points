@@ -71,7 +71,7 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, DrawingFunction & shape_function) {
-			if(!node.IsScalar()) {
+			/*if(!node.IsScalar()) {
 				return false;
 			}
 			std::string value = node.as<std::string>();
@@ -84,7 +84,8 @@ namespace YAML {
 			} else {
 				return false;
 			}
-			return true;
+			return true;*/
+			return false;
 		}
 
 	};

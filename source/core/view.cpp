@@ -116,7 +116,7 @@ void View::draw_cells(const Bound & _bound) {
 					/*if(field->cells.find(cell) != field->cells.end()){
 						glPushMatrix();
 							glTranslatef(column, row, 0);
-							graphics::default_shape();
+							default_shape();
 						glPopMatrix();
 					}*/
 				}

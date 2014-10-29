@@ -7,89 +7,12 @@
 #include "opengl.hpp"
 #include "variables.hpp"
 
+#include "shape.hpp"
+
 SimpleUI simple_ui;
 
 void display_interface(Interface * interface) {
-
-	write("Interface", 0, 0, &font);
-
-	//glPushAttrib(GL_LIST_BIT);
-	//glListBase(font.base - (GLuint)'a');
-	//glCallList(1);
-	//char text[] = "abcdefhijklmnopqrstuvwxyz";
-	//std::string text = "abc";
-	//glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
-	//glPopAttrib();
-
-	//write("Interface", 0, glutBitmapHeight(GLUT_BITMAP_9_BY_15));
-
-	/*glPushAttrib(GL_CURRENT_BIT);
-	glColor3ub(SOFT_BLUE);
-
-	glPushMatrix();
-	glTranslatef(0, screen.height, 0);
-	glScalef(1, -1, 1);
-	//glTranslatef(0, 1, 0);
-	//glTranslatef(0, 5, 0);
-	const int h = 7, w = 5;
-	const int z = 2;
-	bool a[h][w] = {
-		{1, 0, 0, 0, 1},
-		{1, 1, 0, 1, 1},
-		{1, 0, 1, 0, 1},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1},
-	}; // M*/
-	/*bool a[h][w] = {
-		{0, 1, 1, 1, 0},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 1},
-	}; // A*/
-	/*
-	bool a[h][w] = {
-		{1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0},
-		{1, 1, 1, 1, 0},
-		{1, 0, 0, 0, 0},
-		{1, 0, 0, 0, 0},
-		{1, 0, 0, 0, 0},
-	}; // N
-
-	//for(int y = h-1; y >= 0; y--) {
-	for(int y = 0; y < h; y++) {
-		for(int x = 0; x < w; x++) {
-			if(a[y][x] == 1) {
-				display_at(default_shape, x, (y)); // original size
-				//display_at(default_shape, x*z, y*z); // expanded
-				//display_at(default_shape, x, y*z); // expanded y
-				//display_at(default_shape, x, y*z); // expanded x
-				for(int sx = 0; sx < z; sx++) {
-					//display_at(default_shape, x*z + sx, y*z + sx); // diagonal
-					//display_at(default_shape, x*z + sx, y*z); // IBM style, horizontal striped
-					//display_at(default_shape, x*z, y*z + sx); // vertical striped
-					for(int sy = 0; sy < z; sy++) {
-						//display_at(x*z + sx, y*z + sy); // scaled
-					}
-				}
-			}
-		}
-	}
-	//}
-	//point(0, 0); point(0, 1); point(0, 2); point(0, 3); point(0, 4); point(0, 5); point(0, 6);
-	//point(1, 5); point(2, 4); point(3, 5);
-	//point(4, 0); point(4, 1); point(4, 2); point(4, 3); point(4, 4); point(4, 5); point(4, 6);
-	glPopMatrix();
-	glPopAttrib();
-
-	//graphics::grid(engine::Point(screen.width, screen.height));
-*/
+	write("Interface", 0, 0, font);
 }
 
 void SimpleUI::display_interface(Interface * interface) {

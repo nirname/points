@@ -2,9 +2,10 @@
 
 #include "interface.hpp"
 
-enum UI_TYPES {
-	SIMPLE_UI
-};
+struct UI;
+struct SimpleUI;
+
+extern SimpleUI simple_ui;
 
 struct UI {
 
@@ -24,7 +25,5 @@ struct SimpleUI : UI {
 	void handle_menu_item(unsigned char key, int special_key, MenuItem * menu_item);
 
 };
-
-extern SimpleUI simple_ui;
 
 void load_interface(Interface * interface);

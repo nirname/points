@@ -1,35 +1,42 @@
 #pragma once
 
+#include "opengl.hpp"
 #include "color.hpp"
 
+/*struct Shape;
+struct Square;
+struct Circle;
+struct NGon;
+struct David;
+struct Star;*/
+
 struct Shape {
-	virtual ~Shape() = 0;
-	virtual void display() = 0;
+
+	GLuint base;
+
+	Shape();
+	~Shape();
+
+	void display();
 };
 
-struct Square : Shape {
-	~Square();
-	void display();
+struct Block : Shape {
+	Block();
 };
 
 struct Circle : Shape {
-	~Circle();
-	void display();
+	Circle();
 };
 
 struct NGon : Shape {
-	~NGon();
 	int angles, step_over;
 	NGon(int _angles = 6, int _step_over = 1);
-	void display();
 };
 
-struct David : Shape {
-	~David();
-	void display();
+struct Star : NGon {
+	Star();
 };
 
-struct Star : Shape {
-	~Star();
-	void display();
+struct David : NGon {
+	David();
 };

@@ -28,14 +28,12 @@ void write(std::string string, int x, int y, void * font) {
 	coordinates(0, screen.width, 0, screen.height);
 }
 
-void write(std::string text, int x, int y, Font * _font) {
-	GLuint base = _font->base;
+void write(std::string text, int x, int y, const Font & _font) {
+	GLuint base = _font.base;
 	GLuint offset = 0;
 	GLuint symbol_code;
 	glPushMatrix();
-		glTranslatef(-6, 0, 0);
 		for(std::string::iterator i = text.begin(); i != text.end(); ++i) {
-			glTranslatef(6, 0, 0);
 			symbol_code = (GLuint)(*i);
 			// TODO: calculate offest from charset
 			if((GLuint)'A' <= symbol_code && symbol_code <= (GLuint)'Z') {
@@ -44,6 +42,7 @@ void write(std::string text, int x, int y, Font * _font) {
 				offset = (GLuint)'a';
 			}
 			glCallList(base - offset + symbol_code);
+			glTranslatef(_font.width + 1, 0, 0);
 		}
 	glPopMatrix();
 }
@@ -54,16 +53,6 @@ void square() {
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
 		glScalef(options::figure_size, options::figure_size, 0);
-		glRectf(-0.5, -0.5, 0.5, 0.5);
-	glPopMatrix();
-}
-
-/// Small square
-//
-void point() {
-	glPushMatrix();
-		glTranslatef(0.5, 0.5, 0);
-		glScalef(options::figure_size * 0.25, options::figure_size * 0.25, 0);
 		glRectf(-0.5, -0.5, 0.5, 0.5);
 	glPopMatrix();
 }
@@ -105,10 +94,6 @@ void ngon(int angles, int step_over) {
 /// Draw a cricle
 //
 void circle() {
-	//if(glIsList((GLuint)CIRCLE_DISPLAY_LIST)) {
-	//	glCallList((GLuint)CIRCLE_DISPLAY_LIST);
-	//} else {
-	glNewList((GLuint)CIRCLE_DISPLAY_LIST, GL_COMPILE_AND_EXECUTE);
 	const float radius = 0.5;
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
@@ -120,16 +105,6 @@ void circle() {
 			}
 		glEnd();
 	glPopMatrix();
-	glEndList();
-	//}
-}
-
-void star() {
-	ngon(5, 2);
-}
-
-void david() {
-	ngon(6, 2);
 }
 
 void line(int x1, int y1, int x2, int y2) {

@@ -29,7 +29,7 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case MENU_MODE: {
-			screen.set(SCREEN_FORMAT_16x9);
+			screen.adjust(19 * font.height);
 			interface.reset_last_activity_time();
 			if(game.loaded) {
 				game.pause();

@@ -11,6 +11,7 @@ LDFLAGS = -L libraries/ubuntu13
 LDLIBS = -lglut -lGL -lGLU -lopenal -lalut -lyaml-cpp
 
 CXXFLAGS = -Wall -I include
+#-Wextra -pedantic
 CFLAGS = $(CXXFLAGS)
 
 # Сгенерируем файлы зависимостей (*.d)

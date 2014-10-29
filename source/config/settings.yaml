@@ -7,10 +7,10 @@ multisample: true
 grid_type: square
 screensaver: no
 
-full_screen: false
+full_screen: true
 game_mode: false
 
-foreword: true
+foreword: false
 afterword: false
 window_width: 960
 window_height: 540

@@ -1,13 +1,14 @@
 #pragma once
 
-#define SMALL_ASPECT 54
+struct AspectRatio {
+	float width;
+	float height;
 
-#define SCREEN_FORMAT_4x3   72, SMALL_ASPECT
-#define SCREEN_FORMAT_3x2   81, SMALL_ASPECT
-#define SCREEN_FORMAT_14x9  84, SMALL_ASPECT
-#define SCREEN_FORMAT_16x9  96, SMALL_ASPECT
-#define SCREEN_FORMAT_1_85 100, SMALL_ASPECT
-#define SCREEN_FORMAT_2_39 129, SMALL_ASPECT
+	AspectRatio(float _width, float _height);
+
+	float aspect() const;
+
+};
 
 struct Screen {
 
@@ -17,6 +18,8 @@ struct Screen {
 	Screen(float _width, float _height);
 
 	void set(float _width, float _height);
-	void adjust();
+	void set(float _height, const AspectRatio & aspect_ratio);
+	void set_coordinates();
+	void adjust(float lines);
 
 };

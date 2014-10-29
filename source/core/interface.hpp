@@ -14,19 +14,16 @@ typedef std::map<std::string, Menu> Menus;
 typedef std::pair<std::string, Menu> NamedMenu;
 
 typedef std::list<MenuItem> MenuItems;
-//typedef std::unordered_map<std::string, MenuItem> MenuItems;
-//typedef std::pair<std::string, MenuItem> NamedMenuItem;
 
 typedef void (* InterfaceLoader)(Interface *);
-
 typedef void (* InterfaceDisplayer)(Interface *);
-typedef void (* InterfaceHandler)(unsigned char key, int special, Interface *);
+typedef void (* InterfaceHandler)(unsigned char key, int special_key, Interface *);
 
 typedef void (* MenuDisplayer)(Menu *);
-typedef void (* MenuHandler)(unsigned char key, int special, Menu *);
+typedef void (* MenuHandler)(unsigned char key, int special_key, Menu *);
 
 typedef void (* MenuItemDisplayer)(MenuItem *);
-typedef void (* MenuItemHandler)(unsigned char key, int special, MenuItem *);
+typedef void (* MenuItemHandler)(unsigned char key, int special_key, MenuItem *);
 
 struct Interface {
 

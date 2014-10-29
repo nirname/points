@@ -45,8 +45,6 @@ void display() {
 		grid(screen.bound(), 6);
 	glPopAttrib();*/
 
-	//write("Foreword");
-
 	switch(application.mode) {
 		case FOREWORD_MODE: foreword.display(); break;
 		case MENU_MODE: interface.display(); break;
