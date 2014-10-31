@@ -12,7 +12,7 @@
 SimpleUI simple_ui;
 
 void display_interface(Interface * interface) {
-	write("Interface", 0, 0, font);
+	draw_text("Interface");
 }
 
 void SimpleUI::display_interface(Interface * interface) {

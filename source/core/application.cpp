@@ -6,8 +6,6 @@
 #include "variables.hpp"
 #include "opengl.hpp"
 
-//#include "drawing.hpp"
-
 #include <iostream>
 
 Application::Application() {
@@ -31,9 +29,9 @@ void Application::set(APPLICATION_MODE _mode) {
 		case MENU_MODE: {
 			screen.adjust(19 * font.height);
 			interface.reset_last_activity_time();
-			if(game.loaded) {
+			/*if(game.loaded) {
 				game.pause();
-			}
+			}*/
 			break;
 		}
 		case SCREENSAVER_MODE: {
@@ -84,7 +82,6 @@ void Application::quit(bool quit_immidiately = false) {
 	if(!quit_immidiately && options::afterword) {
 		set(AFTERWORD_MODE);
 	} else {
-		//glDeleteLists(CIRCLE_DISPLAY_LIST, 1);
 		glutLeaveMainLoop();
 	}
 }

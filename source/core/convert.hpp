@@ -63,7 +63,7 @@ namespace YAML {
 	}; // convert<Color>
 
 
-	template<>
+	/*template<>
 	struct convert<DrawingFunction> {
 		static Node encode(const DrawingFunction & shape_function) {
 			Node node;
@@ -71,7 +71,7 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, DrawingFunction & shape_function) {
-			/*if(!node.IsScalar()) {
+			if(!node.IsScalar()) {
 				return false;
 			}
 			std::string value = node.as<std::string>();
@@ -84,11 +84,11 @@ namespace YAML {
 			} else {
 				return false;
 			}
-			return true;*/
+			return true;
 			return false;
 		}
 
-	};
+	};*/
 
 	/*template<>
 	struct convert<SCREENSAVER_KIND> {

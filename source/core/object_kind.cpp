@@ -11,7 +11,7 @@ void ObjectKind::draw_shape() {
 	if(shape != NULL) {
 		shape->display();
 	} else {
-		default_shape();
+		//default_shape();
 	}
 }
 

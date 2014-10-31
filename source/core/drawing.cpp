@@ -2,10 +2,10 @@
 #include "variables.hpp"
 #include "options.hpp"
 #include "graphics.hpp"
-//#include "font.hpp"
+#include "font.hpp"
 #include <string>
 
-DrawingFunction default_shape = square;
+//DrawingFunction default_shape = draw_circle;
 
 ///Write string
 //
@@ -28,7 +28,7 @@ void write(std::string string, int x, int y, void * font) {
 	coordinates(0, screen.width, 0, screen.height);
 }
 
-void write(std::string text, int x, int y, const Font & _font) {
+void draw_text(std::string text, int x, int y, const Font & _font) {
 	GLuint base = _font.base;
 	GLuint offset = 0;
 	GLuint symbol_code;
@@ -41,7 +41,9 @@ void write(std::string text, int x, int y, const Font & _font) {
 			} else if((GLuint)'a' <= symbol_code && symbol_code <= (GLuint)'z') {
 				offset = (GLuint)'a';
 			}
-			glCallList(base - offset + symbol_code);
+			if(symbol_code != (GLuint)' ') {
+				glCallList(base - offset + symbol_code);
+			}
 			glTranslatef(_font.width + 1, 0, 0);
 		}
 	glPopMatrix();
@@ -49,7 +51,7 @@ void write(std::string text, int x, int y, const Font & _font) {
 
 /// Square
 //
-void square() {
+void draw_block() {
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
 		glScalef(options::figure_size, options::figure_size, 0);
@@ -60,7 +62,7 @@ void square() {
 /// Draw n-gon
 //
 /// ngon(360, 1) will be equal to circle
-void ngon(int angles, int step_over) {
+void draw_ngon(int angles, int step_over) {
 	const float radius = 0.5;
 	float angle = 360.0 / angles;
 	float step = angle * step_over;
@@ -93,21 +95,21 @@ void ngon(int angles, int step_over) {
 
 /// Draw a cricle
 //
-void circle() {
+void draw_circle() {
 	const float radius = 0.5;
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
 		glScalef(options::figure_size, options::figure_size, 0);
 		glBegin(GL_POLYGON);
 			float radian = 0.0f;
-			for(int i = 0; i < 360; i+=2, radian += DEG2RAD*2) {
+			for(int i = 0; i < 360; i+=4, radian += DEG2RAD*4) {
 				glVertex2f(cos(radian) * radius, sin(radian) * radius);
 			}
 		glEnd();
 	glPopMatrix();
 }
 
-void line(int x1, int y1, int x2, int y2) {
+void draw_line(int x1, int y1, int x2, int y2) {
 	glBegin(GL_LINES);
 		glVertex2f(x1, y1);
 		glVertex2f(x2, y2);
@@ -118,34 +120,15 @@ void line(int x1, int y1, int x2, int y2) {
 //glLineStipple(1, 0xAAAA);
 //if(x % 10 != 0) glEnable(GL_LINE_STIPPLE);
 //glDisable(GL_LINE_STIPPLE);
-void grid(const Bound & bound, int _step) {
+void draw_grid(const Bound & bound, int _step) {
 	if(bound.initial.row < bound.final.row) {
 		for(int x = bound.initial.column; x <= bound.final.column; x += _step) {
-			line(x, bound.initial.row, x, bound.final.row);
+			draw_line(x, bound.initial.row, x, bound.final.row);
 		}
 	}
 	if(bound.initial.column < bound.final.column) {
 		for(int y = bound.initial.row; y <= bound.final.row; y += _step) {
-			line(bound.initial.column, y, bound.final.column, y);
+			draw_line(bound.initial.column, y, bound.final.column, y);
 		}
 	}
 }
-
-void display_at(void (* displayer)(), int x, int y) {
-	glPushMatrix();
-		glTranslatef(x, y, 0);
-		displayer();
-	glPopMatrix();
-}
-
-/*void emptiness(void (*draw)()){
-	draw();
-	glPushMatrix();
-		glTranslatef((1.0 - EMPTY_SIZE) / 2, (1.0 - EMPTY_SIZE) / 2, 0);
-		glScalef(EMPTY_SIZE, EMPTY_SIZE, 0);
-		glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(WHITE);
-			draw();
-		glPopAttrib();
-	glPopMatrix();
-}*/

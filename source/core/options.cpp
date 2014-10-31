@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "emitter.hpp"
-#include "shape.hpp"
 #include "convert.hpp"
 
 namespace options {
@@ -19,11 +18,13 @@ namespace options {
 	GRID_TYPE grid_type = SQUARE_GRID;
 	float padding = 0.0;
 	float figure_size = 1.0;
+	Color clear_color = Color(WHITE);
+	Color base_color = Color(BLACK);
 	Color selection_color = Color(BLUE);
-	Color clear_color = Color(BLACK);
 
 	bool foreword = true;
 	bool afterword = true;
+	std::string shape_name;
 	std::string images_directory = "images/";
 	std::string font_name = "mono-55";
 	std::string fonts_directory = "fonts/";
@@ -40,6 +41,11 @@ namespace options {
 	//engine::ControlsMapping controls;
 
 	const char * mode_string = "800x600:32";
+
+}
+
+
+namespace options {
 
 	void load() {
 		if(load_config() == 1) {
@@ -88,19 +94,18 @@ namespace options {
 	/// 2 - option is omitted, default value is used
 	template<typename OptionType>
 	void load_option(OptionType & option, const YAML::Node & config, const char * key) {
-		std::cout << "  " << key << ": " << std::ends;
+		//std::cout << "  " << key << ": " << std::ends;
 		if(config[key]) {
 			try {
 				option = config[key].as<OptionType>();
-				std::cout << "ok" << std::ends;
+				//std::cout << "ok" << std::ends;
 			} catch(YAML::TypedBadConversion<OptionType> & exception) {
-				std::cout << "wrong value" << std::ends;
+				//std::cout << "wrong value" << std::ends;
 			}
 		} else {
-			std::cout << "default" << std::ends;
+			//std::cout << "default" << std::ends;
 		}
-		//std::cout << std::endl;
-		std::cout << " - " << option << std::endl;
+		//std::cout << " - " << option << std::endl;
 	}
 
 	void load_options(const YAML::Node & config) {
@@ -121,7 +126,7 @@ namespace options {
 		padding = std::min( std::max(padding, 0.0f), 0.25f );
 		figure_size = 1.0f - padding * 2;
 		load_option(selection_color, config, "selection_color");
-		load_option(default_shape, config, "shape");
+		load_option(shape_name, config, "shape");
 		load_option(clear_color, config, "clear_color");
 
 		load_option(foreword, config, "foreword");

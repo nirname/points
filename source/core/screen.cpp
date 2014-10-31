@@ -2,6 +2,8 @@
 #include "graphics.hpp"
 #include "display.hpp"
 
+#include <cmath>
+
 #include <iostream>
 
 /*float aspect_ratios[5][2] = {
@@ -26,20 +28,20 @@ Screen::Screen(float _width, float _height) {
 }
 
 void Screen::set_coordinates() {
-	coordinates(0, (double)width, 0, (double)height);
+	coordinates(0, width, 0, height);
 	reshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	std::cout << "* Screen is switched to " << width << ":" << height << std::endl;
 }
 
 void Screen::set(float _width, float _height) {
-	width = _width;
-	height = _height;
+	width = round(_width);
+	height = round(_height);
 	set_coordinates();
 }
 
 void Screen::set(float lines, const AspectRatio & aspect_ratio) {
-	height = lines;
-	width = height * aspect_ratio.aspect();
+	height = round(lines);
+	width = round(height * aspect_ratio.aspect());
 	set_coordinates();
 }
 

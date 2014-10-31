@@ -2,13 +2,10 @@
 
 #include "opengl.hpp"
 #include "color.hpp"
+#include <string>
 
-/*struct Shape;
-struct Square;
-struct Circle;
-struct NGon;
-struct David;
-struct Star;*/
+struct PolymorphicShape;
+extern PolymorphicShape default_shape;
 
 struct Shape {
 
@@ -39,4 +36,18 @@ struct Star : NGon {
 
 struct David : NGon {
 	David();
+};
+
+struct PolymorphicShape {
+
+	Shape * shape;
+
+	PolymorphicShape();
+	PolymorphicShape(Shape * _shape);
+	~PolymorphicShape();
+
+	void set(Shape * _shape);
+	void load(const std::string & shape_name);
+	void display();
+
 };

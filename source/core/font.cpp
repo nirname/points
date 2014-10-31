@@ -2,6 +2,8 @@
 #include "easy_bmp.hpp"
 
 #include "drawing.hpp"
+#include "shape.hpp"
+#include "options.hpp"
 
 Font::Font() {
 	base = 0;
@@ -38,7 +40,7 @@ void Font::load(const std::string & fonts_directory, const std::string & font_na
 								glColor3ub(pixel->Red, pixel->Green, pixel->Blue);
 								glPushMatrix();
 									glTranslatef(x, y, 0);
-									default_shape();
+									default_shape.display();
 								glPopMatrix();
 							glPopAttrib();
 						}

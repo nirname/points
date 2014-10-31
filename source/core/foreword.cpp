@@ -68,7 +68,7 @@ void Foreword::draw_image() {
 				glColor3ub(pixel->Red, pixel->Green, pixel->Blue);
 				glPushMatrix();
 					glTranslatef(x, input.TellHeight() - 1 - y, 0);
-					default_shape();
+					draw_block();
 				glPopMatrix();
 			glPopAttrib();
 		}

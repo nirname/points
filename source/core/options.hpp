@@ -3,6 +3,7 @@
 #include "screensaver.hpp"
 #include "color.hpp"
 #include "grid_type.hpp"
+#include "shape.hpp"
 
 #include "yaml.hpp"
 
@@ -20,11 +21,13 @@ namespace options {
 	extern GRID_TYPE grid_type;
 	extern float padding;
 	extern float figure_size;
+	extern Color base_color;
 	extern Color selection_color;
 	extern Color clear_color;
 
 	extern bool foreword;
 	extern bool afterword;
+	extern std::string shape_name;
 	extern std::string images_directory;
 	extern std::string font_name;
 	extern std::string fonts_directory;

@@ -6,8 +6,11 @@
 #include "opengl.hpp"
 #include "color.hpp"
 #include "drawing.hpp"
+#include "shape.hpp"
 #include "math.h"
 #include "options.hpp"
+
+#include "emitter.hpp"
 
 float fps() {
 	return 0.0;
@@ -28,40 +31,56 @@ void display() {
 	std::cout << delay << std::endl;
 	glutTimerFunc((int)ceil(delay), redisplay, 0);*/
 
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glPushAttrib(GL_CURRENT_BIT);
+	/*glPushAttrib(GL_CURRENT_BIT);
 		glColor3ub(WHITE);
 		glRectf(0.0, 0.0, screen.width, screen.height);
-	glPopAttrib();
-	glColor3ub(BLACK);
-
-	// grid at screen
-	/*glPushAttrib(GL_CURRENT_BIT);
-		glColor3ub(GRAY);
-		grid(screen.bound());
-		glColor3ub(BLACK);
-		grid(screen.bound(), 6);
 	glPopAttrib();*/
 
-	switch(application.mode) {
-		case FOREWORD_MODE: foreword.display(); break;
-		case MENU_MODE: interface.display(); break;
-		case GAMEPLAY_MODE: game.display(); break;
-		case SCREENSAVER_MODE: screensaver.display(); break;
-		default: {
-			//write(to_string(application.mode));
-			break;
+	glPushAttrib(GL_CURRENT_BIT);
+		glColor3ub(BLACK);
+		//base_color.use();
+
+		// grid at screen
+		/*glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(GRAY);
+			grid(screen.bound());
+			glColor3ub(BLACK);
+			grid(screen.bound(), 6);
+		glPopAttrib();*/
+
+		/*LOADING_MODE,
+		FOREWORD_MODE,
+		MENU_MODE,
+		SCREENSAVER_MODE,
+		COUNTDOWN_MODE,
+		GAMEPLAY_MODE,
+		INFORMATION_MODE,
+		AFTERWORD_MODE*/
+		switch(application.mode) {
+			case LOADING_MODE: draw_text("loading"); break;
+			case FOREWORD_MODE: foreword.display(); break;
+			case MENU_MODE: interface.display(); break;
+			case SCREENSAVER_MODE: screensaver.display(); break;
+			//case COUNTDOWN_MODE: break;
+			case GAMEPLAY_MODE: game.display(); break;
+			//case INFORMATION_MODE: break;
+			//case AFTERWORD_MODE: break;
+			default: {
+				draw_text(to_string(application.mode));
+				break;
+			}
 		}
-	}
 
-	//write(std::string("FPS"), 0, 0);
+		//write(std::string("FPS"), 0, 0);
 
-	elapsed_time = glutGet(GLUT_ELAPSED_TIME) - elapsed_time;
-	//std::cout << elapsed_time << std::endl;
+		elapsed_time = glutGet(GLUT_ELAPSED_TIME) - elapsed_time;
+		//std::cout << elapsed_time << std::endl;
 
-	//glFlush();
+	glPopAttrib();
+
+	glFlush();
 	glutSwapBuffers();
 
 }

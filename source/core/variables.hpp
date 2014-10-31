@@ -15,3 +15,7 @@ extern Interface interface;
 extern Screensaver screensaver;
 extern Foreword foreword;
 extern Font font;
+
+/*namespace variables {
+	void initialize(int argc, char * argv[]);
+}*/
