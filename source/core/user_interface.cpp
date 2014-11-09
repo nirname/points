@@ -71,7 +71,7 @@ void SimpleUI::handle_menu_item(unsigned char key, int special_key, MenuItem * m
 
 
 void load_interface(Interface * interface) {
-	std::cout << "Interface loading" << std::endl;
+	std::cout << "Interface: " << std::ends;
 
 	/*interface->add_menu("Main menu");
 	interface->add_menu("Games");

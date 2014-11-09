@@ -22,7 +22,7 @@ int main(int argc, char * argv[]) {
 	std::cout << "\nInitialising is done" << std::endl;
 
 	std::cout << "\nLOADING\n" << std::endl;
-	default_shape.load(options::shape_name);
+	default_shape.load(options::shape_options);
 	font.load(options::fonts_directory, options::font_name);
 	interface.load();
 	std::cout << "\nLoading is done" << std::endl;

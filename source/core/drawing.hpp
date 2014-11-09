@@ -5,7 +5,7 @@
 
 #include "font.hpp"
 #include "bound.hpp"
-#include "variables.hpp"
+#include "variables.hpp" // for default font
 
 //typedef void (*DrawingFunction)();
 //extern DrawingFunction default_shape;

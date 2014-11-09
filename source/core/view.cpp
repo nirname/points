@@ -1,4 +1,5 @@
 #include "view.hpp"
+#include "shape.hpp"
 
 View::View() {
 	initialize();
@@ -92,7 +93,7 @@ void View::draw_field(const Bound & bound) {
 				{
 					glPushMatrix();
 						glTranslatef(column, row, 0);
-						draw_block();
+						default_shape.display();
 					glPopMatrix();
 				}
 			}
@@ -116,7 +117,7 @@ void View::draw_cells(const Bound & _bound) {
 					/*if(field->cells.find(cell) != field->cells.end()){
 						glPushMatrix();
 							glTranslatef(column, row, 0);
-							draw_block();
+							default_shape.display();
 						glPopMatrix();
 					}*/
 				}

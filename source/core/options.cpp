@@ -24,7 +24,8 @@ namespace options {
 
 	bool foreword = true;
 	bool afterword = true;
-	std::string shape_name;
+
+	YAML::Node shape_options = YAML::Node("block");
 	std::string images_directory = "images/";
 	std::string font_name = "mono-55";
 	std::string fonts_directory = "fonts/";
@@ -61,7 +62,7 @@ namespace options {
 	/// 3 - wrong format / is not a map
 	///
 	int load_config() {
-		std::cout << "Loading config: " << std::ends;
+		std::cout << "Config: " << std::ends;
 		try {
 			YAML::Node config = YAML::LoadFile("config/settings.yaml");
 			if(config.IsMap()) {
@@ -94,24 +95,25 @@ namespace options {
 	/// 2 - option is omitted, default value is used
 	template<typename OptionType>
 	void load_option(OptionType & option, const YAML::Node & config, const char * key) {
-		//std::cout << "  " << key << ": " << std::ends;
+		std::cout << "  " << key << ": " << std::ends;
 		if(config[key]) {
 			try {
 				option = config[key].as<OptionType>();
-				//std::cout << "ok" << std::ends;
+				std::cout << "ok" << std::ends;
 			} catch(YAML::TypedBadConversion<OptionType> & exception) {
-				//std::cout << "wrong value" << std::ends;
+				std::cout << "wrong value" << std::ends;
 			}
 		} else {
-			//std::cout << "default" << std::ends;
+			std::cout << "default" << std::ends;
 		}
-		//std::cout << " - " << option << std::endl;
+		std::cout << " - " << option << std::endl;
 	}
 
 	void load_options(const YAML::Node & config) {
 
-		std::cout << "Loading options:" << std::endl;
-
+		std::cout << "Options: " << std::ends;
+		
+		std::cout << std::endl;
 		load_option(proportional, config, "proportional");
 		load_option(smooth_zooming, config, "smooth_zooming");
 		load_option(multisample, config, "multisample");
@@ -126,7 +128,8 @@ namespace options {
 		padding = std::min( std::max(padding, 0.0f), 0.25f );
 		figure_size = 1.0f - padding * 2;
 		load_option(selection_color, config, "selection_color");
-		load_option(shape_name, config, "shape");
+
+		load_option(shape_options, config, "shape");
 		load_option(clear_color, config, "clear_color");
 
 		load_option(foreword, config, "foreword");

@@ -15,7 +15,7 @@ afterword: false
 window_width: 960
 window_height: 540
 
-shape: square
+shape: triangle
 animation: fade
 selection_color: soft_blue
 

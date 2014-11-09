@@ -5,7 +5,7 @@
 
 #include "yaml.hpp"
 #include "color.hpp"
-#include "drawing.hpp"
+#include "shape.hpp"
 
 namespace YAML {
 
@@ -138,6 +138,73 @@ namespace YAML {
 			return true;
 		}
 	};*/
+
+	template<>
+	struct convert<Node> {
+
+		static Node encode(const Node & source) {
+			Node result = source;
+			return result;
+		}
+
+		static bool decode(const Node & source, Node & result) {
+			result = source;
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<Shape *> {
+
+		static Node encode(const Shape * & shape) {
+			Node node;
+			/*node.push_back(color.red);
+			node.push_back(color.green);
+			node.push_back(color.blue);*/
+			return node;
+		}
+
+		static bool decode(const Node & node, Shape * & shape) {
+			std::string shape_name;
+
+			if(node.IsScalar()) {
+				std::cout << "scalar" << std::endl;
+				shape_name = node.as<std::string>();
+				if(shape_name == "block") {
+					shape = new ::Block;
+				} else if(shape_name == "circle") {
+					shape = new ::Circle;
+				} else if(shape_name == "star") {
+					shape = new ::Star;
+				} else if(shape_name == "david") {
+					shape = new ::David;
+				} else if(shape_name == "diamond") {
+					shape = new ::Diamond;
+				} else if(shape_name == "triangle") {
+					shape = new ::Triangle;
+				} else {
+					shape = new ::Block;
+				}
+			} else if(node.IsSequence() && node.size() >= 1) {
+				std::cout << "sequence" << std::endl;
+				shape_name = node[0].as<std::string>();
+				if(shape_name == "ngon") {
+					if(node.size() != 3) {
+						std::cout << "Wrong number of arguments for ngon (should be 3)" << std::endl;
+						return false;
+					}
+					int angles = node[1].as<int>();
+					int step_over = node[2].as<int>();
+					shape = new ::NGon(angles, step_over);
+				}
+			} else {
+				return false;
+			}
+
+			return true;
+		}
+	};
+
 
 } // namespace YAML
 

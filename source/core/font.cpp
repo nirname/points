@@ -15,7 +15,8 @@ Font::~Font() {
 }
 
 void Font::load(const std::string & fonts_directory, const std::string & font_name) {
-	std::cout << "Loading font \"" << font_name << "\": " << std::endl;
+	std::cout << "Font: " << std::endl;
+	std::cout << "  name: " << font_name << std::endl;
 	std::string image_name = fonts_directory + font_name + ".bmp";
 
 	BMP input;
@@ -26,7 +27,7 @@ void Font::load(const std::string & fonts_directory, const std::string & font_na
 		letters_count = input.TellWidth() / width;
 		std::cout << "  letters_count: " << letters_count << std::endl;
 		base = glGenLists(letters_count);
-		std::cout << "  base:" << base << std::endl;
+		std::cout << "  base: " << base << std::endl;
 		for(int letter_id = 0; letter_id < letters_count; letter_id++) {
 			glNewList(letter_id + base, GL_COMPILE);
 				glPushMatrix();

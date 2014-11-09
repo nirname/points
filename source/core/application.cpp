@@ -27,7 +27,7 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case MENU_MODE: {
-			screen.adjust(19 * font.height);
+			screen.adjust(5 * font.height);
 			interface.reset_last_activity_time();
 			/*if(game.loaded) {
 				game.pause();

@@ -4,8 +4,7 @@
 #include "color.hpp"
 #include <string>
 
-struct PolymorphicShape;
-extern PolymorphicShape default_shape;
+#include "yaml.hpp"
 
 struct Shape {
 
@@ -38,6 +37,14 @@ struct David : NGon {
 	David();
 };
 
+struct Diamond : NGon {
+	Diamond();
+};
+
+struct Triangle : NGon {
+	Triangle();
+};
+
 struct PolymorphicShape {
 
 	Shape * shape;
@@ -47,7 +54,9 @@ struct PolymorphicShape {
 	~PolymorphicShape();
 
 	void set(Shape * _shape);
-	void load(const std::string & shape_name);
+	void load(const YAML::Node & shape_options);
 	void display();
 
 };
+
+extern PolymorphicShape default_shape;

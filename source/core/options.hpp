@@ -27,7 +27,8 @@ namespace options {
 
 	extern bool foreword;
 	extern bool afterword;
-	extern std::string shape_name;
+	
+	extern YAML::Node shape_options;
 	extern std::string images_directory;
 	extern std::string font_name;
 	extern std::string fonts_directory;

@@ -2,14 +2,14 @@
 #include "shape.hpp"
 #include "drawing.hpp"
 
+#include "convert.hpp"
+
 #include <iostream>
 
 PolymorphicShape default_shape;
 
 Shape::Shape() {
-	std::cout << "new Shape with base " << std::ends;
 	base = glGenLists(1);
-	std::cout << base << std::endl;
 }
 
 Shape::~Shape() {
@@ -44,6 +44,10 @@ Star::Star() : NGon(5, 2) {}
 
 David::David() : NGon(6, 2) {}
 
+Diamond::Diamond() : NGon(4, 1) {}
+
+Triangle::Triangle() : NGon(3, 1) {}
+
 PolymorphicShape::PolymorphicShape() {
 	shape = NULL;
 }
@@ -54,15 +58,26 @@ PolymorphicShape::~PolymorphicShape() {
 	}
 }
 
-void PolymorphicShape::load(const std::string & shape_name) {
+void PolymorphicShape::load(const YAML::Node & shape_options) {
+	std::cout << "Shape: " << std::ends;
 	if(shape != NULL) {
 		delete shape;
 		shape = NULL;
 	}
-
 	if(shape == NULL) {
-		shape = new Block;
+		try {
+			shape = shape_options.as<Shape *>();
+		} catch(YAML::TypedBadConversion<Shape *> & exception) {
+			std::cout << "wrong value" << std::endl;
+			return;
+		}
 	}
+	if(shape != NULL && shape->base != 0) {
+		std::cout << "ok" << std::ends;
+	} else {
+		std::cout << "shape wasn't created" << std::ends;
+	}
+	std::cout << std::endl;
 }
 
 void PolymorphicShape::set(Shape * _shape) {
