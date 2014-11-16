@@ -31,23 +31,35 @@ void Interface::handle(unsigned char key, int special_key) {
 	}
 }
 
-Menus::iterator Interface::add_menu(const std::string & name) {
+Menu * Interface::add_menu(const std::string & name, MenuDisplayer _displayer, MenuHandler _handler) {
 	bool is_first = menus.empty();
-	Menus::iterator menu = menus.insert(menus.end(), NamedMenu(name, Menu(this)));
-	menu->second.title = name;
+	Menus::iterator menu_iterator = menus.insert(menus.end(), Menu(this));
+	Menu * menu = &*menu_iterator;
+	menu->name = name;
+	menu->displayer = _displayer;
+	menu->handler = _handler;
 	if(is_first) {
-		forward(menu);
+		next_menu(menu);
 	}
 	return menu;
 }
 
-void Interface::forward(Menus::iterator menu) {
-	if(menu != menus.end()) {
+Menu * Interface::find_menu(const std::string & name) {
+	for(Menus::iterator menu_iterator = menus.begin(); menu_iterator != menus.end(); menu_iterator++) {
+		if(menu_iterator->name == name) {
+			return &*menu_iterator;
+		}
+	}
+	return NULL;
+}
+
+void Interface::next_menu(Menu * menu) {
+	if(menu != NULL) {
 		menus_stack.push_back(menu);
 	}
 }
 
-void Interface::backward() {
+void Interface::previous_menu() {
 	menus_stack.pop_back();
 }
 
@@ -55,22 +67,22 @@ void Interface::reset() {
 	menus_stack.clear();
 }
 
-void Interface::reset_last_activity_time() {
-	time(&last_activity_time);
-}
-
-Menus::iterator Interface::current_menu() {
+Menu * Interface::current_menu() {
 	if(menus_stack.empty()) {
-		return menus.end();
+		return NULL;
 	} else {
 		return menus_stack.back();
 	}
 }
 
+void Interface::reset_last_activity_time() {
+	time(&last_activity_time);
+}
+
 Menu::Menu(Interface * _interface) : interface(_interface) {
 	displayer = NULL;
 	handler = NULL;
-	current_item = items.end();
+	_current_item = items.end();
 }
 
 void Menu::handle(unsigned char key, int special_key) {
@@ -85,20 +97,59 @@ void Menu::display() {
 	}
 }
 
-MenuItems::iterator Menu::add_item(const std::string & name) {
+MenuItem * Menu::add_item(const std::string & name, MenuItemDisplayer _displayer, MenuItemHandler _handler, Menu * _next_menu) {
 	bool is_first = items.empty();
-	MenuItems::iterator item = items.insert(items.end(), MenuItem(this));
-	item->title = name;
+	MenuItems::iterator item_iterator = items.insert(items.end(), MenuItem(this));
+	MenuItem * item = &*item_iterator;
+	item->name = name;
+	item->displayer = _displayer;
+	item->handler = _handler;
+	item->next_menu = _next_menu;
 	if(is_first) {
-		current_item = item;
+		_current_item = item_iterator;
 	}
 	return item;
+}
+
+MenuItem * Menu::find_item(const std::string & name) {
+	for(MenuItems::iterator item_iterator = items.begin(); item_iterator != items.end(); item_iterator++) {
+		if(item_iterator->name == name) {
+			return &*item_iterator;
+		}
+	}
+	return NULL;
+}
+
+MenuItem * Menu::current_item() {
+	if(!items.empty()) {
+		if(_current_item != items.end()) {
+			return &*_current_item;
+		}
+	}
+	return NULL;
+}
+
+void Menu::next_item() {
+	if(!items.empty()) {
+		_current_item++;
+		if(_current_item == items.end()) {
+			_current_item++;
+		}
+	}
+}
+void Menu::previous_item() {
+	if(!items.empty()) {
+		_current_item--;
+		if(_current_item == items.end()) {
+			_current_item--;
+		}
+	}
 }
 
 MenuItem::MenuItem(Menu * _menu) : menu(_menu) {
 	displayer = NULL;
 	handler = NULL;
-	next_menu = menu->interface->menus.end();
+	next_menu = NULL;
 }
 
 void MenuItem::handle(unsigned char key, int special_key) {
@@ -111,4 +162,8 @@ void MenuItem::display() {
 	if(displayer != NULL) {
 		displayer(this);
 	}
+}
+
+bool MenuItem::is_current() {
+	return menu->current_item() == this;
 }

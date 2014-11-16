@@ -1,0 +1,39 @@
+game:
+  kind: sokoban
+  screen: [12, 12]
+
+fields:
+  field:
+    size: [10, 10]
+    data:
+      s: [1, 1]
+      1: [1, 5]
+      2: [6, 7]
+      3: [5, 3]
+    cells: [[5, 5], [6, 5], [7, 5]]
+
+colors:
+  dark_blue: [0, 52, 92]
+  sky: [50, 180, 255]
+
+views:
+  view:
+    field: field
+    background_color: sky
+    field_color: soft_blue
+    cells_color: blue
+    position: [1, 1]
+
+object_kinds:
+  sokoban:
+    color: dark_blue
+    shape: david
+  box:
+    color: dark_blue
+
+objects:
+  sokoban: s
+  box: [1, 2, 3]
+
+controls:
+  first_player: s

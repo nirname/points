@@ -30,6 +30,7 @@ namespace options {
 	std::string font_name = "mono-55";
 	std::string fonts_directory = "fonts/";
 	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
+	std::string levels_directory = "levels/";
 
 	int foreword_timeout = 5;
 	int menu_timeout = 30;
@@ -112,7 +113,7 @@ namespace options {
 	void load_options(const YAML::Node & config) {
 
 		std::cout << "Options: " << std::ends;
-		
+
 		std::cout << std::endl;
 		load_option(proportional, config, "proportional");
 		load_option(smooth_zooming, config, "smooth_zooming");
@@ -138,6 +139,7 @@ namespace options {
 		load_option(font_name, config, "font_name");
 		load_option(fonts_directory, config, "fonts_directory");
 		//load_option(screensaver_kind, config, "screensaver_kind");
+		load_option(levels_directory, config, "levels_directory");
 
 		load_option(foreword_timeout, config, "foreword_timeout");
 		load_option(menu_timeout, config, "menu_timeout");

@@ -18,7 +18,7 @@ struct Application {
 	Application();
 
 	void start();
-	void quit(bool quit_immidiately);
+	void quit(bool quit_immidiately = false);
 
 	void set(APPLICATION_MODE _mode);
 

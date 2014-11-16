@@ -34,13 +34,12 @@ void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/*glPushAttrib(GL_CURRENT_BIT);
-		glColor3ub(WHITE);
+		glColor3ub(GREEN);
 		glRectf(0.0, 0.0, screen.width, screen.height);
 	glPopAttrib();*/
 
 	glPushAttrib(GL_CURRENT_BIT);
-		glColor3ub(BLACK);
-		//base_color.use();
+		options::base_color.use();
 
 		// grid at screen
 		/*glPushAttrib(GL_CURRENT_BIT);

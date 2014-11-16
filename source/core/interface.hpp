@@ -10,9 +10,7 @@ struct Interface;
 struct Menu;
 struct MenuItem;
 
-typedef std::map<std::string, Menu> Menus;
-typedef std::pair<std::string, Menu> NamedMenu;
-
+typedef std::list<Menu> Menus;
 typedef std::list<MenuItem> MenuItems;
 
 typedef void (* InterfaceLoader)(Interface *);
@@ -30,7 +28,7 @@ struct Interface {
 	time_t last_activity_time;
 
 	Menus menus;
-	std::deque< Menus::iterator > menus_stack;
+	std::deque< Menu * > menus_stack;
 
 	InterfaceLoader loader;
 	InterfaceDisplayer displayer;
@@ -43,14 +41,14 @@ struct Interface {
 	void display();
 	void handle(unsigned char key, int special_key);
 
-	Menus::iterator add_menu(const std::string & name);
+	Menu * add_menu(const std::string & name, MenuDisplayer _displayer = NULL, MenuHandler _handler = NULL);
 	Menu * find_menu(const std::string & name);
 
-	void forward(Menus::iterator menu);
-	void backward();
+	void next_menu(Menu * menu);
+	void previous_menu();
 	void reset();
 
-	Menus::iterator current_menu();
+	Menu * current_menu();
 
 	void reset_last_activity_time();
 
@@ -59,10 +57,10 @@ struct Interface {
 struct Menu {
 
 	Interface * interface;
-	std::string title;
+	std::string name;
 
 	MenuItems items;
-	MenuItems::iterator current_item;
+	MenuItems::iterator _current_item;
 
 	MenuDisplayer displayer;
 	MenuHandler handler;
@@ -72,7 +70,17 @@ struct Menu {
 	void display();
 	void handle(unsigned char key, int special_key);
 
-	MenuItems::iterator add_item(const std::string & name);
+	MenuItem * add_item(
+		const std::string & name,
+		MenuItemDisplayer _displayer = NULL, MenuItemHandler _handler = NULL,
+		Menu * _next_menu = NULL
+	);
+	MenuItem * find_item(const std::string & name);
+
+	void next_item();
+	void previous_item();
+
+	MenuItem * current_item();
 
 	void set_current_item(MenuItems::iterator item);
 
@@ -81,9 +89,9 @@ struct Menu {
 struct MenuItem {
 
 	Menu * menu;
-	std::string title;
+	std::string name;
 
-	Menus::iterator next_menu;
+	Menu * next_menu;
 
 	MenuItemHandler handler;
 	MenuItemDisplayer displayer;
@@ -92,5 +100,7 @@ struct MenuItem {
 
 	void handle(unsigned char key, int special_key);
 	void display();
+
+	bool is_current();
 
 };

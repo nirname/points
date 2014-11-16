@@ -36,14 +36,13 @@ void Font::load(const std::string & fonts_directory, const std::string & font_na
 					int absolute_x = letter_id * width;
 					for(int x = 0; x < width; x++ ) {
 						for(int y = 0; y < height; y++) {
-							glPushAttrib(GL_CURRENT_BIT);
-								pixel = input(x + absolute_x, y);
-								glColor3ub(pixel->Red, pixel->Green, pixel->Blue);
+							pixel = input(x + absolute_x, y);
+							if(pixel->Red == 0 && pixel->Green == 0 && pixel->Blue == 0) {
 								glPushMatrix();
 									glTranslatef(x, y, 0);
 									default_shape.display();
 								glPopMatrix();
-							glPopAttrib();
+							}
 						}
 					}
 				glPopMatrix();

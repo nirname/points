@@ -27,12 +27,13 @@ namespace options {
 
 	extern bool foreword;
 	extern bool afterword;
-	
+
 	extern YAML::Node shape_options;
 	extern std::string images_directory;
 	extern std::string font_name;
 	extern std::string fonts_directory;
 	extern SCREENSAVER_KIND screensaver_kind;
+	extern std::string levels_directory;
 
 	extern int foreword_timeout;
 	extern int menu_timeout;

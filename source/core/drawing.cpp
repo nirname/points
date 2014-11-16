@@ -33,16 +33,19 @@ void draw_text(std::string text, int x, int y, const Font & _font) {
 	GLuint offset = 0;
 	GLuint symbol_code;
 	glPushMatrix();
+		glTranslatef(x, y, 0);
 		for(std::string::iterator i = text.begin(); i != text.end(); ++i) {
 			symbol_code = (GLuint)(*i);
 			// TODO: calculate offest from charset
-			if((GLuint)'A' <= symbol_code && symbol_code <= (GLuint)'Z') {
-				offset = (GLuint)'A';
+			if((GLuint)'0' <= symbol_code && symbol_code <= (GLuint)'9') {
+				offset = (GLuint)'0';
+			} else if((GLuint)'A' <= symbol_code && symbol_code <= (GLuint)'Z') {
+				offset = (GLuint)'A' - 10;
 			} else if((GLuint)'a' <= symbol_code && symbol_code <= (GLuint)'z') {
-				offset = (GLuint)'a';
+				offset = (GLuint)'a' - 10;
 			}
 			if(symbol_code != (GLuint)' ') {
-				glCallList(base - offset + symbol_code);
+				glCallList(base + symbol_code - offset);
 			}
 			glTranslatef(_font.width + 1, 0, 0);
 		}

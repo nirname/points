@@ -27,7 +27,7 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case MENU_MODE: {
-			screen.adjust(5 * font.height);
+			screen.adjust(21 * font.height);
 			interface.reset_last_activity_time();
 			/*if(game.loaded) {
 				game.pause();
@@ -78,10 +78,11 @@ void Application::start() {
 	}
 }
 
-void Application::quit(bool quit_immidiately = false) {
+void Application::quit(bool quit_immidiately) {
 	if(!quit_immidiately && options::afterword) {
 		set(AFTERWORD_MODE);
 	} else {
+		std::cout << "\nGOODBYE\n" << std::endl;
 		glutLeaveMainLoop();
 	}
 }
@@ -92,7 +93,6 @@ void Application::handle(unsigned char key, int special_key) {
 
 	if(key == CTRL_Q_KEY) {
 		std::cout << "Ctrl+Q" << std::endl;
-		std::cout << "\nGOODBYE\n" << std::endl;
 		quit(true);
 	}
 
@@ -134,7 +134,6 @@ void Application::handle(unsigned char key, int special_key) {
 		case AFTERWORD_MODE: {
 			if(key != 0) {
 				//afterword.skip(); // && exit;
-				std::cout << "GOODBYE" << std::endl;
 				quit(true);
 			}
 			break;
