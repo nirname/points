@@ -18,12 +18,22 @@ namespace file {
 			) == 0;
 	}
 
+	char * crop_extension(char * name, const char * extension) {
+		//size_t extension_length = strlen(extension);
+		//return name - extension_length * sizeof(char);
+		return name;
+	}
+
 	/// Checks whether file has an extension or not.
 	/**
 		Works for 'c++' strings
 	*/
 	bool has_extension(std::string name, std::string extension) {
 		return has_extension(name.c_str(), extension.c_str());
+	}
+
+	std::string crop_extension(std::string name, std::string extension) {
+		return std::string(crop_extension(name.c_str(), extension.c_str()));
 	}
 
 }

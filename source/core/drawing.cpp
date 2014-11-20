@@ -37,12 +37,9 @@ void draw_text(std::string text, int x, int y, const Font & _font) {
 		for(std::string::iterator i = text.begin(); i != text.end(); ++i) {
 			symbol_code = (GLuint)(*i);
 			// TODO: calculate offest from charset
-			if((GLuint)'0' <= symbol_code && symbol_code <= (GLuint)'9') {
-				offset = (GLuint)'0';
-			} else if((GLuint)'A' <= symbol_code && symbol_code <= (GLuint)'Z') {
-				offset = (GLuint)'A' - 10;
-			} else if((GLuint)'a' <= symbol_code && symbol_code <= (GLuint)'z') {
-				offset = (GLuint)'a' - 10;
+			offset = (GLuint)'!';
+			if((GLuint)'a' <= symbol_code && symbol_code <= (GLuint)'~') {
+				offset = (GLuint)'A';
 			}
 			if(symbol_code != (GLuint)' ') {
 				glCallList(base + symbol_code - offset);

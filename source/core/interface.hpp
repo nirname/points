@@ -30,14 +30,12 @@ struct Interface {
 	Menus menus;
 	std::deque< Menu * > menus_stack;
 
-	InterfaceLoader loader;
 	InterfaceDisplayer displayer;
 	InterfaceHandler handler;
 
 	Interface();
-	Interface(InterfaceLoader _loader);
 
-	void load();
+	void load(InterfaceLoader loader);
 	void display();
 	void handle(unsigned char key, int special_key);
 
@@ -86,12 +84,25 @@ struct Menu {
 
 };
 
+#include "screensaver.hpp"
+#include "game.hpp"
+
+struct MenuItemOptions {
+
+	SCREENSAVER_KIND screensaver_kind;
+	GAME_KIND game_kind;
+	std::string level;
+
+};
+
 struct MenuItem {
 
 	Menu * menu;
 	std::string name;
 
 	Menu * next_menu;
+
+	MenuItemOptions options;
 
 	MenuItemHandler handler;
 	MenuItemDisplayer displayer;

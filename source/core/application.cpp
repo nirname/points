@@ -27,7 +27,8 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 		case MENU_MODE: {
-			screen.adjust(21 * font.height);
+			//screen.adjust(21 * font.height);
+			screen.set(21 * font.height, AspectRatio(16, 9));
 			interface.reset_last_activity_time();
 			/*if(game.loaded) {
 				game.pause();
@@ -36,7 +37,7 @@ void Application::set(APPLICATION_MODE _mode) {
 		}
 		case SCREENSAVER_MODE: {
 			if(options::screensaver_kind != NO_SCREENSAVER) {
-				screen.set(screensaver.width, screensaver.height);
+				//screen.set(screensaver.width, screensaver.height);
 			} else {
 				_mode = previous_mode;
 			}

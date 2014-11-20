@@ -15,6 +15,8 @@
 #include "directory.hpp"
 #include "file.hpp"
 
+//std::map<MenuItem *, MenuItemOptions> menu_items_options;
+
 void display_inline_menu(Interface * interface) {
 	if(interface->menus_stack.size() > 1) {
 		if(interface->current_menu()->name != std::string("Message")) {
@@ -33,6 +35,22 @@ void display_interface(Interface * interface) {
 	display_inline_menu(interface);
 }
 
+void draw_and_highlight_text(const std::string & text, bool highlight) {
+	if(highlight) {
+		glPushAttrib(GL_CURRENT_BIT);
+			glColor3ub(230, 230, 230);
+			draw_text(text);
+			options::selection_color.use();
+			glPushMatrix();
+				glTranslatef(1, 1, 0);
+				draw_text(text);
+			glPopMatrix();
+		glPopAttrib();
+	} else {
+		draw_text(text);
+	}
+}
+
 void display_menu_item(MenuItem * item) {
 	glPushMatrix();
 		glPushAttrib(GL_CURRENT_BIT);
@@ -40,23 +58,44 @@ void display_menu_item(MenuItem * item) {
 			glRectf(0.0, 0.0, (font.width + 1 ) * item->name.length(), font.height);
 		glPopAttrib();
 	glPopMatrix();
-	if(item->is_current()) {
-	glPushAttrib(GL_CURRENT_BIT);
-		glColor3ub(230, 230, 230);
-		draw_text(item->name);
-		options::selection_color.use();
-		draw_text(item->name, 1, 1);
-	glPopAttrib();
-	} else {
-		draw_text(item->name);
-	}
+	draw_and_highlight_text(item->name, item->is_current());
 }
 
-void display_menu_item_at(int x, int y, MenuItem * item) {
-	glPushMatrix();
-		glTranslatef(x, y, 0);
-		item->display();
-	glPopMatrix();
+void display_screensaver_option_item(MenuItem * item) {
+	SCREENSAVER_KIND screensaver_kind = item->options.screensaver_kind;
+	std::string title = item->name;
+	title.resize(20, ' ');
+	if(screensaver_kind & options::screensaver_kind) {
+		title += std::string("[   ][ON]");
+	} else {
+		title += std::string("[OFF][  ]");
+	}
+	draw_and_highlight_text(title, item->is_current());
+}
+
+#include "emitter.hpp"
+
+void toggle_option(unsigned char key, int special_key, MenuItem * item) {
+	//std::cout << "* Toggling option: " << std::ends;
+
+	SCREENSAVER_KIND screensaver_kind = item->options.screensaver_kind;
+	std::cout << screensaver_kind;
+	if(key == ENTER_KEY) {
+		//std::cout << "Enter" << std::endl;
+		screensaver.kind = screensaver_kind;
+		application.set(SCREENSAVER_MODE);
+	} else if(special_key == GLUT_KEY_LEFT) {
+		//std::cout << "Left" << std::endl;
+		options::screensaver_kind = SCREENSAVER_KIND (
+			options::screensaver_kind & ~screensaver_kind
+		);
+	} else if(special_key == GLUT_KEY_RIGHT) {
+		//std::cout << "Right" << std::endl;
+		options::screensaver_kind = SCREENSAVER_KIND (
+			options::screensaver_kind | screensaver_kind
+		);
+	}
+	std::cout << options::screensaver_kind << std::endl;
 }
 
 void display_menu(Menu * menu) {
@@ -81,23 +120,31 @@ void display_menu(Menu * menu) {
 				current_item_hp = horizontal_position;
 				current_item_vp = vertical_position;
 			} else {
-				display_menu_item_at(horizontal_position, vertical_position, &*item);
+				glPushMatrix();
+					glTranslatef(horizontal_position, vertical_position, 0);
+					item->display();
+				glPopMatrix();
 			}
 		}
 		if(menu->current_item() != NULL) {
-			display_menu_item_at(current_item_hp, current_item_vp, menu->current_item());
+			glPushMatrix();
+				glTranslatef(current_item_hp, current_item_vp, 0);
+				menu->current_item()->display();
+			glPopMatrix();
 		}
 
 	glPopMatrix();
 }
 
 void display_message(Menu * menu) {
-	draw_text(menu->name, 0, screen.height - font.height);
 	glPushMatrix();
-		glTranslatef(0, - font.height * 4, 0);
-		draw_text("No levels found", 0, screen.height - font.height);
+		glTranslatef(0, screen.height - font.height, 0);
+		draw_text(menu->name);
+		glTranslatef(0, - font.height * 3, 0);
+		draw_text("No levels found");
 		if(menu->current_item() != NULL) {
-			display_menu_item_at(0, screen.height - font.height * 4, menu->current_item());
+			glTranslatef(0, - font.height * 3, 0);
+			menu->current_item()->display();
 		}
 	glPopMatrix();
 }
@@ -112,6 +159,18 @@ void handle_interface(unsigned char key, int special_key, Interface * interface)
 	}
 	if(interface->current_menu() != NULL) {
 		interface->current_menu()->handle(key, special_key);
+	}
+}
+
+void handle_options_menu(unsigned char key, int special_key, Menu * menu) {
+	if(special_key == GLUT_KEY_DOWN) {
+		menu->next_item();
+	} else if(special_key == GLUT_KEY_UP) {
+		menu->previous_item();
+	} else {
+		if(menu->current_item() != NULL) {
+			menu->current_item()->handle(key, special_key);
+		}
 	}
 }
 
@@ -201,7 +260,7 @@ bool filter(dirent * entry) {
 
 void start_game(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
-		//game.kind = menu_item.game_kind;
+		game.kind = menu_item->options.game_kind;
 		//game.load(menu_item.level);
 		application.set(GAMEPLAY_MODE);
 	}
@@ -239,25 +298,6 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 	}
 }
 
-/*template<typename Value>
-void display_option_item_value(MenuItem * item, Value value) {
-
-	SCREENSAVER_KIND _screensaver_kind = NO_SCREENSAVER;
-	_menu_item->title >> _screensaver_kind;
-
-	std::string title = std::string(" * ") + _menu_item->title;
-	title.resize(25, ' ');
-
-	if(_screensaver_kind & options::screensaver_kind) {
-		title += "[   ][ON]";
-	} else {
-		title += "[OFF][  ]";
-	}
-
-	//graphics::write(title, 0, position * glutBitmapHeight(GLUT_BITMAP_9_BY_15));
-
-}*/
-
 void load_interface(Interface * interface) {
 	std::cout << "Interface: " << std::ends;
 
@@ -269,14 +309,17 @@ void load_interface(Interface * interface) {
 	interface->add_menu("Main menu", display_menu, handle_menu);
 		interface->add_menu("Games", display_menu, handle_menu);
 			interface->add_menu("Levels", display_menu, handle_menu);
+		//interface->add_menu("Options", display_options_menu, handle_menu);
+		interface->add_menu("Options", display_menu, handle_options_menu);
+			interface->add_menu("Screensavers", display_menu, handle_options_menu);
 		interface->add_menu("Extras", display_menu, handle_menu);
-			interface->add_menu("Screensavers", display_menu, handle_menu);
 			interface->add_menu("Images", display_menu, handle_menu);
 	interface->add_menu("Message", display_message, handle_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
 
 	menu = interface->find_menu("Main menu");
 	menu->add_item("Games", display_menu_item, next_menu, interface->find_menu("Games"));
+	menu->add_item("Options", display_menu_item, next_menu, interface->find_menu("Options"));
 	menu->add_item("Extras", display_menu_item, next_menu, interface->find_menu("Extras"));
 
 	menu = interface->find_menu("Games");
@@ -284,8 +327,10 @@ void load_interface(Interface * interface) {
 		menu->add_item(to_string(game_kind), display_menu_item, select_level, interface->find_menu("Levels"));
 	}
 
-	menu = interface->find_menu("Extras");
+	menu = interface->find_menu("Options");
 	menu->add_item("Screensavers", display_menu_item, next_menu, interface->find_menu("Screensavers"));
+
+	menu = interface->find_menu("Extras");
 	menu->add_item("Images", display_menu_item, next_menu, interface->find_menu("Images"));
 
 	menu = interface->find_menu("Screensavers");
@@ -294,7 +339,11 @@ void load_interface(Interface * interface) {
 		screensaver_kind <= TIMER_SCREENSAVER;
 		screensaver_kind++
 	) {
-		menu->add_item(to_string(screensaver_kind), display_menu_item);
+		MenuItem * item = menu->add_item(
+			to_string(screensaver_kind),
+			display_screensaver_option_item, toggle_option
+		);
+		item->options.screensaver_kind = screensaver_kind;
 		//item_handler = start_screensaver;
 		//item->displayer = display_screensaver_option;
 	}

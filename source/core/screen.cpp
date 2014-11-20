@@ -46,6 +46,11 @@ void Screen::set(float lines, const AspectRatio & aspect_ratio) {
 }
 
 void Screen::adjust(float lines) {
-	AspectRatio aspect_ratio((float)glutGet(GLUT_WINDOW_WIDTH), (float)glutGet(GLUT_WINDOW_HEIGHT));
+	int _window_width = glutGet(GLUT_WINDOW_WIDTH);
+	int _window_height = glutGet(GLUT_WINDOW_HEIGHT);
+	std::cout
+		<< "* Adjust screen to "
+		<< _window_width << ":" << _window_height << std::endl;
+	AspectRatio aspect_ratio(_window_width, _window_height);
 	set(lines, aspect_ratio);
 }

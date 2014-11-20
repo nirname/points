@@ -1,18 +1,12 @@
 #include "interface.hpp"
 
 Interface::Interface() {
-	loader = NULL;
-	displayer = NULL;
-	handler = NULL;
-}
-
-Interface::Interface(InterfaceLoader _loader) : loader(_loader) {
 	displayer = NULL;
 	handler = NULL;
 	reset_last_activity_time();
 }
 
-void Interface::load() {
+void Interface::load(InterfaceLoader loader) {
 	if(loader != NULL) {
 		loader(this);
 	}
@@ -137,6 +131,7 @@ void Menu::next_item() {
 		}
 	}
 }
+
 void Menu::previous_item() {
 	if(!items.empty()) {
 		_current_item--;

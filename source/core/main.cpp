@@ -2,6 +2,8 @@
 #include "variables.hpp"
 #include "initializers.hpp"
 
+#include "user_interface.hpp"
+
 #include "opengl.hpp"
 
 #include <iostream>
@@ -24,7 +26,7 @@ int main(int argc, char * argv[]) {
 	std::cout << "\nLOADING\n" << std::endl;
 	default_shape.load(options::shape_options);
 	font.load(options::fonts_directory, options::font_name);
-	interface.load();
+	interface.load(load_interface);
 	std::cout << "\nLoading is done" << std::endl;
 
 	std::cout << "\nWELCOME\n" << std::endl;

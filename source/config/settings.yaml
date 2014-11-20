@@ -1,4 +1,4 @@
-padding: 0.1
+padding: 0
 
 proportional: true
 smooth_zooming: true
@@ -7,17 +7,17 @@ multisample: true
 grid_type: square
 screensaver: no
 
-full_screen: false
+full_screen: true
 game_mode: false
 
 foreword: false
-afterword: false
+afterword: true
 window_width: 960
 window_height: 540
 
-#shape: diamond
+shape: diamond
 animation: fade
-selection_color: soft_red
+selection_color: soft_green
 
 foreword_timeout: 5
 menu_timeout: 30
