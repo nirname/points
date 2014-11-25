@@ -13,10 +13,10 @@ std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND & sc
 		case TIMER_SCREENSAVER:                _ostream << "timer";          break;
 		case RANDOM_SCREENSAVER:               _ostream << "random";         break;
 		default: {
-			_ostream << "[";
+			_ostream << "[ ";
 				for(SCREENSAVER_KIND k = LIFE_SCREENSAVER; k <= TIMER_SCREENSAVER; k++) {
 					if(screensaver_kind & k) {
-						_ostream << " " << k << " ";
+						_ostream << k << " ";
 					}
 				}
 			_ostream << "]";
