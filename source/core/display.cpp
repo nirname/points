@@ -93,8 +93,8 @@ void reshape(int width, int length) {
 	/*glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
 	glViewport(0, 0, (GLsizei)width, (GLsizei)length);*/
 
-	float x_ort = width / screen.width;
-	float y_ort = length / screen.height;
+	float x_ort = (float)width / (float)screen.width;
+	float y_ort = (float)length / (float)screen.height;
 
 	if(options::smooth_zooming == false) {
 		x_ort = floor(x_ort);
@@ -107,8 +107,8 @@ void reshape(int width, int length) {
 		y_ort = ort;
 	}
 
-	options::window_width = x_ort * screen.width;
-	options::window_height = y_ort * screen.height;
+	options::window_width = (int)floor(x_ort * screen.width);
+	options::window_height = (int)floor(y_ort * screen.height);
 
 	glViewport(
 		(GLint)((width - options::window_width) / 2.0),

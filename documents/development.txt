@@ -307,5 +307,8 @@
 
 26.11.2014
 
-* Загружать aspect_ratio
-* Изменить aspect_ratio width и height в unsigned int
+* (+) Загружать и сохранять aspect_ratio
+* Изменить aspect_ratio width и height в int
+* Изменить screen height и width в int
+* Изменить
+* Реализовать shape options не как yaml node

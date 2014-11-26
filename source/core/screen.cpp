@@ -10,12 +10,12 @@ AspectRatio::AspectRatio() :
 	width(16), height(9)
 {}
 
-AspectRatio::AspectRatio(float _width, float _height) :
+AspectRatio::AspectRatio(int _width, int _height) :
 	width(_width), height(_height)
 {}
 
 float AspectRatio::aspect() const {
-	return width / height;
+	return (float)width / (float)height;
 }
 
 Screen::Screen() {}
@@ -42,7 +42,7 @@ void Screen::set(float lines, const AspectRatio & aspect_ratio) {
 	set_coordinates();
 }
 
-void Screen::adjust(float lines) {
+void Screen::adjust(int lines) {
 	int _window_width = glutGet(GLUT_WINDOW_WIDTH);
 	int _window_height = glutGet(GLUT_WINDOW_HEIGHT);
 	std::cout

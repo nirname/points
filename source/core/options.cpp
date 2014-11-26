@@ -32,7 +32,8 @@ namespace options {
 	std::string images_directory = "images/";
 	std::string font_name = "mono-55";
 	std::string fonts_directory = "fonts/";
-	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
+	//SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
+	SCREENSAVER_KIND screensaver_kind = SCREENSAVER_KIND(QUEENS_SCREENSAVER | LIFE_SCREENSAVER);
 	std::string levels_directory = "levels/";
 
 	int foreword_timeout = 5;
@@ -139,11 +140,11 @@ namespace options {
 		load_option(clear_color, config, "clear_color");
 
 		load_option(foreword, config, "foreword");
-		load_option(afterword, config, "afterword");
 		load_option(images_directory, config, "images_directory");
+		load_option(afterword, config, "afterword");
 		load_option(font_name, config, "font_name");
 		load_option(fonts_directory, config, "fonts_directory");
-		//load_option(screensaver_kind, config, "screensaver_kind");
+		load_option(screensaver_kind, config, "screensaver_kind");
 		load_option(levels_directory, config, "levels_directory");
 
 		load_option(foreword_timeout, config, "foreword_timeout");
@@ -154,20 +155,14 @@ namespace options {
 		std::cout << "ok" << std::endl;
 	}
 
-	void build_config() {
-
-	}
-
-	int save_config() {
-		std::cout << "Saving config: " << std::ends;
-
-		YAML::Node config;
+	void build_config(YAML::Node & config) {
 		config["proportional"] = proportional;
 		config["smooth_zooming"] = smooth_zooming;
 		config["multisample"] = multisample;
 
 		config["window_width"] = window_width;
 		config["window_height"] = window_height;
+		config["aspect_ratio"] = aspect_ratio;
 		config["full_screen"] = full_screen;
 		config["game_mode"] = game_mode;
 
@@ -177,20 +172,27 @@ namespace options {
 
 		//config["shape"] = shape_options;
 		//load_option(shape_options, config, "shape");
-		load_option(clear_color, config, "clear_color");
+		config["clear_color"] = clear_color;
 
 		config["foreword"] = foreword;
 		config["afterword"] = afterword;
 		config["images_directory"] = images_directory;
 		config["font_name"] = font_name;
 		config["fonts_directory"] = fonts_directory;
-		//config["screensaver_kind"] = screensaver_kind;
+		config["screensaver_kind"] = screensaver_kind;
 		config["levels_directory"] = levels_directory;
 
 		config["foreword_timeout"] = foreword_timeout;
 		config["menu_timeout"] = menu_timeout;
 		config["screensaver_timeout"] = screensaver_timeout;
 		config["afterword_timeout"] = afterword_timeout;
+	}
+
+	int save_config() {
+		std::cout << "Saving config: " << std::ends;
+
+		YAML::Node config;
+		build_config(config);
 
 		YAML::Emitter yaml;
 		yaml << config;

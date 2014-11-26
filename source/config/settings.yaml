@@ -1,22 +1,30 @@
-padding: 0.1
-afterword_timeout: 5
-window_width: 960
-proportional: true
-screensaver_timeout: 30
-game_mode: false
+fonts_directory: fonts/
+smooth_zooming: true
+screensaver_kind: ~
 window_height: 540
+proportional: true
+aspect_ratio:
+  - 16
+  - 9
+clear_color:
+  - 255
+  - 255
+  - 255
+levels_directory: levels/
+multisample: false
+window_width: 960
+padding: 0.1
+game_mode: false
 full_screen: false
 selection_color:
   - 0
   - 0
   - 255
 afterword: true
-foreword: true
-font_name: mono-55
-smooth_zooming: true
-images_directory: images/
-levels_directory: levels/
-menu_timeout: 30
-multisample: false
-fonts_directory: fonts/
 foreword_timeout: 5
+images_directory: images/
+foreword: true
+afterword_timeout: 5
+screensaver_timeout: 30
+font_name: mono-55
+menu_timeout: 30

@@ -7,6 +7,7 @@
 #include "color.hpp"
 #include "shape.hpp"
 #include "screen.hpp"
+#include "library.hpp"
 
 #include "emitter.hpp"
 
@@ -15,10 +16,10 @@ namespace YAML {
 	template<>
 	struct convert<Node> {
 
-		static Node encode(const Node & source) {
+		/*static Node encode(const Node & source) {
 			Node result = source;
 			return result;
-		}
+		}*/
 
 		static bool decode(const Node & source, Node & result) {
 			result = source;
@@ -106,25 +107,27 @@ namespace YAML {
 
 	}; // convert<AspectRatio>
 
-	/*template<>
+	template<>
 	struct convert<SCREENSAVER_KIND> {
 		static Node encode(const SCREENSAVER_KIND & screensaver_kind) {
 			Node node;
 			if(screensaver_kind == RANDOM_SCREENSAVER) {
 				node = Node(to_string(screensaver_kind));
-			} else
-			//if(simple enum with only one bit) {
-			//}
-			else {
+			} else {
+				for(SCREENSAVER_KIND s = LIFE_SCREENSAVER; s <= TIMER_SCREENSAVER; s++) {
+					if(screensaver_kind & s) {
+						node.push_back(to_string(s));
+					}
+				}
 			}
-
-			node.push_back(rhs.x);
-			node.push_back(rhs.y);
-			node.push_back(rhs.z);
 			return node;
 		}
+
+		static bool decode(const Node & node, SCREENSAVER_KIND & screensaver_kind) {
+			return true;
+		}
+
 	}; // convert<SCREENSAVER_KIND>
-	*/
 
 	/*template<>
 	struct convert<bool> {
