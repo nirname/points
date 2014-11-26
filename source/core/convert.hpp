@@ -13,19 +13,19 @@
 
 namespace YAML {
 
-	template<>
+	/*template<>
 	struct convert<Node> {
 
-		/*static Node encode(const Node & source) {
+		static Node encode(const Node & source) {
 			Node result = source;
 			return result;
-		}*/
+		}
 
 		static bool decode(const Node & source, Node & result) {
 			result = source;
 			return true;
 		}
-	};
+	};*/
 
 	template<>
 	struct convert<Color> {
@@ -111,8 +111,8 @@ namespace YAML {
 	struct convert<SCREENSAVER_KIND> {
 		static Node encode(const SCREENSAVER_KIND & screensaver_kind) {
 			Node node;
-			if(screensaver_kind == RANDOM_SCREENSAVER) {
-				node = Node(to_string(screensaver_kind));
+			if(screensaver_kind == RANDOM_SCREENSAVER || screensaver_kind == NO_SCREENSAVER) {
+				node = to_string(screensaver_kind);
 			} else {
 				for(SCREENSAVER_KIND s = LIFE_SCREENSAVER; s <= TIMER_SCREENSAVER; s++) {
 					if(screensaver_kind & s) {
@@ -124,6 +124,33 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, SCREENSAVER_KIND & screensaver_kind) {
+			screensaver_kind = NO_SCREENSAVER;
+			//SCREENSAVER_KIND buffer = SCREENSAVER_KIND( QUEENS_SCREENSAVER | TURTLE_SCREENSAVER );
+			//screensaver_kind = buffer;
+			std::string screensaver_name;
+			if(node.IsScalar()) {
+				screensaver_name = node.as<std::string>();
+				if(screensaver_name == "random") {
+					screensaver_kind = RANDOM_SCREENSAVER;
+				} else {
+					for(SCREENSAVER_KIND s = LIFE_SCREENSAVER; s <= TIMER_SCREENSAVER; s++) {
+						if(screensaver_name == to_string(s)) {
+							screensaver_kind = SCREENSAVER_KIND(screensaver_kind | s);
+						}
+					}
+				}
+			} else if (node.IsSequence()) {
+				for(unsigned int i = 0; i < node.size(); i++) {
+					screensaver_name = node[0].as<std::string>();
+					for(SCREENSAVER_KIND s = LIFE_SCREENSAVER; s <= TIMER_SCREENSAVER; s++) {
+						if(screensaver_name == to_string(s)) {
+							screensaver_kind = SCREENSAVER_KIND(screensaver_kind | s);
+						}
+					}
+				}
+			} else {
+				return false;
+			}
 			return true;
 		}
 

@@ -10,16 +10,16 @@ namespace options {
 
 	bool proportional = true;
 	bool smooth_zooming = true;
-	bool multisample = false;
+	bool multisample = true;
 
 	int window_width = 960;
 	int window_height = 540;
 	AspectRatio aspect_ratio(16, 9);
-	bool full_screen = false;
+	bool full_screen = true;
 	bool game_mode = false;
 
 	GRID_TYPE grid_type = SQUARE_GRID;
-	int padding = 0;
+	int padding = 1;
 	Color clear_color = Color(WHITE);
 	Color base_color = Color(BLACK);
 	Color selection_color = Color(BLUE);
@@ -32,7 +32,7 @@ namespace options {
 	std::string font_name = "mono-55";
 	std::string fonts_directory = "fonts/";
 	//SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
-	SCREENSAVER_KIND screensaver_kind = SCREENSAVER_KIND(QUEENS_SCREENSAVER | LIFE_SCREENSAVER);
+	SCREENSAVER_KIND screensaver_kind = SCREENSAVER_KIND( QUEENS_SCREENSAVER | TURTLE_SCREENSAVER );
 	std::string levels_directory = "levels/";
 
 	int foreword_timeout = 5;
@@ -134,10 +134,10 @@ namespace options {
 
 		//load_option(grid_type, config, "grid_type");
 		load_option(padding, config, "padding");
-		if(padding < -5 || 5 < padding) padding = 0;
+		if(padding < -5 || 5 < padding) padding = 1;
 		load_option(selection_color, config, "selection_color");
 
-		load_option(shape_options, config, "shape");
+		//load_option(shape_options, config, "shape");
 		load_option(clear_color, config, "clear_color");
 
 		load_option(foreword, config, "foreword");

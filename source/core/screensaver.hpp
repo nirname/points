@@ -24,6 +24,8 @@ struct Screensaver {
 	int width;
 	int height;
 
+	Screensaver();
+
 	virtual void display();
 	void skip();
 

@@ -17,6 +17,8 @@
 
 //std::map<MenuItem *, MenuItemOptions> menu_items_options;
 
+int value_shift = 22;
+
 void display_inline_menu(Interface * interface) {
 	if(interface->menus_stack.size() > 1) {
 		if(interface->current_menu()->name != std::string("Message")) {
@@ -61,41 +63,48 @@ void display_menu_item(MenuItem * item) {
 	draw_and_highlight_text(item->name, item->is_current());
 }
 
-void display_screensaver_option_item(MenuItem * item) {
-	SCREENSAVER_KIND screensaver_kind = item->options.screensaver_kind;
-	std::string title = item->name;
-	title.resize(20, ' ');
-	if(screensaver_kind & options::screensaver_kind) {
-		title += std::string("[   ][ON]");
+template<typename OptionType>
+void display_boolean_option(MenuItem * menu_item, OptionType option, OptionType value, bool can_enter = false) {
+	std::string title = menu_item->name;
+	if(menu_item->is_current() && can_enter) {
+		title.resize(value_shift - 7, ' ');
+		title += "<start>";
 	} else {
-		title += std::string("[OFF][  ]");
+		title.resize(value_shift, ' ');
 	}
-	draw_and_highlight_text(title, item->is_current());
+	if(option & value) {
+		title += "[   ][ON]";
+	} else {
+		title += "[OFF][  ]";
+	}
+	draw_and_highlight_text(title, menu_item->is_current());
 }
 
-#include "emitter.hpp"
+void display_screensaver_option(MenuItem * menu_item) {
+	display_boolean_option(
+		menu_item,
+		options::screensaver_kind, menu_item->options.screensaver_kind,
+		true
+	);
+}
 
-void toggle_option(unsigned char key, int special_key, MenuItem * item) {
-	//std::cout << "* Toggling option: " << std::ends;
-
+void toggle_screensaver_option(unsigned char key, int special_key, MenuItem * item) {
 	SCREENSAVER_KIND screensaver_kind = item->options.screensaver_kind;
-	std::cout << screensaver_kind;
 	if(key == ENTER_KEY) {
-		//std::cout << "Enter" << std::endl;
 		screensaver.kind = screensaver_kind;
 		application.set(SCREENSAVER_MODE);
 	} else if(special_key == GLUT_KEY_LEFT) {
-		//std::cout << "Left" << std::endl;
 		options::screensaver_kind = SCREENSAVER_KIND (
 			options::screensaver_kind & ~screensaver_kind
 		);
+		options::save_config();
 	} else if(special_key == GLUT_KEY_RIGHT) {
-		//std::cout << "Right" << std::endl;
 		options::screensaver_kind = SCREENSAVER_KIND (
 			options::screensaver_kind | screensaver_kind
 		);
+		options::save_config();
 	}
-	std::cout << options::screensaver_kind << std::endl;
+	//std::cout << screensaver_kind << " " << options::screensaver_kind << std::endl;
 }
 
 void display_menu(Menu * menu) {
@@ -254,7 +263,7 @@ void quit(unsigned char key, int special_key, MenuItem * menu_item) {
 	}
 }
 
-bool filter(dirent * entry) {
+bool filter_yaml(dirent * entry) {
 	return file::has_extension(entry->d_name, "yaml");
 }
 
@@ -272,7 +281,7 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 		std::list< std::string > levels;
 		std::string path = options::levels_directory + menu_item->name;
 		bool levels_are_found = false;
-		if(directory::read(path, DT_REG, levels)) {
+		if(directory::read(path, DT_REG, levels, filter_yaml)) {
 			levels.sort();
 			if(!levels.empty()) {
 				//menu_item->title >> game.kind;
@@ -311,9 +320,9 @@ void display_padding_option(MenuItem * menu_item) {
 	clear_rectancle_for_menu_item(menu_item->name.length());
 	std::string title = menu_item->name;
 	if(options::padding < 0)
-		title.resize(19, ' ');
+		title.resize(value_shift - 1, ' ');
 	else
-		title.resize(20, ' ');
+		title.resize(value_shift, ' ');
 	draw_and_highlight_text(title + to_string(options::padding), menu_item->is_current());
 }
 
@@ -380,11 +389,10 @@ void load_interface(Interface * interface) {
 	) {
 		MenuItem * item = menu->add_item(
 			to_string(screensaver_kind),
-			display_screensaver_option_item, toggle_option
+			display_screensaver_option, toggle_screensaver_option
 		);
 		item->options.screensaver_kind = screensaver_kind;
 		//item_handler = start_screensaver;
-		//item->displayer = display_screensaver_option;
 	}
 
 	menu = interface->find_menu("Previous menu");
