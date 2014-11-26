@@ -57,7 +57,7 @@ void draw_text(std::string text, int x, int y, Font * _font) {
 void draw_block() {
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
-		glScalef(options::figure_size, options::figure_size, 0);
+		glScalef(options::figure_size(), options::figure_size(), 0);
 		glRectf(-0.5, -0.5, 0.5, 0.5);
 	glPopMatrix();
 }
@@ -78,7 +78,7 @@ void draw_ngon(int angles, int step_over) {
 	}
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
-		glScalef(options::figure_size, options::figure_size, 0);
+		glScalef(options::figure_size(), options::figure_size(), 0);
 		glRotatef(90, 0, 0, 1);
 		for(int j = 0; j < loops_count; j++) {
 			if(use_splitter) {
@@ -102,7 +102,7 @@ void draw_circle() {
 	const float radius = 0.5;
 	glPushMatrix();
 		glTranslatef(0.5, 0.5, 0);
-		glScalef(options::figure_size, options::figure_size, 0);
+		glScalef(options::figure_size(), options::figure_size(), 0);
 		glBegin(GL_POLYGON);
 			float radian = 0.0f;
 			for(int i = 0; i < 360; i+=4, radian += DEG2RAD*4) {

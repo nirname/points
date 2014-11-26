@@ -90,4 +90,5 @@ std::ostream & operator << (std::ostream & _ostream, const AspectRatio & aspect_
 		<< aspect_ratio.width << ", "
 		<< aspect_ratio.height
 	<< ")";
+	return _ostream;
 }

@@ -15,6 +15,9 @@ Font::~Font() {
 }
 
 void Font::load(const std::string & fonts_directory, const std::string & font_name) {
+
+	glDeleteLists(base, letters_count);
+
 	std::cout << "Font: " << std::endl;
 	std::cout << "  name: " << font_name << std::endl;
 	std::string image_name = fonts_directory + font_name + ".bmp";

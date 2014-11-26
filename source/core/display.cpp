@@ -49,14 +49,6 @@ void display() {
 			grid(screen.bound(), 6);
 		glPopAttrib();*/
 
-		/*LOADING_MODE,
-		FOREWORD_MODE,
-		MENU_MODE,
-		SCREENSAVER_MODE,
-		COUNTDOWN_MODE,
-		GAMEPLAY_MODE,
-		INFORMATION_MODE,
-		AFTERWORD_MODE*/
 		switch(application.mode) {
 			case LOADING_MODE: draw_text("loading"); break;
 			case FOREWORD_MODE: foreword.display(); break;
@@ -90,9 +82,6 @@ void redisplay(int timer) {
 }
 
 void reshape(int width, int length) {
-	/*glOrtho(0.0, screen.width, 0.0, screen.height, -1.0, 1.0);
-	glViewport(0, 0, (GLsizei)width, (GLsizei)length);*/
-
 	float x_ort = (float)width / (float)screen.width;
 	float y_ort = (float)length / (float)screen.height;
 

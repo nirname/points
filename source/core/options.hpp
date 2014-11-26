@@ -21,8 +21,7 @@ namespace options {
 	extern bool game_mode;
 
 	extern GRID_TYPE grid_type;
-	extern float padding;
-	extern float figure_size;
+	extern int padding;
 	extern Color base_color;
 	extern Color selection_color;
 	extern Color clear_color;
@@ -48,6 +47,8 @@ namespace options {
 	//engine::ControlsMapping controls;
 
 	extern const char * mode_string;
+
+	float figure_size();
 
 }
 

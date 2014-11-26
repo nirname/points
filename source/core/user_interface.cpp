@@ -298,6 +298,44 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 	}
 }
 
+void clear_rectancle_for_menu_item(int length) {
+	glPushMatrix();
+		glPushAttrib(GL_CURRENT_BIT);
+			options::clear_color.use();
+			glRectf(options::padding, options::padding, (font.width + 1 ) * length, font.height);
+		glPopAttrib();
+	glPopMatrix();
+}
+
+void display_padding_option(MenuItem * menu_item) {
+	clear_rectancle_for_menu_item(menu_item->name.length());
+	std::string title = menu_item->name;
+	if(options::padding < 0)
+		title.resize(19, ' ');
+	else
+		title.resize(20, ' ');
+	draw_and_highlight_text(title + to_string(options::padding), menu_item->is_current());
+}
+
+void handle_padding_option(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(special_key == GLUT_KEY_LEFT) {
+		if(options::padding > -5) {
+			options::padding -= 1;
+			default_shape.load(options::shape_options);
+			font.load(options::fonts_directory, options::font_name);
+			options::save_config();
+		}
+	} else if(special_key == GLUT_KEY_RIGHT) {
+		if(options::padding < 5) {
+			options::padding += 1;
+			default_shape.load(options::shape_options);
+			font.load(options::fonts_directory, options::font_name);
+			options::save_config();
+		}
+	}
+	std::cout << options::padding << std::endl;
+}
+
 void load_interface(Interface * interface) {
 	std::cout << "Interface: " << std::ends;
 
@@ -328,9 +366,10 @@ void load_interface(Interface * interface) {
 	}
 
 	menu = interface->find_menu("Options");
-	menu->add_item("Screensavers", display_menu_item, next_menu, interface->find_menu("Screensavers"));
+	menu->add_item("Padding", display_padding_option, handle_padding_option);
 
 	menu = interface->find_menu("Extras");
+	menu->add_item("Screensavers", display_menu_item, next_menu, interface->find_menu("Screensavers"));
 	menu->add_item("Images", display_menu_item, next_menu, interface->find_menu("Images"));
 
 	menu = interface->find_menu("Screensavers");

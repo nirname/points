@@ -19,8 +19,7 @@ namespace options {
 	bool game_mode = false;
 
 	GRID_TYPE grid_type = SQUARE_GRID;
-	float padding = 0.1;
-	float figure_size = 1.0 - padding * 2;
+	int padding = 0;
 	Color clear_color = Color(WHITE);
 	Color base_color = Color(BLACK);
 	Color selection_color = Color(BLUE);
@@ -48,17 +47,19 @@ namespace options {
 
 	const char * mode_string = "800x600:32";
 
+	float figure_size() {
+		return 1.0 - 0.05 * padding * 2;
+	}
+
 }
 
 
 namespace options {
 
 	void load() {
-		/*if(load_config() == 1) {
+		if(load_config() != 0) {
 			save_config();
-		}*/
-		load_config();
-		save_config();
+		}
 	}
 
 	/// Load config file
@@ -67,7 +68,8 @@ namespace options {
 	/// 1 - file not found
 	/// 2 - syntax errors inside
 	/// 3 - wrong format / is not a map
-	/// 4 - with default values
+	/// 4 - with omitted values
+	/// 5 - with wrong values
 	///
 	int load_config() {
 		std::cout << "Config: " << std::ends;
@@ -132,8 +134,7 @@ namespace options {
 
 		//load_option(grid_type, config, "grid_type");
 		load_option(padding, config, "padding");
-		padding = std::min( std::max(padding, 0.0f), 0.25f );
-		figure_size = 1.0f - padding * 2;
+		if(padding < -5 || 5 < padding) padding = 0;
 		load_option(selection_color, config, "selection_color");
 
 		load_option(shape_options, config, "shape");
