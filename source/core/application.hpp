@@ -20,7 +20,7 @@ struct Application {
 	void start();
 	void quit(bool quit_immidiately = false);
 
-	void set(APPLICATION_MODE _mode);
+	bool set(APPLICATION_MODE next_mode);
 
 	void handle(unsigned char, int);
 

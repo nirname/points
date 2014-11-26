@@ -6,8 +6,25 @@
 #include "yaml.hpp"
 #include "color.hpp"
 #include "shape.hpp"
+#include "screen.hpp"
+
+#include "emitter.hpp"
 
 namespace YAML {
+
+	template<>
+	struct convert<Node> {
+
+		static Node encode(const Node & source) {
+			Node result = source;
+			return result;
+		}
+
+		static bool decode(const Node & source, Node & result) {
+			result = source;
+			return true;
+		}
+	};
 
 	template<>
 	struct convert<Color> {
@@ -62,33 +79,32 @@ namespace YAML {
 
 	}; // convert<Color>
 
+	template<>
+	struct convert<AspectRatio> {
 
-	/*template<>
-	struct convert<DrawingFunction> {
-		static Node encode(const DrawingFunction & shape_function) {
+		static Node encode(const AspectRatio & aspect_ratio) {
 			Node node;
+			node.push_back(aspect_ratio.width);
+			node.push_back(aspect_ratio.height);
 			return node;
 		}
 
-		static bool decode(const Node & node, DrawingFunction & shape_function) {
-			if(!node.IsScalar()) {
-				return false;
-			}
-			std::string value = node.as<std::string>();
-			if(value == std::string("square")) {
-				shape_function = square;
-			} else if (value == std::string("point")) {
-				shape_function = point;
-			} else if (value == std::string("circle")) {
-				shape_function = circle;
+		static bool decode(const Node & node, AspectRatio & aspect_ratio) {
+			AspectRatio buffer;
+			if(node.IsSequence()) {
+				buffer.width = node[0].as<unsigned int>();
+				buffer.height = node[1].as<unsigned int>();
+			} else if (node.IsMap()) {
+				if(node["width"]) { buffer.width = node["width"].as<unsigned int>(); }
+				if(node["height"]) { buffer.height = node["height"].as<unsigned int>(); }
 			} else {
 				return false;
 			}
+			aspect_ratio = buffer;
 			return true;
-			return false;
 		}
 
-	};*/
+	}; // convert<AspectRatio>
 
 	/*template<>
 	struct convert<SCREENSAVER_KIND> {
@@ -138,20 +154,6 @@ namespace YAML {
 			return true;
 		}
 	};*/
-
-	template<>
-	struct convert<Node> {
-
-		static Node encode(const Node & source) {
-			Node result = source;
-			return result;
-		}
-
-		static bool decode(const Node & source, Node & result) {
-			result = source;
-			return true;
-		}
-	};
 
 	template<>
 	struct convert<Shape *> {

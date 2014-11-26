@@ -4,6 +4,7 @@ struct AspectRatio {
 	float width;
 	float height;
 
+	AspectRatio();
 	AspectRatio(float _width, float _height);
 
 	float aspect() const;

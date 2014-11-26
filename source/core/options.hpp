@@ -4,6 +4,7 @@
 #include "color.hpp"
 #include "grid_type.hpp"
 #include "shape.hpp"
+#include "screen.hpp"
 
 #include "yaml.hpp"
 
@@ -15,6 +16,7 @@ namespace options {
 
 	extern int window_width;
 	extern int window_height;
+	extern AspectRatio aspect_ratio;
 	extern bool full_screen;
 	extern bool game_mode;
 
@@ -57,6 +59,6 @@ namespace options {
 	void load_options(const YAML::Node & config);
 
 	template<typename OptionType>
-	void load_option(OptionType & option, const YAML::Node & config, const char * key);
+	int load_option(OptionType & option, const YAML::Node & config, const char * key);
 
 }

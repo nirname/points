@@ -84,3 +84,10 @@ std::ostream & operator << (std::ostream & _ostream, const Color & color) {
 	<< ")";
 	return _ostream;
 }
+
+std::ostream & operator << (std::ostream & _ostream, const AspectRatio & aspect_ratio) {
+	_ostream << "aspect_ratio("
+		<< aspect_ratio.width << ", "
+		<< aspect_ratio.height
+	<< ")";
+}

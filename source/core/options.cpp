@@ -4,6 +4,8 @@
 #include "emitter.hpp"
 #include "convert.hpp"
 
+#include <fstream>
+
 namespace options {
 
 	bool proportional = true;
@@ -12,12 +14,13 @@ namespace options {
 
 	int window_width = 960;
 	int window_height = 540;
+	AspectRatio aspect_ratio(16, 9);
 	bool full_screen = false;
 	bool game_mode = false;
 
 	GRID_TYPE grid_type = SQUARE_GRID;
-	float padding = 0.0;
-	float figure_size = 1.0;
+	float padding = 0.1;
+	float figure_size = 1.0 - padding * 2;
 	Color clear_color = Color(WHITE);
 	Color base_color = Color(BLACK);
 	Color selection_color = Color(BLUE);
@@ -50,9 +53,11 @@ namespace options {
 namespace options {
 
 	void load() {
-		if(load_config() == 1) {
+		/*if(load_config() == 1) {
 			save_config();
-		}
+		}*/
+		load_config();
+		save_config();
 	}
 
 	/// Load config file
@@ -61,6 +66,7 @@ namespace options {
 	/// 1 - file not found
 	/// 2 - syntax errors inside
 	/// 3 - wrong format / is not a map
+	/// 4 - with default values
 	///
 	int load_config() {
 		std::cout << "Config: " << std::ends;
@@ -83,19 +89,14 @@ namespace options {
 		return 0;
 	}
 
-	int save_config() {
-		std::cout << "Saving config: " << std::ends;
-		std::cout << "no" << std::endl;
-		return 0;
-	}
-
 	/// Load an option depending on it's type
 	//
 	/// 0 - option is loaded
-	/// 1 - option is wrong, default value is used
-	/// 2 - option is omitted, default value is used
+	/// 1 - option is omitted, default value is used
+	/// 2 - option is wrong, default value is used
+	///
 	template<typename OptionType>
-	void load_option(OptionType & option, const YAML::Node & config, const char * key) {
+	int load_option(OptionType & option, const YAML::Node & config, const char * key) {
 		std::cout << "  " << key << ": " << std::ends;
 		if(config[key]) {
 			try {
@@ -103,11 +104,14 @@ namespace options {
 				std::cout << "ok" << std::ends;
 			} catch(YAML::TypedBadConversion<OptionType> & exception) {
 				std::cout << "wrong value" << std::ends;
+				return 2;
 			}
 		} else {
 			std::cout << "default" << std::ends;
+			return 1;
 		}
 		std::cout << " - " << option << std::endl;
+		return 0;
 	}
 
 	void load_options(const YAML::Node & config) {
@@ -121,6 +125,7 @@ namespace options {
 
 		load_option(window_width, config, "window_width");
 		load_option(window_height, config, "window_height");
+		load_option(aspect_ratio, config, "aspect_ratio");
 		load_option(full_screen, config, "full_screen");
 		load_option(game_mode, config, "game_mode");
 
@@ -147,6 +152,59 @@ namespace options {
 		load_option(afterword_timeout, config, "afterword_timeout");
 
 		std::cout << "ok" << std::endl;
+	}
+
+	void build_config() {
+
+	}
+
+	int save_config() {
+		std::cout << "Saving config: " << std::ends;
+
+		YAML::Node config;
+		config["proportional"] = proportional;
+		config["smooth_zooming"] = smooth_zooming;
+		config["multisample"] = multisample;
+
+		config["window_width"] = window_width;
+		config["window_height"] = window_height;
+		config["full_screen"] = full_screen;
+		config["game_mode"] = game_mode;
+
+		//load_option(grid_type, config, "grid_type");
+		config["padding"] = padding;
+		config["selection_color"] = selection_color;
+
+		//config["shape"] = shape_options;
+		//load_option(shape_options, config, "shape");
+		load_option(clear_color, config, "clear_color");
+
+		config["foreword"] = foreword;
+		config["afterword"] = afterword;
+		config["images_directory"] = images_directory;
+		config["font_name"] = font_name;
+		config["fonts_directory"] = fonts_directory;
+		//config["screensaver_kind"] = screensaver_kind;
+		config["levels_directory"] = levels_directory;
+
+		config["foreword_timeout"] = foreword_timeout;
+		config["menu_timeout"] = menu_timeout;
+		config["screensaver_timeout"] = screensaver_timeout;
+		config["afterword_timeout"] = afterword_timeout;
+
+		YAML::Emitter yaml;
+		yaml << config;
+
+		std::ofstream file("config/settings.yaml");
+		if(file.good() && file.is_open()) {
+			file << yaml.c_str();
+			std::cout << "yes" << std::endl;
+		} else {
+			std::cout << "no" << std::endl;
+		}
+		file.close();
+
+		return 0;
 	}
 
 }

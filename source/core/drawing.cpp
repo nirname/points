@@ -5,8 +5,6 @@
 #include "font.hpp"
 #include <string>
 
-//DrawingFunction default_shape = draw_circle;
-
 ///Write string
 //
 /* Fonts:
@@ -28,8 +26,13 @@ void write(std::string string, int x, int y, void * font) {
 	coordinates(0, screen.width, 0, screen.height);
 }
 
-void draw_text(std::string text, int x, int y, const Font & _font) {
-	GLuint base = _font.base;
+/// Draw text
+//
+void draw_text(std::string text, int x, int y, Font * _font) {
+	if(_font == NULL) {
+		_font = &font;
+	}
+	GLuint base = _font->base;
 	GLuint offset = 0;
 	GLuint symbol_code;
 	glPushMatrix();
@@ -44,7 +47,7 @@ void draw_text(std::string text, int x, int y, const Font & _font) {
 			if(symbol_code != (GLuint)' ') {
 				glCallList(base + symbol_code - offset);
 			}
-			glTranslatef(_font.width + 1, 0, 0);
+			glTranslatef(_font->width + 1, 0, 0);
 		}
 	glPopMatrix();
 }

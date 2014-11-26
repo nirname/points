@@ -300,3 +300,12 @@
 * сделать анимацию при смене меню
 * сделать переключение на опцию Back
 * меню options перенести вниз
+
+25.11.2014
+
+* (?) rename config/settings to settings/config?
+
+26.11.2014
+
+* Загружать aspect_ratio
+* Изменить aspect_ratio width и height в unsigned int

@@ -6,12 +6,9 @@
 
 #include <iostream>
 
-/*float aspect_ratios[5][2] = {
-	{4., 3.}
-	{3., 2.}
-	{3., 2.}
-	{16., 10.}
-};*/
+AspectRatio::AspectRatio() :
+	width(16), height(9)
+{}
 
 AspectRatio::AspectRatio(float _width, float _height) :
 	width(_width), height(_height)

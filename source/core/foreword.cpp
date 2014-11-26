@@ -53,6 +53,8 @@ bool Foreword::load() {
 		//glNewList(base, GL_COMPILE);
 		draw_image();
 		//glEndList();
+	} else {
+		std::cout << "skipped" << std::endl;
 	}
 	return loaded;
 }

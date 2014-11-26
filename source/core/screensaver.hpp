@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstdlib>
+#include "drawing.hpp"
+
 enum SCREENSAVER_KIND {
 	NO_SCREENSAVER                   = 0x00,
 	LIFE_SCREENSAVER                 = 0x01,
@@ -21,7 +24,19 @@ struct Screensaver {
 	int width;
 	int height;
 
-	void display();
+	virtual void display();
 	void skip();
+
+};
+
+struct Queens : Screensaver {
+
+	int size;
+	int * field;
+
+	Queens();
+	~Queens();
+
+	void display();
 
 };

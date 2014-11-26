@@ -12,34 +12,35 @@ Application::Application() {
 	mode = LOADING_MODE;
 }
 
-void Application::set(APPLICATION_MODE _mode) {
+bool Application::set(APPLICATION_MODE next_mode) {
 	APPLICATION_MODE previous_mode = mode;
 	mode = LOADING_MODE;
-	switch(_mode) {
+	switch(next_mode) {
 		case LOADING_MODE: {
 			break;
 		}
 		case FOREWORD_MODE: {
 			if(foreword.load()) {
 				screen.set(foreword.input.TellWidth(), foreword.input.TellHeight());
+			} else {
+				next_mode = previous_mode;
 			}
 			//glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
 			break;
 		}
 		case MENU_MODE: {
-			//screen.adjust(21 * font.height);
-			screen.set(21 * font.height, AspectRatio(16, 9));
+			screen.set(21 * font.height, options::aspect_ratio);
 			interface.reset_last_activity_time();
-			/*if(game.loaded) {
+			if(game.loaded) {
 				game.pause();
-			}*/
+			}
 			break;
 		}
 		case SCREENSAVER_MODE: {
 			if(options::screensaver_kind != NO_SCREENSAVER) {
-				//screen.set(screensaver.width, screensaver.height);
+				screen.set(screensaver.width, screensaver.height);
 			} else {
-				_mode = previous_mode;
+				next_mode = previous_mode;
 			}
 			break;
 		}
@@ -53,7 +54,7 @@ void Application::set(APPLICATION_MODE _mode) {
 					game.resume();
 				}
 			} else {
-				_mode = previous_mode;
+				next_mode = previous_mode;
 			}
 			break;
 		}
@@ -68,13 +69,16 @@ void Application::set(APPLICATION_MODE _mode) {
 			break;
 		}
 	}
-	mode = _mode;
+	if(mode == next_mode) {
+		return false;
+	} else {
+		mode = next_mode;
+	}
+	return true;
 }
 
 void Application::start() {
-	if(options::foreword) {
-		set(FOREWORD_MODE);
-	} else {
+	if(!(options::foreword && set(FOREWORD_MODE))) {
 		set(MENU_MODE);
 	}
 }
