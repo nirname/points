@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "color.hpp"
 #include "drawing.hpp"
 #include "options.hpp"
 #include "opengl.hpp"
@@ -40,7 +41,7 @@ void display_interface(Interface * interface) {
 void draw_and_highlight_text(const std::string & text, bool highlight) {
 	if(highlight) {
 		glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(230, 230, 230);
+			glColor3ub(LIGHT_GRAY);
 			draw_text(text);
 			options::selection_color.use();
 			glPushMatrix();
@@ -143,19 +144,7 @@ void handle_menu(unsigned char key, int special_key, Menu * menu) {
 	}
 }
 
-/*void handle_options_menu(unsigned char key, int special_key, Menu * menu) {
-	if(special_key == GLUT_KEY_DOWN) {
-		menu->next_item();
-	} else if(special_key == GLUT_KEY_UP) {
-		menu->previous_item();
-	} else {
-		if(menu->current_item() != NULL) {
-			menu->current_item()->handle(key, special_key);
-		}
-	}
-}
-
-void handle_menu(unsigned char key, int special_key, Menu * menu) {
+void handle_multicolumn_menu(unsigned char key, int special_key, Menu * menu) {
 	if(special_key == GLUT_KEY_DOWN) {
 		menu->next_item();
 	} else if(special_key == GLUT_KEY_UP) {
@@ -215,7 +204,7 @@ void handle_menu(unsigned char key, int special_key, Menu * menu) {
 			menu->current_item()->handle(key, special_key);
 		}
 	}
-}*/
+}
 
 void next_menu(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
@@ -401,6 +390,30 @@ void handle_option<options::padding>(unsigned char key, int special_key, MenuIte
 	}
 }
 
+void display_fonts(Menu * menu) {
+	glPushMatrix();
+		glTranslatef(0, screen.height - font.height, 0);
+		draw_text(menu->name);
+		glTranslatef(font.width, -font.height * 3, 0);
+		glPushMatrix();
+		for(int i = 33; i <= 126; i++ ) {
+			/*glPushAttrib(GL_CURRENT_BIT);
+				glColor3ub(LIGHT_GRAY);
+				glRectf(0, 0, font.width, font.height);
+			glPopAttrib();*/
+			draw_text(to_string((char)i));
+			if((i - 33 + 1) % 15 == 0) {
+				glPopMatrix();
+				glTranslatef(0, -font.height * 2, 0);
+				glPushMatrix();
+			} else {
+				glTranslatef(font.width * 2, 0, 0);
+			}
+		}
+		glPopMatrix();
+	glPopMatrix();
+}
+
 void load_interface(Interface * interface) {
 	std::cout << "Interface: " << std::ends;
 
@@ -410,13 +423,13 @@ void load_interface(Interface * interface) {
 	Menu * menu = NULL;
 
 	interface->add_menu("Main menu", display_menu, handle_menu);
-		interface->add_menu("Games", display_menu, handle_menu);
+		interface->add_menu("Games", display_menu, handle_multicolumn_menu);
 			interface->add_menu("Levels", display_menu, handle_menu);
 		interface->add_menu("Options", display_menu, handle_menu);
 		interface->add_menu("Extras", display_menu, handle_menu);
 			interface->add_menu("Screensavers", display_menu, handle_menu);
 			interface->add_menu("Images", display_menu, handle_menu);
-			interface->add_menu("Fonts", display_menu, handle_menu);
+			interface->add_menu("Fonts", display_fonts, handle_menu);
 	interface->add_menu("Message", display_message, handle_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
 
@@ -442,15 +455,6 @@ void load_interface(Interface * interface) {
 	menu->add_item("Fonts", display_menu_item, next_menu, interface->find_menu("Fonts"));
 
 	menu = interface->find_menu("Screensavers");
-
-	/*menu->add_item(to_string(LIFE_SCREENSAVER), display_option<LIFE_SCREENSAVER>);
-	menu->add_item(to_string(QUEENS_SCREENSAVER), display_option<QUEENS_SCREENSAVER>);
-	menu->add_item(to_string(GEOGRAPHIC_EARTH_MAP_SCREENSAVER), display_option<GEOGRAPHIC_EARTH_MAP_SCREENSAVER>);
-	menu->add_item(to_string(DAY_NIGHT_EARTH_MAP_SCREENSAVER), display_option<DAY_NIGHT_EARTH_MAP_SCREENSAVER>);
-	menu->add_item(to_string(POLITICAL_EARTH_MAP_SCREENSAVER), display_option<POLITICAL_EARTH_MAP_SCREENSAVER>);
-	menu->add_item(to_string(TURTLE_SCREENSAVER), display_option<TURTLE_SCREENSAVER>);
-	menu->add_item(to_string(EQUALIZER_SCREENSAVER), display_option<EQUALIZER_SCREENSAVER>);
-	menu->add_item(to_string(TIMER_SCREENSAVER), display_option<TIMER_SCREENSAVER>);*/
 
 	for ( SCREENSAVER_KIND
 		screensaver_kind = LIFE_SCREENSAVER;

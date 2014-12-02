@@ -5,13 +5,13 @@
 #define GRAY 127, 127, 127
 #define BLACK 0, 0, 0
 
-#define BLUE 0, 0, 255
+#define RED 255, 0, 0
+#define ORANGE 245, 121, 0
 #define YELLOW 255, 255, 0
 #define GREEN 0, 255, 0
-#define RED 255, 0, 0
-#define VIOLET 255, 0, 255
 #define AZURE 61, 222, 235
-#define ORANGE 245, 121, 0
+#define BLUE 0, 0, 255
+#define VIOLET 255, 0, 255
 
 // soft colors
 #define SOFT_BLUE 17, 154, 255
@@ -22,6 +22,7 @@
 
 // light colors
 #define LIGHT_GRAY 192, 192, 192
+#define LIGHT_VIOLET 173, 127, 168
 
 // dark colors
 #define DARK_VIOLET 48, 14, 57

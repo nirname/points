@@ -1,4 +1,5 @@
-proportional: true
+smooth_zooming: true
+multisample: true
 window_width: 1366
 window_height: 767
 aspect_ratio:
@@ -16,7 +17,7 @@ clear_color:
   - 255
   - 255
 foreword: false
-afterword: true
+afterword: false
 images_directory: images/
 font_name: mono-55
 fonts_directory: fonts/
@@ -27,5 +28,4 @@ foreword_timeout: 5
 menu_timeout: 30
 screensaver_timeout: 30
 afterword_timeout: 5
-multisample: true
-smooth_zooming: true
+proportional: true
