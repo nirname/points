@@ -2,6 +2,7 @@ documents/*.log
 documents/*.aux
 source/vera_report.txt
 source/dox
+source/config/settings.yaml
 
 *.o
 *.d

@@ -64,8 +64,12 @@ void display_menu_item(MenuItem * item) {
 	draw_and_highlight_text(item->name, item->is_current());
 }
 
-void display_menu(Menu * menu) {
-	draw_text(menu->name, 0, screen.height - font.height);
+// TODO: refactor this one
+void display_multicolumn_menu(Menu * menu) {
+	glPushMatrix();
+		glTranslatef(0, screen.height - font.height, 0);
+		draw_text(menu->name);
+	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(0, - font.height * 4, 0);
 		int line = 0;
@@ -100,6 +104,11 @@ void display_menu(Menu * menu) {
 		}
 
 	glPopMatrix();
+}
+
+// TODO: write a new one
+void display_menu(Menu * menu) {
+	display_multicolumn_menu(menu);
 }
 
 void display_message(Menu * menu) {
@@ -206,6 +215,9 @@ void handle_multicolumn_menu(unsigned char key, int special_key, Menu * menu) {
 	}
 }
 
+void handle_menu_item(unsigned char key, int special_key, MenuItem * menu_item) {
+}
+
 void next_menu(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
 		menu_item->menu->interface->next_menu(menu_item->next_menu);
@@ -301,9 +313,9 @@ void display_option<bool>(MenuItem * menu_item, const bool & option) {
 	draw_and_highlight_text(title + ((option)? "yes": "no"), menu_item->is_current());
 }
 
-template<int option>
+template<const int & option>
 inline void display_option(MenuItem * menu_item) {
-	display_option<int>(menu_item, option);
+	display_option(menu_item, option);
 }
 
 template<const bool & option>
@@ -445,7 +457,7 @@ void load_interface(Interface * interface) {
 
 	menu = interface->find_menu("Options");
 	//menu->add_item("Padding", display_option<options::padding>, handle_padding_option);
-	//menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
+	menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
 	menu->add_item("Foreword", display_option<options::foreword>, handle_option<options::foreword>);
 	menu->add_item("Afterword", display_option<options::afterword>, handle_option<options::afterword>);
 

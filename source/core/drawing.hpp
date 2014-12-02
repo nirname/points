@@ -9,7 +9,7 @@
 const float DEG2RAD = 3.141592653589 / 180;
 
 void write(std::string string, int x = 0, int y = 0, void * font = GLUT_BITMAP_9_BY_15);
-void draw_text(std::string text, int x = 0, int y = 0, Font * _font = NULL);
+void draw_text(std::string text, Font * _font = NULL);
 
 void draw_block();
 void draw_ngon(int angles = 5, int step_over = 1);

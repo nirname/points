@@ -28,7 +28,7 @@ void write(std::string string, int x, int y, void * font) {
 
 /// Draw text
 //
-void draw_text(std::string text, int x, int y, Font * _font) {
+void draw_text(std::string text, Font * _font) {
 	if(_font == NULL) {
 		_font = &font;
 	}
@@ -36,7 +36,6 @@ void draw_text(std::string text, int x, int y, Font * _font) {
 	GLuint offset = 0;
 	GLuint symbol_code;
 	glPushMatrix();
-		glTranslatef(x, y, 0);
 		for(std::string::iterator i = text.begin(); i != text.end(); ++i) {
 			symbol_code = (GLuint)(*i);
 			// TODO: calculate offest from charset
