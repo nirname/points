@@ -18,26 +18,57 @@ enum SCREENSAVER_KIND {
 
 SCREENSAVER_KIND & operator ++ (SCREENSAVER_KIND & screensaver_kind, int);
 
-struct Screensaver {
+struct BasicScreensaver {
 
-	SCREENSAVER_KIND kind;
 	int width;
 	int height;
 
-	Screensaver();
+	BasicScreensaver();
+	virtual ~BasicScreensaver() = 0;
 
-	virtual void display();
-	void skip();
+	virtual void display() = 0;
 
 };
 
-struct Queens : Screensaver {
+struct Screensaver {
+
+	Screensaver();
+	~Screensaver();
+
+	BasicScreensaver * basic_screensaver;
+
+	bool load(const SCREENSAVER_KIND & kind);
+	bool is_loaded();
+	void skip();
+
+	void display();
+
+	int width();
+	int height();
+
+};
+
+/*struct Queens : BasicScreensaver {
 
 	int size;
 	int * field;
 
 	Queens();
 	~Queens();
+
+	void display();
+
+};*/
+
+#include <time.h>       /* time_t, struct tm, difftime, time, mktime */
+
+struct Timer : BasicScreensaver {
+
+	time_t timer;
+	tm * timeinfo;
+
+	Timer();
+	~Timer();
 
 	void display();
 

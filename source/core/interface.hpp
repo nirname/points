@@ -78,9 +78,10 @@ struct Menu {
 	void next_item();
 	void previous_item();
 
-	MenuItem * current_item();
+	void go_to_first();
+	void go_to_last();
 
-	void set_current_item(MenuItems::iterator item);
+	MenuItem * current_item();
 
 };
 

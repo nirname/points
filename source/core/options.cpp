@@ -31,8 +31,7 @@ namespace options {
 	std::string images_directory = "images/";
 	std::string font_name = "mono-55";
 	std::string fonts_directory = "fonts/";
-	//SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
-	SCREENSAVER_KIND screensaver_kind = SCREENSAVER_KIND( QUEENS_SCREENSAVER | TURTLE_SCREENSAVER );
+	SCREENSAVER_KIND screensaver_kind = RANDOM_SCREENSAVER;
 	std::string levels_directory = "levels/";
 
 	int foreword_timeout = 5;

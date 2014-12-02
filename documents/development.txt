@@ -308,7 +308,15 @@
 26.11.2014
 
 * (+) Загружать и сохранять aspect_ratio
-* Изменить aspect_ratio width и height в int
+* (+) Изменить aspect_ratio width и height в int
 * Изменить screen height и width в int
 * Изменить
 * Реализовать shape options не как yaml node
+
+28.11.2014
+
+* (?) Поменять местами названия классов Shape и PolymorphicShape
+* Добавить в aspect вычисление ширины и высоты
+* Как выводить тип параметра шаблона
+* Неправильно загрузилась ~
+* Сделать пункт меню штрифты

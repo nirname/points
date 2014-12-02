@@ -141,6 +141,18 @@ void Menu::previous_item() {
 	}
 }
 
+void Menu::go_to_first() {
+	if(!items.empty()) {
+		_current_item = items.begin();
+	}
+}
+
+void Menu::go_to_last() {
+	if(!items.empty()) {
+		_current_item = --items.end();
+	}
+}
+
 MenuItem::MenuItem(Menu * _menu) : menu(_menu) {
 	displayer = NULL;
 	handler = NULL;

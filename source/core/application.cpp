@@ -37,11 +37,11 @@ bool Application::set(APPLICATION_MODE next_mode) {
 			break;
 		}
 		case SCREENSAVER_MODE: {
-			//if(options::screensaver_kind != NO_SCREENSAVER) {
-				screen.set(screensaver.width, screensaver.height);
-			//} else {
-			//	next_mode = previous_mode;
-			//}
+			if(screensaver.is_loaded()) {
+				screen.set(screensaver.width(), screensaver.height());
+			} else {
+				next_mode = previous_mode;
+			}
 			break;
 		}
 		case COUNTDOWN_MODE: {
