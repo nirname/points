@@ -30,6 +30,7 @@ Screensaver::~Screensaver() {
 }
 
 bool Screensaver::load(const SCREENSAVER_KIND & kind) {
+	skip();
 	if(kind == NO_SCREENSAVER) {
 		return false;
 	}
@@ -123,6 +124,11 @@ void Timer::display() {
 	time(&timer); // get current time; same as: timer = time(NULL)
 	timeinfo = localtime(&timer);
 
+	/*glPushAttrib(GL_CURRENT_BIT);
+		glColor3ub(BLACK);
+		glRectf(-1, -1, width, height);
+	glPopAttrib();*/
+
 	glPushMatrix();
 	glTranslatef(1, (height - font.height) / 2.0, 0);
 
@@ -133,9 +139,20 @@ void Timer::display() {
 		<< std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
 		//<< std::ends;
 
+	//glPushAttrib(GL_CURRENT_BIT);
+	//glColor3ub(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+	draw_text(stream.str());
+	//glPopAttrib();
+
 	stream.str();
 
+	/*glPushMatrix();
+	stream << std::setw(2) << std::setfill('0') << timeinfo->tm_hour;
+	glPushAttrib(GL_CURRENT_BIT);
+	glColor3ub(DARK_VIOLET);
 	draw_text(stream.str());
+	glPopAttrib();
+	glPopMatrix();*/
 
 	/* time example */
 

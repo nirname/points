@@ -20,7 +20,7 @@ float AspectRatio::aspect() const {
 
 Screen::Screen() {}
 
-Screen::Screen(float _width, float _height) {
+Screen::Screen(int _width, int _height) {
 	set(_width, _height);
 }
 
@@ -30,24 +30,24 @@ void Screen::set_coordinates() {
 	std::cout << "* Screen is switched to " << width << ":" << height << std::endl;
 }
 
-void Screen::set(float _width, float _height) {
-	width = round(_width);
-	height = round(_height);
+void Screen::set(int _width, int _height) {
+	width = _width;
+	height = _height;
 	set_coordinates();
 }
 
-void Screen::set(float lines, const AspectRatio & aspect_ratio) {
-	height = round(lines);
+void Screen::set(int _height, const AspectRatio & aspect_ratio) {
+	height = _height;
 	width = round(height * aspect_ratio.aspect());
 	set_coordinates();
 }
 
-void Screen::adjust(int lines) {
+void Screen::adjust(int _height) {
 	int _window_width = glutGet(GLUT_WINDOW_WIDTH);
 	int _window_height = glutGet(GLUT_WINDOW_HEIGHT);
 	std::cout
 		<< "* Adjust screen to "
 		<< _window_width << ":" << _window_height << std::endl;
 	AspectRatio aspect_ratio(_window_width, _window_height);
-	set(lines, aspect_ratio);
+	set(_height, aspect_ratio);
 }
