@@ -104,10 +104,11 @@ void Queens::display() {
 
 #include "variables.hpp"
 #include "options.hpp"
-#include <cmath>
+#include <iomanip>
 
 Timer::Timer() {
 	int length = 8;
+	hue = 0;
 	width = length * (font.width + 1) + 1;
 	height = round(width / options::aspect_ratio.aspect());
 }
@@ -115,73 +116,26 @@ Timer::Timer() {
 Timer::~Timer() {
 }
 
-//#include <stdio.h>      /* printf */
-
-#include <iomanip>
-
 void Timer::display() {
 
-	time(&timer); // get current time; same as: timer = time(NULL)
+	time(&timer);
 	timeinfo = localtime(&timer);
 
-	/*glPushAttrib(GL_CURRENT_BIT);
-		glColor3ub(BLACK);
-		glRectf(-1, -1, width, height);
-	glPopAttrib();*/
+	hue = timeinfo->tm_sec * 6;
 
 	glPushMatrix();
-	glTranslatef(1, (height - font.height) / 2.0, 0);
+		glTranslatef(1, (height - font.height) / 2.0, 0);
 
-	std::stringstream stream;
-	stream
-		<< std::setw(2) << std::setfill('0') << timeinfo->tm_hour << ':'
-		<< std::setw(2) << std::setfill('0') << timeinfo->tm_min << ':'
-		<< std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
-		//<< std::ends;
+		std::stringstream stream;
+		stream
+			<< std::setw(2) << std::setfill('0') << timeinfo->tm_hour << ':'
+			<< std::setw(2) << std::setfill('0') << timeinfo->tm_min << ':'
+			<< std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
 
-	//glPushAttrib(GL_CURRENT_BIT);
-	//glColor3ub(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
-	draw_text(stream.str());
-	//glPopAttrib();
-
-	stream.str();
-
-	/*glPushMatrix();
-	stream << std::setw(2) << std::setfill('0') << timeinfo->tm_hour;
-	glPushAttrib(GL_CURRENT_BIT);
-	glColor3ub(DARK_VIOLET);
-	draw_text(stream.str());
-	glPopAttrib();
-	glPopMatrix();*/
-
-	/* time example */
-
-	/*time_t timer;
-	struct tm y2k;
-	double seconds;
-
-	y2k.tm_hour = 0;   y2k.tm_min = 0; y2k.tm_sec = 0;
-	y2k.tm_year = 100; y2k.tm_mon = 0; y2k.tm_mday = 1;
-
-	time(&timer); // get current time; same as: timer = time(NULL)
-	*/
-
-/*
-time_t now;
-struct tm *current;
-now = time(0);
-current = localtime(&now);
-cout << "hour: " << current->tm_hour << endl;
-cout << "mins: " << current->tm_min << endl;
-cout << "sec: " << current->tm_sec << endl;
-
-struct timeval detail_time;
-gettimeofday(&detail_time,NULL);
-cout << "milli: " << detail_time.tv_usec/1000 << endl;
-*/
-
-	//seconds = difftime(timer, mktime(&y2k));
-	//printf ("%.f seconds since January 1, 2000 in the current timezone", seconds);
+		glPushAttrib(GL_CURRENT_BIT);
+			Color(hue, 1.0, 255.0).use();
+			draw_text(stream.str());
+		glPopAttrib();
 
 	glPopMatrix();
 }

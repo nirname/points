@@ -64,6 +64,8 @@ struct Screensaver {
 
 struct Timer : BasicScreensaver {
 
+	double hue;
+
 	time_t timer;
 	tm * timeinfo;
 

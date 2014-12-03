@@ -33,10 +33,12 @@ struct Color {
 	unsigned int red, green, blue;
 
 	Color();
-	Color(unsigned int _red, unsigned int _green, unsigned int _blue);
+	Color(int _red, int _green, int _blue);
+	Color(double hue, double saturation, double value);
 
 	void use();
-	void set(unsigned int _red, unsigned int _green, unsigned int _blue);
+	void rgb(int _red, int _green, int _blue);
+	void hsv(double hue, double saturation, double value);
 
 };
 

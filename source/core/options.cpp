@@ -134,6 +134,7 @@ namespace options {
 		//load_option(grid_type, config, "grid_type");
 		load_option(padding, config, "padding");
 		if(padding < -5 || 5 < padding) padding = 1;
+		load_option(base_color, config, "base_color");
 		load_option(selection_color, config, "selection_color");
 
 		//load_option(shape_options, config, "shape");
@@ -168,6 +169,7 @@ namespace options {
 
 		//load_option(grid_type, config, "grid_type");
 		config["padding"] = padding;
+		config["base_color"] = base_color;
 		config["selection_color"] = selection_color;
 
 		//config["shape"] = shape_options;

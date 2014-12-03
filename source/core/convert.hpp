@@ -53,24 +53,24 @@ namespace YAML {
 					color = buffer;
 				} else if (node.IsScalar()) {
 					std::string color_name = node.as<std::string>();
-					if ( color_name == "black" ) { color.set( BLACK ); }
-					else if ( color_name == "white" ) { color.set( WHITE ); }
-					else if ( color_name == "gray" ) { color.set( GRAY ); }
-					else if ( color_name == "blue" ) { color.set( BLUE ); }
-					else if ( color_name == "yellow" ) { color.set( YELLOW ); }
-					else if ( color_name == "green" ) { color.set( GREEN ); }
-					else if ( color_name == "red" ) { color.set( RED ); }
-					else if ( color_name == "violet" ) { color.set( VIOLET ); }
-					else if ( color_name == "azure" ) { color.set( AZURE ); }
-					else if ( color_name == "orange" ) { color.set( ORANGE ); }
-					else if ( color_name == "soft_blue" ) { color.set( SOFT_BLUE ); }
-					else if ( color_name == "soft_yellow" ) { color.set( SOFT_YELLOW ); }
-					else if ( color_name == "soft_green" ) { color.set( SOFT_GREEN ); }
-					else if ( color_name == "soft_red" ) { color.set( SOFT_RED ); }
-					else if ( color_name == "soft_violet" ) { color.set( SOFT_VIOLET ); }
-					else if ( color_name == "light_gray" ) { color.set( LIGHT_GRAY ); }
-					else if ( color_name == "dark_violet" ) { color.set( DARK_VIOLET ); }
-					else if ( color_name == "dark_gray" ) { color.set( DARK_GRAY ); }
+					if ( color_name == "black" ) { color.rgb( BLACK ); }
+					else if ( color_name == "white" ) { color.rgb( WHITE ); }
+					else if ( color_name == "gray" ) { color.rgb( GRAY ); }
+					else if ( color_name == "blue" ) { color.rgb( BLUE ); }
+					else if ( color_name == "yellow" ) { color.rgb( YELLOW ); }
+					else if ( color_name == "green" ) { color.rgb( GREEN ); }
+					else if ( color_name == "red" ) { color.rgb( RED ); }
+					else if ( color_name == "violet" ) { color.rgb( VIOLET ); }
+					else if ( color_name == "azure" ) { color.rgb( AZURE ); }
+					else if ( color_name == "orange" ) { color.rgb( ORANGE ); }
+					else if ( color_name == "soft_blue" ) { color.rgb( SOFT_BLUE ); }
+					else if ( color_name == "soft_yellow" ) { color.rgb( SOFT_YELLOW ); }
+					else if ( color_name == "soft_green" ) { color.rgb( SOFT_GREEN ); }
+					else if ( color_name == "soft_red" ) { color.rgb( SOFT_RED ); }
+					else if ( color_name == "soft_violet" ) { color.rgb( SOFT_VIOLET ); }
+					else if ( color_name == "light_gray" ) { color.rgb( LIGHT_GRAY ); }
+					else if ( color_name == "dark_violet" ) { color.rgb( DARK_VIOLET ); }
+					else if ( color_name == "dark_gray" ) { color.rgb( DARK_GRAY ); }
 				} else {
 					return false;
 				}
