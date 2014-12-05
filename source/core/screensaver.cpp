@@ -107,21 +107,30 @@ void Queens::display() {
 #include <iomanip>
 
 Timer::Timer() {
-	int length = 8;
-	hue = 0;
-	width = length * (font.width + 1) + 1;
+	time(&timer);
+	timeinfo = localtime(&timer);
+	hue = calculate_hue();
+	color.set(hue, 1.0, 1.0);
+
+	width = 8 * (font.width + 1) + 1;
 	height = round(width / options::aspect_ratio.aspect());
 }
 
 Timer::~Timer() {
 }
 
-void Timer::display() {
+double Timer::calculate_hue() {
+	return timeinfo->tm_min % 6 * 60 + timeinfo->tm_sec;
+}
 
+void Timer::display() {
 	time(&timer);
 	timeinfo = localtime(&timer);
-
-	hue = timeinfo->tm_min % 6 * 60 + timeinfo->tm_sec;
+	double current_hue = calculate_hue();
+	if(current_hue != hue) {
+		color.set(hue, 1.0, 1.0);
+		hue = current_hue;
+	}
 
 	glPushMatrix();
 		glTranslatef(1, (height - font.height) / 2.0, 0);
@@ -133,7 +142,7 @@ void Timer::display() {
 			<< std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
 
 		glPushAttrib(GL_CURRENT_BIT);
-			Color(hue, 1.0, 1.0).use();
+			color.use();
 			draw_text(stream.str());
 		glPopAttrib();
 

@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include "drawing.hpp"
+#include "color.hpp"
 
 enum SCREENSAVER_KIND {
 	NO_SCREENSAVER                   = 0x00,
@@ -64,6 +65,7 @@ struct Screensaver {
 
 struct Timer : BasicScreensaver {
 
+	Color color;
 	double hue;
 	int prev;
 
@@ -73,6 +75,7 @@ struct Timer : BasicScreensaver {
 	Timer();
 	~Timer();
 
+	double calculate_hue();
 	void display();
 
 };

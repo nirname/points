@@ -41,8 +41,7 @@ void display_interface(Interface * interface) {
 void draw_and_highlight_text(const std::string & text, bool highlight) {
 	if(highlight) {
 		glPushAttrib(GL_CURRENT_BIT);
-			//Color(0.0, 0.0, 0.5).use();
-			glColor3ub(200, 200, 200);
+			Color(LIGHT_GRAY).use();
 			draw_text(text);
 			options::selection_color.use();
 			glPushMatrix();
@@ -423,11 +422,11 @@ void display_fonts(Menu * menu) {
 	glPopMatrix();
 }
 
-void display_color(std::string color, double h, double s, double v) {
+void display_color(std::string title, const Color & color) {
 	glPushAttrib(GL_CURRENT_BIT);
-		Color(h, s, v).use();
-		draw_text(color);
-		glRectf(20 * font.width, 0, 20 * font.width + 50, font.height);
+		color.use();
+		draw_text(title);
+		glRectf(20 * font.width, 0, 20 * font.width + 50, font.height + 1);
 	glPopAttrib();
 	glTranslatef(0, - font.height - 1, 0);
 }
@@ -436,24 +435,24 @@ void display_colors(Menu * menu) {
 	glPushMatrix();
 		glTranslatef(0, screen.height - font.height, 0);
 		draw_text(menu->name);
-		glTranslatef(0, -font.height * 3, 0);
+		glTranslatef(0, -font.height * 2, 0);
 
-		display_color("RED",           RED);
-		display_color("RED-ORANGE",    RED_ORANGE);
-		display_color("ORANGE",        ORANGE);
-		display_color("YELLOW-ORANGE", YELLOW_ORANGE);
-		display_color("YELLOW",        YELLOW);
-		display_color("YELLOW-GREEN",  YELLOW_GREEN);
-		display_color("LAWN-GREEN",    LAWN_GREEN);
-		display_color("GREEN",         GREEN);
-		display_color("SEA-GREEN",     SEA_GREEN);
-		display_color("BLUE-GREEN",    BLUE_GREEN);
-		display_color("CYAN",          CYAN);
-		display_color("SKY-BLUE",      SKY_BLUE);
-		display_color("BLUE",          BLUE);
-		display_color("PURPLE",        PURPLE);
-		display_color("VIOLET",        VIOLET);
-		display_color("RED-VIOLET",    RED_VIOLET);
+		display_color("RED",           pallete::red);
+		display_color("RED-ORANGE",    pallete::red_orange);
+		display_color("ORANGE",        pallete::orange);
+		display_color("YELLOW-ORANGE", pallete::yellow_orange);
+		display_color("YELLOW",        pallete::yellow);
+		display_color("YELLOW-GREEN",  pallete::yellow_green);
+		display_color("GREEN",         pallete::green);
+		display_color("SEA-GREEN",     pallete::sea_green);
+		display_color("BLUE-GREEN",    pallete::blue_green);
+		display_color("CYAN",          pallete::cyan);
+		display_color("SKY-BLUE",      pallete::sky_blue);
+		display_color("SOFT-BLUE",     pallete::soft_blue);
+		display_color("BLUE",          pallete::blue);
+		display_color("PURPLE",        pallete::purple);
+		display_color("VIOLET",        pallete::violet);
+		display_color("RED-VIOLET",    pallete::red_violet);
 
 	glPopMatrix();
 }
@@ -469,19 +468,19 @@ void load_interface(Interface * interface) {
 	interface->add_menu("Main menu", display_menu, handle_menu);
 		interface->add_menu("Games", display_menu, handle_multicolumn_menu);
 			interface->add_menu("Levels", display_menu, handle_menu);
-		interface->add_menu("Options", display_menu, handle_menu);
 		interface->add_menu("Extras", display_menu, handle_menu);
 			interface->add_menu("Screensavers", display_menu, handle_menu);
 			interface->add_menu("Images", display_menu, handle_menu);
 			interface->add_menu("Fonts", display_fonts, handle_menu);
 			interface->add_menu("Pallete", display_colors, handle_menu);
+		interface->add_menu("Options", display_menu, handle_menu);
 	interface->add_menu("Message", display_message, handle_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
 
 	menu = interface->find_menu("Main menu");
 	menu->add_item("Games", display_menu_item, next_menu, interface->find_menu("Games"));
-	menu->add_item("Options", display_menu_item, next_menu, interface->find_menu("Options"));
 	menu->add_item("Extras", display_menu_item, next_menu, interface->find_menu("Extras"));
+	menu->add_item("Options", display_menu_item, next_menu, interface->find_menu("Options"));
 
 	menu = interface->find_menu("Games");
 	for(GAME_KIND game_kind = SNAKE; game_kind <= CORNERS; game_kind++) {

@@ -3,6 +3,31 @@
 
 #include <cmath>
 
+namespace pallete {
+	const Color black(BLACK);
+	const Color dark_gray(DARK_GRAY);
+	const Color gray(GRAY);
+	const Color light_gray(LIGHT_GRAY);
+	const Color white(WHITE);
+
+	const Color red(RED);
+	const Color red_orange(RED_ORANGE);
+	const Color orange(ORANGE);
+	const Color yellow_orange(YELLOW_ORANGE);
+	const Color yellow(YELLOW);
+	const Color yellow_green(YELLOW_GREEN);
+	const Color green(GREEN);
+	const Color sea_green(SEA_GREEN);
+	const Color blue_green(BLUE_GREEN);
+	const Color cyan(CYAN);
+	const Color sky_blue(SKY_BLUE);
+	const Color soft_blue(SOFT_BLUE);
+	const Color blue(BLUE);
+	const Color purple(PURPLE);
+	const Color violet(VIOLET);
+	const Color red_violet(RED_VIOLET);
+}
+
 Color default_color(BLACK);
 
 Color::Color():
@@ -17,7 +42,7 @@ Color::Color(double hue, double saturation, double value) {
 	hsv(hue, saturation, value);
 }
 
-void Color::use() {
+void Color::use() const {
 	glColor3ub(red, green, blue);
 }
 
@@ -64,4 +89,11 @@ void Color::hsv(double h, double s, double v) {
 		case 4: red = t; green = p; blue = v; break;
 		case 5: default: red = v; green = p; blue = q; break;
 	}
+}
+
+bool Color::operator == (const Color & color) const {
+	return
+		red == color.red &&
+		green == color.green &&
+		blue == color.blue;
 }

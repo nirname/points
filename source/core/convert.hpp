@@ -32,9 +32,31 @@ namespace YAML {
 
 		static Node encode(const Color & color) {
 			Node node;
-			node.push_back(color.red);
-			node.push_back(color.green);
-			node.push_back(color.blue);
+			if(color == pallete::black)             node = "black";
+			else if(color == pallete::dark_gray)    node = "dark-gray";
+			else if(color == pallete::gray)         node = "gray";
+			else if(color == pallete::light_gray)   node = "light-gray";
+			else if(color == pallete::white)        node = "white";
+
+			else if(color == pallete::red)          node = "red";
+			else if(color == pallete::red_orange)   node = "red-orange";
+			else if(color == pallete::yellow)       node = "yellow";
+			else if(color == pallete::yellow_green) node = "yellow-green";
+			else if(color == pallete::green)        node = "green";
+			else if(color == pallete::sea_green)    node = "sea-green";
+			else if(color == pallete::blue_green)   node = "blue-green";
+			else if(color == pallete::cyan)         node = "cyan";
+			else if(color == pallete::soft_blue)    node = "soft-blue";
+			else if(color == pallete::sky_blue)     node = "sky-blue";
+			else if(color == pallete::blue)         node = "blue";
+			else if(color == pallete::purple)       node = "purple";
+			else if(color == pallete::violet)       node = "violet";
+			else if(color == pallete::red_violet)   node = "red-violet";
+			else {
+				node.push_back(color.red);
+				node.push_back(color.green);
+				node.push_back(color.blue);
+			}
 			return node;
 		}
 
@@ -52,27 +74,28 @@ namespace YAML {
 					if(node["blue"]) { buffer.blue = node["blue"].as<unsigned int>(); }
 					color = buffer;
 				} else if (node.IsScalar()) {
-					/*std::string color_name = node.as<std::string>();
-					if ( color_name == "black" ) { color.set( BLACK ); }
-					else if ( color_name == "white" ) { color.set( WHITE ); }
-					else if ( color_name == "gray" ) { color.set( GRAY ); }
-					else if ( color_name == "blue" ) { color.set( BLUE ); }
-					else if ( color_name == "yellow" ) { color.set( YELLOW ); }
-					else if ( color_name == "green" ) { color.set( GREEN ); }
-					else if ( color_name == "red" ) { color.set( RED ); }
-					else if ( color_name == "violet" ) { color.set( VIOLET ); }
-					else if ( color_name == "azure" ) { color.set( AZURE ); }
-					else if ( color_name == "orange" ) { color.set( ORANGE ); }
-					else if ( color_name == "soft_blue" ) { color.set( SOFT_BLUE ); }
-					else if ( color_name == "soft_yellow" ) { color.set( SOFT_YELLOW ); }
-					else if ( color_name == "soft_green" ) { color.set( SOFT_GREEN ); }
-					else if ( color_name == "soft_red" ) { color.set( SOFT_RED ); }
-					else if ( color_name == "soft_violet" ) { color.set( SOFT_VIOLET ); }
-					else if ( color_name == "light_gray" ) { color.set( LIGHT_GRAY ); }
-					else if ( color_name == "dark_violet" ) { color.set( DARK_VIOLET ); }
-					else if ( color_name == "dark_gray" ) { color.set( DARK_GRAY ); }
-					else*/
-						return false;
+					std::string color_name = node.as<std::string>();
+					if(color_name == "black")           color.set(BLACK);
+					else if(color_name == "dark-gray")  color.set(DARK_GRAY);
+					else if(color_name == "gray")       color.set(GRAY);
+					else if(color_name == "light-gray") color.set(LIGHT_GRAY);
+					else if(color_name == "white")      color.set(WHITE);
+
+					else if(color_name == "red")          color.set(RED);
+					else if(color_name == "red-orange")   color.set(RED_ORANGE);
+					else if(color_name == "orange")       color.set(ORANGE);
+					else if(color_name == "yellow-green") color.set(YELLOW);
+					else if(color_name == "green")        color.set(GREEN);
+					else if(color_name == "sea-green")    color.set(SEA_GREEN);
+					else if(color_name == "blue-green")   color.set(BLUE_GREEN);
+					else if(color_name == "cyan")         color.set(CYAN);
+					else if(color_name == "sky-blue")     color.set(SKY_BLUE);
+					else if(color_name == "soft-blue")    color.set(SOFT_BLUE);
+					else if(color_name == "blue")         color.set(BLUE);
+					else if(color_name == "purple")       color.set(PURPLE);
+					else if(color_name == "violet")       color.set(VIOLET);
+					else if(color_name == "red-violet")   color.set(RED_VIOLET);
+					else return false;
 				} else {
 					return false;
 				}
