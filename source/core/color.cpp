@@ -21,6 +21,14 @@ void Color::use() {
 	glColor3ub(red, green, blue);
 }
 
+void Color::set(int _red, int _green, int _blue) {
+	rgb(_red, _green, _blue);
+}
+
+void Color::set(double hue, double saturation, double value) {
+	hsv(hue, saturation, value);
+}
+
 void Color::rgb(int _red, int _green, int _blue) {
 	red = _red;
 	green = _green;
@@ -31,6 +39,8 @@ void Color::hsv(double h, double s, double v) {
 
 	int i;
 	double f, p, q, t;
+
+	v *= 255;
 
 	if(s == 0) { // achromatic (grey)
 		red = green = blue = v;

@@ -57,7 +57,7 @@ namespace options {
 	void load();
 	int load_config();
 	int save_config();
-	void load_options(const YAML::Node & config);
+	int load_options(const YAML::Node & config);
 
 	template<typename OptionType>
 	int load_option(OptionType & option, const YAML::Node & config, const char * key);

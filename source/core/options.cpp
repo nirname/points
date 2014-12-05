@@ -22,7 +22,7 @@ namespace options {
 	int padding = 1;
 	Color clear_color = Color(WHITE);
 	Color base_color = Color(BLACK);
-	Color selection_color = Color(BLUE);
+	Color selection_color = Color(BLACK);
 
 	bool foreword = true;
 	bool afterword = true;
@@ -56,7 +56,7 @@ namespace options {
 namespace options {
 
 	void load() {
-		if(load_config() != 0) {
+		if(load_config() > 0) {
 			save_config();
 		}
 	}
@@ -64,11 +64,11 @@ namespace options {
 	/// Load config file
 	//
 	/// 0 - everything is ok
-	/// 1 - file not found
-	/// 2 - syntax errors inside
+	/// 1 - with omitted values
+	/// 2 - with wrong values
 	/// 3 - wrong format / is not a map
-	/// 4 - with omitted values
-	/// 5 - with wrong values
+	/// 4 - syntax errors inside
+	/// 5 - file not found
 	///
 	int load_config() {
 		std::cout << "Config: " << std::ends;
@@ -76,19 +76,18 @@ namespace options {
 			YAML::Node config = YAML::LoadFile("config/settings.yaml");
 			if(config.IsMap()) {
 				std::cout << "ok" << std::endl;
-				load_options(config);
+				return load_options(config);
 			} else {
 				std::cout << "config is not a map" << std::endl;
 				return 3;
 			}
 		} catch (YAML::ParserException & exception) {
 			std::cout << "syntax errors" << std::endl;
-			return 2;
+			return 4;
 		} catch (YAML::BadFile) {
-			std::cout << "no config or file is corrupted" << std::endl;
-			return 1;
+			std::cout << "config file does not exist or corrupted" << std::endl;
+			return 5;
 		}
-		return 0;
 	}
 
 	/// Load an option depending on it's type
@@ -105,55 +104,60 @@ namespace options {
 				option = config[key].as<OptionType>();
 				std::cout << "ok" << std::ends;
 			} catch(YAML::TypedBadConversion<OptionType> & exception) {
-				std::cout << "wrong value" << std::ends;
+				std::cout << "wrong value" << std::endl;
 				return 2;
 			}
 		} else {
-			std::cout << "default" << std::ends;
+			std::cout << "default" << std::endl;
 			return 1;
 		}
 		std::cout << " - " << option << std::endl;
 		return 0;
 	}
 
-	void load_options(const YAML::Node & config) {
+	int load_options(const YAML::Node & config) {
+
+		int result = 0;
 
 		std::cout << "Options: " << std::ends;
 
 		std::cout << std::endl;
-		load_option(proportional, config, "proportional");
-		load_option(smooth_zooming, config, "smooth_zooming");
-		load_option(multisample, config, "multisample");
 
-		load_option(window_width, config, "window_width");
-		load_option(window_height, config, "window_height");
-		load_option(aspect_ratio, config, "aspect_ratio");
-		load_option(full_screen, config, "full_screen");
-		load_option(game_mode, config, "game_mode");
+		result |= load_option(proportional, config, "proportional");
+		result |= load_option(smooth_zooming, config, "smooth_zooming");
+		result |= load_option(multisample, config, "multisample");
+
+		result |= load_option(window_width, config, "window_width");
+		result |= load_option(window_height, config, "window_height");
+		result |= load_option(aspect_ratio, config, "aspect_ratio");
+		result |= load_option(full_screen, config, "full_screen");
+		result |= load_option(game_mode, config, "game_mode");
 
 		//load_option(grid_type, config, "grid_type");
-		load_option(padding, config, "padding");
+		result |= load_option(padding, config, "padding");
 		if(padding < -5 || 5 < padding) padding = 1;
-		load_option(base_color, config, "base_color");
-		load_option(selection_color, config, "selection_color");
+		result |= load_option(base_color, config, "base_color");
+		result |= load_option(selection_color, config, "selection_color");
 
 		//load_option(shape_options, config, "shape");
-		load_option(clear_color, config, "clear_color");
+		result |= load_option(clear_color, config, "clear_color");
 
-		load_option(foreword, config, "foreword");
-		load_option(images_directory, config, "images_directory");
-		load_option(afterword, config, "afterword");
-		load_option(font_name, config, "font_name");
-		load_option(fonts_directory, config, "fonts_directory");
-		load_option(screensaver_kind, config, "screensaver_kind");
-		load_option(levels_directory, config, "levels_directory");
+		result |= load_option(foreword, config, "foreword");
+		result |= load_option(images_directory, config, "images_directory");
+		result |= load_option(afterword, config, "afterword");
+		result |= load_option(font_name, config, "font_name");
+		result |= load_option(fonts_directory, config, "fonts_directory");
+		result |= load_option(screensaver_kind, config, "screensaver_kind");
+		result |= load_option(levels_directory, config, "levels_directory");
 
-		load_option(foreword_timeout, config, "foreword_timeout");
-		load_option(menu_timeout, config, "menu_timeout");
-		load_option(screensaver_timeout, config, "screensaver_timeout");
-		load_option(afterword_timeout, config, "afterword_timeout");
+		result |= load_option(foreword_timeout, config, "foreword_timeout");
+		result |= load_option(menu_timeout, config, "menu_timeout");
+		result |= load_option(screensaver_timeout, config, "screensaver_timeout");
+		result |= load_option(afterword_timeout, config, "afterword_timeout");
 
 		std::cout << "ok" << std::endl;
+
+		return result;
 	}
 
 	void build_config(YAML::Node & config) {

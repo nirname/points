@@ -41,7 +41,8 @@ void display_interface(Interface * interface) {
 void draw_and_highlight_text(const std::string & text, bool highlight) {
 	if(highlight) {
 		glPushAttrib(GL_CURRENT_BIT);
-			glColor3ub(LIGHT_GRAY);
+			//Color(0.0, 0.0, 0.5).use();
+			glColor3ub(200, 200, 200);
 			draw_text(text);
 			options::selection_color.use();
 			glPushMatrix();
@@ -409,10 +410,6 @@ void display_fonts(Menu * menu) {
 		glTranslatef(font.width, -font.height * 3, 0);
 		glPushMatrix();
 		for(int i = 33; i <= 126; i++ ) {
-			/*glPushAttrib(GL_CURRENT_BIT);
-				glColor3ub(LIGHT_GRAY);
-				glRectf(0, 0, font.width, font.height);
-			glPopAttrib();*/
 			draw_text(to_string((char)i));
 			if((i - 33 + 1) % 15 == 0) {
 				glPopMatrix();
@@ -423,6 +420,41 @@ void display_fonts(Menu * menu) {
 			}
 		}
 		glPopMatrix();
+	glPopMatrix();
+}
+
+void display_color(std::string color, double h, double s, double v) {
+	glPushAttrib(GL_CURRENT_BIT);
+		Color(h, s, v).use();
+		draw_text(color);
+		glRectf(20 * font.width, 0, 20 * font.width + 50, font.height);
+	glPopAttrib();
+	glTranslatef(0, - font.height - 1, 0);
+}
+
+void display_colors(Menu * menu) {
+	glPushMatrix();
+		glTranslatef(0, screen.height - font.height, 0);
+		draw_text(menu->name);
+		glTranslatef(0, -font.height * 3, 0);
+
+		display_color("RED",           RED);
+		display_color("RED-ORANGE",    RED_ORANGE);
+		display_color("ORANGE",        ORANGE);
+		display_color("YELLOW-ORANGE", YELLOW_ORANGE);
+		display_color("YELLOW",        YELLOW);
+		display_color("YELLOW-GREEN",  YELLOW_GREEN);
+		display_color("LAWN-GREEN",    LAWN_GREEN);
+		display_color("GREEN",         GREEN);
+		display_color("SEA-GREEN",     SEA_GREEN);
+		display_color("BLUE-GREEN",    BLUE_GREEN);
+		display_color("CYAN",          CYAN);
+		display_color("SKY-BLUE",      SKY_BLUE);
+		display_color("BLUE",          BLUE);
+		display_color("PURPLE",        PURPLE);
+		display_color("VIOLET",        VIOLET);
+		display_color("RED-VIOLET",    RED_VIOLET);
+
 	glPopMatrix();
 }
 
@@ -442,6 +474,7 @@ void load_interface(Interface * interface) {
 			interface->add_menu("Screensavers", display_menu, handle_menu);
 			interface->add_menu("Images", display_menu, handle_menu);
 			interface->add_menu("Fonts", display_fonts, handle_menu);
+			interface->add_menu("Pallete", display_colors, handle_menu);
 	interface->add_menu("Message", display_message, handle_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
 
@@ -456,7 +489,6 @@ void load_interface(Interface * interface) {
 	}
 
 	menu = interface->find_menu("Options");
-	//menu->add_item("Padding", display_option<options::padding>, handle_padding_option);
 	menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
 	menu->add_item("Foreword", display_option<options::foreword>, handle_option<options::foreword>);
 	menu->add_item("Afterword", display_option<options::afterword>, handle_option<options::afterword>);
@@ -465,6 +497,7 @@ void load_interface(Interface * interface) {
 	menu->add_item("Screensavers", display_menu_item, next_menu, interface->find_menu("Screensavers"));
 	menu->add_item("Images", display_menu_item, next_menu, interface->find_menu("Images"));
 	menu->add_item("Fonts", display_menu_item, next_menu, interface->find_menu("Fonts"));
+	menu->add_item("Pallete", display_menu_item, next_menu, interface->find_menu("Pallete"));
 
 	menu = interface->find_menu("Screensavers");
 

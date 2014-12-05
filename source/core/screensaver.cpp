@@ -121,7 +121,7 @@ void Timer::display() {
 	time(&timer);
 	timeinfo = localtime(&timer);
 
-	hue = timeinfo->tm_sec * 6;
+	hue = timeinfo->tm_min % 6 * 60 + timeinfo->tm_sec;
 
 	glPushMatrix();
 		glTranslatef(1, (height - font.height) / 2.0, 0);
@@ -133,7 +133,7 @@ void Timer::display() {
 			<< std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
 
 		glPushAttrib(GL_CURRENT_BIT);
-			Color(hue, 1.0, 255.0).use();
+			Color(hue, 1.0, 1.0).use();
 			draw_text(stream.str());
 		glPopAttrib();
 
