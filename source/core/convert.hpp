@@ -4,6 +4,7 @@
 #include <ostream>
 
 #include "yaml.hpp"
+
 #include "color.hpp"
 #include "shape.hpp"
 #include "screen.hpp"
@@ -12,20 +13,6 @@
 #include "emitter.hpp"
 
 namespace YAML {
-
-	/*template<>
-	struct convert<Node> {
-
-		static Node encode(const Node & source) {
-			Node result = source;
-			return result;
-		}
-
-		static bool decode(const Node & source, Node & result) {
-			result = source;
-			return true;
-		}
-	};*/
 
 	template<>
 	struct convert<Color> {
@@ -61,7 +48,7 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, Color & color) {
-			//try {
+			try {
 				Color buffer;
 				if(node.IsSequence()) {
 					buffer.red = node[0].as<unsigned int>();
@@ -99,7 +86,7 @@ namespace YAML {
 				} else {
 					return false;
 				}
-			//} catch(...) {}
+			} catch(...) {}
 			return true;
 		}
 
@@ -181,35 +168,6 @@ namespace YAML {
 
 	}; // convert<SCREENSAVER_KIND>
 
-	/*template<>
-	struct convert<bool> {
-		static Node encode(const bool & parameter) {
-			Node node;
-			if(parameter == true) {
-				node = std::string();
-			}
-			node.push_back(rhs.x);
-			node.push_back(rhs.y);
-			node.push_back(rhs.z);
-			return node;
-		}
-
-		static bool decode(const Node & node, bool & parameter) {
-			if(!node.IsScalar()) {
-				return false;
-			}
-			std::string value = node.as<std::string>();
-			if(value == std::string("on")) {
-				parameter = true;
-			} else if(value == std::string("off")) {
-				parameter = false;
-			} else {
-				return false;
-			}
-			return true;
-		}
-	};*/
-
 	template<>
 	struct convert<Shape *> {
 
@@ -253,6 +211,9 @@ namespace YAML {
 					int angles = node[1].as<int>();
 					int step_over = node[2].as<int>();
 					shape = new ::NGon(angles, step_over);
+				} else {
+					std::cout << "Only ngon has arguments" << std::endl;
+					return false;
 				}
 			} else {
 				return false;
@@ -264,12 +225,3 @@ namespace YAML {
 
 
 } // namespace YAML
-
-/*template<typename T> void operator >> (const YAML::Node & option, T & parameter) {
-	try {
-		if(option.IsScalar()) {
-			parameter = option.as<T>();
-		}
-	} catch(YAML::TypedBadConversion<T> & exception) {
-	}
-}*/

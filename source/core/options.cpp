@@ -12,11 +12,11 @@ namespace options {
 	bool smooth_zooming = true;
 	bool multisample = true;
 
-	int window_width = 960;
-	int window_height = 540;
 	AspectRatio aspect_ratio(16, 9);
 	bool full_screen = true;
 	bool game_mode = false;
+	int window_width = 960;
+	int window_height = 540;
 
 	GRID_TYPE grid_type = SQUARE_GRID;
 	int padding = 1;
@@ -119,19 +119,17 @@ namespace options {
 
 		int result = 0;
 
-		std::cout << "Options: " << std::ends;
-
-		std::cout << std::endl;
+		std::cout << "Options: " << std::endl;
 
 		result |= load_option(proportional, config, "proportional");
 		result |= load_option(smooth_zooming, config, "smooth_zooming");
 		result |= load_option(multisample, config, "multisample");
 
-		result |= load_option(window_width, config, "window_width");
-		result |= load_option(window_height, config, "window_height");
 		result |= load_option(aspect_ratio, config, "aspect_ratio");
 		result |= load_option(full_screen, config, "full_screen");
 		result |= load_option(game_mode, config, "game_mode");
+		result |= load_option(window_width, config, "window_width");
+		result |= load_option(window_height, config, "window_height");
 
 		//load_option(grid_type, config, "grid_type");
 		result |= load_option(padding, config, "padding");

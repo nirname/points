@@ -1,4 +1,4 @@
-#include "yaml.hpp"
+/*#include "yaml.hpp"
 
 namespace YAML {
 
@@ -9,9 +9,9 @@ namespace YAML {
 			if(parameter == true) {
 				node = std::string();
 			}
-			/*node.push_back(rhs.x);
-			node.push_back(rhs.y);
-			node.push_back(rhs.z);*/
+			//node.push_back(rhs.x);
+			//node.push_back(rhs.y);
+			//node.push_back(rhs.z);
 			return node;
 		}
 
@@ -51,4 +51,4 @@ template<> void operator >> (const YAML::Node & option, bool & parameter) {
 			parameter = false;
 		}
 	}
-}
+}*/

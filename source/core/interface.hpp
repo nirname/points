@@ -85,8 +85,8 @@ struct Menu {
 
 };
 
-#include "screensaver.hpp"
-#include "game.hpp"
+#include "screensaver_kind.hpp"
+#include "game_kind.hpp"
 
 struct MenuItemOptions {
 

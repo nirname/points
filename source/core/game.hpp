@@ -1,44 +1,6 @@
 #pragma once
 
-enum GAME_KIND {
-
-	NO_GAME,
-
-	// Single player
-
-	SNAKE,
-	SOKOBAN,
-	ATOMIX,
-	RUSH_HOUR,
-	LIGHTS,
-	TETRIS,
-	ROBOTS,
-	LABYRINTH,
-	SWAP,
-	POLYMINO,
-	BACKGROUND,
-	LINES,
-	NETWALK,
-	MOWER,
-	MASYU,
-	RINGS,
-	BOMBERMAN,
-	PACMAN,
-	GAME1024,
-
-	// Multiplayer
-
-	REVERSI,
-	GOMOKU,
-	FOUR_IN_A_ROW,
-	TRHONE,
-	BATTLESHIP,
-	POINTS,
-	GO,
-	STICS,
-	CORNERS
-
-};
+#include "game_kind.hpp"
 
 #include "yaml-cpp/yaml.h"
 
@@ -63,6 +25,8 @@ struct Game {
 	bool paused;
 	bool loaded;
 
+	//bool no_levels;
+
 	ColorManager colors;
 	ShapeManager shapes;
 	ObjectKindManager object_kinds;
@@ -86,16 +50,19 @@ struct Game {
 
 	Game();
 
-	//template<typename Type> void load_attribute(Type & attribute, const YAML::Node & level, const char * key);
+	int load_attributes(const YAML::Node & level);
+
+	template<typename Type>
+	int load_attribute(Type & attribute, const YAML::Node & level, const char * key);
 
 	//void load_interactions(const YAML::Node &);
-	void load_objects(const YAML::Node &);
+	void load_objects(const YAML::Node & level);
 	void load_default_colors();
 	void load_default_shapes();
 
 	void load_game_options(const YAML::Node &);
 
-	bool load(std::string);
+	bool load(GAME_KIND game_kind, const std::string & level_path);
 	bool unload();
 
 	void pause();

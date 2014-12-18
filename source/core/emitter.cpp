@@ -28,7 +28,7 @@ std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND & sc
 
 std::ostream & operator << (std::ostream & _ostream, const GAME_KIND & game_kind) {
 	switch(game_kind) {
-		case NO_GAME:       _ostream << "snake"; break;
+		case NO_GAME:       _ostream << "no game"; break;
 		case SNAKE:         _ostream << "snake"; break;
 		case SOKOBAN:       _ostream << "sokoban"; break;
 		case ATOMIX:        _ostream << "atomix"; break;
