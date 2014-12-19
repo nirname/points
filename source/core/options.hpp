@@ -9,6 +9,10 @@
 #include "yaml.hpp"
 
 namespace options {
+	const std::string config_file_path = "config/settings.yaml";
+}
+
+namespace options {
 
 	extern bool proportional;
 	extern bool smooth_zooming;
@@ -55,11 +59,11 @@ namespace options {
 namespace options {
 
 	void load();
+
 	int load_config();
 	int save_config();
-	int load_options(const YAML::Node & config);
 
-	template<typename OptionType>
-	int load_option(OptionType & option, const YAML::Node & config, const char * key);
+	int load_options(const YAML::Node & config);
+	int save_options(YAML::Node & config);
 
 }

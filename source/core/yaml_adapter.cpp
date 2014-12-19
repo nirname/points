@@ -2,8 +2,6 @@
 
 #include <fstream>
 
-typedef int (* YamlHandler)(YAML::Node & node);
-
 /// Load YAML file
 //
 /// 0 - everything is ok
@@ -13,7 +11,7 @@ typedef int (* YamlHandler)(YAML::Node & node);
 /// 4 - syntax errors inside
 /// 5 - file not found
 ///
-int load_yaml_file(std::string yaml_file_path, YamlHandler parse_yaml) {
+int load_yaml_file(std::string yaml_file_path, YamlParser parse_yaml) {
 	std::cout << "Loading file '" + yaml_file_path + "': " << std::ends;
 	try {
 		YAML::Node node = YAML::LoadFile(yaml_file_path.c_str());
@@ -38,7 +36,7 @@ int load_yaml_file(std::string yaml_file_path, YamlHandler parse_yaml) {
 /// 0 - everything is ok
 /// 1 - file was not saved
 ///
-int save_yaml_file(std::string yaml_file_path, YamlHandler serialize_yaml) {
+int save_yaml_file(std::string yaml_file_path, YamlSerializer serialize_yaml) {
 	std::cout << "Saving file '" + yaml_file_path + "': " << std::ends;
 
 	YAML::Emitter yaml;
@@ -57,30 +55,5 @@ int save_yaml_file(std::string yaml_file_path, YamlHandler serialize_yaml) {
 		return 1;
 	}
 
-	return 0;
-}
-
-/// Load an option depending on it's type
-//
-/// 0 - option is loaded
-/// 1 - option is omitted, default value is used
-/// 2 - option is wrong, default value is used
-///
-template<typename OptionType>
-int parse_yaml_option(OptionType & option, const YAML::Node & node, const char * key) {
-	std::cout << "  " << key << ": " << std::ends;
-	if(node[key]) {
-		try {
-			option = node[key].as<OptionType>();
-			std::cout << "ok" << std::ends;
-		} catch(YAML::TypedBadConversion<OptionType> & exception) {
-			std::cout << "wrong value" << std::endl;
-			return 2;
-		}
-	} else {
-		std::cout << "default value" << std::endl;
-		return 1;
-	}
-	std::cout << " - " << option << std::endl;
 	return 0;
 }
