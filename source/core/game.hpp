@@ -17,6 +17,8 @@ typedef Manager<std::string, Color> ColorManager;
 typedef Manager<std::string, Shape> ShapeManager;
 typedef Manager<std::string, ObjectKind> ObjectKindManager;
 
+#include "screensaver_kind.hpp"
+
 /// Describes current game
 //
 struct Game {
@@ -55,6 +57,7 @@ struct Game {
 	template<typename Type>
 	int load_attribute(Type & attribute, const YAML::Node & level, const char * key);
 
+	int load_defaults();
 	//void load_interactions(const YAML::Node &);
 	void load_objects(const YAML::Node & level);
 	void load_default_colors();

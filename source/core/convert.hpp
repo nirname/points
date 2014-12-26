@@ -92,6 +92,10 @@ namespace YAML {
 
 	}; // convert<Color>
 
+}
+
+namespace YAML {
+
 	template<>
 	struct convert<AspectRatio> {
 

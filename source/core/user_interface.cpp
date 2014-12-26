@@ -264,10 +264,10 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
 		menu_item->next_menu->items.clear();
 		std::list< std::string > levels;
-		std::string path = options::levels_directory + menu_item->name;
+		std::string levels_path = options::levels_directory + to_string(menu_item->options.game_kind);
 		bool levels_are_found = false;
 		MenuItem * level_item;
-		if(directory::read(path, DT_REG, levels, filter_yaml)) {
+		if(directory::read(levels_path, DT_REG, levels, filter_yaml)) {
 			//if(levels.size() > 1) {
 				levels.sort();
 				if(!levels.empty()) {
@@ -278,7 +278,7 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 					) {
 						level_item = menu_item->next_menu->add_item(*level, display_menu_item, start_game);
 						level_item->options.game_kind = menu_item->options.game_kind;
-						level_item->options.level = *level;
+						level_item->options.level = levels_path + "/" + *level;
 					}
 					levels_are_found = true;
 					menu_item->menu->interface->next_menu(menu_item->next_menu);

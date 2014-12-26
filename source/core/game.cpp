@@ -6,7 +6,11 @@
 
 #include "drawing.hpp"
 
-Game::Game() : kind(NO_GAME), paused(false), loaded(false) {
+#include "convert.hpp"
+#include "yaml_adapter.hpp"
+#include "functionals.hpp"
+
+Game::Game(): kind(NO_GAME), paused(false), loaded(false) {
 	screen_size.width = 50;
 	screen_size.height = 5;
 }
@@ -75,9 +79,7 @@ void Game::print() {
 }
 
 void Game::display() {
-
 	draw_text(to_string(kind));
-
 	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 		i->second->next();
 	}*/
@@ -88,44 +90,6 @@ void Game::display() {
 		}
 	glPopMatrix();*/
 }
-
-// Loads one property via mapping manager
-//
-/*template<typename Type>
-void Game::load_attribute(Type & attribute, const YAML::Node & level, const char * key) {
-	if(level[key]) {
-		const YAML::Node & node = level[key];
-		if(node.IsMap()) {
-			for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
-				iterator >> attribute;
-			}
-		} else {
-			std::cout << key << " should be a map" << std::endl;
-		}
-	} else {
-		std::cout << "no " << key << " found" << std::endl;
-	}
-}*/
-
-template<typename AttributeType>
-int Game::load_attribute(AttributeType & attribute, const YAML::Node & config, const char * key) {
-	std::cout << "  " << key << ": " << std::ends;
-	if(config[key]) {
-		try {
-			attribute = config[key].as<AttributeType>();
-			std::cout << "ok" << std::ends;
-		} catch(YAML::TypedBadConversion<AttributeType> & exception) {
-			std::cout << "wrong value" << std::endl;
-			return 2;
-		}
-	} else {
-		std::cout << "default" << std::endl;
-		return 1;
-	}
-	std::cout << " - " << attribute << std::endl;
-	return 0;
-}
-
 
 void Game::load_default_colors() {
 /*
@@ -164,6 +128,7 @@ void Game::load_default_shapes() {
 }
 
 bool Game::unload() {
+	std::cout << "Game unloading: " << std::ends;
 /*
 	fields.clear();
 	views.clear();
@@ -178,74 +143,73 @@ bool Game::unload() {
 */
 	paused = false;
 	loaded = false;
+
+	std::cout << "done" << std::endl;
 	return true;
+}
+
+//template<typename Instance, typename Function>
+//struct bind {
+//	bind() {
+//	}
+	//T object;
+	//int operator()(int a) {return a;}
+//};
+//int x = myobject (0);
+
+/*static int Game::load_attributes(Game * _game, const YAML::Node & level) {
+	return _game->*load_attributes(level);
+}*/
+
+int Game::load_defaults() {
+	//load_default_colors();
+	//load_default_shapes();
+	return 0;
 }
 
 int Game::load_attributes(const YAML::Node & level) {
 	int result = 0;
 
-	//result |= load_attribute(colors, level, "colors");
-	//result |= load_attribute(shapes, level, "shapes");
-	//result |= load_attribute(object_kinds, level, "object_kinds");
+	//load_yaml_option(kind, level, "game_kind");
+
+	//result |= load_yaml_option(colors, level, "colors");
+	//result |= load_yaml_option(shapes, level, "shapes");
+	//result |= load_yaml_option(object_kinds, level, "object_kinds");
 	//result |= load_interactions(level);
-	//result |= load_attribute(interactions, level, "interactions");
+	//result |= load_yaml_option(interactions, level, "interactions");
 	//result |= load_objects(level);
 
-	//result |= load_attribute(fields, level, "fields");
-	//result |= load_attribute(views, level, "views");
-	//result |= load_attribute(controls, level, "controls");
+	//result |= load_yaml_option(fields, level, "fields");
+	//result |= load_yaml_option(views, level, "views");
+	//result |= load_yaml_option(controls, level, "controls");
 
 	//load_game_options(level);
 
 	return result;
 }
 
+typedef int (Game::* YamlLoader)(const YAML::Node & level);
+
 // Loads all properties
 //
 bool Game::load(GAME_KIND game_kind, const std::string & level_path) {
 
+	std::cout << "Loading game:" << std::endl;
+
 	if(loaded) {
+		// ask whether you want to stop current game
 		unload();
 	}
 
-	std::cout << "Game loading:" << std::endl;
-
-	//load_default_colors();
-	//load_default_shapes();
-
-	try {
-		YAML::Node level = YAML::LoadFile(level_path.c_str());
-		if(level.IsMap()) {
-
-			std::cout << "Loading level data" << std::endl;
-			/*for(YAML::const_iterator block = level.begin(); block != level.end(); ++block) {
-				std::cout << block->first.as<std::string>() << std::endl;
-			}
-			std::cout << std::endl;*/
-			load_attributes(level);
-
-			loaded = true;
-
-			//std::cout << "Game is loaded" << std::endl;
-			//lib::stage("PLAYING");
-			print();
-
-		} else {
-			std::cout << "Level file should contain mapping" << std::endl;
-		}
-	} catch (YAML::ParserException & exception) {
-		std::cout << "syntax errors" << std::endl;
-		return 4;
-	} catch (YAML::BadFile) {
-		std::cout << "config file does not exist or corrupted" << std::endl;
-		return 5;
-	}
-
-	loaded = true;
-	std::cout << "done" << std::endl;
-
-	if(!loaded) {
+	if (
+		load_defaults() == 0 &&
+		load_yaml_file(level_path, bind<const YAML::Node &>(this, &Game::load_attributes)) == 0
+	) {
+		loaded = true;
+		std::cout << "done" << std::endl;
+	} else {
 		unload();
+		std::cout << "failed" << std::endl;
 	}
 
 	return loaded;
