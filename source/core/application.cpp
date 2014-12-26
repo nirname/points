@@ -49,7 +49,7 @@ bool Application::set(APPLICATION_MODE next_mode) {
 		}
 		case GAMEPLAY_MODE: {
 			if(game.loaded) {
-				screen.set(game.screen_size.width, game.screen_size.height);
+				screen.set(game.width(), game.height());
 				if(game.paused) {
 					game.resume();
 				}

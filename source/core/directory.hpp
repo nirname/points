@@ -16,6 +16,6 @@ namespace directory {
 			- d_info<br/>
 			- d_reclen<br/>
 	*/
-	bool read(const std::string & path, int type, std::list<std::string> & list, bool (*filter)(dirent *) = NULL);
+	bool read(const std::string & path, int type, std::list<std::string> & list, Filter filter = NULL);
 
 };

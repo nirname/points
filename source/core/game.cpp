@@ -16,6 +16,14 @@ Game::Game(): kind(NO_GAME), paused(false), loaded(false) {
 	screen_size.height = 10;
 }
 
+int Game::width() {
+	return screen_size.width;
+}
+
+int Game::height() {
+	return screen_size.height;
+}
+
 void Game::pause() {
 	paused = true;
 }

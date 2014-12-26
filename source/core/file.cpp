@@ -10,12 +10,13 @@ namespace file {
 	bool has_extension(const char * name, const char * extension) {
 		size_t name_length = strlen(name);
 		size_t extension_length = strlen(extension);
-		return
+		return (
 			name_length > extension_length &&
 			strcmp(
 				name + (name_length - extension_length) * sizeof(char),
 				extension
-			) == 0;
+			) == 0
+		);
 	}
 
 	char * crop_extension(char * name, const char * extension) {

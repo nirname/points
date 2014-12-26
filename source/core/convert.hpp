@@ -9,7 +9,7 @@
 
 #include "color.hpp"
 #include "shape.hpp"
-#include "screen.hpp"
+#include "aspect_ratio.hpp"
 #include "size.hpp"
 
 namespace YAML {

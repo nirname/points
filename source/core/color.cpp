@@ -72,7 +72,7 @@ void Color::hsv(double h, double s, double v) {
 		return;
 	}
 
-	if(h >= 360.0) h = 0.0;
+	if(h >= 360.0) { h = 0.0; }
 
 	h /= 60.0; // sector 0 to 5
 	i = floor( h );
@@ -92,8 +92,9 @@ void Color::hsv(double h, double s, double v) {
 }
 
 bool Color::operator == (const Color & color) const {
-	return
+	return (
 		red == color.red &&
 		green == color.green &&
-		blue == color.blue;
+		blue == color.blue
+	);
 }

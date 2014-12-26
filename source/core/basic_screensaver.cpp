@@ -3,7 +3,7 @@
 #include "drawing.hpp"
 
 BasicScreensaver::BasicScreensaver() {
-	size = Size(12, 12);
+	size = Size(12, 12); // TODO: remove
 }
 
 BasicScreensaver::~BasicScreensaver() {}

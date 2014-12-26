@@ -77,4 +77,7 @@ struct Game {
 
 	void display();
 
+	int width();
+	int height();
+
 };

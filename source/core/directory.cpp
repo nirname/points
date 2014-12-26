@@ -2,7 +2,9 @@
 
 namespace directory {
 
-	bool read(const std::string & path, int type, std::list<std::string> & list, bool (*filter)(dirent *)) {
+	typedef bool (*Filter)(dirent *);
+
+	bool read(const std::string & path, int type, std::list<std::string> & list, Filter filter) {
 		DIR * dir;
 		dirent * entry;
 		if((dir = opendir(path.c_str())) != NULL) {

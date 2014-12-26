@@ -1,0 +1,2 @@
+#!/bin/sh
+find core -name "*.[hc]pp" | vera++ > vera_report.txt

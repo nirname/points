@@ -85,3 +85,7 @@ int load_yaml_option(OptionType & option, const YAML::Node & node, const char * 
 	std::cout << " - " << option << std::endl;
 	return 0;
 }
+
+template<>
+int load_yaml_option<YAML::Node>
+(YAML::Node & option, const YAML::Node & node, const char * key);

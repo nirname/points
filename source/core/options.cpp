@@ -89,7 +89,7 @@ namespace options {
 		result |= load_yaml_option(base_color, config, "base_color");
 		result |= load_yaml_option(selection_color, config, "selection_color");
 
-		//load_yaml_option(shape_options, config, "shape");
+		load_yaml_option(shape_options, config, "shape_options");
 		result |= load_yaml_option(clear_color, config, "clear_color");
 
 		result |= load_yaml_option(foreword, config, "foreword");
@@ -126,7 +126,7 @@ namespace options {
 		config["base_color"] = base_color;
 		config["selection_color"] = selection_color;
 
-		//config["shape"] = shape_options;
+		config["shape_options"] = shape_options;
 		config["clear_color"] = clear_color;
 
 		config["foreword"] = foreword;
