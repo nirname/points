@@ -1,53 +1,127 @@
-interactions:
-  sokoban:
-    light_box: push
-    heavy_box: push
-  heavy_box:
-    light_box: push
+# example of colors, figures and interactions
+game:
+  kind: sokoban
+  screen: [14, 14]
+  figure_size: 1
 
-objects:
-  box_1:
+object_kinds:
+  light_box:
     color: green
-    kind: light_box
-  box_2:
-    color: green
-    kind: light_box
-  box_3:
+  heavy_box:
     color: blue
-    kind: heavy_box
+  magic_box:
+    color: red
   sokoban:
     color: violet
-    kind: sokoban
-    shape: star
+    shape: circle
+
+interactions:
+  sokoban: # object kind
+    push: # interactions
+      - light_box
+      - heavy_box
+  heavy_box:
+    push: light_box
+  light_box:
+    push: magic_box
+
+objects:
+  light_box:
+    - box_1
+    - box_2
+  heavy_box:
+    - box_3
+  magic_box:
+    - box_4
+    - box_5
+  sokoban:
+    - sokoban_1
+    - sokoban_2
 
 fields:
   field:
     size:
       width: 10
       height: 10
-    objects:
-      sokoban:
+    closure: full
+    data:
+      sokoban_1: # object name
         column: 1
         row: 1
-      box_1:
+      sokoban_2: # object name
+        column: 2
+        row: 2
+      box_1: # you may use mapping with 'column' and 'row' keys ...
         column: 5
-        row:    5
-      box_2:
-        column: 6
-        row:    5
-      box_3:
-        column: 4
-        row:    3
+        row: 5
+      box_2: # ... or 2 element sequense
+        - 6
+        - 5
+      box_3: [4, 3] # it can be written as a comma separated list within square brackets
+      box_4: [3, 7]
+      box_5: [7, 7]
+  info:
+    size: 5
 
 views:
   view:
     field: field
-    size:
-      width: 12
-      height: 12
+    size: [12, 12]
     offset:
       column: -1
       row: -1
-    position:
-      column: 3
-      row: 3
+    position: [1, 1]
+    grid_color: black
+
+controls:
+  w:
+    object: sokoban_1
+    action: move
+    option: [0, 1]
+  a:
+    object: sokoban_1
+    action: move
+    option: [-1, 0]
+  s:
+    object: sokoban_1
+    action: move
+    option: [0, -1]
+  d:
+    object: sokoban_1
+    action: move
+    option: [1, 0]
+
+  #w:
+  #  actions: { move: [0, 1] }
+  #  targets: { objects: sokoban_1 }
+  #a:
+  #  actions: { move: [-1, 0] }
+  #  targets: { objects: sokoban_1 }
+  #s:
+  #  actions: { move: [0, -1] }
+  #  targets: { objects: sokoban_1 }
+  #d:
+  #  actions: { move: [1, 0] } # pass also field name, where object is moving
+  #  targets: { objects: sokoban_1 }
+  #q:
+  #  actions: destroy
+  #  targets: { objects: sokoban_2 }
+  #w: # list of objects
+  #  sokoban: # list of actions with this object
+  #    move: [0, 1]
+  #a:
+  #  sokoban:
+  #    move: [-1, 0]
+  #s:
+  #  sokoban:
+  #    move: [0, -1]
+  #d:
+  #  sokoban:
+  #    move: [1, 0]
+  # or more even complex
+  #e:
+  #  actions:
+  #    move:
+  #  targets:
+  #    objects:
+  #    objects_kinds:

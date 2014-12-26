@@ -7,12 +7,13 @@
 #include "drawing.hpp"
 
 #include "convert.hpp"
+#include "emitter.hpp"
 #include "yaml_adapter.hpp"
 #include "functionals.hpp"
 
 Game::Game(): kind(NO_GAME), paused(false), loaded(false) {
-	screen_size.width = 50;
-	screen_size.height = 5;
+	screen_size.width = 10;
+	screen_size.height = 10;
 }
 
 void Game::pause() {
@@ -167,6 +168,15 @@ int Game::load_defaults() {
 	return 0;
 }
 
+void Game::load_game_options(const YAML::Node & level) {
+	if(level["game"]) {
+		const YAML::Node & game_options = level["game"];
+		if(game_options["screen"]) {
+			load_yaml_option(screen_size, game_options, "screen");
+		}
+	}
+}
+
 int Game::load_attributes(const YAML::Node & level) {
 	int result = 0;
 
@@ -183,12 +193,10 @@ int Game::load_attributes(const YAML::Node & level) {
 	//result |= load_yaml_option(views, level, "views");
 	//result |= load_yaml_option(controls, level, "controls");
 
-	//load_game_options(level);
+	load_game_options(level);
 
 	return result;
 }
-
-typedef int (Game::* YamlLoader)(const YAML::Node & level);
 
 // Loads all properties
 //
@@ -333,15 +341,4 @@ void Game::load_objects(const YAML::Node & level) {
 			std::cout << "Objects node should be a map" << std::endl;
 		}
 	}*/
-}
-
-void Game::load_game_options(const YAML::Node & level) {
-/*
-	if(level["game"]) {
-		const YAML::Node & game_options = level["game"];
-		if(game_options["screen"]) {
-			game_options["screen"] >> screen_size;
-		}
-	}
-*/
 }

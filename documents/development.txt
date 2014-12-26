@@ -363,3 +363,6 @@
   Назвать их load_from_yaml_file, save_to_yaml_file
 * Переделать options на yaml adapter
 * Переделать game на yaml adapter
+
+* (?) Наследовать ли AspectRatio от Size?
+* Убрать buffer в convert

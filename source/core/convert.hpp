@@ -4,13 +4,13 @@
 #include <ostream>
 
 #include "yaml.hpp"
+#include "library.hpp"
+#include "emitter.hpp"
 
 #include "color.hpp"
 #include "shape.hpp"
 #include "screen.hpp"
-#include "library.hpp"
-
-#include "emitter.hpp"
+#include "size.hpp"
 
 namespace YAML {
 
@@ -141,8 +141,6 @@ namespace YAML {
 
 		static bool decode(const Node & node, SCREENSAVER_KIND & screensaver_kind) {
 			screensaver_kind = NO_SCREENSAVER;
-			//SCREENSAVER_KIND buffer = SCREENSAVER_KIND( QUEENS_SCREENSAVER | TURTLE_SCREENSAVER );
-			//screensaver_kind = buffer;
 			std::string screensaver_name;
 			if(node.IsScalar()) {
 				screensaver_name = node.as<std::string>();
@@ -227,5 +225,35 @@ namespace YAML {
 		}
 	};
 
+}
 
-} // namespace YAML
+namespace YAML {
+
+	template<>
+	struct convert<Size> {
+
+		static Node encode(const Size & size) {
+			Node node;
+			node.push_back(size.width);
+			node.push_back(size.height);
+			return node;
+		}
+
+		static bool decode(const Node & node, Size & size) {
+			Size buffer;
+			if(node.IsSequence()) {
+				buffer.width = node[0].as<unsigned int>();
+				buffer.height = node[1].as<unsigned int>();
+			} else if (node.IsMap()) {
+				if(node["width"]) { buffer.width = node["width"].as<unsigned int>(); }
+				if(node["height"]) { buffer.height = node["height"].as<unsigned int>(); }
+			} else {
+				return false;
+			}
+			size = buffer;
+			return true;
+		}
+
+	};
+
+}
