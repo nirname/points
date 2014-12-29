@@ -6,6 +6,9 @@ Object::Object() {
 	kind = NULL;
 }
 
+Object::~Object() {
+}
+
 void Object::draw_shape() const {
 	if(kind != NULL) {
 		kind->draw_shape();

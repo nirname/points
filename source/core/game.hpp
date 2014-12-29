@@ -1,23 +1,25 @@
 #pragma once
 
+#include "yaml.hpp"
+#include <string>
+
 #include "game_kind.hpp"
-
-#include "yaml-cpp/yaml.h"
-
 #include "size.hpp"
 
-#include <string>
 #include "manager.hpp"
-
 #include "color.hpp"
 #include "shape.hpp"
 #include "object_kind.hpp"
+#include "object.hpp"
+#include "field.hpp"
+#include "view.hpp"
 
 typedef Manager<std::string, Color> ColorManager;
 typedef Manager<std::string, Shape> ShapeManager;
 typedef Manager<std::string, ObjectKind> ObjectKindManager;
-
-#include "screensaver_kind.hpp"
+typedef Manager<std::string, Object> ObjectManager;
+typedef Manager<std::string, Field> FieldManager;
+typedef Manager<std::string, View> ViewManager;
 
 /// Describes current game
 //
@@ -31,12 +33,11 @@ struct Game {
 
 	ColorManager colors;
 	ShapeManager shapes;
-	ObjectKindManager object_kinds;
 
-	/*FieldMapping      fields;
-	ViewMapping       views;
-	ObjectKindMapping object_kinds;
-	ObjectMapping     objects;*/
+	FieldManager      fields;
+	ViewManager       views;
+	ObjectKindManager object_kinds;
+	ObjectManager     objects;
 	//Entities          entities; // TODO: Unnamed objects
 	//ControlsMapping   controls;
 

@@ -7,6 +7,8 @@
 
 namespace directory {
 
+	typedef bool (*Filter)(dirent *);
+
 	/// Reads directories or a files in `path` and fills in the specified list by names of the entries.
 	/**
 		'`dirent`' header is used.<br/>

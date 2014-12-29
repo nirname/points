@@ -8,6 +8,8 @@ template<typename Key, typename Entity> class Manager {
 	public:
 
 		typedef std::map<Key, Entity *> Entities;
+		typedef typename Entities::iterator Iterator;
+
 		Entities entities;
 
 		Manager();
@@ -24,6 +26,9 @@ template<typename Key, typename Entity> class Manager {
 
 		void remove(const Key & _key);
 		void clear();
+
+		Iterator begin();
+		Iterator end();
 
 	private:
 
@@ -99,6 +104,16 @@ void Manager<Key, Entity>::clear() {
 		delete i->second;
 	}
 	entities.clear();
+}
+
+template<typename Key, typename Entity>
+typename Manager<Key, Entity>::Iterator Manager<Key, Entity>::begin() {
+	return entities.begin();
+}
+
+template<typename Key, typename Entity>
+typename Manager<Key, Entity>::Iterator Manager<Key, Entity>::end() {
+	return entities.end();
 }
 
 /** Private ***/
