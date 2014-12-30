@@ -215,6 +215,7 @@ bool Game::load(GAME_KIND game_kind, const std::string & level_path) {
 	) {
 		loaded = true;
 		std::cout << "done" << std::endl;
+		print();
 	} else {
 		unload();
 		std::cout << "failed" << std::endl;

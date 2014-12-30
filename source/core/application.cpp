@@ -117,8 +117,10 @@ void Application::handle(unsigned char key, int special_key) {
 			break;
 		}
 		case SCREENSAVER_MODE: {
-			screensaver.skip();
-			set(MENU_MODE);
+			if(key != 0) {
+				screensaver.skip();
+				set(MENU_MODE);
+			}
 			break;
 		}
 		case COUNTDOWN_MODE: {

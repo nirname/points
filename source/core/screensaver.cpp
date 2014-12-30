@@ -28,7 +28,10 @@ bool Screensaver::load(const SCREENSAVER_KIND & kind) {
 	SCREENSAVER_KIND choice = kind;
 	switch(choice) {
 		case LIFE_SCREENSAVER:                 break;
-		case QUEENS_SCREENSAVER:               break;
+		case QUEENS_SCREENSAVER: {
+			basic_screensaver = new Queens();
+			break;
+		}
 		case GEOGRAPHIC_EARTH_MAP_SCREENSAVER: break;
 		case DAY_NIGHT_EARTH_MAP_SCREENSAVER:  break;
 		case POLITICAL_EARTH_MAP_SCREENSAVER:  break;
