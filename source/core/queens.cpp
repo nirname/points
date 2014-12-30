@@ -5,26 +5,32 @@
 #include "color.hpp"
 
 Queens::Queens() {
+	//field_size = rand() % 4 + 5; // from 4 to 8
 	field_size = 8;
 	size = Size(field_size + 2, field_size + 2);
 	queens = new int[field_size];
-	for(int i = 0; i < field_size; i ++) {
+	for(int i = 0; i < field_size; i++) {
 		queens[i] = -1;
 	}
+	last_update = 0;
 
-	//std::cout << "Queens:" << std::endl;
-	//std::cout << "  " << shape.base << std::endl;
-	/*for(int column = 0; column < field_size; column++) {
-		for(int row = 0; row < field_size; row ++) {
-			queens[column] += 1;
-		}
-	}*/
 	put_a_queen(0, 0);
+	current_solution = solutions.begin();
 
+	for(Solutions::iterator i = solutions.begin(); i != solutions.end(); i++) {
+		for (int j = 0; j < field_size; j += 1) {
+			std::cout << (*i)[j];
+		}
+		std::cout << std::endl;
+	}
+	std::cout << solutions.size();
 }
 
 Queens::~Queens() {
 	delete [] queens;
+	for(Solutions::iterator i = solutions.begin(); i != solutions.end(); i++) {
+		delete [] (*i);
+	}
 }
 
 bool Queens::can_put_a_queen(int column, int row) {
@@ -47,7 +53,7 @@ inline bool Queens::queen_in_field(int column, int row) {
 	);
 }
 
-bool Queens::put_a_queen(int column, int row) {
+void Queens::print_queens(int column, int row) {
 	std::cout << "[";
 	for(int i = 0; i < field_size - 1; i++) {
 		std::cout << queens[i] << ", ";
@@ -58,29 +64,53 @@ bool Queens::put_a_queen(int column, int row) {
 		<< " / " << queen_in_field(column, row)
 		<< " / " << can_put_a_queen(column, row)
 		<< std::endl;
+}
 
-	if(!queen_in_field(column, row)) {
-		return false;
+void Queens::save_solution() {
+	int * solution = new int[field_size];
+	for(int i = 0; i < field_size; i++) {
+		solution[i] = queens[i];
 	}
-	queens[column] = -1;
-	if(can_put_a_queen(column, row)) {
-		queens[column] = row;
-		if(column == field_size - 1) {
-			return true; // bingo!
-		} else {
-			if(put_a_queen(column + 1, 0)) {
-				return true;
+	solutions.push_back(solution);
+}
+
+void Queens::put_a_queen(int column, int row) {
+	if(queen_in_field(column, row)) {
+		queens[column] = -1;
+		if(can_put_a_queen(column, row)) {
+			queens[column] = row;
+			print_queens(column, row);
+			if(column == field_size - 1) {
+				save_solution();
+				return; // bingo!
 			} else {
-				return put_a_queen(column, row + 1);
+				put_a_queen(column + 1, 0);
 			}
+		} else {
+			print_queens(column, row);
 		}
-	} else {
-		return put_a_queen(column, row + 1);
+		put_a_queen(column, row + 1);
 	}
+}
 
+void Queens::next_solution() {
+	current_solution++;
+	if(current_solution == solutions.end()) {
+		current_solution = solutions.begin();
+	}
+	last_update = glutGet(GLUT_ELAPSED_TIME);
 }
 
 void Queens::display() {
+
+	if(solutions.empty()) {
+		return;
+	}
+
+	if(glutGet(GLUT_ELAPSED_TIME) - last_update > 1000 || last_update == 0) {
+		next_solution();
+	}
+
 	glPushMatrix();
 		glTranslatef(1, 1, 0);
 		for(int i = 0; i < field_size; i++) {
@@ -92,12 +122,18 @@ void Queens::display() {
 							glRectf(0, 0, 1, 1);
 							Color(WHITE).use();
 						}
-						if(queens[i] == j) {
+						if((*current_solution)[i] == j) {
 							shape.display();
 						}
 					glPopAttrib();
 				glPopMatrix();
 			}
 		}
+		glBegin(GL_LINE_LOOP);
+			glVertex2f(0, 0);
+			glVertex2f(field_size, 0);
+			glVertex2f(field_size, field_size);
+			glVertex2f(0, field_size);
+		glEnd();
 	glPopMatrix();
 }
