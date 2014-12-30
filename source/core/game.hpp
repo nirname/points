@@ -16,10 +16,11 @@
 
 typedef Manager<std::string, Color> ColorManager;
 typedef Manager<std::string, Shape> ShapeManager;
-typedef Manager<std::string, ObjectKind> ObjectKindManager;
-typedef Manager<std::string, Object> ObjectManager;
+
 typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
+typedef Manager<std::string, ObjectKind> ObjectKindManager;
+typedef Manager<std::string, Object> ObjectManager;
 
 /// Describes current game
 //

@@ -2,6 +2,7 @@
 
 #include <cstddef> // NULL pointer
 #include <map>
+#include <iostream>
 
 template<typename Key, typename Entity> class Manager {
 
@@ -9,6 +10,7 @@ template<typename Key, typename Entity> class Manager {
 
 		typedef std::map<Key, Entity *> Entities;
 		typedef typename Entities::iterator Iterator;
+		typedef typename Entities::const_iterator ConstIterator;
 
 		Entities entities;
 
@@ -16,7 +18,7 @@ template<typename Key, typename Entity> class Manager {
 		~Manager();
 
 		inline bool contain(const Key & _key) const;
-		inline bool contain(const Key & _key, typename Entities::iterator & entity_iterator) const;
+		inline bool contain(const Key & _key, Iterator & entity_iterator) const;
 
 		Entity * add(const Key & _key);
 		Entity * insert(const Key & _key, Entity * _entity);
@@ -29,6 +31,8 @@ template<typename Key, typename Entity> class Manager {
 
 		Iterator begin();
 		Iterator end();
+
+		void print(std::ostream & _ostream = std::cout) const;
 
 	private:
 
@@ -55,7 +59,7 @@ inline bool Manager<Key, Entity>::contain(const Key & _key) const {
 /// Checks whether manager contains an entity or not
 //
 template<typename Key, typename Entity>
-inline bool Manager<Key, Entity>::contain(const Key & _key, typename Entities::iterator & entity_iterator) const {
+inline bool Manager<Key, Entity>::contain(const Key & _key, Iterator & entity_iterator) const {
 	entity_iterator = entities.find(_key);
 	return entity_iterator != entities.end();
 }
@@ -76,7 +80,7 @@ Entity * Manager<Key, Entity>::insert(const Key & _key, Entity * _entity) {
 //
 template<typename Key, typename Entity>
 Entity * Manager<Key, Entity>::get(const Key & _key) {
-	typename Entities::iterator entity_iterator = entities.end();
+	Iterator entity_iterator = entities.end();
 	return (contain(_key, entity_iterator))? entity_iterator->second : NULL;
 }
 
@@ -91,7 +95,7 @@ Entity * Manager<Key, Entity>::operator[] (const Key & _key) {
 //
 template<typename Key, typename Entity>
 void Manager<Key, Entity>::remove(const Key & _key) {
-	typename Entities::iterator entity_iterator = entities.end();
+	Iterator entity_iterator = entities.end();
 	if(contain(_key, entity_iterator)) {
 		delete entity_iterator->second;
 		entities.erase(entity_iterator);
@@ -100,7 +104,7 @@ void Manager<Key, Entity>::remove(const Key & _key) {
 
 template<typename Key, typename Entity>
 void Manager<Key, Entity>::clear() {
-	for(typename Entities::iterator i = entities.begin(); i != entities.end(); ++i) {
+	for(Iterator i = entities.begin(); i != entities.end(); ++i) {
 		delete i->second;
 	}
 	entities.clear();
@@ -115,6 +119,20 @@ template<typename Key, typename Entity>
 typename Manager<Key, Entity>::Iterator Manager<Key, Entity>::end() {
 	return entities.end();
 }
+
+
+template<typename Key, typename Entity>
+void Manager<Key, Entity>::print(std::ostream & _ostream) const {
+	if(!entities.empty()) {
+		for(ConstIterator i = entities.begin(); i != entities.end(); ++i) {
+			//_ostream << i->first << " (" << i->second << "): " << *i->second << std::endl;
+			_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
+		}
+	} else {
+		_ostream << "is empty" << std::endl;
+	}
+}
+
 
 /** Private ***/
 

@@ -100,3 +100,11 @@ std::ostream & operator << (std::ostream & _ostream, const Size & size) {
 	<< ")";
 	return _ostream;
 }
+
+std::ostream & operator << (std::ostream & _ostream, const Field & field) {
+	_ostream << "field("
+		<< field.size.width << ", "
+		<< field.size.height
+	<< ")";
+	return _ostream;
+}

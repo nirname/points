@@ -71,24 +71,26 @@ void Game::handle(unsigned char key, int special_key) {
 }
 
 void Game::print() {
+	std::cout << "Game" << std::endl;
 	/*std::cout << "Object kinds:\n" << object_kinds << std::endl;
 	std::cout << "Interactions:\n";
 	for(InteractionMapIterator i = interactions.begin(); i != interactions.end(); ++i) {
 		std::cout << i->first.first << " can " << i->second << " " << i->first.second << std::endl;
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
+
 	std::cout << "Fields:\n" << fields << std::endl;
-	std::cout << "Objects:\n" << objects << std::endl;
-	std::cout << "Fields:\n" << fields << std::endl;
-	std::cout << "Views:\n" << views << std::endl;
-	std::cout << "Colors:\n" << colors << std::endl;
-	std::cout << "Shapes:\n" << shapes << std::endl;
-	std::cout << "Animations:\n" << animations << std::endl;
-	std::cout << "Controls:\n" << controls << std::endl;*/
+	/*std::cout << "Views:\n" << views << std::endl;
+	std::cout << "Object kinds:\n" << object_kinds << std::endl;
+	std::cout << "Objects:\n" << objects << std::endl;*/
+	//std::cout << "Colors:\n" << colors << std::endl;
+	//std::cout << "Shapes:\n" << shapes << std::endl;
+	//std::cout << "Animations:\n" << animations << std::endl;
+	//std::cout << "Controls:\n" << controls << std::endl;
 }
 
 void Game::display() {
-	draw_text(to_string(kind));
+	//draw_text(to_string(kind));
 	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 		i->second->next();
 	}*/
@@ -138,7 +140,7 @@ void Game::load_default_shapes() {
 
 bool Game::unload() {
 	std::cout << "Game unloading: " << std::ends;
-/*
+
 	fields.clear();
 	views.clear();
 	colors.clear();
@@ -148,27 +150,14 @@ bool Game::unload() {
 	//animations.clear();
 	//controls.clear();
 
-	interactions.clear();
-*/
+	//interactions.clear();
+
 	paused = false;
 	loaded = false;
 
 	std::cout << "done" << std::endl;
 	return true;
 }
-
-//template<typename Instance, typename Function>
-//struct bind {
-//	bind() {
-//	}
-	//T object;
-	//int operator()(int a) {return a;}
-//};
-//int x = myobject (0);
-
-/*static int Game::load_attributes(Game * _game, const YAML::Node & level) {
-	return _game->*load_attributes(level);
-}*/
 
 int Game::load_defaults() {
 	//load_default_colors();
@@ -188,20 +177,23 @@ void Game::load_game_options(const YAML::Node & level) {
 int Game::load_attributes(const YAML::Node & level) {
 	int result = 0;
 
+	load_game_options(level);
 	//load_yaml_option(kind, level, "game_kind");
+
+	/*load_yaml_option(fields, level, "fields");
+	load_yaml_option(views, level, "views");
+	load_yaml_option(object_kinds, level, "object_kinds");
+	load_yaml_option(objects, level, "objects");*/
 
 	//result |= load_yaml_option(colors, level, "colors");
 	//result |= load_yaml_option(shapes, level, "shapes");
 	//result |= load_yaml_option(object_kinds, level, "object_kinds");
-	//result |= load_interactions(level);
-	//result |= load_yaml_option(interactions, level, "interactions");
 	//result |= load_objects(level);
 
 	//result |= load_yaml_option(fields, level, "fields");
 	//result |= load_yaml_option(views, level, "views");
 	//result |= load_yaml_option(controls, level, "controls");
 
-	load_game_options(level);
 
 	return result;
 }
