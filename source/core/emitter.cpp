@@ -48,6 +48,7 @@ std::ostream & operator << (std::ostream & _ostream, const GAME_KIND & game_kind
 		case BOMBERMAN:     _ostream << "bomberman"; break;
 		case PACMAN:        _ostream << "pacman"; break;
 		case GAME1024:      _ostream << "1024"; break;
+		case GAME1010:      _ostream << "10*10!"; break;
 		case REVERSI:       _ostream << "reversi"; break;
 		case GOMOKU:        _ostream << "gomoku"; break;
 		case FOUR_IN_A_ROW: _ostream << "4 in a row"; break;

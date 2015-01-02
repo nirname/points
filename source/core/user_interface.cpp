@@ -179,7 +179,7 @@ void handle_multicolumn_menu(unsigned char key, int special_key, Menu * menu) {
 				menu->_current_item++;
 				if(menu->_current_item == menu->items.end()) {
 					last_steps = i;
-					std::cout << last_steps << std::endl;
+					//std::cout << last_steps << std::endl;
 					menu->_current_item++;
 					if(last_steps < last_column_size) {
 						additional_steps = last_column_size - last_steps;
@@ -512,8 +512,9 @@ void load_interface(Interface * interface) {
 	MenuItem * menu_item = NULL;
 
 	interface->add_menu("Main menu", display_menu, handle_menu);
-		interface->add_menu("Games", display_multicolumn_menu, handle_multicolumn_menu);
-			interface->add_menu("Levels", display_menu, handle_menu);
+		interface->add_menu("Single player", display_multicolumn_menu, handle_multicolumn_menu);
+		interface->add_menu("Multi player", display_multicolumn_menu, handle_multicolumn_menu);
+		interface->add_menu("Levels", display_menu, handle_menu);
 		interface->add_menu("Extras", display_menu, handle_menu);
 			interface->add_menu("Screensavers", display_menu, handle_menu);
 			interface->add_menu("Images", display_menu, handle_menu);
@@ -527,12 +528,22 @@ void load_interface(Interface * interface) {
 	interface->add_menu("Previous menu", display_menu, handle_menu);
 
 	menu = interface->find_menu("Main menu");
-	menu->add_item("Games", display_menu_item, next_menu, interface->find_menu("Games"));
+	menu->add_item("Single player", display_menu_item, next_menu, interface->find_menu("Single player"));
+	menu->add_item("Multi player", display_menu_item, next_menu, interface->find_menu("Multi player"));
 	menu->add_item("Extras", display_menu_item, next_menu, interface->find_menu("Extras"));
 	menu->add_item("Options", display_menu_item, next_menu, interface->find_menu("Options"));
 
-	menu = interface->find_menu("Games");
-	for(GAME_KIND game_kind = SNAKE; game_kind <= CORNERS; game_kind++) {
+	Menu * single_player = interface->find_menu("Single player");
+	//Menu * multi_player = interface->find_menu("Multi player");
+	for(GAME_KIND game_kind = SNAKE; game_kind <= CORNERS; game_kind += 0x0100) {
+		menu = single_player;
+		/*if(game_kind && SINGLE_PLAYER_GAME) {
+			menu = single_player;
+		} else if (game_kind && MULTI_PLAYER_GAME) {
+			menu = multi_player;
+		} else {
+			continue;
+		}*/
 		menu_item = menu->add_item(to_string(game_kind), display_menu_item, select_level, interface->find_menu("Levels"));
 		menu_item->options.game_kind = game_kind;
 	}

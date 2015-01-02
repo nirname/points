@@ -85,7 +85,7 @@ namespace options {
 
 		//load_yaml_option(grid_type, config, "grid_type");
 		result |= load_yaml_option(padding, config, "padding");
-		if(padding < -5 || 5 < padding) padding = 1;
+		if(padding < -5 || 5 < padding) { padding = 1; }
 		result |= load_yaml_option(base_color, config, "base_color");
 		result |= load_yaml_option(selection_color, config, "selection_color");
 
