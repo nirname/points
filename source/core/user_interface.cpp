@@ -255,8 +255,15 @@ bool filter_yaml(dirent * entry) {
 void start_game(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
 		game.kind = menu_item->options.game_kind;
-		game.load(menu_item->options.game_kind, menu_item->options.level);
+		game.load(menu_item->options.game_kind, menu_item->options.path);
 		application.set(GAMEPLAY_MODE);
+	}
+}
+
+void show_foreword(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(key == ENTER_KEY) {
+		foreword.load(menu_item->options.path);
+		application.set(FOREWORD_MODE);
 	}
 }
 
@@ -278,7 +285,7 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 					) {
 						level_item = menu_item->next_menu->add_item(*level, display_menu_item, start_game);
 						level_item->options.game_kind = menu_item->options.game_kind;
-						level_item->options.level = levels_path + "/" + *level;
+						level_item->options.path = levels_path + "/" + *level;
 					}
 					levels_are_found = true;
 					menu_item->menu->interface->next_menu(menu_item->next_menu);
@@ -533,19 +540,30 @@ void load_interface(Interface * interface) {
 	menu->add_item("Extras", display_menu_item, next_menu, interface->find_menu("Extras"));
 	menu->add_item("Options", display_menu_item, next_menu, interface->find_menu("Options"));
 
-	Menu * single_player = interface->find_menu("Single player");
-	//Menu * multi_player = interface->find_menu("Multi player");
-	for(GAME_KIND game_kind = SNAKE; game_kind <= CORNERS; game_kind += 0x0100) {
-		menu = single_player;
-		/*if(game_kind && SINGLE_PLAYER_GAME) {
-			menu = single_player;
-		} else if (game_kind && MULTI_PLAYER_GAME) {
-			menu = multi_player;
-		} else {
-			continue;
-		}*/
-		menu_item = menu->add_item(to_string(game_kind), display_menu_item, select_level, interface->find_menu("Levels"));
-		menu_item->options.game_kind = game_kind;
+	Menu * single_player_menu = interface->find_menu("Single player");
+	Menu * multi_player_menu = interface->find_menu("Multi player");
+	for(unsigned int i = 0; i < sizeof(all_game_kinds) / sizeof(GAME_KIND); i++) {
+		GAME_KIND game_kind = all_game_kinds[i];
+		if(game_kind & SINGLE_PLAYER_GAME) {
+			menu_item = single_player_menu->add_item(to_string(game_kind), display_menu_item, select_level, interface->find_menu("Levels"));
+			menu_item->options.game_kind = game_kind;
+		}
+		if(game_kind & MULTI_PLAYER_GAME) {
+			menu_item = multi_player_menu->add_item(to_string(game_kind), display_menu_item, select_level, interface->find_menu("Levels"));
+			menu_item->options.game_kind = game_kind;
+		}
+	}
+
+	menu = interface->find_menu("Images");
+	if(foreword.load_images_list()) {
+		for(
+			std::list<std::string>::iterator i = Foreword::images.begin();
+			i != Foreword::images.end();
+			i++
+		) {
+			menu_item = menu->add_item(*i, display_menu_item, show_foreword);
+			menu_item->options.path = options::images_directory + *i;
+		}
 	}
 
 	menu = interface->find_menu("Options");

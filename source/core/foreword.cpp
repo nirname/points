@@ -13,6 +13,8 @@
 
 #include <iostream>
 
+std::list<std::string> Foreword::images;
+
 Foreword::Foreword() {
 	loaded = false;
 	base = 0;
@@ -26,28 +28,44 @@ bool Foreword::filter(dirent * entry) {
 	return file::has_extension(entry->d_name, "bmp");
 }
 
-bool Foreword::choose_random_image() {
-	std::list<std::string> images;
-	if(directory::read(options::images_directory.c_str(), DT_REG, images, filter)) {
-		if(!images.empty()) {
-			std::list<std::string>::iterator i = images.begin();
-			int k = rand() % (images.size() - 2);
-			while(k != 0) {
-				i++;
-				k--;
-			}
-			image_name = options::images_directory + *i;
-			std::cout << image_name << std::endl;
-			return true;
+bool Foreword::load_images_list(bool force) {
+	if(force || images.empty()) {
+		if(directory::read(options::images_directory.c_str(), DT_REG, images, filter)) {
+			images.sort();
+			return !images.empty();
 		}
+		return false;
+	}
+	return true;
+}
+
+bool Foreword::choose_random_image(std::string & _image_name) {
+	if(load_images_list()) {
+		std::list<std::string>::iterator i = images.begin();
+		int k = rand() % (images.size() - 2);
+		while(k != 0) {
+			i++;
+			k--;
+		}
+		_image_name = options::images_directory + *i;
+		std::cout << _image_name << std::endl;
+		return true;
 	}
 	return false;
 }
 
-bool Foreword::load() {
+/// Loads an image
+//
+/// Loads an image from images directory or from the argument given.
+/// If argument is empty, than random image will be choosen.
+/// Full image path is required.
+///
+bool Foreword::load(std::string _image_name) {
 	std::cout << "* Foreword: " << std::ends;
 	loaded = false;
-	if(choose_random_image()) {
+	image_name = _image_name;
+	if(!image_name.empty() || choose_random_image(image_name)) {
+		std::cout << image_name << std::endl;
 		loaded = input.ReadFromFile(image_name.c_str());
 		//base = glGenLists(1);
 		//glNewList(base, GL_COMPILE);

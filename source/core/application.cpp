@@ -20,7 +20,7 @@ bool Application::set(APPLICATION_MODE next_mode) {
 			break;
 		}
 		case FOREWORD_MODE: {
-			if(foreword.load()) {
+			if(foreword.loaded || foreword.load()) {
 				screen.set(foreword.input.TellWidth(), foreword.input.TellHeight());
 			} else {
 				next_mode = previous_mode;

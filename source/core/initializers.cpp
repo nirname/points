@@ -16,7 +16,9 @@ namespace graphics {
 
 		if(options::multisample) {
 			glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-			glEnable(GL_MULTISAMPLE_ARB);
+			#if defined(__linux__) && defined(__GNUC__)
+				glEnable(GL_MULTISAMPLE_ARB);
+			#endif
 		} else {
 			glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 		}

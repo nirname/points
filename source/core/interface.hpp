@@ -92,7 +92,7 @@ struct MenuItemOptions {
 
 	SCREENSAVER_KIND screensaver_kind;
 	GAME_KIND game_kind;
-	std::string level;
+	std::string path;
 
 };
 
