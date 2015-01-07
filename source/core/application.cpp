@@ -25,15 +25,18 @@ bool Application::set(APPLICATION_MODE next_mode) {
 			} else {
 				next_mode = previous_mode;
 			}
-			//glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
 			break;
 		}
 		case MENU_MODE: {
 			screen.set(21 * font.height, options::aspect_ratio);
-			interface.reset_last_activity_time();
+			reset_last_menu_activity_time();
 			if(game.loaded) {
 				game.pause();
 			}
+			if(screensaver.is_loaded()) {
+				screensaver.skip();
+			}
+			glutTimerFunc(options::menu_timeout * 1000, screensaver_autoload, 0);
 			break;
 		}
 		case SCREENSAVER_MODE: {
@@ -65,7 +68,7 @@ bool Application::set(APPLICATION_MODE next_mode) {
 			break;
 		}
 		case AFTERWORD_MODE: {
-			//glutTimerFunc(options::afterword_timeout * 1000, auto_exit, 0);
+			glutTimerFunc(options::afterword_timeout * 1000, auto_exit, 0);
 			break;
 		}
 	}
@@ -78,7 +81,9 @@ bool Application::set(APPLICATION_MODE next_mode) {
 }
 
 void Application::start() {
-	if(!(options::foreword && set(FOREWORD_MODE))) {
+	if(options::foreword && set(FOREWORD_MODE)) {
+		glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
+	} else {
 		set(MENU_MODE);
 	}
 }
@@ -103,7 +108,7 @@ void Application::handle(unsigned char key, int special_key) {
 
 	switch(mode) {
 		case LOADING_MODE: {
-			/*TODO: show a joke or something else */ break;
+			/*TODO: show a jgoke or something else */ break;
 		}
 		case FOREWORD_MODE: {
 			if(key != 0) {
@@ -113,6 +118,7 @@ void Application::handle(unsigned char key, int special_key) {
 			break;
 		}
 		case MENU_MODE: {
+			reset_last_menu_activity_time();
 			interface.handle(key, special_key);
 			break;
 		}
@@ -147,4 +153,41 @@ void Application::handle(unsigned char key, int special_key) {
 		}
 	}
 
+}
+
+time_t last_menu_activity_time;
+
+void reset_last_menu_activity_time() {
+	time(&last_menu_activity_time);
+}
+
+// Callbacks
+
+void menu_autoload(int timer) {
+	if(application.mode == FOREWORD_MODE) {
+		std::cout << "auto: menu autoload" << std::endl;
+		application.set(MENU_MODE);
+	}
+}
+
+void screensaver_autoload(int timer) {
+	time_t time_left = options::menu_timeout + last_menu_activity_time - time(NULL);
+	if(
+		application.mode == MENU_MODE &&
+		options::menu_timeout + last_menu_activity_time - time(NULL) <= 0
+	) {
+			std::cout << "auto: screensaver autoload" << std::endl;
+			//screensaver.start(options::screensaver_kind);
+			screensaver.load(QUEENS_SCREENSAVER);
+			application.set(SCREENSAVER_MODE);
+	} else {
+		glutTimerFunc(time_left, screensaver_autoload, 0);
+	}
+}
+
+void auto_exit(int timer) {
+	if(application.mode == AFTERWORD_MODE) {
+		std::cout << "auto: exit" << std::endl;
+		exit(EXIT_SUCCESS);
+	}
 }

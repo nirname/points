@@ -3,7 +3,6 @@
 Interface::Interface() {
 	displayer = NULL;
 	handler = NULL;
-	reset_last_activity_time();
 }
 
 void Interface::load(InterfaceLoader loader) {
@@ -19,7 +18,6 @@ void Interface::display() {
 }
 
 void Interface::handle(unsigned char key, int special_key) {
-	reset_last_activity_time();
 	if(handler != NULL) {
 		handler(key, special_key, this);
 	}
@@ -67,10 +65,6 @@ Menu * Interface::current_menu() {
 	} else {
 		return menus_stack.back();
 	}
-}
-
-void Interface::reset_last_activity_time() {
-	time(&last_activity_time);
 }
 
 Menu::Menu(Interface * _interface) : interface(_interface) {

@@ -4,7 +4,6 @@
 #include <map>
 #include <list>
 #include <deque>
-#include <ctime>
 
 struct Interface;
 struct Menu;
@@ -24,8 +23,6 @@ typedef void (* MenuItemDisplayer)(MenuItem *);
 typedef void (* MenuItemHandler)(unsigned char key, int special_key, MenuItem *);
 
 struct Interface {
-
-	time_t last_activity_time;
 
 	Menus menus;
 	std::deque< Menu * > menus_stack;
@@ -47,8 +44,6 @@ struct Interface {
 	void reset();
 
 	Menu * current_menu();
-
-	void reset_last_activity_time();
 
 };
 

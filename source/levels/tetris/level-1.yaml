@@ -1,0 +1,5 @@
+game:
+  speed: 1
+  shapes: [I, L, T, U, X, i, l, t, u, s, o]
+  fields:
+    main: [20, 8]

@@ -449,6 +449,16 @@ void handle_option<options::padding>(unsigned char key, int special_key, MenuIte
 	}
 }
 
+template<>
+void handle_option<options::menu_timeout>(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(
+		(options::menu_timeout < 120 && special_key == GLUT_KEY_RIGHT) ||
+		(options::menu_timeout > 10 && special_key == GLUT_KEY_LEFT)
+	) {
+		handle_option(key, special_key, menu_item, options::menu_timeout);
+	}
+}
+
 template<Color & option>
 void handle_option(unsigned char key, int special_key, MenuItem * menu_item) {
 	handle_option(key, special_key, menu_item, option);
@@ -574,6 +584,7 @@ void load_interface(Interface * interface) {
 	menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
 	menu->add_item("Foreword", display_option<options::foreword>, handle_option<options::foreword>);
 	menu->add_item("Afterword", display_option<options::afterword>, handle_option<options::afterword>);
+	menu->add_item("Wait for screensaver", display_option<options::menu_timeout>, handle_option<options::menu_timeout>);
 	menu->add_item("Selection color", display_option<options::selection_color>, handle_option<options::selection_color>);
 
 	menu = interface->find_menu("Video");
