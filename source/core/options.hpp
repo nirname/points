@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ctime>
+
 #include "screensaver.hpp"
 #include "color.hpp"
 #include "grid_type.hpp"
@@ -44,6 +46,9 @@ namespace options {
 	extern int menu_timeout;
 	extern int screensaver_timeout;
 	extern int afterword_timeout;
+
+	extern time_t last_menu_activity_time;
+	time_t time_to_screensaver();
 
 	extern int min_fps;
 	extern int max_fps;

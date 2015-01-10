@@ -36,7 +36,6 @@ bool Application::set(APPLICATION_MODE next_mode) {
 			if(screensaver.is_loaded()) {
 				screensaver.skip();
 			}
-			glutTimerFunc(options::menu_timeout * 1000, screensaver_autoload, 0);
 			break;
 		}
 		case SCREENSAVER_MODE: {
@@ -82,10 +81,11 @@ bool Application::set(APPLICATION_MODE next_mode) {
 
 void Application::start() {
 	if(options::foreword && set(FOREWORD_MODE)) {
-		glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 0);
+		glutTimerFunc(options::foreword_timeout * 1000, menu_autoload, 1);
 	} else {
 		set(MENU_MODE);
 	}
+	glutTimerFunc(10 * 1000, screensaver_autoload, 0);
 }
 
 void Application::quit(bool quit_immidiately) {
@@ -155,33 +155,36 @@ void Application::handle(unsigned char key, int special_key) {
 
 }
 
-time_t last_menu_activity_time;
-
 void reset_last_menu_activity_time() {
-	time(&last_menu_activity_time);
+	time(&options::last_menu_activity_time);
 }
 
 // Callbacks
 
 void menu_autoload(int timer) {
+	std::cout << "auto: menu autoload:\n"
+		<< "  application mode: " << application.mode << "\n"
+		<< "  number to skip: " << timer << "\n"
+		<< "  foreword number: " << foreword.times_shown << std::endl;
 	if(application.mode == FOREWORD_MODE) {
-		std::cout << "auto: menu autoload" << std::endl;
-		application.set(MENU_MODE);
+		if(foreword.times_shown == timer) {
+			application.set(MENU_MODE);
+		}
 	}
 }
 
 void screensaver_autoload(int timer) {
-	time_t time_left = options::menu_timeout + last_menu_activity_time - time(NULL);
+	time_t time_left = options::time_to_screensaver();
 	if(
 		application.mode == MENU_MODE &&
-		options::menu_timeout + last_menu_activity_time - time(NULL) <= 0
+		time_left <= 0
 	) {
 			std::cout << "auto: screensaver autoload" << std::endl;
 			//screensaver.start(options::screensaver_kind);
 			screensaver.load(QUEENS_SCREENSAVER);
 			application.set(SCREENSAVER_MODE);
 	} else {
-		glutTimerFunc(time_left, screensaver_autoload, 0);
+		glutTimerFunc(10, screensaver_autoload, 0);
 	}
 }
 

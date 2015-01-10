@@ -33,7 +33,14 @@ void display_interface(Interface * interface) {
 	if(current_menu != NULL) {
 		current_menu->display();
 	}
+	int seconds_width = 3;
 	display_inline_menu(interface);
+	glPushMatrix();
+		glTranslatef(screen.width - ((font.width + 1) * seconds_width - 1), screen.height - font.height, 0);
+		std::string seconds = to_string(options::time_to_screensaver());
+		seconds.resize(seconds_width, ' ');
+		draw_text(seconds);
+	glPopMatrix();
 }
 
 void draw_and_highlight_text(const std::string & text, bool highlight) {

@@ -9,6 +9,7 @@
 struct Foreword {
 
 	static std::list<std::string> images;
+	static int times_shown;
 
 	static bool load_images_list(bool force = false);
 	static bool filter(dirent * entry);

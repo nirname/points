@@ -14,6 +14,7 @@
 #include <iostream>
 
 std::list<std::string> Foreword::images;
+int Foreword::times_shown = 0;
 
 Foreword::Foreword() {
 	loaded = false;
@@ -48,7 +49,6 @@ bool Foreword::choose_random_image(std::string & _image_name) {
 			k--;
 		}
 		_image_name = options::images_directory + *i;
-		std::cout << _image_name << std::endl;
 		return true;
 	}
 	return false;
@@ -67,9 +67,12 @@ bool Foreword::load(std::string _image_name) {
 	if(!image_name.empty() || choose_random_image(image_name)) {
 		std::cout << image_name << std::endl;
 		loaded = input.ReadFromFile(image_name.c_str());
+		if(loaded) {
+			times_shown += 1;
+		}
 		//base = glGenLists(1);
 		//glNewList(base, GL_COMPILE);
-		draw_image();
+		//draw_image();
 		//glEndList();
 	} else {
 		std::cout << "skipped" << std::endl;

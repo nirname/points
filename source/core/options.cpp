@@ -38,6 +38,11 @@ namespace options {
 	int screensaver_timeout = 30;
 	int afterword_timeout = 5;
 
+	time_t last_menu_activity_time;
+	time_t time_to_screensaver() {
+		return options::menu_timeout + options::last_menu_activity_time - time(NULL);
+	}
+
 	int min_fps = 20;
 	int max_fps = 50;
 
