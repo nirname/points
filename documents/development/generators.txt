@@ -1,0 +1,11 @@
+battleship
+
+генератор для расстановки кораблей
+
+labyrinth
+
+Генератор лабиринтов для labyrinth, pacman и так далее
+
+polymino
+
+Генератор фигур полимино для polymino, 1010, tetris
