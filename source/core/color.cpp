@@ -3,6 +3,111 @@
 
 #include <cmath>
 
+/*struct RGB {
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
+};
+
+struct HSV {
+	double h;
+	double s;
+	double v;
+};
+
+static HSV rgb2hsv(RGB in) {
+	HSV         out;
+	double      min, max, delta;
+
+	min = in.r < in.g ? in.r : in.g;
+	min = min  < in.b ? min  : in.b;
+
+	max = in.r > in.g ? in.r : in.g;
+	max = max  > in.b ? max  : in.b;
+
+	out.v = max;                                // v
+	delta = max - min;
+	if( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
+		out.s = (delta / max);                  // s
+	} else {
+		// if max is 0, then r = g = b = 0
+		// s = 0, v is undefined
+		out.s = 0.0;
+		out.h = 0.0;                            // its now undefined
+		return out;
+	}
+	if( in.r >= max )                         // > is bogus, just keeps compilor happy
+		out.h = ( in.g - in.b ) / delta;        // between yellow & magenta
+	else
+	if( in.g >= max )
+		out.h = 2.0 + ( in.b - in.r ) / delta;  // between cyan & yellow
+	else
+		out.h = 4.0 + ( in.r - in.g ) / delta;  // between magenta & cyan
+
+	out.h *= 60.0;                              // degrees
+
+	if( out.h < 0.0 )
+		out.h += 360.0;
+
+	return out;
+}
+
+static RGB hsv2rgb(HSV in) {
+	double      hh, p, q, t, ff;
+	long        i;
+	RGB         out;
+
+	if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
+		out.r = in.v;
+		out.g = in.v;
+		out.b = in.v;
+		return out;
+	}
+	hh = in.h;
+	if(hh >= 360.0) hh = 0.0;
+	hh /= 60.0;
+	i = (long)hh;
+	ff = hh - i;
+	p = in.v * (1.0 - in.s);
+	q = in.v * (1.0 - (in.s * ff));
+	t = in.v * (1.0 - (in.s * (1.0 - ff)));
+
+	switch(i) {
+	case 0:
+		out.r = in.v;
+		out.g = t;
+		out.b = p;
+		break;
+	case 1:
+		out.r = q;
+		out.g = in.v;
+		out.b = p;
+		break;
+	case 2:
+		out.r = p;
+		out.g = in.v;
+		out.b = t;
+		break;
+	case 3:
+		out.r = p;
+		out.g = q;
+		out.b = in.v;
+		break;
+	case 4:
+		out.r = t;
+		out.g = p;
+		out.b = in.v;
+		break;
+	case 5:
+	default:
+		out.r = in.v;
+		out.g = p;
+		out.b = q;
+		break;
+	}
+	return out;
+}*/
+
 namespace pallete {
 	const Color black(BLACK);
 	const Color dark_gray(DARK_GRAY);
@@ -30,15 +135,15 @@ namespace pallete {
 
 Color default_color(BLACK);
 
-Color::Color():
-	red(0), green(0), blue(0)
-{}
+Color::Color() {
+	rgb(0, 0, 0);
+}
 
 Color::Color(int _red, int _green, int _blue) {
 	rgb(_red, _green, _blue);
 }
 
-Color::Color(double hue, double saturation, double value) {
+Color::Color(double _hue, double _saturation, double _value) {
 	hsv(hue, saturation, value);
 }
 
@@ -50,20 +155,66 @@ void Color::set(int _red, int _green, int _blue) {
 	rgb(_red, _green, _blue);
 }
 
-void Color::set(double hue, double saturation, double value) {
-	hsv(hue, saturation, value);
+void Color::set(double _hue, double _saturation, double _value) {
+	hsv(_hue, _saturation, _value);
 }
 
+/// Set RGB values for color.
+/// HSV values will be calculated at once.
+///
 void Color::rgb(int _red, int _green, int _blue) {
+
+	double      min, max, delta;
+
 	red = _red;
 	green = _green;
 	blue = _blue;
+
+	min = red < green ? red : green;
+	min = min < blue ? min : blue;
+
+	max = red > green ? red : green;
+	max = max > blue ? max : blue;
+
+	value = max;
+	delta = max - min;
+
+	if(max > 0.0) {
+		saturation = (delta / max);
+	} else {
+		value = 0.0; saturation = 0.0; hue = 0.0;
+		return;
+	}
+
+	if(red >= max) {
+		hue = ( green - blue ) / delta;        // between yellow & magenta
+	} else if(green >= max) {
+		hue = 2.0 + ( blue - red ) / delta;  // between cyan & yellow
+	} else {
+		hue = 4.0 + ( red - green ) / delta;  // between magenta & cyan
+	}
+
+	hue *= 60.0;                              // degrees
+
+	if(hue < 0.0) {
+		hue += 360.0;
+	}
+
 }
 
+/// Set HSV values for color.
+/// RGB values will be calculated at once.
+///
 void Color::hsv(double h, double s, double v) {
 
 	int i;
 	double f, p, q, t;
+
+	if(h >= 360.0) { h = 0.0; }
+
+	hue = h;
+	saturation = s;
+	value = v;
 
 	v *= 255;
 
@@ -72,9 +223,7 @@ void Color::hsv(double h, double s, double v) {
 		return;
 	}
 
-	if(h >= 360.0) { h = 0.0; }
-
-	h /= 60.0; // sector 0 to 5
+	h /= 60.0; // sector from 0 to 5
 	i = floor( h );
 	f = h - i; // factorial part of h
 	p = v * ( 1.0 - s );
@@ -89,8 +238,12 @@ void Color::hsv(double h, double s, double v) {
 		case 4: red = t; green = p; blue = v; break;
 		case 5: default: red = v; green = p; blue = q; break;
 	}
+
 }
 
+/// Compare two colors by its RGB values
+/// Returns true if colors are the same
+///
 bool Color::operator == (const Color & color) const {
 	return (
 		red == color.red &&

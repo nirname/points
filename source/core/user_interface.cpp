@@ -46,7 +46,7 @@ void display_interface(Interface * interface) {
 void draw_and_highlight_text(const std::string & text, bool highlight) {
 	if(highlight) {
 		glPushAttrib(GL_CURRENT_BIT);
-			Color(LIGHT_GRAY).use();
+			pallete::light_gray.use();
 			draw_text(text);
 			options::selection_color.use();
 			glPushMatrix();
@@ -427,11 +427,11 @@ void handle_option<bool>(unsigned char key, int special_key, MenuItem * menu_ite
 template<>
 void handle_option<Color>(unsigned char key, int special_key, MenuItem * menu_item, Color & option) {
 	if(special_key == GLUT_KEY_LEFT) {
-		//option -= 1;
+		option.hsv(option.hue - 1.0, 1.0, 1.0);
 	} else if(special_key == GLUT_KEY_RIGHT) {
-		//option += 1;
+		option.hsv(option.hue + 1.0, 1.0, 1.0);
 	}
-	//options::save_config();
+	options::save_config();
 }
 
 template<int & option>
@@ -591,7 +591,12 @@ void load_interface(Interface * interface) {
 	menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
 	menu->add_item("Foreword", display_option<options::foreword>, handle_option<options::foreword>);
 	menu->add_item("Afterword", display_option<options::afterword>, handle_option<options::afterword>);
-	menu->add_item("Wait for screensaver", display_option<options::menu_timeout>, handle_option<options::menu_timeout>);
+
+	menu->add_item("Foreword timeout", display_option<options::foreword_timeout>, handle_option<options::foreword_timeout>);
+	menu->add_item("Menu timeout", display_option<options::menu_timeout>, handle_option<options::menu_timeout>);
+	menu->add_item("Screensaver timeout", display_option<options::screensaver_timeout>, handle_option<options::screensaver_timeout>);
+	menu->add_item("Afterword timeout", display_option<options::afterword_timeout>, handle_option<options::afterword_timeout>);
+
 	menu->add_item("Selection color", display_option<options::selection_color>, handle_option<options::selection_color>);
 
 	menu = interface->find_menu("Video");
