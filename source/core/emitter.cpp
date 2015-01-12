@@ -54,7 +54,7 @@ std::ostream & operator << (std::ostream & _ostream, const GAME_KIND & game_kind
 		case FOUR_IN_A_ROW: _ostream << "4 in a row"; break;
 		case TRHONE:        _ostream << "throne"; break;
 		case BATTLESHIP:    _ostream << "battleship"; break;
-		case POINTS:        _ostream << "points"; break;
+		//case POINTS:        _ostream << "points"; break;
 		case GO:            _ostream << "go"; break;
 		case STICS:         _ostream << "stics"; break;
 		case CORNERS:       _ostream << "corners"; break;
