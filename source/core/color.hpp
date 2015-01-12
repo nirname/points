@@ -25,7 +25,7 @@
 
 struct Color {
 
-	unsigned int red, green, blue;
+	int red, green, blue;
 	double hue, saturation, value;
 
 	Color();

@@ -144,7 +144,7 @@ Color::Color(int _red, int _green, int _blue) {
 }
 
 Color::Color(double _hue, double _saturation, double _value) {
-	hsv(hue, saturation, value);
+	hsv(_hue, _saturation, _value);
 }
 
 void Color::use() const {
@@ -159,6 +159,8 @@ void Color::set(double _hue, double _saturation, double _value) {
 	hsv(_hue, _saturation, _value);
 }
 
+#include <iostream>
+
 /// Set RGB values for color.
 /// HSV values will be calculated at once.
 ///
@@ -170,21 +172,41 @@ void Color::rgb(int _red, int _green, int _blue) {
 	green = _green;
 	blue = _blue;
 
+	std::cout << std::endl << "Color" << std::endl;
+	std::cout << "  red " << red << std::endl;
+	std::cout << "  green " << green << std::endl;
+	std::cout << "  blue " << blue << std::endl;
+
 	min = red < green ? red : green;
 	min = min < blue ? min : blue;
 
 	max = red > green ? red : green;
 	max = max > blue ? max : blue;
 
-	value = max;
+	std::cout << "  max " << max << std::endl;
+	std::cout << "  min " << min << std::endl;
+
+	value = max / 255;
 	delta = max - min;
+
+	std::cout << "  value " << value << std::endl;
+	std::cout << "  delta " << delta << std::endl;
 
 	if(max > 0.0) {
 		saturation = (delta / max);
+		std::cout << "  saturation " << saturation << std::endl;
 	} else {
 		value = 0.0; saturation = 0.0; hue = 0.0;
 		return;
 	}
+
+	std::cout << "  blue - green " << blue - green << std::endl;
+	std::cout << "  red - blue " << red - blue << std::endl;
+	std::cout << "  green - red " << green - red << std::endl;
+
+	std::cout << "  blue - green / delta " << (blue - green) / delta << std::endl;
+	std::cout << "  red - blue / delta " << (red - blue) / delta << std::endl;
+	std::cout << "  green - red / delta " << (green - red) / delta  << std::endl;
 
 	if(red >= max) {
 		hue = ( green - blue ) / delta;        // between yellow & magenta
@@ -194,7 +216,10 @@ void Color::rgb(int _red, int _green, int _blue) {
 		hue = 4.0 + ( red - green ) / delta;  // between magenta & cyan
 	}
 
+
+	std::cout << "  hue " << hue << std::endl;
 	hue *= 60.0;                              // degrees
+	std::cout << "  hue * 60.0 " << hue << std::endl;
 
 	if(hue < 0.0) {
 		hue += 360.0;

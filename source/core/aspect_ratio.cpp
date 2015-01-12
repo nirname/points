@@ -4,7 +4,7 @@ AspectRatio::AspectRatio() :
 	width(16), height(9)
 {}
 
-AspectRatio::AspectRatio(int _width, int _height) :
+AspectRatio::AspectRatio(unsigned int _width, unsigned int _height) :
 	width(_width), height(_height)
 {}
 

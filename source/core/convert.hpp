@@ -49,39 +49,44 @@ namespace YAML {
 
 		static bool decode(const Node & node, Color & color) {
 			try {
-				Color buffer;
 				if(node.IsSequence()) {
-					buffer.red = node[0].as<unsigned int>();
-					buffer.green = node[1].as<unsigned int>();
-					buffer.blue = node[2].as<unsigned int>();
-					color = buffer;
+					color.rgb(
+						node[0].as<unsigned int>(),
+						node[1].as<unsigned int>(),
+						node[2].as<unsigned int>()
+					);
 				} else if (node.IsMap()) {
-					if(node["red"]) { buffer.red = node["red"].as<unsigned int>(); }
-					if(node["green"]) { buffer.green = node["green"].as<unsigned int>(); }
-					if(node["blue"]) { buffer.blue = node["blue"].as<unsigned int>(); }
-					color = buffer;
+					if(node["red"] && node["green"] && node["blue"]) {
+						color.rgb(
+							node["red"].as<unsigned int>(),
+							node["green"].as<unsigned int>(),
+							node["blue"].as<unsigned int>()
+						);
+					} else {
+						return false;
+					}
 				} else if (node.IsScalar()) {
 					std::string color_name = node.as<std::string>();
-					if(color_name == "black")           color.set(BLACK);
-					else if(color_name == "dark-gray")  color.set(DARK_GRAY);
-					else if(color_name == "gray")       color.set(GRAY);
-					else if(color_name == "light-gray") color.set(LIGHT_GRAY);
-					else if(color_name == "white")      color.set(WHITE);
+					if(color_name == "black")           color.hsv(BLACK);
+					else if(color_name == "dark-gray")  color.hsv(DARK_GRAY);
+					else if(color_name == "gray")       color.hsv(GRAY);
+					else if(color_name == "light-gray") color.hsv(LIGHT_GRAY);
+					else if(color_name == "white")      color.hsv(WHITE);
 
-					else if(color_name == "red")          color.set(RED);
-					else if(color_name == "red-orange")   color.set(RED_ORANGE);
-					else if(color_name == "orange")       color.set(ORANGE);
-					else if(color_name == "yellow-green") color.set(YELLOW);
-					else if(color_name == "green")        color.set(GREEN);
-					else if(color_name == "sea-green")    color.set(SEA_GREEN);
-					else if(color_name == "blue-green")   color.set(BLUE_GREEN);
-					else if(color_name == "cyan")         color.set(CYAN);
-					else if(color_name == "sky-blue")     color.set(SKY_BLUE);
-					else if(color_name == "soft-blue")    color.set(SOFT_BLUE);
-					else if(color_name == "blue")         color.set(BLUE);
-					else if(color_name == "purple")       color.set(PURPLE);
-					else if(color_name == "violet")       color.set(VIOLET);
-					else if(color_name == "red-violet")   color.set(RED_VIOLET);
+					else if(color_name == "red")          color.hsv(RED);
+					else if(color_name == "red-orange")   color.hsv(RED_ORANGE);
+					else if(color_name == "orange")       color.hsv(ORANGE);
+					else if(color_name == "yellow-green") color.hsv(YELLOW);
+					else if(color_name == "green")        color.hsv(GREEN);
+					else if(color_name == "sea-green")    color.hsv(SEA_GREEN);
+					else if(color_name == "blue-green")   color.hsv(BLUE_GREEN);
+					else if(color_name == "cyan")         color.hsv(CYAN);
+					else if(color_name == "sky-blue")     color.hsv(SKY_BLUE);
+					else if(color_name == "soft-blue")    color.hsv(SOFT_BLUE);
+					else if(color_name == "blue")         color.hsv(BLUE);
+					else if(color_name == "purple")       color.hsv(PURPLE);
+					else if(color_name == "violet")       color.hsv(VIOLET);
+					else if(color_name == "red-violet")   color.hsv(RED_VIOLET);
 					else return false;
 				} else {
 					return false;
@@ -107,17 +112,18 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, AspectRatio & aspect_ratio) {
-			AspectRatio buffer;
-			if(node.IsSequence()) {
-				buffer.width = node[0].as<unsigned int>();
-				buffer.height = node[1].as<unsigned int>();
-			} else if (node.IsMap()) {
-				if(node["width"]) { buffer.width = node["width"].as<unsigned int>(); }
-				if(node["height"]) { buffer.height = node["height"].as<unsigned int>(); }
-			} else {
-				return false;
-			}
-			aspect_ratio = buffer;
+			try {
+				if(node.IsSequence() && node[0] && node[1]) {
+					aspect_ratio = AspectRatio(node[0].as<unsigned int>(), node[1].as<unsigned int>());
+				} else if (node.IsMap() && node["width"] && node["height"]) {
+					aspect_ratio = AspectRatio(
+						node["width"].as<unsigned int>(),
+						node["height"].as<unsigned int>()
+					);
+				} else {
+					return false;
+				}
+			} catch(...) {}
 			return true;
 		}
 
@@ -240,17 +246,13 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, Size & size) {
-			Size buffer;
-			if(node.IsSequence()) {
-				buffer.width = node[0].as<unsigned int>();
-				buffer.height = node[1].as<unsigned int>();
-			} else if (node.IsMap()) {
-				if(node["width"]) { buffer.width = node["width"].as<unsigned int>(); }
-				if(node["height"]) { buffer.height = node["height"].as<unsigned int>(); }
+			if(node.IsSequence() && node[0] && node[1]) {
+				size = Size(node[0].as<unsigned int>(), node[1].as<unsigned int>());
+			} else if (node.IsMap() && node["width"] && node["height"]) {
+				size = Size(node[0].as<unsigned int>(), node[1].as<unsigned int>());
 			} else {
 				return false;
 			}
-			size = buffer;
 			return true;
 		}
 

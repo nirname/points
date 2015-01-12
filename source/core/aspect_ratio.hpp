@@ -1,10 +1,10 @@
 #pragma once
 
 struct AspectRatio {
-	int width, height;
+	unsigned int width, height;
 
 	AspectRatio();
-	AspectRatio(int _width, int _height);
+	AspectRatio(unsigned int _width, unsigned int _height);
 
 	float aspect() const;
 };

@@ -46,13 +46,15 @@ void display_interface(Interface * interface) {
 void draw_and_highlight_text(const std::string & text, bool highlight) {
 	if(highlight) {
 		glPushAttrib(GL_CURRENT_BIT);
-			pallete::light_gray.use();
-			draw_text(text);
+			//pallete::light_gray.use();
+			//Color(36.4706, 1.0, 1.0).use();
 			options::selection_color.use();
+			draw_text(text);
+			/*options::selection_color.use();
 			glPushMatrix();
 				glTranslatef(1, 1, 0);
 				draw_text(text);
-			glPopMatrix();
+			glPopMatrix();*/
 		glPopAttrib();
 	} else {
 		draw_text(text);
@@ -426,10 +428,12 @@ void handle_option<bool>(unsigned char key, int special_key, MenuItem * menu_ite
 
 template<>
 void handle_option<Color>(unsigned char key, int special_key, MenuItem * menu_item, Color & option) {
+	std::cout << "hsv: " << option.hue << " " << option.saturation << " " << option.value << std::endl;
+	std::cout << "rgb: " << option.red << " " << option.green << " " << option.blue << std::endl;
 	if(special_key == GLUT_KEY_LEFT) {
-		option.hsv(option.hue - 1.0, 1.0, 1.0);
+		option.hsv(option.hue - 1.0, option.saturation, option.value);
 	} else if(special_key == GLUT_KEY_RIGHT) {
-		option.hsv(option.hue + 1.0, 1.0, 1.0);
+		option.hsv(option.hue + 1.0, option.saturation, option.value);
 	}
 	options::save_config();
 }

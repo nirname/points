@@ -10,6 +10,15 @@
 
 int main(int argc, char * argv[]) {
 
+	/*int a = 5, b = 7;
+	std::cout << "a - b " << a - b << std::endl;
+	return 0;*/
+
+	/*Color c = Color(287.529, 1.0, 1.0);
+	std::cout << "hsv: " << c.hue << " " << c.saturation << " " << c.value << std::endl;
+	std::cout << "rgb: " << c.red << " " << c.green << " " << c.blue << std::endl;
+	return 0;*/
+
 	std::cout << "\nLOGIC GAMES\n" << std::endl;
 	std::cout
 		<< "# Arcades, Puzzles & Classical games" << std::endl
@@ -22,6 +31,8 @@ int main(int argc, char * argv[]) {
 	graphics::initialize(argc, argv);
 	audio::initialize(argc, argv);
 	std::cout << "\nInitialising is done" << std::endl;
+
+	//return 0;
 
 	std::cout << "\nLOADING\n" << std::endl;
 	default_shape.load(options::shape_options);

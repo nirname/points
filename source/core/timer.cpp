@@ -29,7 +29,7 @@ void Timer::display() {
 	timeinfo = localtime(&timer);
 	double current_hue = calculate_hue();
 	if(current_hue != hue) {
-		color.set(hue, 1.0, 1.0);
+		color.set(hue, color.saturation, color.value);
 		hue = current_hue;
 	}
 
