@@ -70,7 +70,7 @@ int save_yaml_file(std::string yaml_file_path, YamlSerializer serialize_yaml) {
 template<typename OptionType>
 int load_yaml_option(OptionType & option, const YAML::Node & node, const char * key) {
 	std::cout << "  " << key << ": " << std::ends;
-	if(node[key]) {
+	if(node.IsMap() && node[key]) {
 		try {
 			option = node[key].as<OptionType>();
 			std::cout << "ok" << std::ends;

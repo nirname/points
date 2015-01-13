@@ -17,8 +17,8 @@ template<typename Key, typename Entity> class Manager {
 		Manager();
 		~Manager();
 
-		inline bool contain(const Key & _key) const;
-		inline bool contain(const Key & _key, Iterator & entity_iterator) const;
+		inline bool contain(const Key & _key);
+		inline bool contain(const Key & _key, Iterator & entity_iterator);
 
 		Entity * add(const Key & _key);
 		Entity * insert(const Key & _key, Entity * _entity);
@@ -52,14 +52,14 @@ Manager<Key, Entity>::~Manager() {
 /// Checks whether manager contains an entity or not
 //
 template<typename Key, typename Entity>
-inline bool Manager<Key, Entity>::contain(const Key & _key) const {
+inline bool Manager<Key, Entity>::contain(const Key & _key) {
 	return entities.find(_key) != entities.end();
 }
 
 /// Checks whether manager contains an entity or not
 //
 template<typename Key, typename Entity>
-inline bool Manager<Key, Entity>::contain(const Key & _key, Iterator & entity_iterator) const {
+inline bool Manager<Key, Entity>::contain(const Key & _key, Iterator & entity_iterator) {
 	entity_iterator = entities.find(_key);
 	return entity_iterator != entities.end();
 }
@@ -126,10 +126,11 @@ void Manager<Key, Entity>::print(std::ostream & _ostream) const {
 	if(!entities.empty()) {
 		for(ConstIterator i = entities.begin(); i != entities.end(); ++i) {
 			//_ostream << i->first << " (" << i->second << "): " << *i->second << std::endl;
-			_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
+			//_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
+			_ostream << i->first << "#" << i->second << std::endl;
 		}
 	} else {
-		_ostream << "is empty" << std::endl;
+		_ostream << "is empty";
 	}
 }
 

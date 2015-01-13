@@ -71,7 +71,7 @@ void Game::handle(unsigned char key, int special_key) {
 }
 
 void Game::print() {
-	std::cout << "Game" << std::endl;
+	std::cout << "Game:" << std::endl;
 	/*std::cout << "Object kinds:\n" << object_kinds << std::endl;
 	std::cout << "Interactions:\n";
 	for(InteractionMapIterator i = interactions.begin(); i != interactions.end(); ++i) {
@@ -79,14 +79,14 @@ void Game::print() {
 	}
 	std::cout << std::endl;*/
 
-	std::cout << "Fields:\n" << fields << std::endl;
-	/*std::cout << "Views:\n" << views << std::endl;
-	std::cout << "Object kinds:\n" << object_kinds << std::endl;
-	std::cout << "Objects:\n" << objects << std::endl;*/
-	//std::cout << "Colors:\n" << colors << std::endl;
-	//std::cout << "Shapes:\n" << shapes << std::endl;
-	//std::cout << "Animations:\n" << animations << std::endl;
-	//std::cout << "Controls:\n" << controls << std::endl;
+	std::cout << "  fields: " << fields << std::endl;
+	std::cout << "  views: " << views << std::endl;
+	std::cout << "  object kinds: " << object_kinds << std::endl;
+	std::cout << "  objects: " << objects << std::endl;
+	std::cout << "  colors: " << colors << std::endl;
+	std::cout << "  shapes: " << shapes << std::endl;
+	//std::cout << "  animations:\n" << animations << std::endl;
+	//std::cout << "  controls:\n" << controls << std::endl;
 }
 
 void Game::display() {
@@ -168,7 +168,7 @@ int Game::load_defaults() {
 void Game::load_game_options(const YAML::Node & level) {
 	if(level["game"]) {
 		const YAML::Node & game_options = level["game"];
-		if(game_options["screen"]) {
+		if(game_options.IsMap() && game_options["screen"]) {
 			load_yaml_option(screen_size, game_options, "screen");
 		}
 	}
@@ -180,10 +180,10 @@ int Game::load_attributes(const YAML::Node & level) {
 	load_game_options(level);
 	//load_yaml_option(kind, level, "game_kind");
 
-	/*load_yaml_option(fields, level, "fields");
-	load_yaml_option(views, level, "views");
-	load_yaml_option(object_kinds, level, "object_kinds");
-	load_yaml_option(objects, level, "objects");*/
+	load_yaml_option(fields, level, "fields");
+	//load_yaml_option(views, level, "views");
+	//load_yaml_option(object_kinds, level, "object_kinds");
+	//load_yaml_option(objects, level, "objects");
 
 	//result |= load_yaml_option(colors, level, "colors");
 	//result |= load_yaml_option(shapes, level, "shapes");

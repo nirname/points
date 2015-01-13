@@ -1,0 +1,30 @@
+I have my own container:
+
+    template<class T>
+    class MyContainer {}
+
+And I'm using yaml-cpp for loading some data into this container.
+So I need to write specialization for `convert` struct:
+
+    template<> struct convert< MyContainer<int> > {};
+    template<> struct convert< MyContainer<double> > {};
+    template<> struct convert< MyContainer<char> > {};
+    template<> struct convert< MyContainer<MyClass> > {};
+
+... and so on.
+
+Ultimately, I write:
+
+    // ...
+    node.as< MyContainer<int> >
+    // ...
+
+But the fact is that every specialization for `MyContainer` is the same.
+Therefore, every specialization for `convert` is the same and they are redundant:
+
+    template<> struct convert< MyContainer<int> > { /* the same code */ };
+    template<> struct convert< MyContainer<double> > { /* the same code */ };
+    template<> struct convert< MyContainer<char> > { /* the same code */ };
+    template<> struct convert< MyContainer<MyClass> > { /* the same code */ };
+
+Is it possible to avoid this rubbish using c++ itself or some other features of yaml-cpp?

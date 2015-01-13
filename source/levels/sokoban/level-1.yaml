@@ -19,17 +19,17 @@ colors:
 views:
   view:
     field: field
-    background_color: sky
-    field_color: soft_blue
+    background_color: blue
+    field_color: sky-blue
     cells_color: blue
     position: [1, 1]
 
 object_kinds:
   sokoban:
-    color: dark_blue
+    color: purple
     shape: david
   box:
-    color: dark_blue
+    color: green
 
 objects:
   sokoban: s

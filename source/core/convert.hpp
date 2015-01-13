@@ -11,6 +11,8 @@
 #include "shape.hpp"
 #include "aspect_ratio.hpp"
 #include "size.hpp"
+#include "manager.hpp"
+#include "field.hpp"
 
 namespace YAML {
 
@@ -257,5 +259,27 @@ namespace YAML {
 		}
 
 	};
+
+}
+
+//template class Manager<std::string, Field>;
+
+namespace YAML {
+
+	template<class A, class T>
+	struct convert< Manager<A, T> > {
+
+		static Node encode(const Manager<A, T> & manager) {
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node & node, Manager<A, T> & manager) {
+			return false;
+		}
+
+	};
+
+	//template struct convert<FieldManager>;
 
 }

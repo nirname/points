@@ -3,111 +3,6 @@
 
 #include <cmath>
 
-/*struct RGB {
-	unsigned int r;
-	unsigned int g;
-	unsigned int b;
-};
-
-struct HSV {
-	double h;
-	double s;
-	double v;
-};
-
-static HSV rgb2hsv(RGB in) {
-	HSV         out;
-	double      min, max, delta;
-
-	min = in.r < in.g ? in.r : in.g;
-	min = min  < in.b ? min  : in.b;
-
-	max = in.r > in.g ? in.r : in.g;
-	max = max  > in.b ? max  : in.b;
-
-	out.v = max;                                // v
-	delta = max - min;
-	if( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
-		out.s = (delta / max);                  // s
-	} else {
-		// if max is 0, then r = g = b = 0
-		// s = 0, v is undefined
-		out.s = 0.0;
-		out.h = 0.0;                            // its now undefined
-		return out;
-	}
-	if( in.r >= max )                         // > is bogus, just keeps compilor happy
-		out.h = ( in.g - in.b ) / delta;        // between yellow & magenta
-	else
-	if( in.g >= max )
-		out.h = 2.0 + ( in.b - in.r ) / delta;  // between cyan & yellow
-	else
-		out.h = 4.0 + ( in.r - in.g ) / delta;  // between magenta & cyan
-
-	out.h *= 60.0;                              // degrees
-
-	if( out.h < 0.0 )
-		out.h += 360.0;
-
-	return out;
-}
-
-static RGB hsv2rgb(HSV in) {
-	double      hh, p, q, t, ff;
-	long        i;
-	RGB         out;
-
-	if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
-		out.r = in.v;
-		out.g = in.v;
-		out.b = in.v;
-		return out;
-	}
-	hh = in.h;
-	if(hh >= 360.0) hh = 0.0;
-	hh /= 60.0;
-	i = (long)hh;
-	ff = hh - i;
-	p = in.v * (1.0 - in.s);
-	q = in.v * (1.0 - (in.s * ff));
-	t = in.v * (1.0 - (in.s * (1.0 - ff)));
-
-	switch(i) {
-	case 0:
-		out.r = in.v;
-		out.g = t;
-		out.b = p;
-		break;
-	case 1:
-		out.r = q;
-		out.g = in.v;
-		out.b = p;
-		break;
-	case 2:
-		out.r = p;
-		out.g = in.v;
-		out.b = t;
-		break;
-	case 3:
-		out.r = p;
-		out.g = q;
-		out.b = in.v;
-		break;
-	case 4:
-		out.r = t;
-		out.g = p;
-		out.b = in.v;
-		break;
-	case 5:
-	default:
-		out.r = in.v;
-		out.g = p;
-		out.b = q;
-		break;
-	}
-	return out;
-}*/
-
 namespace pallete {
 	const Color black(BLACK);
 	const Color dark_gray(DARK_GRAY);
@@ -172,10 +67,10 @@ void Color::rgb(int _red, int _green, int _blue) {
 	green = _green;
 	blue = _blue;
 
-	std::cout << std::endl << "Color" << std::endl;
+	/*std::cout << std::endl << "Color" << std::endl;
 	std::cout << "  red " << red << std::endl;
 	std::cout << "  green " << green << std::endl;
-	std::cout << "  blue " << blue << std::endl;
+	std::cout << "  blue " << blue << std::endl;*/
 
 	min = red < green ? red : green;
 	min = min < blue ? min : blue;
@@ -183,43 +78,43 @@ void Color::rgb(int _red, int _green, int _blue) {
 	max = red > green ? red : green;
 	max = max > blue ? max : blue;
 
-	std::cout << "  max " << max << std::endl;
-	std::cout << "  min " << min << std::endl;
+	/*std::cout << "  max " << max << std::endl;
+	std::cout << "  min " << min << std::endl;*/
 
 	value = max / 255;
 	delta = max - min;
 
-	std::cout << "  value " << value << std::endl;
-	std::cout << "  delta " << delta << std::endl;
+	/*std::cout << "  value " << value << std::endl;
+	std::cout << "  delta " << delta << std::endl;*/
 
 	if(max > 0.0) {
 		saturation = (delta / max);
-		std::cout << "  saturation " << saturation << std::endl;
+		//std::cout << "  saturation " << saturation << std::endl;
 	} else {
 		value = 0.0; saturation = 0.0; hue = 0.0;
 		return;
 	}
 
-	std::cout << "  blue - green " << blue - green << std::endl;
+	/*std::cout << "  blue - green " << blue - green << std::endl;
 	std::cout << "  red - blue " << red - blue << std::endl;
-	std::cout << "  green - red " << green - red << std::endl;
+	std::cout << "  green - red " << green - red << std::endl;*/
 
-	std::cout << "  blue - green / delta " << (blue - green) / delta << std::endl;
+	/*std::cout << "  blue - green / delta " << (blue - green) / delta << std::endl;
 	std::cout << "  red - blue / delta " << (red - blue) / delta << std::endl;
-	std::cout << "  green - red / delta " << (green - red) / delta  << std::endl;
+	std::cout << "  green - red / delta " << (green - red) / delta  << std::endl;*/
 
 	if(red >= max) {
-		hue = ( green - blue ) / delta;        // between yellow & magenta
+		hue = ( green - blue ) / delta; // between yellow & magenta
 	} else if(green >= max) {
-		hue = 2.0 + ( blue - red ) / delta;  // between cyan & yellow
+		hue = 2.0 + ( blue - red ) / delta; // between cyan & yellow
 	} else {
-		hue = 4.0 + ( red - green ) / delta;  // between magenta & cyan
+		hue = 4.0 + ( red - green ) / delta; // between magenta & cyan
 	}
 
 
-	std::cout << "  hue " << hue << std::endl;
-	hue *= 60.0;                              // degrees
-	std::cout << "  hue * 60.0 " << hue << std::endl;
+	//std::cout << "  hue " << hue << std::endl;
+	hue *= 60.0; // degrees
+	//std::cout << "  hue * 60.0 " << hue << std::endl;
 
 	if(hue < 0.0) {
 		hue += 360.0;
