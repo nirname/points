@@ -1,1 +1,3 @@
-game: lights
+game:
+  kind: lights
+  screen: [10, 10]

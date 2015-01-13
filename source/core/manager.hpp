@@ -66,11 +66,19 @@ inline bool Manager<Key, Entity>::contain(const Key & _key, Iterator & entity_it
 
 /// Creates new object by name
 //
+/// If an object with the same name already exists than NULL is returned.
+/// If an error occures than NULL is returned
+///
 template<typename Key, typename Entity>
 Entity * Manager<Key, Entity>::add(const Key & _key) {
 	return (contain(_key))? NULL : create(_key);
 }
 
+/// Inserts already created object by it's pointer
+//
+/// If an object with the same name already exists than NULL is returned.
+/// If an error occures than NULL is returned
+///
 template<typename Key, typename Entity>
 Entity * Manager<Key, Entity>::insert(const Key & _key, Entity * _entity) {
 	return (contain(_key))? NULL : set(_key, _entity);

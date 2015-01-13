@@ -56,8 +56,8 @@ struct Game {
 
 	int load_attributes(const YAML::Node & level);
 
-	template<typename Type>
-	int load_attribute(Type & attribute, const YAML::Node & level, const char * key);
+	/*template<typename Type>
+	int load_attribute(Type & attribute, const YAML::Node & level, const char * key);*/
 
 	int load_defaults();
 	//void load_interactions(const YAML::Node &);
@@ -65,7 +65,7 @@ struct Game {
 	void load_default_colors();
 	void load_default_shapes();
 
-	void load_game_options(const YAML::Node &);
+	int load_game_options(const YAML::Node &);
 
 	bool load(GAME_KIND game_kind, const std::string & level_path);
 	bool unload();

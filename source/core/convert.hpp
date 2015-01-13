@@ -262,24 +262,140 @@ namespace YAML {
 
 }
 
-//template class Manager<std::string, Field>;
-
 namespace YAML {
 
-	template<class A, class T>
-	struct convert< Manager<A, T> > {
-
-		static Node encode(const Manager<A, T> & manager) {
+	template<>
+	struct convert<Field> {
+		static Node encode(const Field & field) {
 			Node node;
 			return node;
 		}
 
-		static bool decode(const Node & node, Manager<A, T> & manager) {
+		static bool decode(const Node & node, Field & field) {
+			return false;
+		}
+	};
+
+}
+
+namespace YAML {
+
+	template<>
+	struct convert<View> {
+		static Node encode(const View & view) {
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node & node, View & view) {
+			return false;
+		}
+	};
+
+}
+
+namespace YAML {
+
+	template<>
+	struct convert<ObjectKind> {
+		static Node encode(const ObjectKind & object_kind) {
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node & node, ObjectKind & object_kind) {
+			return false;
+		}
+	};
+
+}
+
+namespace YAML {
+
+	template<>
+	struct convert<Object> {
+		static Node encode(const Object & object) {
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node & node, Object & object) {
+			return false;
+		}
+	};
+
+}
+
+namespace YAML {
+
+	template<class Key, class Entity>
+	struct convert< Manager<Key, Entity> > {
+
+		static Node encode(const Manager<Key, Entity> & manager) {
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node & node, Manager<Key, Entity> & manager) {
+			if(node.IsMap()) {
+				Key key;
+				for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
+					try {
+						key = iterator->first.as<Key>();
+					}
+					catch(YAML::TypedBadConversion<std::string()> & exception) {
+						std::cout << "wrong key" << std::endl;
+						return false;
+						//std::cout << "Can't upload entity" << std::endl;
+					}
+					Entity * entity = NULL;
+					if((entity = manager.add(key)) != NULL) {
+						try {
+							*entity = iterator->second.as<Entity>();
+						}
+						catch(YAML::TypedBadConversion<std::string()> & exception) {
+							std::cout << "wrong value" << std::endl;
+							manager.remove(key);
+							return false;
+						}
+					}
+
+						/*if(has(_name)) {
+							return NULL;
+						} else {
+							TypePointer instance = NULL;
+							try {
+								instance = build();
+							} catch (...) {
+								std::cout << "Can not allocate memory for new entity" << std::endl;
+								return NULL;
+							}
+							try {
+								options >> *instance;
+							} catch(const EXCEPTION & exception) {
+								std::cout << exception << std::endl;
+								delete instance;
+								return NULL;
+							} catch(...) {
+								std::cout << "An a error occured while creating entity" << std::endl;
+								delete instance;
+								return NULL;
+							}
+							set(_name, instance);
+							return instance;
+						}*/
+
+						/*Entity * entity = new Entity;
+						*entity = iterator->second.as<Entity>;
+						manager.insert(iterator->first.as<std::string>(), );*/
+
+				}
+			} else {
+				//std::cout << " should be a map" << std::endl;
+			}
 			return false;
 		}
 
 	};
-
-	//template struct convert<FieldManager>;
 
 }

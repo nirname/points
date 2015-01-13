@@ -80,11 +80,11 @@ void Game::print() {
 	std::cout << std::endl;*/
 
 	std::cout << "  fields: " << fields << std::endl;
-	std::cout << "  views: " << views << std::endl;
+	/*std::cout << "  views: " << views << std::endl;
 	std::cout << "  object kinds: " << object_kinds << std::endl;
 	std::cout << "  objects: " << objects << std::endl;
 	std::cout << "  colors: " << colors << std::endl;
-	std::cout << "  shapes: " << shapes << std::endl;
+	std::cout << "  shapes: " << shapes << std::endl;*/
 	//std::cout << "  animations:\n" << animations << std::endl;
 	//std::cout << "  controls:\n" << controls << std::endl;
 }
@@ -165,35 +165,34 @@ int Game::load_defaults() {
 	return 0;
 }
 
-void Game::load_game_options(const YAML::Node & level) {
+int Game::load_game_options(const YAML::Node & level) {
+	int result = 0;
 	if(level["game"]) {
 		const YAML::Node & game_options = level["game"];
 		if(game_options.IsMap() && game_options["screen"]) {
-			load_yaml_option(screen_size, game_options, "screen");
+			result |= load_yaml_option(screen_size, game_options, "screen");
+			//result |= load_yaml_option(kind, level, "game_kind");
+		} else {
+			result |= 1;
 		}
 	}
+	return result;
 }
 
 int Game::load_attributes(const YAML::Node & level) {
 	int result = 0;
 
-	load_game_options(level);
-	//load_yaml_option(kind, level, "game_kind");
+	result |= load_game_options(level);
 
-	load_yaml_option(fields, level, "fields");
-	//load_yaml_option(views, level, "views");
-	//load_yaml_option(object_kinds, level, "object_kinds");
-	//load_yaml_option(objects, level, "objects");
-
-	//result |= load_yaml_option(colors, level, "colors");
+	result |= load_yaml_option(fields, level, "fields");
+	result |= load_yaml_option(views, level, "views");
+	result |= load_yaml_option(object_kinds, level, "object_kinds");
+	result |= load_yaml_option(objects, level, "objects");
+	result |= load_yaml_option(colors, level, "colors");
 	//result |= load_yaml_option(shapes, level, "shapes");
 	//result |= load_yaml_option(object_kinds, level, "object_kinds");
 	//result |= load_objects(level);
-
-	//result |= load_yaml_option(fields, level, "fields");
-	//result |= load_yaml_option(views, level, "views");
 	//result |= load_yaml_option(controls, level, "controls");
-
 
 	return result;
 }
