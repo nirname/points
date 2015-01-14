@@ -53,16 +53,16 @@ namespace YAML {
 			try {
 				if(node.IsSequence()) {
 					color.rgb(
-						node[0].as<unsigned int>(),
-						node[1].as<unsigned int>(),
-						node[2].as<unsigned int>()
+						node[0].as<int>(),
+						node[1].as<int>(),
+						node[2].as<int>()
 					);
 				} else if (node.IsMap()) {
 					if(node["red"] && node["green"] && node["blue"]) {
 						color.rgb(
-							node["red"].as<unsigned int>(),
-							node["green"].as<unsigned int>(),
-							node["blue"].as<unsigned int>()
+							node["red"].as<int>(),
+							node["green"].as<int>(),
+							node["blue"].as<int>()
 						);
 					} else {
 						return false;
@@ -93,7 +93,9 @@ namespace YAML {
 				} else {
 					return false;
 				}
-			} catch(...) {}
+			} catch(YAML::TypedBadConversion<std::string()> & exception) {
+				return false;
+			}
 			return true;
 		}
 
@@ -344,21 +346,26 @@ namespace YAML {
 						key = iterator->first.as<Key>();
 					}
 					catch(YAML::TypedBadConversion<std::string()> & exception) {
-						std::cout << "wrong key" << std::endl;
-						return false;
-						//std::cout << "Can't upload entity" << std::endl;
+						continue;
 					}
-					Entity * entity = NULL;
-					if((entity = manager.add(key)) != NULL) {
-						try {
-							*entity = iterator->second.as<Entity>();
-						}
-						catch(YAML::TypedBadConversion<std::string()> & exception) {
-							std::cout << "wrong value" << std::endl;
-							manager.remove(key);
-							return false;
-						}
-					}
+					std::cout << "to load: " << iterator->second.as<Entity>() << std::endl;
+
+					Entity * entity = new Entity;
+					*entity = iterator->second.as<Entity>();
+					std::cout << "to load ptr: " << *entity << std::endl;
+
+					entity = manager.insert(key, entity);
+					//if(entity != NULL) {
+						//try {
+							//*entity = iterator->second.as<Entity>();
+						//} catch(YAML::TypedBadConversion<Entity> & exception) {
+							//std::cout << "\n    entity wrong value" << std::endl;
+							//continue;
+						//}
+					//}
+					/*else {
+						manager.remove(key);
+					}*/
 
 						/*if(has(_name)) {
 							return NULL;
@@ -391,9 +398,10 @@ namespace YAML {
 
 				}
 			} else {
-				//std::cout << " should be a map" << std::endl;
+				std::cout << " should be a map" << std::endl;
+				return false;
 			}
-			return false;
+			return true;
 		}
 
 	};

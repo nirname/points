@@ -28,6 +28,7 @@ struct Color {
 	int red, green, blue;
 	double hue, saturation, value;
 
+	/// Default color - black, with RGB(0, 0, 0)
 	Color();
 	/// Initialize color by RGB
 	Color(int _red, int _green, int _blue);

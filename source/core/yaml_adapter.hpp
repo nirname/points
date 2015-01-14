@@ -72,7 +72,8 @@ int load_yaml_option(OptionType & option, const YAML::Node & node, const char * 
 	std::cout << "  " << key << ": " << std::ends;
 	if(node.IsMap() && node[key]) {
 		try {
-			option = node[key].as<OptionType>();
+			//option = node[key].as<OptionType>();
+			YAML::convert<OptionType>().decode(node[key], option);
 			std::cout << "ok" << std::ends;
 		} catch(YAML::TypedBadConversion<OptionType> & exception) {
 			std::cout << "wrong value" << std::endl;

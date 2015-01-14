@@ -263,9 +263,9 @@ bool filter_yaml(dirent * entry) {
 
 void start_game(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
-		game.kind = menu_item->options.game_kind;
-		game.load(menu_item->options.game_kind, menu_item->options.path);
-		application.set(GAMEPLAY_MODE);
+		if(game.load(menu_item->options.game_kind, menu_item->options.path) == true) {
+			application.set(GAMEPLAY_MODE);
+		}
 	}
 }
 

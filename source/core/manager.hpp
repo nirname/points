@@ -6,7 +6,9 @@
 
 template<typename Key, typename Entity> class Manager {
 
-	public:
+	class CopyDepracationException {};
+
+	public: // Types and members
 
 		typedef std::map<Key, Entity *> Entities;
 		typedef typename Entities::iterator Iterator;
@@ -14,7 +16,10 @@ template<typename Key, typename Entity> class Manager {
 
 		Entities entities;
 
+
 		Manager();
+		Manager(const Manager &);
+		Manager & operator = (Manager arg);
 		~Manager();
 
 		inline bool contain(const Key & _key);
@@ -32,17 +37,28 @@ template<typename Key, typename Entity> class Manager {
 		Iterator begin();
 		Iterator end();
 
+		inline bool empty() const;
 		void print(std::ostream & _ostream = std::cout) const;
 
 	private:
 
 		inline Entity * create(const Key & _key);
-		inline Entity * set(const Key & _key, Entity * _entity);
+		inline Entity * emplace(const Key & _key, Entity * _entity);
 
 };
 
 template<typename Key, typename Entity>
 Manager<Key, Entity>::Manager() {}
+
+template<typename Key, typename Entity>
+Manager<Key, Entity>::Manager(const Manager & manager) {
+	throw CopyDepracationException();
+}
+
+template<typename Key, typename Entity>
+Manager<Key, Entity> & Manager<Key, Entity>::operator =(Manager<Key, Entity> manager) {
+	throw CopyDepracationException();
+}
 
 template<typename Key, typename Entity>
 Manager<Key, Entity>::~Manager() {
@@ -81,7 +97,8 @@ Entity * Manager<Key, Entity>::add(const Key & _key) {
 ///
 template<typename Key, typename Entity>
 Entity * Manager<Key, Entity>::insert(const Key & _key, Entity * _entity) {
-	return (contain(_key))? NULL : set(_key, _entity);
+	std::cout << "inserting: " << _entity << ": " << *_entity << std::endl;
+	return (contain(_key))? NULL : emplace(_key, _entity);
 }
 
 /// Get object without creating an extra object
@@ -128,14 +145,19 @@ typename Manager<Key, Entity>::Iterator Manager<Key, Entity>::end() {
 	return entities.end();
 }
 
+template<typename Key, typename Entity>
+inline bool Manager<Key, Entity>::empty() const {
+	return entities.empty();
+}
+
 
 template<typename Key, typename Entity>
 void Manager<Key, Entity>::print(std::ostream & _ostream) const {
-	if(!entities.empty()) {
+	if(!empty()) {
 		for(ConstIterator i = entities.begin(); i != entities.end(); ++i) {
 			//_ostream << i->first << " (" << i->second << "): " << *i->second << std::endl;
-			//_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
-			_ostream << i->first << "#" << i->second << std::endl;
+			_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
+			//_ostream << i->first << "#" << i->second << " " << std::ends;
 		}
 	} else {
 		_ostream << "is empty";
@@ -149,12 +171,16 @@ void Manager<Key, Entity>::print(std::ostream & _ostream) const {
 //
 template<typename Key, typename Entity>
 inline Entity * Manager<Key, Entity>::create(const Key & _key) {
-	return entities[_key] = new Entity();
+	Entity * new_entity = new Entity();
+	return emplace(_key, new_entity);
 }
 
 /// Emplace an existing instance of an entity
 //
 template<typename Key, typename Entity>
-inline Entity * Manager<Key, Entity>::set(const Key & _key, Entity * _entity) {
+inline Entity * Manager<Key, Entity>::emplace(const Key & _key, Entity * _entity) {
 	return entities[_key] = _entity;
+    /*std::cout << "emplacing: " << _entity << ": " << *_entity << std::endl;
+	entities.insert(std::pair<Key, Entity *>(_key, _entity) );
+	return _entity;*/
 }

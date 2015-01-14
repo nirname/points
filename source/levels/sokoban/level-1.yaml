@@ -13,8 +13,7 @@ fields:
     cells: [[5, 5], [6, 5], [7, 5]]
 
 colors:
-  dark_blue: [0, 52, 92]
-  sky: [50, 180, 255]
+  seven: [7, 7, 7]
 
 views:
   view:

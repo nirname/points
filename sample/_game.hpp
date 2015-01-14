@@ -30,20 +30,42 @@ struct Game {
 	bool paused;
 	bool loaded;
 
-	ColorManager colors;
-	//ShapeManager shapes;
+	//bool no_levels;
 
-	/*FieldManager      fields;
+	ColorManager colors;
+	ShapeManager shapes;
+
+	FieldManager      fields;
 	ViewManager       views;
 	ObjectKindManager object_kinds;
-	ObjectManager     objects;*/
+	ObjectManager     objects;
+	//Entities          entities; // TODO: Unnamed objects
+	//ControlsMapping   controls;
+
+	//graphics::AnimationMapping animations;
+	//LevelList levels;
+
+	//InteractionMap interactions;
+
+	//LevelListIterator current_level;
+	//LevelMapping levels;
 
 	Size screen_size;
 
 	Game();
-	~Game();
 
-	int load_level(const YAML::Node & level);
+	int load_attributes(const YAML::Node & level);
+
+	/*template<typename Type>
+	int load_attribute(Type & attribute, const YAML::Node & level, const char * key);*/
+
+	int load_defaults();
+	//void load_interactions(const YAML::Node &);
+	void load_objects(const YAML::Node & level);
+	void load_default_colors();
+	void load_default_shapes();
+
+	int load_game_options(const YAML::Node &);
 
 	bool load(GAME_KIND game_kind, const std::string & level_path);
 	bool unload();
@@ -53,9 +75,9 @@ struct Game {
 
 	void handle(unsigned char key, int special_key);
 
-	void display();
-
 	void print();
+
+	void display();
 
 	int width();
 	int height();

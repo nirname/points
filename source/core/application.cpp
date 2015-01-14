@@ -7,6 +7,7 @@
 #include "opengl.hpp"
 
 #include <iostream>
+#include "emitter.hpp"
 
 Application::Application() {
 	mode = LOADING_MODE;
@@ -75,6 +76,7 @@ bool Application::set(APPLICATION_MODE next_mode) {
 		return false;
 	} else {
 		mode = next_mode;
+		std::cout << mode << std::endl;
 	}
 	return true;
 }
