@@ -32,6 +32,12 @@ Circle::Circle() {
 	glEndList();
 }
 
+Queen::Queen() {
+	glNewList(base, GL_COMPILE);
+		draw_queen();
+	glEndList();
+}
+
 NGon::NGon(int _angles, int _step_over) {
 	angles = _angles;
 	step_over = _step_over;

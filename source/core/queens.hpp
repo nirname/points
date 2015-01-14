@@ -7,7 +7,7 @@
 
 struct Queens : BasicScreensaver {
 
-	Star shape;
+	Queen shape;
 
 	int field_size;
 	int * queens;

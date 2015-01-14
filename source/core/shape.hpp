@@ -24,6 +24,10 @@ struct Circle : Shape {
 	Circle();
 };
 
+struct Queen : Shape {
+	Queen();
+};
+
 struct NGon : Shape {
 	int angles, step_over;
 	NGon(int _angles = 6, int _step_over = 1);

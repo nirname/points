@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "drawing.hpp"
-#include "shape.hpp"
 #include "color.hpp"
 #include "library.hpp"
 

@@ -63,6 +63,30 @@ void draw_block() {
 	glPopMatrix();
 }
 
+void draw_queen() {
+	glPushMatrix();
+		glTranslatef(0.5, 0.5, 0);
+		glScalef(options::figure_size(), options::figure_size(), 1);
+		glBegin(GL_TRIANGLE_FAN);
+			glVertex2f( 0.0,  -0.5);
+			glVertex2f(-0.3,  -0.5);
+			glVertex2f(-0.5,   0.2);
+			glVertex2f(-0.22, -0.05);
+			glVertex2f(-0.2,   0.5);
+			glVertex2f( 0.0,   0.0);
+		glEnd();
+		glScalef(-1, 1, 1);
+		glBegin(GL_TRIANGLE_FAN);
+			glVertex2f( 0.0,  -0.5);
+			glVertex2f(-0.3,  -0.5);
+			glVertex2f(-0.5,   0.2);
+			glVertex2f(-0.22, -0.05);
+			glVertex2f(-0.2,   0.5);
+			glVertex2f( 0.0,   0.0);
+		glEnd();
+	glPopMatrix();
+}
+
 /// Draw n-gon
 //
 /// ngon(360, 1) will be equal to circle
