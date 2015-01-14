@@ -82,7 +82,10 @@ int Game::load_level(const YAML::Node & level) {
 	//result |= load_yaml_option(objects, level, "objects");
 
 	//return result;
-	return 1;
+	if(fields.empty() || views.empty() || objects.empty()) {
+		return 1;
+	}
+	else return 0;
 }
 
 // Loads all properties

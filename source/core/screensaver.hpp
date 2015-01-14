@@ -2,8 +2,6 @@
 
 #include "screensaver_kind.hpp"
 #include "basic_screensaver.hpp"
-#include "timer.hpp"
-#include "queens.hpp"
 
 struct Screensaver {
 

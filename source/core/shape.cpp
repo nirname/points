@@ -6,20 +6,6 @@
 
 #include <iostream>
 
-PolymorphicShape default_shape;
-
-Shape::Shape() {
-	base = glGenLists(1);
-}
-
-Shape::~Shape() {
-	glDeleteLists(base, 1);
-}
-
-void Shape::display() {
-	glCallList(base);
-}
-
 Block::Block() {
 	glNewList(base, GL_COMPILE);
 		draw_block();
@@ -54,31 +40,33 @@ Diamond::Diamond() : NGon(4, 1) {}
 
 Triangle::Triangle() : NGon(3, 1) {}
 
-PolymorphicShape::PolymorphicShape() {
-	shape = NULL;
+Shape default_shape;
+
+Shape::Shape() {
+	basic_shape = NULL;
 }
 
-PolymorphicShape::~PolymorphicShape() {
-	if(shape != NULL) {
-		delete shape;
+Shape::~Shape() {
+	if(basic_shape != NULL) {
+		delete basic_shape;
 	}
 }
 
-void PolymorphicShape::load(const YAML::Node & shape_options) {
+void Shape::load(const YAML::Node & shape_options) {
 	std::cout << "Shape: " << std::ends;
-	if(shape != NULL) {
-		delete shape;
-		shape = NULL;
+	if(basic_shape != NULL) {
+		delete basic_shape;
+		basic_shape = NULL;
 	}
-	if(shape == NULL) {
+	if(basic_shape == NULL) {
 		try {
-			shape = shape_options.as<Shape *>();
-		} catch(YAML::TypedBadConversion<Shape *> & exception) {
+			basic_shape = shape_options.as<BasicShape *>();
+		} catch(YAML::TypedBadConversion<BasicShape *> & exception) {
 			std::cout << "wrong value" << std::endl;
 			return;
 		}
 	}
-	if(shape != NULL && shape->base != 0) {
+	if(basic_shape != NULL && basic_shape->base != 0) {
 		std::cout << "ok" << std::ends;
 	} else {
 		std::cout << "shape wasn't created" << std::ends;
@@ -86,16 +74,16 @@ void PolymorphicShape::load(const YAML::Node & shape_options) {
 	std::cout << std::endl;
 }
 
-void PolymorphicShape::set(Shape * _shape) {
-	if(shape != NULL) {
-		delete shape;
-		shape = NULL;
+void Shape::set(BasicShape * _basic_shape) {
+	if(basic_shape != NULL) {
+		delete basic_shape;
+		basic_shape = NULL;
 	}
-	shape = _shape;
+	basic_shape = _basic_shape;
 };
 
-void PolymorphicShape::display() {
-	if(shape != NULL) {
-		shape->display();
+void Shape::display() {
+	if(basic_shape != NULL) {
+		basic_shape->display();
 	}
 }

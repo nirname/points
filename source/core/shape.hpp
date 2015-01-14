@@ -6,29 +6,21 @@
 
 #include "yaml.hpp"
 
-struct Shape {
+#include "basic_shape.hpp"
 
-	GLuint base;
-
-	Shape();
-	~Shape();
-
-	void display();
-};
-
-struct Block : Shape {
+struct Block : BasicShape {
 	Block();
 };
 
-struct Circle : Shape {
+struct Circle : BasicShape {
 	Circle();
 };
 
-struct Queen : Shape {
+struct Queen : BasicShape {
 	Queen();
 };
 
-struct NGon : Shape {
+struct NGon : BasicShape {
 	int angles, step_over;
 	NGon(int _angles = 6, int _step_over = 1);
 };
@@ -49,18 +41,18 @@ struct Triangle : NGon {
 	Triangle();
 };
 
-struct PolymorphicShape {
+struct Shape {
 
-	Shape * shape;
+	BasicShape * basic_shape;
 
-	PolymorphicShape();
-	PolymorphicShape(Shape * _shape);
-	~PolymorphicShape();
+	Shape();
+	Shape(BasicShape * basic_shape);
+	~Shape();
 
-	void set(Shape * _shape);
+	void set(BasicShape * basic_shape);
 	void load(const YAML::Node & shape_options);
 	void display();
 
 };
 
-extern PolymorphicShape default_shape;
+extern Shape default_shape;

@@ -15,7 +15,7 @@
 #include "view.hpp"
 
 typedef Manager<std::string, Color> ColorManager;
-typedef Manager<std::string, Shape> ShapeManager;
+typedef Manager<std::string, BasicShape> ShapeManager;
 
 typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
@@ -33,10 +33,10 @@ struct Game {
 	ColorManager colors;
 	//ShapeManager shapes;
 
-	/*FieldManager      fields;
+	FieldManager      fields;
 	ViewManager       views;
 	ObjectKindManager object_kinds;
-	ObjectManager     objects;*/
+	ObjectManager     objects;
 
 	Size screen_size;
 

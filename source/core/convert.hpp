@@ -181,9 +181,9 @@ namespace YAML {
 	}; // convert<SCREENSAVER_KIND>
 
 	template<>
-	struct convert<Shape *> {
+	struct convert<BasicShape *> {
 
-		static Node encode(const Shape * & shape) {
+		static Node encode(const BasicShape * & shape) {
 			Node node;
 			/*node.push_back(color.red);
 			node.push_back(color.green);
@@ -191,7 +191,7 @@ namespace YAML {
 			return node;
 		}
 
-		static bool decode(const Node & node, Shape * & shape) {
+		static bool decode(const Node & node, BasicShape * & shape) {
 			std::string shape_name;
 
 			if(node.IsScalar()) {

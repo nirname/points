@@ -1,5 +1,8 @@
 #include "screensaver.hpp"
 
+#include "timer.hpp"
+#include "queens.hpp"
+
 #include "drawing.hpp"
 #include "library.hpp"
 #include "emitter.hpp"
@@ -20,31 +23,21 @@ Screensaver::~Screensaver() {
 
 bool Screensaver::load(const SCREENSAVER_KIND & kind) {
 	skip();
-	if(kind == NO_SCREENSAVER) {
-		return false;
-	}
 	//SCREENSAVER_KIND
 	//int number = rand() % 8 + 1;
 	SCREENSAVER_KIND choice = kind;
 	switch(choice) {
 		case LIFE_SCREENSAVER:                 break;
-		case QUEENS_SCREENSAVER: {
-			basic_screensaver = new Queens();
-			break;
-		}
+		case QUEENS_SCREENSAVER: basic_screensaver = new Queens(); break;
 		case GEOGRAPHIC_EARTH_MAP_SCREENSAVER: break;
 		case DAY_NIGHT_EARTH_MAP_SCREENSAVER:  break;
 		case POLITICAL_EARTH_MAP_SCREENSAVER:  break;
 		case TURTLE_SCREENSAVER:               break;
 		case EQUALIZER_SCREENSAVER:            break;
-		case TIMER_SCREENSAVER: {
-			basic_screensaver = new Timer();
-			return true;
-			break;
-		}
+		case TIMER_SCREENSAVER: basic_screensaver = new Timer(); break;
 		default: return false;
 	}
-	return false;
+	return true;
 }
 
 bool Screensaver::is_loaded() {
@@ -79,17 +72,3 @@ int Screensaver::height() {
 		return 0;
 	}
 }
-
-/*Queens::Queens() {
-	size = 8; //std::rand() %
-	width = height = size;
-	field = new int[size];
-}
-
-Queens::~Queens() {
-	delete [] field;
-}
-
-void Queens::display() {
-	draw_text("QQQQ");
-}*/
