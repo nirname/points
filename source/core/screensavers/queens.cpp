@@ -9,7 +9,7 @@
 Queens::Queens() {
 	//field_size = rand() % 4 + 5; // from 4 to 8
 	field_size = 8;
-	size = Size(field_size + 2, field_size + 2);
+	size = Size(field_size + 4, field_size + 2);
 	queens = new int[field_size];
 	for(int i = 0; i < field_size; i++) {
 		queens[i] = -1;
@@ -106,7 +106,7 @@ void Queens::next_solution() {
 	last_update = glutGet(GLUT_ELAPSED_TIME);
 }
 
-void Queens::draw_letter(int x, int y, char letter) {
+void Queens::draw_letter(int x, int y, const std::string & letter) {
 	glPushMatrix();
 		glTranslatef(x, y, 0);
 		glScalef(1.0 / 7, 1.0 / 7, 0);
@@ -125,13 +125,18 @@ void Queens::display() {
 		next_solution();
 	}
 
+	std::string letter;
+	std::string number;
+
 	glPushMatrix();
-		glTranslatef(1, 1, 0);
+		glTranslatef(2, 1, 0);
 		for(int i = 0; i < field_size; i++) {
-			draw_letter(-1,         i, (char)((int)'0' + (i + 1) % 10));
-			draw_letter(field_size, i, (char)((int)'0' + (i + 1) % 10));
-			draw_letter(i,         -1, (char)((int)'a' + i));
-			draw_letter(i, field_size, (char)((int)'a' + i));
+			letter = to_string((char)((int)'a' + i));
+			number = to_string(i + 1);
+			draw_letter(-number.length(), i, number);
+			draw_letter(field_size, i, number);
+			draw_letter(i, -1, letter);
+			draw_letter(i, field_size, letter);
 			for(int j = 0; j < field_size; j++) {
 				glPushMatrix();
 					glPushAttrib(GL_CURRENT_BIT);

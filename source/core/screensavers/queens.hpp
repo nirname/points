@@ -20,7 +20,7 @@ struct Queens : BasicScreensaver {
 	~Queens();
 
 	void display();
-	void draw_letter(int x, int y, char letter);
+	void draw_letter(int x, int y, const std::string & letter);
 
 	bool queen_in_field(int column, int row);
 	bool can_put_a_queen(int column, int row);

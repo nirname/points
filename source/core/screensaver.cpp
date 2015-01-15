@@ -1,17 +1,9 @@
 #include "screensaver.hpp"
 
-#include "timer.hpp"
-#include "queens.hpp"
+#include "screensaver_kind.hpp"
 
-#include "drawing.hpp"
-#include "library.hpp"
-#include "emitter.hpp"
-
-SCREENSAVER_KIND & operator ++ (SCREENSAVER_KIND & screensaver_kind, int) {
-	int i = static_cast<int>(screensaver_kind);
-	screensaver_kind = static_cast<SCREENSAVER_KIND>((i == 0)? 1 : i << 1);
-	return screensaver_kind;
-}
+#include "screensavers/timer.hpp"
+#include "screensavers/queens.hpp"
 
 Screensaver::Screensaver() {
 	basic_screensaver = NULL;
