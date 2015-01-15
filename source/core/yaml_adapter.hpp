@@ -72,7 +72,7 @@ template<typename OptionType>
 inline int load_yaml_option(OptionType & option, const YAML::Node & node) {
 	try {
 		YAML::convert<OptionType>().decode(node, option);
-		std::cout << "ok" << std::ends;
+		std::cout << "ok" << std::endl;
 	} catch(YAML::TypedBadConversion<OptionType> & exception) {
 		std::cout << "wrong value" << std::endl;
 		return 1;

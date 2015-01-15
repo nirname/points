@@ -85,7 +85,11 @@ void Menu::display() {
 	}
 }
 
-MenuItem * Menu::add_item(const std::string & name, MenuItemDisplayer _displayer, MenuItemHandler _handler, Menu * _next_menu) {
+MenuItem * Menu::add_item (
+	const std::string & name,
+	MenuItemDisplayer _displayer, MenuItemHandler _handler,
+	Menu * _next_menu
+) {
 	bool is_first = items.empty();
 	MenuItems::iterator item_iterator = items.insert(items.end(), MenuItem(this));
 	MenuItem * item = &*item_iterator;
@@ -106,6 +110,24 @@ MenuItem * Menu::find_item(const std::string & name) {
 		}
 	}
 	return NULL;
+}
+
+Menu * Menu::add_menu (
+	const std::string & name,
+	MenuItemDisplayer _item_displayer, MenuItemHandler _item_handler,
+	MenuDisplayer _menu_displayer, MenuHandler _menu_handler
+) {
+	bool is_first = items.empty();
+	MenuItems::iterator item_iterator = items.insert(items.end(), MenuItem(this));
+	MenuItem * item = &*item_iterator;
+	item->name = name;
+	item->displayer = _item_displayer;
+	item->handler = _item_handler;
+	item->next_menu = this->interface->add_menu(name, _menu_displayer, _menu_handler);
+	if(is_first) {
+		_current_item = item_iterator;
+	}
+	return item->next_menu;
 }
 
 MenuItem * Menu::current_item() {

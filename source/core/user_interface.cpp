@@ -543,28 +543,15 @@ void load_interface(Interface * interface) {
 	Menu * menu = NULL;
 	MenuItem * menu_item = NULL;
 
-	interface->add_menu("Main menu", display_menu, handle_menu);
-		interface->add_menu("Single player", display_multicolumn_menu, handle_multicolumn_menu);
-		interface->add_menu("Multi player", display_multicolumn_menu, handle_multicolumn_menu);
-		interface->add_menu("Levels", display_menu, handle_menu);
-		interface->add_menu("Extras", display_menu, handle_menu);
-			interface->add_menu("Screensavers", display_menu, handle_menu);
-			interface->add_menu("Images", display_menu, handle_menu);
-			interface->add_menu("Fonts", display_fonts, handle_menu);
-			interface->add_menu("Pallete", display_colors, handle_menu);
-		interface->add_menu("Options", display_menu, handle_menu);
-			interface->add_menu("Video", display_menu, handle_menu);
-			interface->add_menu("Interface", display_menu, handle_menu);
-			interface->add_menu("Features", display_menu, handle_menu);
-			interface->add_menu("Audio", display_menu, handle_menu);
+	menu = interface->add_menu("Main menu", display_menu, handle_menu);
+		menu->add_menu("Single player", display_menu_item, next_menu, display_multicolumn_menu, handle_multicolumn_menu);
+		menu->add_menu("Multi player", display_menu_item, next_menu, display_multicolumn_menu, handle_multicolumn_menu);
+		menu->add_menu("Extras", display_menu_item, next_menu, display_menu, handle_menu);
+		menu->add_menu("Options", display_menu_item, next_menu, display_menu, handle_menu);
+
 	interface->add_menu("Message", display_message, handle_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
-
-	menu = interface->find_menu("Main menu");
-	menu->add_item("Single player", display_menu_item, next_menu, interface->find_menu("Single player"));
-	menu->add_item("Multi player", display_menu_item, next_menu, interface->find_menu("Multi player"));
-	menu->add_item("Extras", display_menu_item, next_menu, interface->find_menu("Extras"));
-	menu->add_item("Options", display_menu_item, next_menu, interface->find_menu("Options"));
+	interface->add_menu("Levels", display_menu, handle_menu);
 
 	Menu * single_player_menu = interface->find_menu("Single player");
 	Menu * multi_player_menu = interface->find_menu("Multi player");
@@ -580,22 +567,10 @@ void load_interface(Interface * interface) {
 		}
 	}
 
-	menu = interface->find_menu("Images");
-	if(foreword.load_images_list()) {
-		for(
-			std::list<std::string>::iterator i = Foreword::images.begin();
-			i != Foreword::images.end();
-			i++
-		) {
-			menu_item = menu->add_item(*i, display_menu_item, show_foreword);
-			menu_item->options.path = options::images_directory + *i;
-		}
-	}
-
 	menu = interface->find_menu("Options");
-	menu->add_item("Interface", display_menu_item, next_menu, interface->find_menu("Interface"));
-	menu->add_item("Features", display_menu_item, next_menu, interface->find_menu("Features"));
-	menu->add_item("Video", display_menu_item, next_menu, interface->find_menu("Video"));
+	menu->add_menu("Interface", display_menu_item, next_menu, display_menu, handle_menu);
+	menu->add_menu("Features", display_menu_item, next_menu, display_menu, handle_menu);
+	menu->add_menu("Video", display_menu_item, next_menu, display_menu, handle_menu);
 
 	menu = interface->find_menu("Interface");
 	menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
@@ -620,10 +595,22 @@ void load_interface(Interface * interface) {
 	menu->add_item("Game mode", display_option<options::game_mode>, handle_option<options::game_mode>);
 
 	menu = interface->find_menu("Extras");
-	menu->add_item("Screensavers", display_menu_item, next_menu, interface->find_menu("Screensavers"));
-	menu->add_item("Images", display_menu_item, next_menu, interface->find_menu("Images"));
-	menu->add_item("Pallete", display_menu_item, next_menu, interface->find_menu("Pallete"));
-	menu->add_item("Fonts", display_menu_item, next_menu, interface->find_menu("Fonts"));
+	menu->add_menu("Screensavers", display_menu_item, next_menu, display_menu, handle_menu);
+	menu->add_menu("Images", display_menu_item, next_menu, display_menu, handle_menu);
+	menu->add_menu("Pallete", display_menu_item, next_menu, display_colors, handle_menu);
+	menu->add_menu("Fonts", display_menu_item, next_menu, display_fonts, handle_menu);
+
+	menu = interface->find_menu("Images");
+	if(foreword.load_images_list()) {
+		for(
+			std::list<std::string>::iterator i = Foreword::images.begin();
+			i != Foreword::images.end();
+			i++
+		) {
+			menu_item = menu->add_item(*i, display_menu_item, show_foreword);
+			menu_item->options.path = options::images_directory + *i;
+		}
+	}
 
 	menu = interface->find_menu("Screensavers");
 

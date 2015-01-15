@@ -68,6 +68,13 @@ struct Menu {
 		MenuItemDisplayer _displayer = NULL, MenuItemHandler _handler = NULL,
 		Menu * _next_menu = NULL
 	);
+
+	Menu * add_menu (
+		const std::string & name,
+		MenuItemDisplayer _item_displayer = NULL, MenuItemHandler _item_handler = NULL,
+		MenuDisplayer _menu_displayer = NULL, MenuHandler _menu_handler = NULL
+	);
+
 	MenuItem * find_item(const std::string & name);
 
 	void next_item();
