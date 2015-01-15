@@ -1,5 +1,6 @@
 #pragma once
 
+#include "yaml.hpp"
 #include "color.hpp"
 
 namespace YAML {

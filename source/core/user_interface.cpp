@@ -16,6 +16,9 @@
 #include "directory.hpp"
 #include "file.hpp"
 
+#include "convert_shape.hpp"
+#include "yaml_adapter.hpp"
+
 int value_shift = 22;
 
 void display_inline_menu(Interface * interface) {
@@ -455,7 +458,8 @@ void handle_option<options::padding>(unsigned char key, int special_key, MenuIte
 		(options::padding > -5 && special_key == GLUT_KEY_LEFT)
 	) {
 		handle_option(key, special_key, menu_item, options::padding);
-		default_shape.load(options::shape_options);
+		//default_shape.load(options::shape_options);
+		load_yaml_option(default_shape, options::shape_options);
 		font.load(options::fonts_directory, options::font_name);
 	}
 }

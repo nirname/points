@@ -1,5 +1,6 @@
 #pragma once
 
+#include "yaml.hpp"
 #include "screensaver_kind.hpp"
 
 #include "library.hpp"

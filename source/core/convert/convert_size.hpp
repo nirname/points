@@ -1,5 +1,6 @@
 #pragma once
 
+#include "yaml.hpp"
 #include "size.hpp"
 
 namespace YAML {

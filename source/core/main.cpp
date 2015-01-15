@@ -8,6 +8,9 @@
 
 #include <iostream>
 
+#include "convert_shape.hpp"
+#include "yaml_adapter.hpp"
+
 int main(int argc, char * argv[]) {
 
 	/*int a = 5, b = 7;
@@ -35,7 +38,9 @@ int main(int argc, char * argv[]) {
 	//return 0;
 
 	std::cout << "\nLOADING\n" << std::endl;
-	default_shape.load(options::shape_options);
+
+	load_yaml_option(default_shape, options::shape_options);
+	//default_shape.load(options::shape_options);
 	font.load(options::fonts_directory, options::font_name);
 	interface.load(load_interface);
 	std::cout << "\nLoading is done" << std::endl;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "yaml.hpp"
 #include "object.hpp"
 
 namespace YAML {

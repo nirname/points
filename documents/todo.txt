@@ -3,16 +3,19 @@
 * Сделать загрузку manager
 * Сделать фигуру ферзя
 * Shape -> BasicShape, PolymorphicShape -> Shape
+* Убрать convert.hpp из shape
 
 ПРОВЕРИТЬ
 
 В РАБОТЕ
 
-* Реализовать shape options не как yaml node
+* ? Реализовать shape options не как yaml node
 
 СДЕЛАТЬ СНАЧАЛА
 
-* Сделать object kind как entity kind (для object и cell)
+* ? Сделать object kind как entity kind (для object и cell)
+* Сделать подменю для управления заставками, приветствиями
+* Вынести в меню цвета basic color && clear_color
 * Игра жизнь в качестве заставки
 * Генератор для фигур полимино
 * Написать кладовщика

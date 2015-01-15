@@ -4,8 +4,6 @@
 #include "color.hpp"
 #include <string>
 
-#include "yaml.hpp"
-
 #include "basic_shape.hpp"
 
 struct Block : BasicShape {
@@ -49,8 +47,7 @@ struct Shape {
 	Shape(BasicShape * basic_shape);
 	~Shape();
 
-	void set(BasicShape * basic_shape);
-	void load(const YAML::Node & shape_options);
+	void clear();
 	void display();
 
 };

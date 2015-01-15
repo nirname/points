@@ -2,7 +2,7 @@
 #include "shape.hpp"
 #include "drawing.hpp"
 
-#include "convert.hpp"
+#include "convert_shape.hpp"
 
 #include <iostream>
 
@@ -47,39 +47,14 @@ Shape::Shape() {
 }
 
 Shape::~Shape() {
-	if(basic_shape != NULL) {
-		delete basic_shape;
-	}
+	clear();
 }
 
-void Shape::load(const YAML::Node & shape_options) {
-	std::cout << "Shape: " << std::ends;
+void Shape::clear() {
 	if(basic_shape != NULL) {
 		delete basic_shape;
 		basic_shape = NULL;
 	}
-	if(basic_shape == NULL) {
-		try {
-			basic_shape = shape_options.as<BasicShape *>();
-		} catch(YAML::TypedBadConversion<BasicShape *> & exception) {
-			std::cout << "wrong value" << std::endl;
-			return;
-		}
-	}
-	if(basic_shape != NULL && basic_shape->base != 0) {
-		std::cout << "ok" << std::ends;
-	} else {
-		std::cout << "shape wasn't created" << std::ends;
-	}
-	std::cout << std::endl;
-}
-
-void Shape::set(BasicShape * _basic_shape) {
-	if(basic_shape != NULL) {
-		delete basic_shape;
-		basic_shape = NULL;
-	}
-	basic_shape = _basic_shape;
 };
 
 void Shape::display() {
