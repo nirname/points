@@ -1,0 +1,30 @@
+game:
+  kind: sokoban
+  screen: [5, 5]
+
+kinds:
+  - sokoban:
+    color: purple
+    shape: circle
+  - wall
+  - box:
+    color: green
+  - destination
+
+fields: # size as screen by default
+  objects:
+    sokoban: [1, 5]
+    wall: [[1, 4], [2, 4], [3, 4]]
+    box: [3, 3]
+  cells:
+    destination: [3, 2]
+
+views: #view is default name, look up for default field
+  background_color: blue
+  field_color: sky-blue
+  cells_color: blue
+  draw_grid: true
+  #position: [1, 1] default
+
+controls:
+  sokoban: first_player # look up for first sokoban or for all sokobans

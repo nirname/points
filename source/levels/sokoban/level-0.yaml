@@ -1,0 +1,8 @@
+game:
+  screen: [10, 10]
+
+kinds:
+  - sokoban:
+    shape: circle
+    color: blue
+  - wall

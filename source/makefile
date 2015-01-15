@@ -10,7 +10,7 @@ DEPENDENCIES = $(SOURCES:%.cpp=%.d)
 LDFLAGS = -L libraries/ubuntu13
 LDLIBS = -lglut -lGL -lGLU -lopenal -lalut -lyaml-cpp
 
-CXXFLAGS = -Wall -I include
+CXXFLAGS = -Wall -I include -I core -I core/convert
 #-Wextra -pedantic
 CFLAGS = $(CXXFLAGS)
 
