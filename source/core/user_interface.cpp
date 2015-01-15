@@ -555,6 +555,7 @@ void load_interface(Interface * interface) {
 		interface->add_menu("Options", display_menu, handle_menu);
 			interface->add_menu("Video", display_menu, handle_menu);
 			interface->add_menu("Interface", display_menu, handle_menu);
+			interface->add_menu("Features", display_menu, handle_menu);
 			interface->add_menu("Audio", display_menu, handle_menu);
 	interface->add_menu("Message", display_message, handle_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
@@ -593,10 +594,16 @@ void load_interface(Interface * interface) {
 
 	menu = interface->find_menu("Options");
 	menu->add_item("Interface", display_menu_item, next_menu, interface->find_menu("Interface"));
+	menu->add_item("Features", display_menu_item, next_menu, interface->find_menu("Features"));
 	menu->add_item("Video", display_menu_item, next_menu, interface->find_menu("Video"));
 
 	menu = interface->find_menu("Interface");
 	menu->add_item("Padding", display_option<options::padding>, handle_option<options::padding>);
+	menu->add_item("Selection color", display_option<options::selection_color>, handle_option<options::selection_color>);
+	menu->add_item("Base color", display_option<options::base_color>, handle_option<options::base_color>);
+	menu->add_item("Clear color", display_option<options::clear_color>, handle_option<options::clear_color>);
+
+	menu = interface->find_menu("Features");
 	menu->add_item("Foreword", display_option<options::foreword>, handle_option<options::foreword>);
 	menu->add_item("Afterword", display_option<options::afterword>, handle_option<options::afterword>);
 
@@ -604,8 +611,6 @@ void load_interface(Interface * interface) {
 	menu->add_item("Menu timeout", display_option<options::menu_timeout>, handle_option<options::menu_timeout>);
 	menu->add_item("Screensaver timeout", display_option<options::screensaver_timeout>, handle_option<options::screensaver_timeout>);
 	menu->add_item("Afterword timeout", display_option<options::afterword_timeout>, handle_option<options::afterword_timeout>);
-
-	menu->add_item("Selection color", display_option<options::selection_color>, handle_option<options::selection_color>);
 
 	menu = interface->find_menu("Video");
 	menu->add_item("Full screen", display_option<options::full_screen>, handle_option<options::full_screen>);
