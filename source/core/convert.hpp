@@ -5,10 +5,11 @@
 
 //#include "yaml.hpp"
 
+#include "convert_point.hpp"
+#include "convert_size.hpp"
 #include "convert_color.hpp"
 #include "convert_aspect_ratio.hpp"
 #include "convert_shape.hpp"
-#include "convert_size.hpp"
 #include "convert_field.hpp"
 #include "convert_view.hpp"
 #include "convert_object_kind.hpp"

@@ -16,11 +16,15 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, Size & size) {
-			if(node.IsSequence() && node[0] && node[1]) {
-				size = Size(node[0].as<unsigned int>(), node[1].as<unsigned int>());
-			} else if (node.IsMap() && node["width"] && node["height"]) {
-				size = Size(node[0].as<unsigned int>(), node[1].as<unsigned int>());
-			} else {
+			try {
+				if(node.IsSequence() && node[0] && node[1]) {
+					size = Size(node[0].as<unsigned int>(), node[1].as<unsigned int>());
+				} else if (node.IsMap() && node["width"] && node["height"]) {
+					size = Size(node["width"].as<unsigned int>(), node["height"].as<unsigned int>());
+				} else {
+					return false;
+				}
+			} catch(YAML::TypedBadConversion<unsigned int> & exception) {
 				return false;
 			}
 			return true;

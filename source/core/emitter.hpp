@@ -14,12 +14,14 @@
 #include "object_kind.hpp"
 #include "view.hpp"
 #include "shape.hpp"
+#include "point.hpp"
 
 std::ostream & operator << (std::ostream & _ostream, const SCREENSAVER_KIND & screensaver_kind);
 std::ostream & operator << (std::ostream & _ostream, const APPLICATION_MODE & application_mode);
 std::ostream & operator << (std::ostream & _ostream, const GAME_KIND & game_kind);
 std::ostream & operator << (std::ostream & _ostream, const Color & color);
 std::ostream & operator << (std::ostream & _ostream, const AspectRatio & aspect_ratio);
+std::ostream & operator << (std::ostream & _ostream, const Point & point);
 std::ostream & operator << (std::ostream & _ostream, const Size & size);
 std::ostream & operator << (std::ostream & _ostream, const Field & field);
 std::ostream & operator << (std::ostream & _ostream, const Object & object);

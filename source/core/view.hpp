@@ -27,6 +27,8 @@ struct View {
 	Point direction; // offset direction
 	Point position;  // position at screen
 
+	Shape * cell_shape;
+
 	Color
 		* background_color,
 		* field_color,

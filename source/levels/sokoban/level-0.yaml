@@ -1,11 +1,12 @@
 game:
   difficulty: 1
-  screen: [5, 5]
+  screen: [7, 7]
 
 colors:
   sky_blue: sky-blue
   blue: blue
   sea_green: sea-green
+  black: black
 
 shapes:
   diamond: diamond
@@ -36,8 +37,10 @@ views:
     background_color: blue
     field_color: sky_blue
     cells_color: blue
-    draw_grid: true
-    #position: [1, 1] default
+    grid_color: black
+    offset: [0, 0]
+    position: [1, 1]
+    direction: [1, 1]
 
 controls:
   sokoban: first_player # look up for first sokoban or for all sokobans

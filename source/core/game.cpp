@@ -170,15 +170,17 @@ int Game::load_views(const YAML::Node & level) {
 			}
 			View * view = views.add(key);
 			if(view != NULL) {
-				if(value["size"]) {
-					try {
-						view->size = value["size"].as<Size>();
-					} catch(YAML::TypedBadConversion<Size> & exception) {}
-				}
 				if(value["field"] && value["field"].IsScalar()) {
 					try {
 						view->field = fields[value["field"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
+				}
+				if(value["size"]) {
+					try {
+						view->size = value["size"].as<Size>();
+					} catch(YAML::TypedBadConversion<Size> & exception) {}
+				} else {
+					view->adjust_size();
 				}
 				if(value["background_color"] && value["background_color"].IsScalar()) {
 					try {
@@ -203,6 +205,21 @@ int Game::load_views(const YAML::Node & level) {
 				if(value["border_color"] && value["border_color"].IsScalar()) {
 					try {
 						view->border_color = colors[value["border_color"].as<std::string>()];
+					} catch(YAML::TypedBadConversion<std::string> & exception) {}
+				}
+				if(value["position"]) {
+					try {
+						view->position = value["position"].as<Point>();
+					} catch(YAML::TypedBadConversion<std::string> & exception) {}
+				}
+				if(value["offset"]) {
+					try {
+						view->offset = value["offset"].as<Point>();
+					} catch(YAML::TypedBadConversion<std::string> & exception) {}
+				}
+				if(value["direction"]) {
+					try {
+						view->direction = value["direction"].as<Point>();
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
 			}

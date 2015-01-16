@@ -19,10 +19,13 @@ void View::initialize() {
 	cells_color      = NULL;
 	grid_color       = NULL;
 	border_color     = NULL;
+	cell_shape       = NULL;
 }
 
 void View::adjust_size() {
-	size = field->size;
+	if(field != NULL) {
+		size = field->size;
+	}
 }
 
 Bound View::bound() {
@@ -65,7 +68,7 @@ void View::draw_grid(const Bound & _bound) {
 	if(grid_color != NULL) {
 		glPushAttrib(GL_CURRENT_BIT);
 			grid_color->use();
-			//grid(_bound);
+			::draw_grid(_bound, 1);
 		glPopAttrib();
 	}
 }
@@ -93,7 +96,11 @@ void View::draw_field(const Bound & bound) {
 				{
 					glPushMatrix();
 						glTranslatef(column, row, 0);
-						default_shape.display();
+						if(cell_shape != NULL) {
+							cell_shape->display();
+						} else {
+							default_shape.display();
+						}
 					glPopMatrix();
 				}
 			}
@@ -130,7 +137,7 @@ void View::draw_background(const Bound & bound) {
 	if(background_color != NULL) {
 		glPushAttrib(GL_CURRENT_BIT);
 			background_color->use();
-			float outline = options::padding;
+			float outline = options::padding * 0.05;
 			glRectf(0 - outline, 0 - outline, size.width + outline, size.height + outline);
 		glPopAttrib();
 	}
