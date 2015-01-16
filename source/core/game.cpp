@@ -50,16 +50,12 @@ void Game::print() {
 }
 
 void Game::display() {
-	//draw_text(to_string(kind));
 	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 		i->second->next();
 	}*/
-	//graphics::write(lib::to_string(kind));
-	//glPushMatrix();
 	for(ViewManager::Iterator view = views.begin(); view != views.end(); ++view) {
 		view->second->display();
 	}
-	//glPopMatrix();
 }
 
 bool Game::unload() {
@@ -91,7 +87,31 @@ int Game::load_game_options(const YAML::Node & level) {
 }
 
 int Game::load_colors(const YAML::Node & level) {
-	return load_yaml_option(colors, level, "colors");
+	colors.insert("black", new Color(pallete::black));
+	colors.insert("dark-gray", new Color(pallete::dark_gray));
+	colors.insert("gray", new Color(pallete::gray));
+	colors.insert("light-gray", new Color(pallete::light_gray));
+	colors.insert("white", new Color(pallete::white));
+	colors.insert("red", new Color(pallete::red));
+	colors.insert("red-orange", new Color(pallete::red_orange));
+	colors.insert("orange", new Color(pallete::orange));
+	colors.insert("yellow-orange", new Color(pallete::yellow_orange));
+	colors.insert("yellow", new Color(pallete::yellow));
+	colors.insert("yellow-green", new Color(pallete::yellow_green));
+	colors.insert("green", new Color(pallete::green));
+	colors.insert("sea-green", new Color(pallete::sea_green));
+	colors.insert("blue-green", new Color(pallete::blue_green));
+	colors.insert("cyan", new Color(pallete::cyan));
+	colors.insert("sky-blue", new Color(pallete::sky_blue));
+	colors.insert("soft-blue", new Color(pallete::soft_blue));
+	colors.insert("blue", new Color(pallete::blue));
+	colors.insert("purple", new Color(pallete::purple));
+	colors.insert("violet", new Color(pallete::violet));
+	colors.insert("red_violet", new Color(pallete::red_violet));
+
+	load_yaml_option(colors, level, "colors");
+
+	return 0;
 }
 
 int Game::load_shapes(const YAML::Node & level) {
@@ -230,6 +250,10 @@ int Game::load_views(const YAML::Node & level) {
 	return 0;
 }
 
+/// Loads level
+//
+/// level should be a hash
+///
 int Game::load_level(const YAML::Node & level) {
 	int result = 0;
 
@@ -244,8 +268,11 @@ int Game::load_level(const YAML::Node & level) {
 	return result;
 }
 
-// Loads all properties
+/// Loads all properties
 //
+/// Properties are load from YAML
+/// Logic depends on game kind
+///
 bool Game::load(GAME_KIND game_kind, const std::string & level_path) {
 
 	std::cout << "Loading game:" << std::endl;
@@ -264,7 +291,6 @@ bool Game::load(GAME_KIND game_kind, const std::string & level_path) {
 		std::cout << "failed" << std::endl;
 	}
 
-	//std::cout << "GAME STATUS: " << loaded << std::endl;
 	return loaded;
 
-} // load()
+}

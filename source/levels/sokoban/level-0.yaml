@@ -2,11 +2,11 @@ game:
   difficulty: 1
   screen: [7, 7]
 
-colors:
-  sky_blue: sky-blue
-  blue: blue
-  sea_green: sea-green
-  black: black
+#colors:
+#  sky_blue: sky-blue
+#  blue: blue
+#  sea_green: sea-green
+#  black: black
 
 shapes:
   diamond: diamond
@@ -34,9 +34,9 @@ fields:
 views:
   view:
     field: field
-    background_color: blue
-    field_color: sky_blue
-    cells_color: blue
+    #background_color: soft-blue
+    #field_color: sky-blue
+    #cells_color: blue
     grid_color: black
     offset: [0, 0]
     position: [1, 1]
