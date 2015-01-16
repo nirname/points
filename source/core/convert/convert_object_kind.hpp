@@ -13,7 +13,19 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, ObjectKind & object_kind) {
-			return false;
+			if(node.IsNull()) {
+				// all values are default
+			} else if(node.IsMap()) {
+			}
+			/*switch(node.Type()) {
+				case YAML::NodeType::Undefined: std::cout << "Undefined" << std::endl; break;
+				case YAML::NodeType::Null: std::cout << "Null" << std::endl; break;
+				case YAML::NodeType::Scalar: std::cout << "Scalar" << std::endl; break;
+				case YAML::NodeType::Sequence: std::cout << "Sequence" << std::endl; break;
+				case YAML::NodeType::Map: std::cout << "Map" << std::endl; break;
+				default: std::cout << "something strange" << std::endl; break;
+			}*/
+			return true;
 		}
 	};
 

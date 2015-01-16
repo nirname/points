@@ -1,8 +1,41 @@
 game:
-  screen: [10, 10]
+  difficulty: 1
+  screen: [5, 5]
+
+colors:
+  yellow: yellow
+  my_color: [120, 190, 88]
+
+shapes:
+  diamond: diamond
+  star7: [ngon, 7, 3]
 
 kinds:
-  - sokoban:
+  sokoban:
+    color: purple
     shape: circle
-    color: blue
-  - wall
+  box:
+    color: green
+  destination: null
+  wall: null
+
+fields:
+  field:
+    objects:
+      sokoban: [1, 5]
+      wall: [[1, 4], [2, 4], [3, 4]]
+      box: [3, 3]
+    cells:
+      destination: [3, 2]
+
+views:
+  view:
+    field: field
+    background_color: blue
+    field_color: sky-blue
+    cells_color: blue
+    draw_grid: true
+    #position: [1, 1] default
+
+controls:
+  sokoban: first_player # look up for first sokoban or for all sokobans

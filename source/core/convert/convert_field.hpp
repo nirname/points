@@ -13,7 +13,7 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, Field & field) {
-			return false;
+			return true;
 		}
 	};
 

@@ -15,7 +15,7 @@
 #include "view.hpp"
 
 typedef Manager<std::string, Color> ColorManager;
-typedef Manager<std::string, BasicShape> ShapeManager;
+typedef Manager<std::string, Shape> ShapeManager;
 
 typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
@@ -31,7 +31,7 @@ struct Game {
 	bool loaded;
 
 	ColorManager colors;
-	//ShapeManager shapes;
+	ShapeManager shapes;
 
 	FieldManager      fields;
 	ViewManager       views;
@@ -42,6 +42,14 @@ struct Game {
 
 	Game();
 	~Game();
+
+	int load_game_options(const YAML::Node & level);
+	int load_colors(const YAML::Node & level);
+	int load_shapes(const YAML::Node & level);
+	int load_object_kinds(const YAML::Node & level);
+	int load_objects(const YAML::Node & level);
+	int load_fields(const YAML::Node & level);
+	int load_views(const YAML::Node & level);
 
 	int load_level(const YAML::Node & level);
 

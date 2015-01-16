@@ -156,8 +156,8 @@ void Manager<Key, Entity>::print(std::ostream & _ostream) const {
 	if(!empty()) {
 		for(ConstIterator i = entities.begin(); i != entities.end(); ++i) {
 			//_ostream << i->first << " (" << i->second << "): " << *i->second << std::endl;
-			_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
-			//_ostream << i->first << "#" << i->second << " " << std::ends;
+			//_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
+			_ostream << i->first << "#" << i->second << " " << std::ends;
 		}
 	} else {
 		_ostream << "is empty";

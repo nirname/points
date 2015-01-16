@@ -2,6 +2,9 @@ game:
   kind: sokoban
   screen: [5, 5]
 
+colors:
+  dark_gray: [20, 20, 20]
+
 kinds:
   - sokoban:
     color: purple
