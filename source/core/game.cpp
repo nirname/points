@@ -40,16 +40,26 @@ void Game::handle(unsigned char key, int special_key) {}
 
 void Game::print() {
 	std::cout << "Game:" << std::endl;
-	std::cout << "  colors: " << colors << std::endl;
-	std::cout << "  shapes: " << shapes << std::endl;
-	std::cout << "  fields: " << fields << std::endl;
-	std::cout << "  views: " << views << std::endl;
-	std::cout << "  object kinds: " << object_kinds << std::endl;
-	std::cout << "  objects: " << objects << std::endl;
+	std::cout << "  colors:\n" << colors;
+	std::cout << "  shapes:\n" << shapes;
+	std::cout << "  fields:\n" << fields;
+	std::cout << "  views:\n" << views;
+	std::cout << "  object kinds:\n" << object_kinds;
+	std::cout << "  objects:\n" << objects;
+	std::cout << std::endl;
 }
 
 void Game::display() {
-
+	//draw_text(to_string(kind));
+	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
+		i->second->next();
+	}*/
+	//graphics::write(lib::to_string(kind));
+	//glPushMatrix();
+	for(ViewManager::Iterator view = views.begin(); view != views.end(); ++view) {
+		view->second->display();
+	}
+	//glPopMatrix();
 }
 
 bool Game::unload() {
@@ -92,17 +102,19 @@ int Game::load_object_kinds(const YAML::Node & level) {
 	YAML::Node node = level["kinds"];
 	if(node) {
 		std::string key;
+		YAML::Node value;
 		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
 			try {
 				key = iterator->first.as<std::string>();
+				value = iterator->second;
 			} catch(YAML::TypedBadConversion<std::string()> & exception) {
 				continue;
 			}
 			ObjectKind * object_kind = object_kinds.add(key);
 			if(object_kind != NULL) {
-				if(node["color"] && node["color"].IsScalar()) {
+				if(value["color"] && value["color"].IsScalar()) {
 					try {
-						object_kind->color = colors[node["color"].as<std::string>()];
+						object_kind->color = colors[value["color"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string()> & exception) {}
 				}
 			}
@@ -121,17 +133,19 @@ int Game::load_fields(const YAML::Node & level) {
 	YAML::Node node = level["fields"];
 	if(node) {
 		std::string key;
+		YAML::Node value;
 		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
 			try {
 				key = iterator->first.as<std::string>();
+				value = iterator->second;
 			} catch(YAML::TypedBadConversion<std::string()> & exception) {
 				continue;
 			}
 			Field * field = fields.add(key);
 			if(field != NULL) {
 				try {
-					if(node["size"]) {
-						field->size = node["size"].as<Size>();
+					if(value["size"]) {
+						field->size = value["size"].as<Size>();
 					}
 				} catch(YAML::TypedBadConversion<Size> & exception) {}
 			}
@@ -146,42 +160,49 @@ int Game::load_views(const YAML::Node & level) {
 	YAML::Node node = level["views"];
 	if(node) {
 		std::string key;
+		YAML::Node value;
 		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
 			try {
 				key = iterator->first.as<std::string>();
+				value = iterator->second;
 			} catch(YAML::TypedBadConversion<std::string()> & exception) {
 				continue;
 			}
 			View * view = views.add(key);
 			if(view != NULL) {
-				if(node["size"]) {
+				if(value["size"]) {
 					try {
-						view->size = node["size"].as<Size>();
+						view->size = value["size"].as<Size>();
 					} catch(YAML::TypedBadConversion<Size> & exception) {}
 				}
-				if(node["background_color"] && node["background_color"].IsScalar()) {
+				if(value["field"] && value["field"].IsScalar()) {
 					try {
-						view->background_color = colors[node["background_color"].as<std::string>()];
+						view->field = fields[value["field"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
-				if(node["field_color"] && node["field_color"].IsScalar()) {
+				if(value["background_color"] && value["background_color"].IsScalar()) {
 					try {
-						view->field_color = colors[node["field_color"].as<std::string>()];
+						view->background_color = colors[value["background_color"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
-				if(node["cells_color"] && node["cells_color"].IsScalar()) {
+				if(value["field_color"] && value["field_color"].IsScalar()) {
 					try {
-						view->cells_color = colors[node["cells_color"].as<std::string>()];
+						view->field_color = colors[value["field_color"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
-				if(node["grid_color"] && node["grid_color"].IsScalar()) {
+				if(value["cells_color"] && value["cells_color"].IsScalar()) {
 					try {
-						view->grid_color = colors[node["grid_color"].as<std::string>()];
+						view->cells_color = colors[value["cells_color"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
-				if(node["border_color"] && node["border_color"].IsScalar()) {
+				if(value["grid_color"] && value["grid_color"].IsScalar()) {
 					try {
-						view->border_color = colors[node["border_color"].as<std::string>()];
+						view->grid_color = colors[value["grid_color"].as<std::string>()];
+					} catch(YAML::TypedBadConversion<std::string> & exception) {}
+				}
+				if(value["border_color"] && value["border_color"].IsScalar()) {
+					try {
+						view->border_color = colors[value["border_color"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
 			}

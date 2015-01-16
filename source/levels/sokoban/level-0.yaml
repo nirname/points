@@ -3,8 +3,9 @@ game:
   screen: [5, 5]
 
 colors:
-  yellow: yellow
-  my_color: [120, 190, 88]
+  sky_blue: sky-blue
+  blue: blue
+  sea_green: sea-green
 
 shapes:
   diamond: diamond
@@ -21,6 +22,7 @@ kinds:
 
 fields:
   field:
+    size: [5, 5]
     objects:
       sokoban: [1, 5]
       wall: [[1, 4], [2, 4], [3, 4]]
@@ -32,7 +34,7 @@ views:
   view:
     field: field
     background_color: blue
-    field_color: sky-blue
+    field_color: sky_blue
     cells_color: blue
     draw_grid: true
     #position: [1, 1] default

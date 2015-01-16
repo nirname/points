@@ -6,16 +6,15 @@
 
 template<typename Key, typename Entity> class Manager {
 
-	class CopyDepracationException {};
-
 	public: // Types and members
+
+		class CopyDepracationException {};
 
 		typedef std::map<Key, Entity *> Entities;
 		typedef typename Entities::iterator Iterator;
 		typedef typename Entities::const_iterator ConstIterator;
 
 		Entities entities;
-
 
 		Manager();
 		Manager(const Manager &);
@@ -38,7 +37,7 @@ template<typename Key, typename Entity> class Manager {
 		Iterator end();
 
 		inline bool empty() const;
-		void print(std::ostream & _ostream = std::cout) const;
+		//void print(std::ostream & _ostream = std::cout) const;
 
 	private:
 
@@ -149,21 +148,6 @@ template<typename Key, typename Entity>
 inline bool Manager<Key, Entity>::empty() const {
 	return entities.empty();
 }
-
-
-template<typename Key, typename Entity>
-void Manager<Key, Entity>::print(std::ostream & _ostream) const {
-	if(!empty()) {
-		for(ConstIterator i = entities.begin(); i != entities.end(); ++i) {
-			//_ostream << i->first << " (" << i->second << "): " << *i->second << std::endl;
-			//_ostream << i->first << "#" << i->second << ": " << *i->second << std::endl;
-			_ostream << i->first << "#" << i->second << " " << std::ends;
-		}
-	} else {
-		_ostream << "is empty";
-	}
-}
-
 
 /** Private ***/
 

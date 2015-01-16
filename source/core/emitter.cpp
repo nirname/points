@@ -109,3 +109,33 @@ std::ostream & operator << (std::ostream & _ostream, const Field & field) {
 	<< ")";
 	return _ostream;
 }
+
+std::ostream & operator << (std::ostream & _ostream, const Object & object) {
+	_ostream << "object("
+	<< ")";
+	return _ostream;
+}
+
+std::ostream & operator << (std::ostream & _ostream, const ObjectKind & object_kind) {
+	_ostream << "object_kind("
+	<< ")";
+	return _ostream;
+}
+
+std::ostream & operator << (std::ostream & _ostream, const View & view) {
+	_ostream << "view("
+		<< "field: " << view.field << ", "
+		<< "background_color: " << view.background_color << ", "
+		<< "field_color: " << view.field_color << ", "
+		<< "cells_color: " << view.cells_color << ", "
+		<< "grid_color: " << view.grid_color << ", "
+		<< "border_color: " << view.border_color
+	<< ")";
+	return _ostream;
+}
+
+std::ostream & operator << (std::ostream & _ostream, const Shape & shape) {
+	_ostream << "shape("
+	<< ")";
+	return _ostream;
+}

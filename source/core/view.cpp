@@ -52,7 +52,7 @@ void View::display()
 			glPushMatrix();
 				glTranslatef(shift.column, shift.row, 0);
 				draw_cells(real_bound);
-				draw_objects(real_bound);
+				//draw_objects(real_bound);
 			glPopMatrix();
 			draw_grid(display_bound);
 			draw_border();
