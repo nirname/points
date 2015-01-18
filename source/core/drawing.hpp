@@ -5,6 +5,7 @@
 
 #include "font.hpp"
 #include "bound.hpp"
+#include "size.hpp"
 
 const float DEG2RAD = 3.141592653589 / 180;
 
@@ -18,3 +19,4 @@ void draw_circle();
 
 void draw_line(int x1, int y1, int x2, int y2);
 void draw_grid(const Bound & _bound, int _step);
+void draw_border(const Size & _size);

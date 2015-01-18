@@ -160,3 +160,12 @@ void draw_grid(const Bound & bound, int _step) {
 		}
 	}
 }
+
+void draw_border(const Size & size) {
+	draw_line(0, 0, size.width, 0);
+	draw_line(0, size.height, size.width, size.height);
+	draw_line(0, 0, 0, size.height);
+	draw_line(size.width, 0, size.width, size.height);
+
+	//glRectf(0, 0, size.width, size.height);
+}

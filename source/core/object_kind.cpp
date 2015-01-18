@@ -5,13 +5,14 @@
 ObjectKind::ObjectKind() {
 	shape = NULL;
 	color = NULL;
+	mask.insert(Point(1, 1));
 }
 
 void ObjectKind::draw_shape() {
 	if(shape != NULL) {
 		shape->display();
 	} else {
-		//default_shape();
+		default_shape.display();
 	}
 }
 

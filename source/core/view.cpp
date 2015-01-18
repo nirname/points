@@ -77,7 +77,7 @@ void View::draw_border() {
 	if(border_color != NULL) {
 		glPushAttrib(GL_CURRENT_BIT);
 			border_color->use();
-			//graphics::border(size);
+			::draw_border(size);
 		glPopAttrib();
 	}
 }

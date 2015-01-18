@@ -119,7 +119,7 @@ int Game::load_shapes(const YAML::Node & level) {
 }
 
 int Game::load_object_kinds(const YAML::Node & level) {
-	YAML::Node node = level["kinds"];
+	const YAML::Node & node = level["kinds"];
 	if(node) {
 		std::string key;
 		YAML::Node value;
@@ -146,26 +146,56 @@ int Game::load_object_kinds(const YAML::Node & level) {
 }
 
 int Game::load_objects(const YAML::Node & level) {
+	const YAML::Node & object_kinds_node = level["objects"];
+	if(object_kinds_node && object_kinds_node.IsMap()) {
+		std::string key;
+		//YAML::Node value;
+		for(YAML::const_iterator k = object_kinds_node.begin();
+			k != object_kinds_node.end(); ++k) {
+			ObjectKind * object_kind = NULL;
+			try {
+				object_kind = object_kinds[k->first.as<std::string>()];
+			} catch(YAML::TypedBadConversion<std::string()> & exception) {}
+			if(object_kind != NULL) {
+				/*const YAML::Node & objects_node = k->second;
+				if(objects_node.IsMap()) {
+					for(YAML::const_iterator o = objects_node.begin(); o != objects_node.end(); ++o) {
+						try {
+							key = o->first.as<std::string>();
+							value = o->second;
+							//if(value[""])
+						} catch(YAML::TypedBadConversion<std::string()> & exception) {}
+						Object * object = objects.add(key);
+						if(object != NULL) {
+							object->kind = object_kind;
+						}
+					}
+				}*/
+			}
+		}
+	}
 	return 0;
 }
 
 int Game::load_fields(const YAML::Node & level) {
-	YAML::Node node = level["fields"];
+	const YAML::Node & node = level["fields"];
 	if(node) {
 		std::string key;
-		YAML::Node value;
 		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
 			try {
 				key = iterator->first.as<std::string>();
-				value = iterator->second;
 			} catch(YAML::TypedBadConversion<std::string()> & exception) {
 				continue;
 			}
 			Field * field = fields.add(key);
 			if(field != NULL) {
+				const YAML::Node & value = iterator->second;
 				try {
 					if(value["size"]) {
 						field->size = value["size"].as<Size>();
+					}
+					if(value["objects"]) {
+						//field->
 					}
 				} catch(YAML::TypedBadConversion<Size> & exception) {}
 			}

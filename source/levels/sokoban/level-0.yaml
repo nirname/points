@@ -2,12 +2,6 @@ game:
   difficulty: 1
   screen: [7, 7]
 
-#colors:
-#  sky_blue: sky-blue
-#  blue: blue
-#  sea_green: sea-green
-#  black: black
-
 shapes:
   diamond: diamond
   star7: [ngon, 7, 3]
@@ -25,9 +19,9 @@ fields:
   field:
     size: [5, 5]
     objects:
-      sokoban: [1, 5]
+      sokoban: [['sokoban_1', 1, 5]]
       wall: [[1, 4], [2, 4], [3, 4]]
-      box: [3, 3]
+      box: [[3, 3]]
     cells:
       destination: [3, 2]
 
@@ -37,10 +31,11 @@ views:
     #background_color: soft-blue
     #field_color: sky-blue
     #cells_color: blue
+    border_color: green
     grid_color: black
     offset: [0, 0]
     position: [1, 1]
     direction: [1, 1]
 
 controls:
-  sokoban: first_player # look up for first sokoban or for all sokobans
+  sokoban_1: first_player

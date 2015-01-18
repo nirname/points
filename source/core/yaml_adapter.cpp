@@ -1,5 +1,8 @@
 #include "yaml_adapter.hpp"
 
+/// Specialization for YAML::Node
+//
+///
 template<>
 int load_yaml_option<YAML::Node>
 (YAML::Node & option, const YAML::Node & node, const char * key) {
