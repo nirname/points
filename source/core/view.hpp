@@ -55,4 +55,6 @@ struct View {
 
 	void draw_objects(const Bound &);
 
+	static void display(View *);
+
 };

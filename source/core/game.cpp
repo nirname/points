@@ -53,9 +53,7 @@ void Game::display() {
 	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 		i->second->next();
 	}*/
-	for(ViewManager::EntityIterator view = views.entities_begin(); view != views.entities_end(); ++view) {
-		view->second->display();
-	}
+	views.each(View::display);
 }
 
 bool Game::unload() {

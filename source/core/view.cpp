@@ -164,3 +164,9 @@ void View::draw_objects(const Bound & real_bound) {
 		}
 	}
 }
+
+void View::display(View * _view) {
+	if(_view != NULL) {
+		_view->display();
+	}
+}

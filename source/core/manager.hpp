@@ -59,7 +59,7 @@ template<typename Key, typename Entity> class Manager {
 
 		inline bool empty() const;
 
-		void each(void(*f)(Entity *));
+		void each(void(* handler)(Entity * _entity));
 
 	private:
 
@@ -247,4 +247,14 @@ inline Entity * Manager<Key, Entity>::emplace(const Key & _key, Entity * _entity
 	/*std::cout << "emplacing: " << _entity << ": " << *_entity << std::endl;
 	entities.insert(std::pair<Key, Entity *>(_key, _entity) );
 	return _entity;*/
+}
+
+template<typename Key, typename Entity>
+void Manager<Key, Entity>::each(void(* handler)(Entity * _entity)) {
+	for(EntityIterator e = entities.begin(); e != entities.end(); ++e) {
+		handler(e->second);
+	}
+	for(ItemIterator i = items.begin(); i != items.end(); ++i) {
+		handler(*i);
+	}
 }
