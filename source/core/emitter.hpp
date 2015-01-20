@@ -32,7 +32,7 @@ std::ostream & operator << (std::ostream & _ostream, const Shape & shape);
 template<typename Key, typename Entity>
 std::ostream & operator << (std::ostream & _ostream, const Manager<Key, Entity> & manager) {
 	if(!manager.empty()) {
-		for(typename Manager<Key, Entity>::ConstIterator i = manager.entities.begin(); i != manager.entities.end(); ++i) {
+		for(typename Manager<Key, Entity>::ConstEntityIterator i = manager.entities.begin(); i != manager.entities.end(); ++i) {
 			//_ostream << i->first << " (" << i->second << "): " << *i->second << std::endl;
 			_ostream << "    "<< i->first << "#" << i->second << ": " << *i->second << std::endl;
 			//_ostream << i->first << "#" << i->second << " " << std::ends;

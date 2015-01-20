@@ -53,7 +53,7 @@ void Game::display() {
 	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 		i->second->next();
 	}*/
-	for(ViewManager::Iterator view = views.begin(); view != views.end(); ++view) {
+	for(ViewManager::EntityIterator view = views.entities_begin(); view != views.entities_end(); ++view) {
 		view->second->display();
 	}
 }
@@ -157,10 +157,12 @@ int Game::load_objects(const YAML::Node & level) {
 				object_kind = object_kinds[k->first.as<std::string>()];
 			} catch(YAML::TypedBadConversion<std::string()> & exception) {}
 			if(object_kind != NULL) {
-				/*const YAML::Node & objects_node = k->second;
-				if(objects_node.IsMap()) {
-					for(YAML::const_iterator o = objects_node.begin(); o != objects_node.end(); ++o) {
-						try {
+				const YAML::Node & objects_node = k->second;
+				if(objects_node.IsSequence()) {
+					for(YAML::const_iterator os = objects_node.begin(); os != objects_node.end(); ++os) {
+						//if()
+						//for(YAML::const_iterator o = objects_node.begin(); o = object)
+						/*try {
 							key = o->first.as<std::string>();
 							value = o->second;
 							//if(value[""])
@@ -168,9 +170,9 @@ int Game::load_objects(const YAML::Node & level) {
 						Object * object = objects.add(key);
 						if(object != NULL) {
 							object->kind = object_kind;
-						}
+						}*/
 					}
-				}*/
+				}
 			}
 		}
 	}

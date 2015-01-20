@@ -38,4 +38,4 @@ views:
     direction: [1, 1]
 
 controls:
-  sokoban_1: first_player
+  first_player: sokoban_1
