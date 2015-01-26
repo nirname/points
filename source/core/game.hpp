@@ -47,7 +47,8 @@ struct Game {
 	int load_colors(const YAML::Node & level);
 	int load_shapes(const YAML::Node & level);
 	int load_object_kinds(const YAML::Node & level);
-	int load_objects(const YAML::Node & level);
+	int load_objects(const YAML::Node & object_kinds_node, Field * field = NULL);
+	//int load_objects(const YAML::Node & level);
 	int load_fields(const YAML::Node & level);
 	int load_views(const YAML::Node & level);
 

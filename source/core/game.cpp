@@ -49,6 +49,11 @@ void Game::print() {
 	std::cout << std::endl;
 }
 
+/*template<typename T>
+void print(T * instance) {
+	std::cout << instance << std::endl;
+}*/
+
 void Game::display() {
 	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
 		i->second->next();
@@ -125,7 +130,7 @@ int Game::load_object_kinds(const YAML::Node & level) {
 			try {
 				key = iterator->first.as<std::string>();
 				value = iterator->second;
-			} catch(YAML::TypedBadConversion<std::string()> & exception) {
+			} catch(YAML::TypedBadConversion<std::string> & exception) {
 				continue;
 			}
 			ObjectKind * object_kind = object_kinds.add(key);
@@ -133,7 +138,7 @@ int Game::load_object_kinds(const YAML::Node & level) {
 				if(value["color"] && value["color"].IsScalar()) {
 					try {
 						object_kind->color = colors[value["color"].as<std::string>()];
-					} catch(YAML::TypedBadConversion<std::string()> & exception) {}
+					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
 			}
 		}
@@ -143,35 +148,54 @@ int Game::load_object_kinds(const YAML::Node & level) {
 	return 0;
 }
 
-int Game::load_objects(const YAML::Node & level) {
-	const YAML::Node & object_kinds_node = level["objects"];
+int Game::load_objects(const YAML::Node & object_kinds_node, Field * field) {
+	std::cout << "loading objects" << std::endl;
+	//const YAML::Node & object_kinds_node = level["objects"];
 	if(object_kinds_node && object_kinds_node.IsMap()) {
-		std::string key;
-		//YAML::Node value;
-		for(YAML::const_iterator k = object_kinds_node.begin();
-			k != object_kinds_node.end(); ++k) {
+		for(YAML::const_iterator k = object_kinds_node.begin(); k != object_kinds_node.end(); ++k) {
+
 			ObjectKind * object_kind = NULL;
 			try {
 				object_kind = object_kinds[k->first.as<std::string>()];
-			} catch(YAML::TypedBadConversion<std::string()> & exception) {}
+			} catch(YAML::TypedBadConversion<std::string> & exception) {
+			}
+
 			if(object_kind != NULL) {
 				const YAML::Node & objects_node = k->second;
 				if(objects_node.IsSequence()) {
-					for(YAML::const_iterator os = objects_node.begin(); os != objects_node.end(); ++os) {
-						//if()
-						//for(YAML::const_iterator o = objects_node.begin(); o = object)
-						/*try {
-							key = o->first.as<std::string>();
-							value = o->second;
-							//if(value[""])
-						} catch(YAML::TypedBadConversion<std::string()> & exception) {}
-						Object * object = objects.add(key);
+					for(YAML::const_iterator o = objects_node.begin(); o != objects_node.end(); ++o) {
+
+						const YAML::Node & object_node = *o;
+
+						Object * object = NULL;
+						Point position(0, 0);
+
+						if(object_node.IsSequence()) {
+							if(object_node.size() == 2) {
+								object = objects.add();
+								position.column = object_node[0].as<int>();
+								position.row = object_node[1].as<int>();
+							} else if(object_node.size() == 3) {
+								try {
+									object = objects.add(object_node[0].as<std::string>());
+								} catch(YAML::TypedBadConversion<std::string> & exception) {}
+								position.column = object_node[1].as<int>();
+								position.row = object_node[2].as<int>();
+							}
+						} else if(object_node.IsMap()) {
+						}
+
 						if(object != NULL) {
 							object->kind = object_kind;
-						}*/
+							if(field != NULL) {
+								field->data.add(object, position);
+							}
+						}
+
 					}
 				}
 			}
+
 		}
 	}
 	return 0;
@@ -184,7 +208,7 @@ int Game::load_fields(const YAML::Node & level) {
 		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
 			try {
 				key = iterator->first.as<std::string>();
-			} catch(YAML::TypedBadConversion<std::string()> & exception) {
+			} catch(YAML::TypedBadConversion<std::string> & exception) {
 				continue;
 			}
 			Field * field = fields.add(key);
@@ -194,7 +218,8 @@ int Game::load_fields(const YAML::Node & level) {
 					if(value["size"]) {
 						field->size = value["size"].as<Size>();
 					}
-					if(value["objects"]) {
+					if(value["objects"]) { // unnecessary
+						load_objects(value["objects"], field);
 						//field->
 					}
 				} catch(YAML::TypedBadConversion<Size> & exception) {}
@@ -215,7 +240,7 @@ int Game::load_views(const YAML::Node & level) {
 			try {
 				key = iterator->first.as<std::string>();
 				value = iterator->second;
-			} catch(YAML::TypedBadConversion<std::string()> & exception) {
+			} catch(YAML::TypedBadConversion<std::string> & exception) {
 				continue;
 			}
 			View * view = views.add(key);
@@ -290,10 +315,10 @@ int Game::load_level(const YAML::Node & level) {
 	result |= load_game_options(level);
 	result |= load_colors(level);
 	result |= load_shapes(level);
+	result |= load_object_kinds(level);
 	result |= load_fields(level);
 	result |= load_views(level);
-	result |= load_object_kinds(level);
-	result |= load_objects(level);
+	//result |= load_objects(level);
 
 	return result;
 }

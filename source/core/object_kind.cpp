@@ -5,7 +5,7 @@
 ObjectKind::ObjectKind() {
 	shape = NULL;
 	color = NULL;
-	mask.insert(Point(1, 1));
+	mask.insert(Point(0, 0));
 }
 
 void ObjectKind::draw_shape() {

@@ -55,7 +55,7 @@ void View::display()
 			glPushMatrix();
 				glTranslatef(shift.column, shift.row, 0);
 				draw_cells(real_bound);
-				//draw_objects(real_bound);
+				draw_objects(real_bound);
 			glPopMatrix();
 			draw_grid(display_bound);
 			draw_border();
@@ -158,9 +158,9 @@ void View::draw_objects(const Bound & real_bound) {
 		{
 			Point placement(column, row);
 			// TODO: move this part to field itself, then to data
-			/*if(field->data.points.find(placement) != field->data.points.end()){
-				field->data.points[placement]->display(placement);
-			}*/
+			if(field->data.contain(placement)) {
+				field->data[placement]->display(placement);
+			}
 		}
 	}
 }

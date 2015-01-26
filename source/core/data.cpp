@@ -25,7 +25,11 @@ bool Data::contain(const Point & point, typename Objects::iterator & objects_ite
 }
 
 void Data::add(Object * object, const Point & position) {
-	add(object, object->kind->mask, position);
+	if(object->kind != NULL) {
+		add(object, object->kind->mask, position);
+	} else {
+		add(object, Point(0, 0), position);
+	}
 }
 
 void Data::add(Object * object, const Point & _point, const Point & position) {
@@ -106,23 +110,12 @@ void Data::remove(const PointSet & point_set) {
 		if(contain(point, objects_iterator)) {
 			Object * object = objects_iterator->second;
 			point_sets[object].erase(point);
-			if(point_sets[object].empty()) { // TODO
+			if(point_sets[object].empty()) {
 				point_sets.erase(object);
 			}
 			objects.erase(point);
 		}
 	}
-
-	/*for( PointSets::iterator
-		point_sets_iterator = point_sets.begin();
-		point_sets_iterator != point_sets.end();
-		++point_sets_iterator
-	) {
-		if(point_sets_iterator->second.empty()) {
-			point_sets.erase(point_sets_iterator);
-		}
-	}*/
-
 }
 
 void Data::clear() {

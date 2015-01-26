@@ -17,7 +17,7 @@ template<typename Key, typename Entity> class Manager {
 
 		typedef std::set<Entity *> Items;
 		typedef typename Items::iterator ItemIterator;
-		typedef typename Items::const_iterator ItemConstIterator;
+		typedef typename Items::const_iterator ConstItemIterator;
 
 		Entities entities;
 		Items items;
@@ -49,14 +49,6 @@ template<typename Key, typename Entity> class Manager {
 
 		void clear();
 
-
-		// TODO: remove iterators, make a callback instead
-		EntityIterator entities_begin();
-		EntityIterator entities_end();
-
-		EntityIterator items_begin();
-		EntityIterator items_end();
-
 		inline bool empty() const;
 
 		void each(void(* handler)(Entity * _entity));
@@ -64,7 +56,10 @@ template<typename Key, typename Entity> class Manager {
 	private:
 
 		inline Entity * create(const Key & _key);
+		inline Entity * create();
+
 		inline Entity * emplace(const Key & _key, Entity * _entity);
+		inline Entity * emplace(Entity * _entity);
 
 };
 
@@ -213,7 +208,7 @@ void Manager<Key, Entity>::clear() {
 	entities.clear();
 }
 
-template<typename Key, typename Entity>
+/*template<typename Key, typename Entity>
 typename Manager<Key, Entity>::EntityIterator Manager<Key, Entity>::entities_begin() {
 	return entities.begin();
 }
@@ -221,7 +216,7 @@ typename Manager<Key, Entity>::EntityIterator Manager<Key, Entity>::entities_beg
 template<typename Key, typename Entity>
 typename Manager<Key, Entity>::EntityIterator Manager<Key, Entity>::entities_end() {
 	return entities.end();
-}
+}*/
 
 template<typename Key, typename Entity>
 inline bool Manager<Key, Entity>::empty() const {
@@ -231,7 +226,7 @@ inline bool Manager<Key, Entity>::empty() const {
 /** Private ***/
 
 
-/// Emplace a new instance of an entity
+/// Create a new instance of an entity and emplace it
 //
 template<typename Key, typename Entity>
 inline Entity * Manager<Key, Entity>::create(const Key & _key) {
@@ -239,14 +234,27 @@ inline Entity * Manager<Key, Entity>::create(const Key & _key) {
 	return emplace(_key, new_entity);
 }
 
+/// Create a new unnamed instance of an entity and emplace it
+//
+template<typename Key, typename Entity>
+inline Entity * Manager<Key, Entity>::create() {
+	Entity * new_entity = new Entity();
+	return emplace(new_entity);
+}
+
 /// Emplace an existing instance of an entity
 //
 template<typename Key, typename Entity>
 inline Entity * Manager<Key, Entity>::emplace(const Key & _key, Entity * _entity) {
 	return entities[_key] = _entity;
-	/*std::cout << "emplacing: " << _entity << ": " << *_entity << std::endl;
-	entities.insert(std::pair<Key, Entity *>(_key, _entity) );
-	return _entity;*/
+}
+
+/// Emplace an existing unnamed instance of an entity
+//
+template<typename Key, typename Entity>
+inline Entity * Manager<Key, Entity>::emplace(Entity * _entity) {
+	items.insert(_entity);
+	return _entity;
 }
 
 template<typename Key, typename Entity>
