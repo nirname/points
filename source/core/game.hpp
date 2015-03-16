@@ -21,6 +21,7 @@ typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
 typedef Manager<std::string, ObjectKind> ObjectKindManager;
 typedef Manager<std::string, Object> ObjectManager;
+typedef std::map<std::string, Object *> Controls;
 
 /// Describes current game
 //
@@ -38,6 +39,8 @@ struct Game {
 	ObjectKindManager object_kinds;
 	ObjectManager     objects;
 
+	Controls controls;
+
 	Size screen_size;
 
 	Game();
@@ -51,6 +54,7 @@ struct Game {
 	//int load_objects(const YAML::Node & level);
 	int load_fields(const YAML::Node & level);
 	int load_views(const YAML::Node & level);
+	int load_controls(const YAML::Node & level);
 
 	int load_level(const YAML::Node & level);
 

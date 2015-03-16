@@ -36,7 +36,39 @@ void Game::resume() {
 	paused = false;
 }
 
-void Game::handle(unsigned char key, int special_key) {}
+void Game::handle(unsigned char key, int special_key) {
+
+	/*for(Controls::iterator i = controls.begin(); i != controls.end(); ++i) {
+		std::cout << "    " << i->first << ": " << i->second << std::endl;
+	}*/
+
+	if(!paused) {
+		Field * field = fields["field"];
+		Object * sokoban = objects["sokoban"];
+		Point step;
+		switch(key) {
+			case GLUT_KEY_UP:    step = Point( 0,  1); break;
+			case GLUT_KEY_DOWN:  step = Point( 0, -1); break;
+			case GLUT_KEY_LEFT:  step = Point(-1,  0); break;
+			case GLUT_KEY_RIGHT: step = Point( 1,  0); break;
+		}
+		//animations["Scale"]->do_after = move_sokoban;
+		//animations["Scale"]->start();
+		//, animations[std::string("Scale")]
+		//sokoban->move(field, step);
+		//sokoban->move(field, step);
+		//std::cout << "Key: " << key << std::endl;
+		//glutPostRedisplay();
+		//printf("%i", key);
+		//std::cout << std::endl;
+	}
+
+	/*if(key = GLUT_KEY_UP) {
+		for(FieldManager::Iterator i = fields.begin(); i != fields.end(); ++i) {
+		}
+	}*/
+
+}
 
 void Game::print() {
 	std::cout << "Game:" << std::endl;
@@ -46,6 +78,10 @@ void Game::print() {
 	std::cout << "  views:\n" << views;
 	std::cout << "  object kinds:\n" << object_kinds;
 	std::cout << "  objects:\n" << objects;
+	std::cout << "  controls:\n";
+	for(Controls::iterator i = controls.begin(); i != controls.end(); ++i) {
+		std::cout << "    " << i->first << ": " << i->second << std::endl;
+	}
 	std::cout << std::endl;
 }
 
@@ -305,6 +341,25 @@ int Game::load_views(const YAML::Node & level) {
 	return 0;
 }
 
+int Game::load_controls(const YAML::Node & level) {
+	YAML::Node node = level["controls"];
+	if(node && node.IsMap()) {
+		std::string player;
+		std::string object_name;
+		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
+			try {
+				player = iterator->first.as<std::string>();
+				object_name = iterator->second.as<std::string>();
+				Object * object = objects[object_name];
+				if(object != NULL) {
+					controls[player] = object;
+				}
+			} catch(YAML::TypedBadConversion<std::string> & exception) {}
+		}
+	}
+	return 0;
+}
+
 /// Loads level
 //
 /// level should be a hash
@@ -318,7 +373,8 @@ int Game::load_level(const YAML::Node & level) {
 	result |= load_object_kinds(level);
 	result |= load_fields(level);
 	result |= load_views(level);
-	//result |= load_objects(level);
+	result |= load_objects(level);
+	result |= load_controls(level);
 
 	return result;
 }

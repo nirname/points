@@ -17,7 +17,7 @@ kinds:
 
 fields:
   field:
-    size: [10, 10]
+    size: [5, 5]
     objects:
       sokoban: [['sokoban_1', 0, 4]]
       wall: [[0, 3], [1, 3], [2, 3]]
