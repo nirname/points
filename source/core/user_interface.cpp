@@ -10,7 +10,7 @@
 #include "library.hpp"
 
 #include "shape.hpp"
-#include "controls.hpp"
+#include "keys.hpp"
 #include "emitter.hpp"
 
 #include "directory.hpp"

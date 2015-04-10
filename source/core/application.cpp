@@ -1,7 +1,7 @@
 #include "application.hpp"
 
 #include <cstdlib>
-#include "controls.hpp"
+#include "keys.hpp"
 #include "options.hpp"
 #include "variables.hpp"
 #include "opengl.hpp"
