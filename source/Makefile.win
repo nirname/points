@@ -1,0 +1,152 @@
+# Project: points
+# Makefile created by Dev-C++ 5.4.1
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = core/action.o core/animation.o core/application.o core/aspect_ratio.o core/basic_screensaver.o core/bound.o core/color.o core/controls.o core/data.o core/directory.o core/display.o core/drawing.o core/emitter.o core/field.o core/file.o core/font.o core/foreword.o core/game.o core/graphics.o core/initializers.o core/interface.o core/library.o core/main.o core/object.o core/object_kind.o core/options.o core/point.o core/screen.o core/screensaver.o core/shape.o core/size.o core/user_interface.o core/variables.o core/view.o core/yaml_adapter.o include/easy-bmp/EasyBMP.o core/basic_game.o core/basic_shape.o core/keys.o core/screensaver_kind.o core/screensavers/queens.o core/screensavers/timer.o
+LINKOBJ  = core/action.o core/animation.o core/application.o core/aspect_ratio.o core/basic_screensaver.o core/bound.o core/color.o core/controls.o core/data.o core/directory.o core/display.o core/drawing.o core/emitter.o core/field.o core/file.o core/font.o core/foreword.o core/game.o core/graphics.o core/initializers.o core/interface.o core/library.o core/main.o core/object.o core/object_kind.o core/options.o core/point.o core/screen.o core/screensaver.o core/shape.o core/size.o core/user_interface.o core/variables.o core/view.o core/yaml_adapter.o include/easy-bmp/EasyBMP.o core/basic_game.o core/basic_shape.o core/keys.o core/screensaver_kind.o core/screensavers/queens.o core/screensavers/timer.o
+LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -L"E:/Nicolas/Projects/Games/Points/new/source/libraries/windows" -lopengl32 -lfreeglut -lglu32 -lyaml-cpp 
+INCS     = -I"C:/Program Files/Dev-Cpp/MinGW32/include" -I"E:/Nicolas/Projects/Games/Points/new/source/include/" -I"C:/Program Files/boost/boost_1_51/" -I"E:/Nicolas/Projects/Games/Points/new/source/core/convert" -I"E:/Nicolas/Projects/Games/Points/new/source/core"
+CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW32/include" -I"E:/Nicolas/Projects/Games/Points/new/source/include/" -I"C:/Program Files/boost/boost_1_51/" -I"E:/Nicolas/Projects/Games/Points/new/source/core/convert" -I"E:/Nicolas/Projects/Games/Points/new/source/core"
+BIN      = wpoints.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+core/action.o: core/action.cpp
+	$(CPP) -c core/action.cpp -o core/action.o $(CXXFLAGS)
+
+core/animation.o: core/animation.cpp
+	$(CPP) -c core/animation.cpp -o core/animation.o $(CXXFLAGS)
+
+core/application.o: core/application.cpp
+	$(CPP) -c core/application.cpp -o core/application.o $(CXXFLAGS)
+
+core/aspect_ratio.o: core/aspect_ratio.cpp
+	$(CPP) -c core/aspect_ratio.cpp -o core/aspect_ratio.o $(CXXFLAGS)
+
+core/basic_screensaver.o: core/basic_screensaver.cpp
+	$(CPP) -c core/basic_screensaver.cpp -o core/basic_screensaver.o $(CXXFLAGS)
+
+core/bound.o: core/bound.cpp
+	$(CPP) -c core/bound.cpp -o core/bound.o $(CXXFLAGS)
+
+core/color.o: core/color.cpp
+	$(CPP) -c core/color.cpp -o core/color.o $(CXXFLAGS)
+
+core/controls.o: core/controls.cpp
+	$(CPP) -c core/controls.cpp -o core/controls.o $(CXXFLAGS)
+
+core/data.o: core/data.cpp
+	$(CPP) -c core/data.cpp -o core/data.o $(CXXFLAGS)
+
+core/directory.o: core/directory.cpp
+	$(CPP) -c core/directory.cpp -o core/directory.o $(CXXFLAGS)
+
+core/display.o: core/display.cpp
+	$(CPP) -c core/display.cpp -o core/display.o $(CXXFLAGS)
+
+core/drawing.o: core/drawing.cpp
+	$(CPP) -c core/drawing.cpp -o core/drawing.o $(CXXFLAGS)
+
+core/emitter.o: core/emitter.cpp
+	$(CPP) -c core/emitter.cpp -o core/emitter.o $(CXXFLAGS)
+
+core/field.o: core/field.cpp
+	$(CPP) -c core/field.cpp -o core/field.o $(CXXFLAGS)
+
+core/file.o: core/file.cpp
+	$(CPP) -c core/file.cpp -o core/file.o $(CXXFLAGS)
+
+core/font.o: core/font.cpp
+	$(CPP) -c core/font.cpp -o core/font.o $(CXXFLAGS)
+
+core/foreword.o: core/foreword.cpp
+	$(CPP) -c core/foreword.cpp -o core/foreword.o $(CXXFLAGS)
+
+core/game.o: core/game.cpp
+	$(CPP) -c core/game.cpp -o core/game.o $(CXXFLAGS)
+
+core/graphics.o: core/graphics.cpp
+	$(CPP) -c core/graphics.cpp -o core/graphics.o $(CXXFLAGS)
+
+core/initializers.o: core/initializers.cpp
+	$(CPP) -c core/initializers.cpp -o core/initializers.o $(CXXFLAGS)
+
+core/interface.o: core/interface.cpp
+	$(CPP) -c core/interface.cpp -o core/interface.o $(CXXFLAGS)
+
+core/library.o: core/library.cpp
+	$(CPP) -c core/library.cpp -o core/library.o $(CXXFLAGS)
+
+core/main.o: core/main.cpp
+	$(CPP) -c core/main.cpp -o core/main.o $(CXXFLAGS)
+
+core/object.o: core/object.cpp
+	$(CPP) -c core/object.cpp -o core/object.o $(CXXFLAGS)
+
+core/object_kind.o: core/object_kind.cpp
+	$(CPP) -c core/object_kind.cpp -o core/object_kind.o $(CXXFLAGS)
+
+core/options.o: core/options.cpp
+	$(CPP) -c core/options.cpp -o core/options.o $(CXXFLAGS)
+
+core/point.o: core/point.cpp
+	$(CPP) -c core/point.cpp -o core/point.o $(CXXFLAGS)
+
+core/screen.o: core/screen.cpp
+	$(CPP) -c core/screen.cpp -o core/screen.o $(CXXFLAGS)
+
+core/screensaver.o: core/screensaver.cpp
+	$(CPP) -c core/screensaver.cpp -o core/screensaver.o $(CXXFLAGS)
+
+core/shape.o: core/shape.cpp
+	$(CPP) -c core/shape.cpp -o core/shape.o $(CXXFLAGS)
+
+core/size.o: core/size.cpp
+	$(CPP) -c core/size.cpp -o core/size.o $(CXXFLAGS)
+
+core/user_interface.o: core/user_interface.cpp
+	$(CPP) -c core/user_interface.cpp -o core/user_interface.o $(CXXFLAGS)
+
+core/variables.o: core/variables.cpp
+	$(CPP) -c core/variables.cpp -o core/variables.o $(CXXFLAGS)
+
+core/view.o: core/view.cpp
+	$(CPP) -c core/view.cpp -o core/view.o $(CXXFLAGS)
+
+core/yaml_adapter.o: core/yaml_adapter.cpp
+	$(CPP) -c core/yaml_adapter.cpp -o core/yaml_adapter.o $(CXXFLAGS)
+
+include/easy-bmp/EasyBMP.o: include/easy-bmp/EasyBMP.cpp
+	$(CPP) -c include/easy-bmp/EasyBMP.cpp -o include/easy-bmp/EasyBMP.o $(CXXFLAGS)
+
+core/basic_game.o: core/basic_game.cpp
+	$(CPP) -c core/basic_game.cpp -o core/basic_game.o $(CXXFLAGS)
+
+core/basic_shape.o: core/basic_shape.cpp
+	$(CPP) -c core/basic_shape.cpp -o core/basic_shape.o $(CXXFLAGS)
+
+core/keys.o: core/keys.cpp
+	$(CPP) -c core/keys.cpp -o core/keys.o $(CXXFLAGS)
+
+core/screensaver_kind.o: core/screensaver_kind.cpp
+	$(CPP) -c core/screensaver_kind.cpp -o core/screensaver_kind.o $(CXXFLAGS)
+
+core/screensavers/queens.o: core/screensavers/queens.cpp
+	$(CPP) -c core/screensavers/queens.cpp -o core/screensavers/queens.o $(CXXFLAGS)
+
+core/screensavers/timer.o: core/screensavers/timer.cpp
+	$(CPP) -c core/screensavers/timer.cpp -o core/screensavers/timer.o $(CXXFLAGS)
