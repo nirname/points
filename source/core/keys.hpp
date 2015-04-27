@@ -9,5 +9,6 @@
 #define ARROW_UP_KEY 0
 #define ARROW_LEFT_KEY 0
 #define ARROW_RIGHT_KEY 0
+#define ARROW_DOWN_KEY 0
 
 #define CTRL_Q_KEY 17

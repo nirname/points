@@ -279,6 +279,7 @@ int Game::load_views(const YAML::Node & level) {
 			} catch(YAML::TypedBadConversion<std::string> & exception) {
 				continue;
 			}
+			// TODO: move this to convert
 			View * view = views.add(key);
 			if(view != NULL) {
 				if(value["field"] && value["field"].IsScalar()) {
