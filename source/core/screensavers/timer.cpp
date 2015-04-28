@@ -4,8 +4,12 @@
 #include "drawing.hpp"
 
 #include "variables.hpp"
-#include "options.hpp"
+#include "aspect_ratio.hpp"
 #include <iomanip>
+
+namespace options {
+	extern AspectRatio aspect_ratio;
+}
 
 Timer::Timer() {
 	time(&timer);

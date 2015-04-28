@@ -1,9 +1,22 @@
 #include "drawing.hpp"
-#include "variables.hpp"
-#include "options.hpp"
+#include <cmath>
+//#include "variables.hpp"
 #include "graphics.hpp"
 #include "font.hpp"
-#include <string>
+#include "screen.hpp"
+
+extern Font font;
+extern Screen screen;
+
+namespace options {
+	extern int padding;
+	extern int window_width;
+	extern int window_height;
+
+	float figure_size() {
+		return 1.0 - 0.05 * padding * 2;
+	}
+}
 
 ///Write string
 //

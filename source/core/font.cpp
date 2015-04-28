@@ -3,7 +3,6 @@
 
 #include "drawing.hpp"
 #include "shape.hpp"
-#include "options.hpp"
 
 Font::Font() {
 	base = 0;

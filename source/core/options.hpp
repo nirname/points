@@ -7,6 +7,7 @@
 #include "grid_type.hpp"
 #include "shape.hpp"
 #include "screen.hpp"
+#include "controls.hpp"
 
 #include "yaml.hpp"
 
@@ -53,7 +54,7 @@ namespace options {
 	extern int min_fps;
 	extern int max_fps;
 
-	//engine::ControlsMapping controls;
+	extern PlayersControls players_controls;
 
 	extern const char * mode_string;
 

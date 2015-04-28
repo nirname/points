@@ -46,11 +46,9 @@ namespace options {
 	int min_fps = 20;
 	int max_fps = 50;
 
-	const char * mode_string = "800x600:32";
+	PlayersControls players_controls;
 
-	float figure_size() {
-		return 1.0 - 0.05 * padding * 2;
-	}
+	const char * mode_string = "800x600:32";
 
 }
 

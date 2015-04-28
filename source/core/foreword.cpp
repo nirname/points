@@ -4,7 +4,6 @@
 #include <list>
 #include <cstdlib>
 
-#include "options.hpp"
 #include "directory.hpp"
 #include "file.hpp"
 #include "opengl.hpp"
@@ -12,6 +11,10 @@
 #include "drawing.hpp"
 
 #include <iostream>
+
+namespace options {
+	extern std::string images_directory;
+}
 
 std::list<std::string> Foreword::images;
 int Foreword::times_shown = 0;

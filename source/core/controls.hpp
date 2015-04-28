@@ -10,5 +10,5 @@ typedef std::map <Key, PLAYER_ACTION> Controls;
 typedef std::map <Player, Controls> PlayersControls;
 
 namespace options {
-	PlayersControls players_controls;
+	extern PlayersControls players_controls;
 }

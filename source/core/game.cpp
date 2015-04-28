@@ -78,15 +78,8 @@ void Game::print() {
 	std::cout << std::endl;
 }
 
-/*template<typename T>
-void print(T * instance) {
-	std::cout << instance << std::endl;
-}*/
 
 void Game::display() {
-	/*for(graphics::AnimationMapping::Iterator i = animations.begin(); i != animations.end(); ++i) {
-		i->second->next();
-	}*/
 	views.each(View::display);
 }
 

@@ -3,8 +3,6 @@
 #include "opengl.hpp"
 #include <string>
 
-const char charset[] = {'a', 'b', 'c', 'd', 'e', 'f'};
-
 struct Font {
 
 	GLuint base; /// base of display lists

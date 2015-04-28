@@ -11,7 +11,9 @@
 #include "bound.hpp"
 #include "color.hpp"
 
-#include "options.hpp"
+namespace options {
+	extern int padding;
+}
 
 const Point FORWARD_DIRECTION(1, 1);
 const Point BACKWARD_DIRECTION(-1, -1);
