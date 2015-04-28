@@ -1,8 +1,14 @@
 #pragma once
 
-#include "action_kind.hpp"
-#include "manager.hpp"
+#include "player_action.hpp"
+#include <map>
 
 typedef unsigned char Key;
+typedef std::string Player;
 
-Manager<Key, ACTION_KIND> ControlManager;
+typedef std::map <Key, PLAYER_ACTION> Controls;
+typedef std::map <Player, Controls> PlayersControls;
+
+namespace options {
+	PlayersControls players_controls;
+}

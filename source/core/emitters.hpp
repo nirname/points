@@ -1,7 +1,6 @@
 #pragma once
 
 #include "emitters/screensaver_kind_emitter.hpp"
-#include "emitters/action_kind_emitter.hpp"
 #include "emitters/color_emitter.hpp"
 #include "emitters/game_kind_emitter.hpp"
 #include "emitters/application_mode_emitter.hpp"

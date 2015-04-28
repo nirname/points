@@ -3,6 +3,8 @@
 #include "point.hpp"
 #include "emitters.hpp"
 #include "library.hpp"
+#include "action.hpp"
+#include "controls.hpp"
 
 #include "drawing.hpp"
 
@@ -35,37 +37,25 @@ void Game::resume() {
 	paused = false;
 }
 
+Field * Game::current_field() {
+	return fields["field"];
+}
+
 void Game::handle(unsigned char key, int special_key) {
-
-	/*for(Controls::iterator i = controls.begin(); i != controls.end(); ++i) {
-		std::cout << "    " << i->first << ": " << i->second << std::endl;
-	}*/
-
 	if(!paused) {
-		Field * field = fields["field"];
-		Object * sokoban = objects["sokoban"];
 		Point step;
-		switch(key) {
-			case GLUT_KEY_UP:    step = Point( 0,  1); break;
-			case GLUT_KEY_DOWN:  step = Point( 0, -1); break;
-			case GLUT_KEY_LEFT:  step = Point(-1,  0); break;
-			case GLUT_KEY_RIGHT: step = Point( 1,  0); break;
-		}
-		//animations["Scale"]->do_after = move_sokoban;
-		//animations["Scale"]->start();
-		//, animations[std::string("Scale")]
-		//sokoban->move(field, step);
-		//sokoban->move(field, step);
-		//std::cout << "Key: " << key << std::endl;
-		//glutPostRedisplay();
-		//printf("%i", key);
-		//std::cout << std::endl;
-	}
 
-	/*if(key = GLUT_KEY_UP) {
-		for(FieldManager::Iterator i = fields.begin(); i != fields.end(); ++i) {
+		std::string player_name = players["player_1"];
+		Field * field = current_field();
+		Object * object = units["player_1"];
+
+		switch(options::players_controls[player_name][key]) {
+			case UP_PLAYER_ACTION: move(field, object, 0, 1); break;
+			case DOWN_PLAYER_ACTION: move(field, object, 0, -1); break;
+			case LEFT_PLAYER_ACTION: move(field, object, -1, 0); break;
+			case RIGHT_PLAYER_ACTION: move(field, object, 1, 0); break;
 		}
-	}*/
+	}
 
 }
 
@@ -77,8 +67,12 @@ void Game::print() {
 	std::cout << "  views:\n" << views;
 	std::cout << "  object kinds:\n" << object_kinds;
 	std::cout << "  objects:\n" << objects;
-	std::cout << "  controls:\n";
-	for(Controls::iterator i = controls.begin(); i != controls.end(); ++i) {
+	std::cout << "  units:\n";
+	for(Units::iterator i = units.begin(); i != units.end(); ++i) {
+		std::cout << "    " << i->first << ": " << i->second << std::endl;
+	}
+	std::cout << "  players:\n";
+	for(Players::iterator i = players.begin(); i != players.end(); ++i) {
 		std::cout << "    " << i->first << ": " << i->second << std::endl;
 	}
 	std::cout << std::endl;
@@ -183,6 +177,7 @@ int Game::load_object_kinds(const YAML::Node & level) {
 	return 0;
 }
 
+// TODO: rewrite it
 int Game::load_objects(const YAML::Node & object_kinds_node, Field * field) {
 	std::cout << "loading objects" << std::endl;
 	//const YAML::Node & object_kinds_node = level["objects"];
@@ -341,22 +336,27 @@ int Game::load_views(const YAML::Node & level) {
 	return 0;
 }
 
-int Game::load_controls(const YAML::Node & level) {
-	YAML::Node node = level["controls"];
+int Game::load_units(const YAML::Node & level) {
+	YAML::Node node = level["units"];
 	if(node && node.IsMap()) {
-		std::string player;
+		std::string player_name;
 		std::string object_name;
 		for(YAML::const_iterator iterator = node.begin(); iterator != node.end(); ++iterator) {
 			try {
-				player = iterator->first.as<std::string>();
+				player_name = iterator->first.as<std::string>();
 				object_name = iterator->second.as<std::string>();
 				Object * object = objects[object_name];
 				if(object != NULL) {
-					controls[player] = object;
+					units[player_name] = object;
 				}
 			} catch(YAML::TypedBadConversion<std::string> & exception) {}
 		}
 	}
+	return 0;
+}
+
+int Game::load_players() {
+	players["player_1"] = "first_player";
 	return 0;
 }
 
@@ -374,7 +374,8 @@ int Game::load_level(const YAML::Node & level) {
 	result |= load_fields(level);
 	result |= load_views(level);
 	result |= load_objects(level);
-	result |= load_controls(level);
+	result |= load_units(level);
+	result |= load_players();
 
 	return result;
 }

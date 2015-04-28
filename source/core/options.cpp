@@ -46,8 +46,6 @@ namespace options {
 	int min_fps = 20;
 	int max_fps = 50;
 
-	//engine::ControlsMapping controls;
-
 	const char * mode_string = "800x600:32";
 
 	float figure_size() {

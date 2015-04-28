@@ -21,7 +21,9 @@ typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
 typedef Manager<std::string, ObjectKind> ObjectKindManager;
 typedef Manager<std::string, Object> ObjectManager;
-typedef std::map<std::string, Object *> Controls;
+
+typedef std::map<std::string, Object *> Units;
+typedef std::map<std::string, std::string> Players;
 
 /// Describes current game
 //
@@ -39,7 +41,8 @@ struct Game {
 	ObjectKindManager object_kinds;
 	ObjectManager     objects;
 
-	Controls controls;
+	Units units;
+	Players players;
 
 	Size screen_size;
 
@@ -54,7 +57,8 @@ struct Game {
 	//int load_objects(const YAML::Node & level);
 	int load_fields(const YAML::Node & level);
 	int load_views(const YAML::Node & level);
-	int load_controls(const YAML::Node & level);
+	int load_units(const YAML::Node & level);
+	int load_players(); // TODO: remove it, set player directly
 
 	int load_level(const YAML::Node & level);
 
@@ -72,5 +76,7 @@ struct Game {
 
 	int width();
 	int height();
+
+	Field * current_field();
 
 };

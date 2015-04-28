@@ -1,20 +1,25 @@
-first_player:
-  up: Up
-  down: Down
-  left: Left
-  right: Right
-second_player:
-  up: w
-  down: s
-  left: a
-  rigth: d
-third_player:
-  up: NumPad8
-  down: NumPad5
-  left: NumPad4
-  right: NumPad6
-fourth_player:
-  up: i
-  down: k
-  left: j
-  right: l
+up: ArrowUp
+down: ArrowDown
+left: ArrowLeft
+right: ArrowRight
+
+#first_player:
+#  up: Up
+#  down: Down
+#  left: Left
+#  right: Right
+#second_player:
+#  up: w
+#  down: s
+#  left: a
+#  rigth: d
+#third_player:
+#  up: NumPad8
+#  down: NumPad5
+#  left: NumPad4
+#  right: NumPad6
+#fourth_player:
+#  up: i
+#  down: k
+#  left: j
+#  right: l

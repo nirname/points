@@ -1,17 +1,13 @@
 #pragma once
 
 #include "point.hpp"
+#include "object.hpp"
+#include "field.hpp"
 
-void move(int x, int y);
-void go_to(int x, int y);
-void turn(int x, int y);
-void reflect(int x, int y);
-void step(int x, int y);
+void move(Field * field, Object * object, int x, int y);
+void go_to(Field * field, Object * object, int x, int y);
+void rotate(Field * field, Object * object, int x, int y);
 
-void move(const Point & point);
-void go_to(const Point & point);
-void turn(const Point & point);
-void reflect(const Point & point);
-void step(const Point & point);
-
-void reverse();
+void move(Field * field, Object * object, const Point & point);
+void go_to(Field * field, Object * object, const Point & point);
+void rotate(Field * field, Object * object, const Point & point);
