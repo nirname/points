@@ -10,7 +10,7 @@
 #include "math.h"
 #include "options.hpp"
 
-#include "emitter.hpp"
+#include "emitters.hpp"
 
 float fps() {
 	return 0.0;

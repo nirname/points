@@ -1,7 +1,7 @@
 #include "options.hpp"
 
 #include <iostream>
-#include "emitter.hpp"
+#include "emitters.hpp"
 #include "convert.hpp"
 #include "yaml_adapter.hpp"
 

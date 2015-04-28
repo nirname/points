@@ -1,13 +1,12 @@
 #include "game.hpp"
 
 #include "point.hpp"
-#include "emitter.hpp"
+#include "emitters.hpp"
 #include "library.hpp"
 
 #include "drawing.hpp"
 
 #include "convert.hpp"
-#include "emitter.hpp"
 #include "yaml_adapter.hpp"
 #include "functionals.hpp"
 

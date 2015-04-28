@@ -4,7 +4,7 @@
 #include "screensaver_kind.hpp"
 
 #include "library.hpp"
-#include "emitter.hpp"
+#include "emitters/screensaver_kind_emitter.hpp"
 
 namespace YAML {
 

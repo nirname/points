@@ -1,7 +1,8 @@
 #pragma once
 
-void keyboard(unsigned char key, int x, int y);
+#include "action_kind.hpp"
+#include "manager.hpp"
 
-void special(int special_key, int x, int y);
+typedef unsigned char Key;
 
-void mouse(int button, int state, int width, int height);
+Manager<Key, ACTION_KIND> ControlManager;

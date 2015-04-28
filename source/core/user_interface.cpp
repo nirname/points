@@ -11,7 +11,7 @@
 
 #include "shape.hpp"
 #include "keys.hpp"
-#include "emitter.hpp"
+#include "emitters.hpp"
 
 #include "directory.hpp"
 #include "file.hpp"

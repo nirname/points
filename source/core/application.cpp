@@ -7,7 +7,7 @@
 #include "opengl.hpp"
 
 #include <iostream>
-#include "emitter.hpp"
+#include "emitters.hpp"
 
 Application::Application() {
 	mode = LOADING_MODE;
