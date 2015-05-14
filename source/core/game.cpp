@@ -49,6 +49,8 @@ void Game::handle(unsigned char key, int special_key) {
 		Field * field = current_field();
 		Object * object = units["player_1"];
 
+		std::cout << player_name << std::endl;
+
 		switch(options::players_controls[player_name][key]) {
 			case UP_PLAYER_ACTION: move(field, object, 0, 1); break;
 			case DOWN_PLAYER_ACTION: move(field, object, 0, -1); break;
