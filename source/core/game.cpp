@@ -170,6 +170,15 @@ int Game::load_object_kinds(const YAML::Node & level) {
 						object_kind->color = colors[value["color"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
+				const YAML::Node & mask = value["mask"];
+				if(mask && mask.IsSequence()) {
+					try {
+						for(YAML::const_iterator yaml_point = mask.begin(); yaml_point != mask.end(); ++yaml_point) {
+							Point point = yaml_point->as<Point>();
+							object_kind->mask.insert(point);
+						}
+					} catch(YAML::TypedBadConversion<Point> & exception) {}
+				}
 			}
 		}
 	} else {

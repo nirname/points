@@ -10,6 +10,7 @@ kinds:
   sokoban:
     color: purple
     shape: circle
+    mask: [[0, 0], [1, 0]]
   box:
     color: green
   destination: null
