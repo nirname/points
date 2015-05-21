@@ -9,7 +9,7 @@ Field::~Field() {
 }
 
 void Field::move(Object * object, Point point) {
-	data.move(object, point);
+	data.move(object, point, bound());
 }
 
 Bound Field::bound() {

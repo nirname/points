@@ -137,7 +137,7 @@ void Data::clear() {
 	point_sets.clear();
 }
 
-void Data::move(Object * object, Point distance) {
+void Data::move(Object * object, Point distance, const Bound & bound) {
 
 	std::cout << "Moving object" << std::endl;
 	std::cout << distance << std::endl;
@@ -157,9 +157,13 @@ void Data::move(Object * object, Point distance) {
 		) {
 			Point next_point = *object_point_iterator + distance;
 			next_points.insert(next_point);
+			// Check bounds first
+			if(!bound.contains(next_point)) {
+				return;
+			}
+			// Check other objects
 			ObjectsIterator objects_iterator;
-			if(!contain(next_point, objects_iterator)) {
-			} else {
+			if(contain(next_point, objects_iterator)) {
 				Object * next_object = objects_iterator->second;
 				if(object != next_object) {
 					obstacles.insert(next_object);
@@ -167,7 +171,6 @@ void Data::move(Object * object, Point distance) {
 			}
 		}
 		if(obstacles.empty()) {
-			std::cout << "  obstacles is empty" << std::endl;
 			remove(object);
 			add(object, next_points, Point(0, 0));
 		} else {

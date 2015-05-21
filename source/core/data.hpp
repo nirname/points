@@ -4,6 +4,7 @@
 
 #include "point_list.hpp"
 #include "object.hpp"
+#include "bound.hpp"
 
 struct Data {
 
@@ -43,7 +44,7 @@ struct Data {
 	void clear();
 
 	// Move an object at specified distance
-	void move(Object * object, Point distance);
+	void move(Object * object, Point distance, const Bound & bound);
 	void rotate(Object * object, Point point);
 
 	PointSet * get(Object * object);
