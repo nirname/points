@@ -170,6 +170,17 @@ void Data::move(Object * object, Point distance) {
 			std::cout << "  obstacles is empty" << std::endl;
 			remove(object);
 			add(object, next_points, Point(0, 0));
+		} else {
+			/*PairOfKinds interaction_between(this->kind, next_point_information->second->kind);
+			InteractionMapIterator current_kind_iterator = game.interactions.find(interaction_between);
+			if(current_kind_iterator != game.interactions.end()) {
+				if(current_kind_iterator->second == PUSH_INTERACTION) {
+					if(next_point_information->second->move(_field, _step)) {
+						go_to(_field, next_position);
+						return true;
+					}
+				}
+			}*/
 		}
 	}
 

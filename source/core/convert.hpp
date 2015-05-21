@@ -15,4 +15,5 @@
 #include "convert_object_kind.hpp"
 #include "convert_object.hpp"
 #include "convert_screensaver_kind.hpp"
+#include "convert_interaction.hpp"
 #include "convert_manager.hpp"

@@ -376,17 +376,17 @@ int Game::load_players() {
 ///
 int Game::load_level(const YAML::Node & level) {
 	int result = 0;
-
-	result |= load_game_options(level);
-	result |= load_colors(level);
-	result |= load_shapes(level);
-	result |= load_object_kinds(level);
-	result |= load_fields(level);
-	result |= load_views(level);
-	result |= load_objects(level);
-	result |= load_units(level);
-	result |= load_players();
-
+	try {
+		result |= load_game_options(level);
+		result |= load_colors(level);
+		result |= load_shapes(level);
+		result |= load_object_kinds(level);
+		result |= load_fields(level);
+		result |= load_views(level);
+		result |= load_objects(level);
+		result |= load_units(level);
+		result |= load_players();
+	} catch(YAML::InvalidNode) {}
 	return result;
 }
 
