@@ -1,6 +1,10 @@
 #include "action.hpp"
+#include <iostream>
 
-void move(Field * field, Object * object, int x, int y) {}
+void move(Field * field, Object * object, int x, int y) {
+	std::cout << "move action" << std::endl;
+	/*field->move(object, x, y);*/
+}
 void go_to(Field * field, Object * object, int x, int y) {}
 void rotate(Field * field, Object * object, int x, int y) {}
 

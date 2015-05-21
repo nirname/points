@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include "point_set.hpp"
+#include "point_list.hpp"
 #include "object.hpp"
 
 struct Data {
@@ -23,9 +23,13 @@ struct Data {
 	Data();
 	~Data();
 
+	// Check whether data contain an object
 	bool contain(Object * object);
+	// Check whether data contain an object
 	bool contain(Object * object, PointSetsIterator & point_sets_iterator);
+	// Check whether data contain point
 	bool contain(const Point & point);
+	// Check whether data contain point
 	bool contain(const Point & point, ObjectsIterator & objects_iterator);
 
 	void add(Object * object, const Point & position);
@@ -37,6 +41,10 @@ struct Data {
 	void remove(const PointSet & point_set);
 
 	void clear();
+
+	// Move an object at specified distance
+	void move(Object * object, Point distance);
+	void rotate(Object * object, Point point);
 
 	PointSet * get(Object * object);
 	Object *   get(const Point & point);
