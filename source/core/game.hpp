@@ -11,6 +11,7 @@
 #include "shape.hpp"
 #include "object_kind.hpp"
 #include "object.hpp"
+#include "interaction.hpp"
 #include "field.hpp"
 #include "view.hpp"
 
@@ -21,6 +22,9 @@ typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
 typedef Manager<std::string, ObjectKind> ObjectKindManager;
 typedef Manager<std::string, Object> ObjectManager;
+
+typedef std::pair<ObjectKind *, ObjectKind *> PairOfKinds;
+typedef std::map<PairOfKinds, INTERACTION> Interactions;
 
 typedef std::map<std::string, Object *> Units;
 typedef std::map<std::string, std::string> Players;
@@ -53,9 +57,9 @@ struct Game {
 	int load_colors(const YAML::Node & level);
 	int load_shapes(const YAML::Node & level);
 	int load_object_kinds(const YAML::Node & level);
-	int load_objects(const YAML::Node & object_kinds_node, Field * field = NULL);
-	//int load_objects(const YAML::Node & level);
 	int load_fields(const YAML::Node & level);
+	int load_objects(const YAML::Node & object_kinds_node, Field * field = NULL);
+	int load_interactions(const YAML::Node & level);
 	int load_views(const YAML::Node & level);
 	int load_units(const YAML::Node & level);
 	int load_players(); // TODO: remove it, set player directly

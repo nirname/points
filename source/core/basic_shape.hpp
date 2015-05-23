@@ -1,6 +1,7 @@
 #pragma once
 
 #include "opengl.hpp"
+#include <iostream>
 
 struct BasicShape {
 
@@ -12,3 +13,5 @@ struct BasicShape {
 	void display();
 
 };
+
+std::ostream & operator << (std::ostream & _ostream, const BasicShape & basic_shape);

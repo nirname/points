@@ -8,7 +8,7 @@
 
 struct ObjectKind {
 
-	BasicShape * shape;
+	Shape * shape;
 	Color * color;
 
 	PointSet mask;

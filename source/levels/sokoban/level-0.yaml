@@ -4,13 +4,13 @@ game:
 
 shapes:
   diamond: diamond
-  star7: [ngon, 7, 3]
+  circle: circle
 
 kinds:
   sokoban:
     color: purple
-    shape: circle
-    mask: [[0, 0], [1, 0]]
+    shape: diamond
+    mask: [[0, 0]]
   box:
     color: green
   destination: null
@@ -29,10 +29,6 @@ fields:
 views:
   view:
     field: field
-    #size: [5, 5]
-    #background_color: soft-blue
-    #field_color: sky-blue
-    #cells_color: blue
     border_color: green
     grid_color: black
     offset: [0, 0]

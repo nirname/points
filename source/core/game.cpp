@@ -148,6 +148,10 @@ int Game::load_colors(const YAML::Node & level) {
 }
 
 int Game::load_shapes(const YAML::Node & level) {
+	/*BasicShape * bs = new Diamond();
+	Shape * s = new Shape(bs);
+	shapes.insert("diamond", s);
+	return 0;*/
 	return load_yaml_option(shapes, level, "shapes");
 }
 
@@ -168,6 +172,11 @@ int Game::load_object_kinds(const YAML::Node & level) {
 				if(value["color"] && value["color"].IsScalar()) {
 					try {
 						object_kind->color = colors[value["color"].as<std::string>()];
+					} catch(YAML::TypedBadConversion<std::string> & exception) {}
+				}
+				if(value["shape"] && value["shape"].IsScalar()) {
+					try {
+						object_kind->shape = shapes[value["shape"].as<std::string>()];
 					} catch(YAML::TypedBadConversion<std::string> & exception) {}
 				}
 				const YAML::Node & mask = value["mask"];
@@ -260,7 +269,6 @@ int Game::load_fields(const YAML::Node & level) {
 					}
 					if(value["objects"]) { // unnecessary
 						load_objects(value["objects"], field);
-						//field->
 					}
 				} catch(YAML::TypedBadConversion<Size> & exception) {}
 			}
@@ -269,6 +277,75 @@ int Game::load_fields(const YAML::Node & level) {
 		return 1;
 	}
 	return 0;
+}
+
+int Game::load_interactions(const YAML::Node & level) {
+	return 0;
+	const YAML::Node & node = level["interactions"];
+	if(node) {
+		if(node.IsMap()) {
+			for(
+				YAML::const_iterator
+				interaction = node.begin();
+				interaction != node.end();
+				++interaction
+			) {
+				std::string first_object_kind_name = interaction->first.as<std::string>();
+				//std::cout << "* " << first_object_kind_name << std::endl;
+				/*if( object_kinds.has(first_object_kind_name) ) {
+					ObjectKindPointer first_object_kind = object_kinds.get(first_object_kind_name);
+					const YAML::Node& actions_node = interaction->second;
+					if(actions_node.IsMap()) {
+						for(
+							YAML::const_iterator
+							action = actions_node.begin();
+							action != actions_node.end();
+							++action
+						) {
+							std::string action_name = action->first.as<std::string>();
+							INTERACTION_TYPE interaction_type = get_interaction_type(action_name);
+							if(interaction_type != NO_INTERACTION) {
+								const YAML::Node& second_object_kinds = action->second;
+								if(second_object_kinds.IsScalar()) {
+									std::string second_object_kind_name = second_object_kinds.as<std::string>();
+									if(object_kinds.has(second_object_kind_name)) {
+										ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
+										interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
+									} else {
+										std::cout << "Can not find object kind `" << second_object_kind_name << "`" << std::endl;
+									}
+								}
+								if(second_object_kinds.IsSequence()) {
+									for(
+										YAML::const_iterator
+										second_object_kind_iterator = second_object_kinds.begin();
+										second_object_kind_iterator != second_object_kinds.end();
+										++second_object_kind_iterator
+									) {
+										std::string second_object_kind_name = second_object_kind_iterator->as<std::string>();
+										if(object_kinds.has(second_object_kind_name)) {
+											ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
+											interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
+										} else {
+											std::cout << "Can not find object kind `" << second_object_kind_name << "`" << std::endl;
+										}
+									}
+								}
+							} else {
+								std::cout << "No interaction" << std::endl;
+							}
+						}
+					} else {
+						std::cout << "Actions should be a map" << std::endl;
+					}
+				} else {
+					std::cout << "Can not find object kind `" << first_object_kind_name << "`" << std::endl;
+				}*/
+			}
+		} else {
+			std::cout << "Interaction should be a map" << std::endl;
+		}
+	}
 }
 
 int Game::load_views(const YAML::Node & level) {
@@ -384,6 +461,7 @@ int Game::load_level(const YAML::Node & level) {
 		result |= load_fields(level);
 		result |= load_views(level);
 		result |= load_objects(level);
+		result |= load_interactions(level);
 		result |= load_units(level);
 		result |= load_players();
 	} catch(YAML::InvalidNode) {}

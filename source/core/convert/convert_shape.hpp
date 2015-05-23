@@ -17,12 +17,9 @@ namespace YAML {
 			std::cout << "Shape: " << std::ends;
 			std::string shape_name;
 
-			if(shape.basic_shape != NULL) {
-				delete shape.basic_shape;
-				shape.basic_shape = NULL;
-			}
+			shape.clear();
 
-			if(shape.basic_shape == NULL) {
+			//if(shape.basic_shape == NULL) {
 				try {
 					if(node.IsScalar()) {
 						std::cout << "(simple) ";
@@ -70,7 +67,7 @@ namespace YAML {
 				} catch(YAML::TypedBadConversion<int> & exception) {
 					std::cout << "wrong shape options; ";
 				}
-			}
+			//}
 
 			if(shape.basic_shape != NULL && shape.basic_shape->base != 0) {
 				std::cout << "ok" << std::endl;
