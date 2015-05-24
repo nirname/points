@@ -121,7 +121,7 @@ void View::draw_cells(const Bound & _bound) {
 					column++)
 				{
 					Point cell(column, row);
-					/*if(field->cells.find(cell) != field->cells.end()){
+					if(field->cells.find(cell) != field->cells.end()){
 						glPushMatrix();
 							glTranslatef(column, row, 0);
 							if(cell_shape != NULL) {
@@ -130,7 +130,7 @@ void View::draw_cells(const Bound & _bound) {
 								default_shape.display();
 							}
 						glPopMatrix();
-					}*/
+					}
 				}
 			}
 		glPopAttrib();

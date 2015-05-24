@@ -46,8 +46,8 @@ Shape::Shape() {
 	basic_shape = NULL;
 }
 
-Shape::Shape(BasicShape * basic_shape) {
-	basic_shape = basic_shape;
+Shape::Shape(BasicShape * _basic_shape) {
+	basic_shape = _basic_shape;
 }
 
 Shape::~Shape() {

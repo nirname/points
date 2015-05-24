@@ -22,6 +22,8 @@ typedef Manager<std::string, Field> FieldManager;
 typedef Manager<std::string, View> ViewManager;
 typedef Manager<std::string, ObjectKind> ObjectKindManager;
 typedef Manager<std::string, Object> ObjectManager;
+//typedef ObjectManager CellManager;
+//typedef Object Cell;
 
 typedef std::pair<ObjectKind *, ObjectKind *> PairOfKinds;
 typedef std::map<PairOfKinds, INTERACTION> Interactions;
@@ -44,6 +46,7 @@ struct Game {
 	ViewManager       views;
 	ObjectKindManager object_kinds;
 	ObjectManager     objects;
+	//CellManager       cells;
 
 	Units units;
 	Players players;

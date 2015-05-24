@@ -148,11 +148,16 @@ int Game::load_colors(const YAML::Node & level) {
 }
 
 int Game::load_shapes(const YAML::Node & level) {
-	/*BasicShape * bs = new Diamond();
-	Shape * s = new Shape(bs);
-	shapes.insert("diamond", s);
-	return 0;*/
-	return load_yaml_option(shapes, level, "shapes");
+	shapes.insert(std::string("block"), new Shape(new Block()));
+	shapes.insert(std::string("circle"), new Shape(new Circle()));
+	shapes.insert(std::string("star"), new Shape(new Star()));
+	shapes.insert(std::string("david"), new Shape(new David()));
+	shapes.insert(std::string("diamond"), new Shape(new Diamond()));
+	shapes.insert(std::string("traingle"), new Shape(new Triangle()));
+
+	load_yaml_option(shapes, level, "shapes");
+
+	return 0;
 }
 
 int Game::load_object_kinds(const YAML::Node & level) {
@@ -269,6 +274,12 @@ int Game::load_fields(const YAML::Node & level) {
 					}
 					if(value["objects"]) { // unnecessary
 						load_objects(value["objects"], field);
+					}
+					if(value["cells"] && value["cells"].IsSequence()) {
+						const YAML::Node & cells_node = value["cells"];
+						for(YAML::const_iterator cell = cells_node.begin(); cell != cells_node.end(); ++cell) {
+							field->cells.insert(cell->as<Point>());
+						}
 					}
 				} catch(YAML::TypedBadConversion<Size> & exception) {}
 			}

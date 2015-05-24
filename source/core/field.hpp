@@ -12,11 +12,15 @@
 
 #include "data.hpp"
 
+#include <set>
+
+typedef std::set<Point> CellsSet;
+
 struct Field {
 
 	Size size;
 	Data data;
-	//std::set<Point> cells;
+	CellsSet cells;
 
 	Field(int _width = 1, int _height = 1);
 	~Field();
