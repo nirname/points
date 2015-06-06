@@ -1,7 +1,7 @@
-#include "interaction_emitter.hpp"
+#include "interaction_type_emitter.hpp"
 
-std::ostream & operator << (std::ostream & _ostream, const INTERACTION & interaction) {
-	switch(interaction) {
+std::ostream & operator << (std::ostream & _ostream, const INTERACTION_TYPE & interaction_type) {
+	switch(interaction_type) {
 		case NO_INTERACTION:      _ostream << "no interaction"; break;
 		case PUSH_INTERACTION:    _ostream << "push"; break;
 		case PULL_INTERACTION:    _ostream << "pull"; break;

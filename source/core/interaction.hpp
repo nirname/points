@@ -1,11 +1,7 @@
 #pragma once
 
-enum INTERACTION {
-	NO_INTERACTION,
-	PUSH_INTERACTION,
-	PULL_INTERACTION,
-	JOIN_INTERACTION,
-	SLAP_INTERACTION,
-	DESTROY_INTERACTION,
-	DIE_INTERACTION
-};
+#include "interaction_type.hpp"
+
+typedef std::pair<ObjectKind *, ObjectKind *> PairOfKinds;
+typedef std::pair<PairOfKinds, INTERACTION_TYPE> Interaction;
+typedef std::map<PairOfKinds, INTERACTION_TYPE> Interactions;

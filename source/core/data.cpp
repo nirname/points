@@ -1,6 +1,7 @@
 #include "data.hpp"
 #include <iostream>
 #include "emitters/point_emitter.hpp"
+#include "interaction.hpp"
 
 Data::Data() {}
 
@@ -149,7 +150,8 @@ void Data::move(Object * object, Point distance, const Bound & bound) {
 	if(contain(object, point_sets_iterator)) {
 		std::cout << "  has object" << std::endl;
 		PointSet & object_points = point_sets_iterator->second;
-		std::set<Object *> obstacles;
+		typedef std::set<Object *> ObjectsSet;
+		ObjectsSet obstacles;
 		for( PointSet::iterator
 			object_point_iterator = object_points.begin();
 			object_point_iterator != object_points.end();
@@ -174,13 +176,20 @@ void Data::move(Object * object, Point distance, const Bound & bound) {
 			remove(object);
 			add(object, next_points, Point(0, 0));
 		} else {
+			for(ObjectsSet::iterator obstacle = obstacles.begin(); obstacle != obstacles.end(); ++obstacle) {
+				PairOfKinds pair_of_kinds(object->kind, (*obstacle)->kind);
+				/*Interactions::iterator interaction = game.interactions.find(pair_of_kinds);
+				if(interaction->second == PUSH_INTERACTION && !obstacles.contain()) {
+				}*/
+			}
 			/*PairOfKinds interaction_between(this->kind, next_point_information->second->kind);
-			InteractionMapIterator current_kind_iterator = game.interactions.find(interaction_between);
+			Interactions::iterator current_kind_iterator = game.interactions.find(interaction_between);
 			if(current_kind_iterator != game.interactions.end()) {
 				if(current_kind_iterator->second == PUSH_INTERACTION) {
 					if(next_point_information->second->move(_field, _step)) {
-						go_to(_field, next_position);
-						return true;
+						if(move(, next_points, Point(0, 0))) {
+							return true;
+						}
 					}
 				}
 			}*/

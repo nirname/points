@@ -16,6 +16,11 @@ kinds:
   destination: null
   wall: null
 
+interactions:
+  sokoban: # object kind
+    push: # interactions
+      - box
+
 fields:
   field:
     size: [5, 5]

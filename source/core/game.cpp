@@ -83,6 +83,14 @@ void Game::print() {
 	for(Players::iterator i = players.begin(); i != players.end(); ++i) {
 		std::cout << "    " << i->first << ": " << i->second << std::endl;
 	}
+	std::cout << "  interactions:\n";
+	for(Interactions::iterator i = interactions.begin(); i != interactions.end(); ++i) {
+		std::cout << "    "
+			<< *i->first.first << " "
+			<< i->second << " "
+			<< *i->first.second
+			<< std::endl;
+	}
 	std::cout << std::endl;
 }
 
@@ -291,7 +299,6 @@ int Game::load_fields(const YAML::Node & level) {
 }
 
 int Game::load_interactions(const YAML::Node & level) {
-	return 0;
 	const YAML::Node & node = level["interactions"];
 	if(node) {
 		if(node.IsMap()) {
@@ -302,10 +309,10 @@ int Game::load_interactions(const YAML::Node & level) {
 				++interaction
 			) {
 				std::string first_object_kind_name = interaction->first.as<std::string>();
-				//std::cout << "* " << first_object_kind_name << std::endl;
-				/*if( object_kinds.has(first_object_kind_name) ) {
-					ObjectKindPointer first_object_kind = object_kinds.get(first_object_kind_name);
-					const YAML::Node& actions_node = interaction->second;
+				std::cout << "* " << first_object_kind_name << std::endl;
+				if( object_kinds.contain(first_object_kind_name) ) {
+					ObjectKind * first_object_kind = object_kinds[first_object_kind_name];
+					const YAML::Node & actions_node = interaction->second;
 					if(actions_node.IsMap()) {
 						for(
 							YAML::const_iterator
@@ -313,15 +320,14 @@ int Game::load_interactions(const YAML::Node & level) {
 							action != actions_node.end();
 							++action
 						) {
-							std::string action_name = action->first.as<std::string>();
-							INTERACTION_TYPE interaction_type = get_interaction_type(action_name);
+							INTERACTION_TYPE interaction_type = action->first.as<INTERACTION_TYPE>();
 							if(interaction_type != NO_INTERACTION) {
-								const YAML::Node& second_object_kinds = action->second;
+								const YAML::Node & second_object_kinds = action->second;
 								if(second_object_kinds.IsScalar()) {
 									std::string second_object_kind_name = second_object_kinds.as<std::string>();
-									if(object_kinds.has(second_object_kind_name)) {
-										ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
-										interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
+									if(object_kinds.contain(second_object_kind_name)) {
+										ObjectKind * second_object_kind = object_kinds[second_object_kind_name];
+										interactions[PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
 									} else {
 										std::cout << "Can not find object kind `" << second_object_kind_name << "`" << std::endl;
 									}
@@ -334,9 +340,9 @@ int Game::load_interactions(const YAML::Node & level) {
 										++second_object_kind_iterator
 									) {
 										std::string second_object_kind_name = second_object_kind_iterator->as<std::string>();
-										if(object_kinds.has(second_object_kind_name)) {
-											ObjectKindPointer second_object_kind = object_kinds.get(second_object_kind_name);
-											interactions[engine::PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
+										if(object_kinds.contain(second_object_kind_name)) {
+											ObjectKind * second_object_kind = object_kinds.get(second_object_kind_name);
+											interactions[PairOfKinds(first_object_kind, second_object_kind)] = interaction_type;
 										} else {
 											std::cout << "Can not find object kind `" << second_object_kind_name << "`" << std::endl;
 										}
@@ -351,12 +357,13 @@ int Game::load_interactions(const YAML::Node & level) {
 					}
 				} else {
 					std::cout << "Can not find object kind `" << first_object_kind_name << "`" << std::endl;
-				}*/
+				}
 			}
 		} else {
 			std::cout << "Interaction should be a map" << std::endl;
 		}
 	}
+	return 0;
 }
 
 int Game::load_views(const YAML::Node & level) {
