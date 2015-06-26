@@ -2,9 +2,13 @@ game:
   difficulty: 1
   screen: [7, 7]
 
-#shapes:
-#  diamond: diamond
-#  circle: circle
+interactions:
+  sokoban: # object kind
+    push: # interactions
+      - box
+
+colors:
+  light-green: [hsv, 120.0, 0.1, 1]
 
 kinds:
   sokoban:
@@ -15,11 +19,6 @@ kinds:
     color: green
   destination: null
   wall: null
-
-interactions:
-  sokoban: # object kind
-    push: # interactions
-      - box
 
 fields:
   field:
@@ -35,12 +34,12 @@ fields:
 views:
   view:
     field: field
-    border_color: green
+    border_color: purple
     grid_color: black
     offset: [0, 0]
     position: [1, 1]
     direction: [1, 1]
-    cells_color: red
+    cells_color: light-green
 
 units:
   player_1: sokoban_1

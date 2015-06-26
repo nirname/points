@@ -8,8 +8,8 @@ Field::~Field() {
 	data.clear();
 }
 
-void Field::move(Object * object, Point point) {
-	data.move(object, point, bound());
+void Field::move(Object * object, Point point, Interactions & interactions) {
+	data.move(object, point, interactions, bound());
 }
 
 Bound Field::bound() {

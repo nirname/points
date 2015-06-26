@@ -39,13 +39,29 @@ namespace YAML {
 		}
 
 		static bool decode(const Node & node, Color & color) {
+			std::cout << node << std::endl;
 			try {
 				if(node.IsSequence()) {
-					color.rgb(
-						node[0].as<int>(),
-						node[1].as<int>(),
-						node[2].as<int>()
-					);
+					if(node.size() == 3) {
+						color.rgb(
+							node[0].as<int>(),
+							node[1].as<int>(),
+							node[2].as<int>()
+						);
+						return true;
+					} else if(node.size() == 4 && node[0].as<std::string>() == "rgb") {
+						color.hsv(
+							node[1].as<double>(),
+							node[2].as<double>(),
+							node[3].as<double>()
+						);
+					} else if(node.size() == 4 && node[0].as<std::string>() == "hsv") {
+						color.hsv(
+							node[1].as<double>(),
+							node[2].as<double>(),
+							node[3].as<double>()
+						);
+					}
 				} else if (node.IsMap()) {
 					if(node["red"] && node["green"] && node["blue"]) {
 						color.rgb(

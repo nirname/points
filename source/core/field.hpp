@@ -9,6 +9,7 @@
 #include "point.hpp"
 #include "size.hpp"
 #include "bound.hpp"
+#include "interaction.hpp"
 
 #include "data.hpp"
 
@@ -25,7 +26,7 @@ struct Field {
 	Field(int _width = 1, int _height = 1);
 	~Field();
 
-	void move(Object * object, Point point);
+	void move(Object * object, Point point, Interactions & interactions);
 
 	Bound bound();
 

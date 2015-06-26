@@ -58,10 +58,10 @@ void Game::handle(unsigned char key, int special_key) {
 			case RIGHT_PLAYER_ACTION: field->move(object, Point(1, 0)); break;
 		}*/
 		switch(special_key) {
-			case GLUT_KEY_UP: field->move(object, Point(0, 1)); break;
-			case GLUT_KEY_DOWN: field->move(object, Point(0, -1)); break;
-			case GLUT_KEY_LEFT: field->move(object, Point(-1, 0)); break;
-			case GLUT_KEY_RIGHT: field->move(object, Point(1, 0)); break;
+			case GLUT_KEY_UP: field->move(object, Point(0, 1), interactions); break;
+			case GLUT_KEY_DOWN: field->move(object, Point(0, -1), interactions); break;
+			case GLUT_KEY_LEFT: field->move(object, Point(-1, 0), interactions); break;
+			case GLUT_KEY_RIGHT: field->move(object, Point(1, 0), interactions); break;
 		}
 	}
 
