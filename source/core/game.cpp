@@ -112,6 +112,7 @@ bool Game::unload() {
 	views.clear();
 	object_kinds.clear();
 	objects.clear();
+	interactions.clear();
 
 	std::cout << "done" << std::endl;
 	return true;

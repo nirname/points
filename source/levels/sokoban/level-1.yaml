@@ -5,8 +5,9 @@ game:
 interactions:
   sokoban: # object kind
     push: # interactions
-      - rbox
       - gbox
+      - cbox
+      - obox
 
 colors:
   light-green: [hsv, 120.0, 0.1, 1]
@@ -22,20 +23,30 @@ kinds:
     color: purple
     shape: diamond
     mask: [[0, 0]]
+
   gbox:
     color: green
-  rbox:
-    color: red
-  #destination: null
-  destination:
+  cbox:
+    color: cyan
+  obox:
+    color: orange
+
+  gcell:
     color: light-green
+  ccell:
+    color: light-cyan
+  ocell:
+    color: light-orange
+  scell:
+    color: light-purple
+
   wall: null
 
 fields:
   field:
     size: [6, 6]
     objects:
-      sokoban: [['sokoban_1', 1, 0]]
+      sokoban: [['sokoban_1', 3, 1]]
       wall: [
         [0, 5], [1, 5], [5, 5],
         [3, 4], [5, 4],
@@ -44,13 +55,15 @@ fields:
         [0, 1], [2, 1],
         [0, 0], [4, 0], [5, 0]
       ]
-      gbox: [[2, 4]]
-      rbox: [[1, 2]]
+      gbox: [[1, 2]]
+      cbox: [[2, 4]]
+      obox: [[4, 3]]
     cells: [
-      [3, 1], [4, 3]
+      [1, 2], [2, 4], [4, 3], [3, 1]
     ]
     #cells:
-    #  destination: [2, 1]
+    #  gcell: [[3, 1]]
+    #  rcell: [[4, 3]]
 
 views:
   view:
