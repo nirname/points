@@ -22,6 +22,10 @@ typedef void (* MenuHandler)(unsigned char key, int special_key, Menu *);
 typedef void (* MenuItemDisplayer)(MenuItem *);
 typedef void (* MenuItemHandler)(unsigned char key, int special_key, MenuItem *);
 
+void next_menu(unsigned char key, int special_key, MenuItem * menu_item);
+void back(unsigned char key, int special_key, MenuItem * menu_item);
+void back(unsigned char key, int special_key, Interface * interface);
+
 struct Interface {
 
 	Menus menus;
@@ -41,6 +45,7 @@ struct Interface {
 
 	void next_menu(Menu * menu);
 	void previous_menu();
+	void back();
 	void reset();
 
 	Menu * current_menu();
@@ -51,6 +56,8 @@ struct Menu {
 
 	Interface * interface;
 	std::string name;
+
+	std::string text;
 
 	MenuItems items;
 	MenuItems::iterator _current_item;

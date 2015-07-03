@@ -66,7 +66,7 @@ struct Game {
 
 	int load_level(const YAML::Node & level);
 
-	bool load(GAME_KIND game_kind, const std::string & level_path);
+	bool load(const std::string & level_path);
 	bool unload();
 
 	void pause();

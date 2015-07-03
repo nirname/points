@@ -12,7 +12,7 @@
 #include "yaml_adapter.hpp"
 #include "functionals.hpp"
 
-Game::Game(): kind(NO_GAME), paused(false), loaded(false) {
+Game::Game() : paused(false), loaded(false) {
 	screen_size.width = 10;
 	screen_size.height = 10;
 }
@@ -169,6 +169,8 @@ int Game::load_shapes(const YAML::Node & level) {
 	return 0;
 }
 
+
+// TODO: rewrite it
 int Game::load_object_kinds(const YAML::Node & level) {
 	const YAML::Node & node = level["kinds"];
 	if(node) {
@@ -264,6 +266,7 @@ int Game::load_objects(const YAML::Node & object_kinds_node, Field * field) {
 	return 0;
 }
 
+// TODO: rewrite it
 int Game::load_fields(const YAML::Node & level) {
 	const YAML::Node & node = level["fields"];
 	if(node) {
@@ -492,7 +495,7 @@ int Game::load_level(const YAML::Node & level) {
 /// Properties are load from YAML
 /// Logic depends on game kind
 ///
-bool Game::load(GAME_KIND game_kind, const std::string & level_path) {
+bool Game::load(const std::string & level_path) {
 
 	std::cout << "Loading game:" << std::endl;
 
@@ -506,7 +509,6 @@ bool Game::load(GAME_KIND game_kind, const std::string & level_path) {
 		print();
 	} else {
 		unload();
-		loaded = false;
 		std::cout << "failed" << std::endl;
 	}
 

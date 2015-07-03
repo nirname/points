@@ -21,15 +21,59 @@
 
 int value_shift = 22;
 
-void display_inline_menu(Interface * interface) {
-	if(interface->menus_stack.size() > 1) {
-		if(interface->current_menu()->name != std::string("Message")) {
-			draw_text("Back");
-		}
-	} else {
-		draw_text("Quit");
+void message(Interface * interface, const std::string & text) {
+	Menu * message = interface->find_menu("Message");
+	if(message != NULL) {
+		message->text = text;
+		interface->next_menu(message);
 	}
 }
+
+void question(MenuItem * menu_item,
+	const std::string & text, std::string answers[], MenuItemHandler handlers[],
+	int count
+) {
+	Interface * interface = menu_item->menu->interface;
+	Menu * question = interface->find_menu("Question");
+	if(question != NULL) {
+		question->text = text;
+		question->items.clear();
+		for(int i = 0; i < count; i++) {
+			MenuItem * answer_item = question->add_item(answers[i], display_menu_item, handlers[i]);
+			answer_item->options = menu_item->options;
+		}
+		interface->next_menu(question);
+	}
+}
+
+void start_game(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(key == ENTER_KEY) {
+		if(game.load(menu_item->options.path) == true) {
+			application.set(GAMEPLAY_MODE);
+		}
+	}
+}
+
+void resume_game(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(key == ENTER_KEY) {
+		if(game.loaded) {
+			application.set(GAMEPLAY_MODE);
+		}
+	}
+}
+
+void ask_and_start(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(key == ENTER_KEY) {
+		if(game.loaded) {
+			std::string answers[] = { "Start", "Resume", "Cancel" };
+			MenuItemHandler handlers[] = { start_game, resume_game, back };
+			question(menu_item, "Do you want to", answers, handlers, 3);
+		} else {
+			start_game(key, special_key, menu_item);
+		}
+	}
+}
+
 
 void display_interface(Interface * interface) {
 	Menu * current_menu = interface->current_menu();
@@ -37,7 +81,15 @@ void display_interface(Interface * interface) {
 		current_menu->display();
 	}
 	int seconds_width = 3;
-	display_inline_menu(interface);
+
+	if(interface->menus_stack.size() > 1) {
+		if(interface->current_menu()->name != std::string("Message")) {
+			draw_text("Back");
+		}
+	} else {
+		draw_text("Quit");
+	}
+
 	glPushMatrix();
 		glTranslatef(screen.width - ((font.width + 1) * seconds_width - 1), screen.height - font.height, 0);
 		std::string seconds = to_string(options::time_to_screensaver());
@@ -121,6 +173,10 @@ void display_menu(Menu * menu) {
 		glTranslatef(0, screen.height - font.height, 0);
 		draw_text(menu->name);
 		glTranslatef(0, - font.height * 3, 0);
+		if(menu->text != "") {
+			draw_text(menu->text);
+			glTranslatef(0, - font.height * 3, 0);
+		}
 		int line = 0;
 		for(MenuItems::iterator item =
 			menu->items.begin();
@@ -131,19 +187,6 @@ void display_menu(Menu * menu) {
 				glTranslatef(0, - font.height * 2 * line, 0);
 				item->display();
 			glPopMatrix();
-		}
-	glPopMatrix();
-}
-
-void display_message(Menu * menu) {
-	glPushMatrix();
-		glTranslatef(0, screen.height - font.height, 0);
-		draw_text(menu->name);
-		glTranslatef(0, - font.height * 3, 0);
-		draw_text("No levels found");
-		if(menu->current_item() != NULL) {
-			glTranslatef(0, - font.height * 3, 0);
-			menu->current_item()->display();
 		}
 	glPopMatrix();
 }
@@ -175,6 +218,11 @@ void handle_menu(unsigned char key, int special_key, Menu * menu) {
 			menu->current_item()->handle(key, special_key);
 		}
 	}
+}
+
+void handle_question_menu(unsigned char key, int special_key, Menu * menu) {
+	handle_menu(key, special_key, menu);
+	back(key, special_key, menu->interface);
 }
 
 void handle_multicolumn_menu(unsigned char key, int special_key, Menu * menu) {
@@ -239,15 +287,6 @@ void handle_multicolumn_menu(unsigned char key, int special_key, Menu * menu) {
 	}
 }
 
-void handle_menu_item(unsigned char key, int special_key, MenuItem * menu_item) {
-}
-
-void next_menu(unsigned char key, int special_key, MenuItem * menu_item) {
-	if(key == ENTER_KEY) {
-		menu_item->menu->interface->next_menu(menu_item->next_menu);
-	}
-}
-
 void previous_menu(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
 		menu_item->menu->interface->previous_menu();
@@ -264,13 +303,6 @@ bool filter_yaml(dirent * entry) {
 	return file::has_extension(entry->d_name, "yaml");
 }
 
-void start_game(unsigned char key, int special_key, MenuItem * menu_item) {
-	if(key == ENTER_KEY) {
-		if(game.load(menu_item->options.game_kind, menu_item->options.path) == true) {
-			application.set(GAMEPLAY_MODE);
-		}
-	}
-}
 
 void show_foreword(unsigned char key, int special_key, MenuItem * menu_item) {
 	if(key == ENTER_KEY) {
@@ -295,7 +327,7 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 						level != levels.end();
 						level++
 					) {
-						level_item = menu_item->next_menu->add_item(*level, display_menu_item, start_game);
+						level_item = menu_item->next_menu->add_item(*level, display_menu_item, ask_and_start);
 						level_item->options.game_kind = menu_item->options.game_kind;
 						level_item->options.path = levels_path + "/" + *level;
 					}
@@ -305,8 +337,7 @@ void select_level(unsigned char key, int special_key, MenuItem * menu_item) {
 			//} else {}
 		}
 		if(!levels_are_found) {
-			Menu * message = menu_item->menu->interface->find_menu("Message");
-			menu_item->menu->interface->next_menu(message);
+			message(menu_item->menu->interface, "No levels found");
 		}
 	}
 }
@@ -549,7 +580,8 @@ void load_interface(Interface * interface) {
 		menu->add_menu("Extras", display_menu_item, next_menu, display_menu, handle_menu);
 		menu->add_menu("Options", display_menu_item, next_menu, display_menu, handle_menu);
 
-	interface->add_menu("Message", display_message, handle_menu);
+	interface->add_menu("Message", display_menu, handle_menu);
+	interface->add_menu("Question", display_menu, handle_question_menu);
 	interface->add_menu("Previous menu", display_menu, handle_menu);
 	interface->add_menu("Levels", display_menu, handle_menu);
 

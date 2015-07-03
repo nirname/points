@@ -1,4 +1,21 @@
 #include "interface.hpp"
+#include "keys.hpp"
+
+void next_menu(unsigned char key, int special_key, MenuItem * menu_item) {
+	if(key == ENTER_KEY) {
+		menu_item->menu->interface->next_menu(menu_item->next_menu);
+	}
+}
+
+void back(unsigned char key, int special_key, Interface * interface) {
+	if(key == ENTER_KEY) {
+		interface->back();
+	}
+}
+
+void back(unsigned char key, int special_key, MenuItem * menu_item) {
+	back(key, special_key, menu_item->menu->interface);
+}
 
 Interface::Interface() {
 	displayer = NULL;
@@ -22,6 +39,9 @@ void Interface::handle(unsigned char key, int special_key) {
 		handler(key, special_key, this);
 	}
 }
+
+/*void Interface::message(const std::string & text) {
+}*/
 
 Menu * Interface::add_menu(const std::string & name, MenuDisplayer _displayer, MenuHandler _handler) {
 	bool is_first = menus.empty();
@@ -53,6 +73,12 @@ void Interface::next_menu(Menu * menu) {
 
 void Interface::previous_menu() {
 	menus_stack.pop_back();
+}
+
+void Interface::back() {
+	if(menus_stack.size() > 1) {
+		previous_menu();
+	}
 }
 
 void Interface::reset() {
